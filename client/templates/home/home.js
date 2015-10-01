@@ -5,7 +5,7 @@ Template.home.onRendered(function() {
     const utc = now.getTime();
     const offset = -8;
     const pstDate = new Date(utc + (3600000 * offset));
-    const isTen = pstDate.getUTCHours() >= 12;
+    const isTen = pstDate.getUTCHours() >= 22;
 
     if (isThur && isTen) {
         $.get('https://api.twitch.tv/kraken/streams/geekandsundry', function(channel) {
@@ -18,7 +18,6 @@ Template.home.onRendered(function() {
     } else {
         Session.set('isLive', false);
     }
-
 });
 
 Template.home.helpers({
@@ -31,8 +30,4 @@ Template.home.events({
     'click [data-hook="live"]': function(e) {
         Router.go('companion');
     }
-});
-
-Template.home.onDestroyed(function() {
-    Session.set('headerIsSimple', false);
 });

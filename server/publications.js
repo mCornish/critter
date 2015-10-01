@@ -1,4 +1,4 @@
-Meteor.publish('gifts', function(queries, options) {
+Meteor.publish('characters', function(queries, options) {
     queries = typeof queries !== 'undefined' ? queries : {};
 
     if (options) {
@@ -10,13 +10,12 @@ Meteor.publish('gifts', function(queries, options) {
         options = {};
     }
 
-    return Gifts.find(queries, options);
+    return Characters.find(queries, options);
 });
 
-// giftPage publication
-Meteor.publish('singleGift', function(id) {
+Meteor.publish('character', function(id) {
     check(id, String);
-    return Gifts.find(id);
+    return Characters.find(id);
 });
 
 Meteor.publish('comments', function(giftId) {
@@ -26,18 +25,6 @@ Meteor.publish('comments', function(giftId) {
 
 Meteor.publish('notifications', function() {
     return Notifications.find({userId: this.userId, read: false});
-});
-
-Meteor.publish('recipients', function() {
-    return Recipients.find();
-});
-Meteor.publish('recipientsByGender', function(gender) {
-    gender = typeof gender !== 'undefined' ? gender : 'neutral';
-    return Recipients.find( {$or: [ {gender: gender}, {gender: 'neutral'} ] });
-});
-
-Meteor.publish('occasions', function() {
-    return Occasions.find();
 });
 
 Meteor.publish('users', function() {
