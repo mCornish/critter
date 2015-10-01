@@ -1,0 +1,41 @@
+# Meteor packages used by this project, one per line.
+# Check this file (and the other files in this directory) into your repository.
+#
+# 'meteor add' and 'meteor remove' will edit this file for you,
+# but you can also edit it by hand.
+
+underscore
+iron:router
+sacha:spin
+ian:accounts-ui-bootstrap-3
+accounts-password
+momentjs:moment
+accounts-facebook
+service-configuration
+tomi:upload-server
+tomi:upload-jquery
+email
+cfs:standard-packages
+cfs:gridfs
+anti:fake
+fourseven:scss
+johnantoni:meteor-normalize
+standard-minifiers
+meteor-base
+mobile-experience
+mongo
+blaze-html-templates
+session
+jquery
+tracker
+logging
+reload
+random
+ejson
+spacebars
+check
+ecmascript
+es5-shim
+twbs:bootstrap
+mrt:jquery-masonry
+iamkevingreen:imagesloaded

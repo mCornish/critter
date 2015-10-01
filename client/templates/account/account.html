@@ -1,0 +1,64 @@
+<template name="account">
+    <form class="account__form" data-hook="account-form">
+        <div class="form__div">
+            {{#unless emailChange}}
+
+                <span>{{profile.email}}</span>
+                <a class="fake-link" data-hook="change-email">Change Email</a>
+
+            {{else}}
+
+                <div class="input-group {{errorClass 'email'}}">
+                    <input class="input-group__input" name="email" value="{{profile.email}}" data-hook="email" type="email" id="email" required>
+                    <label class="input-group__label" for="email">Email</label>
+                    <span class="input-group__bar"></span>
+                    <span class="help-block">{{errorMessage 'email'}}</span>
+                </div>
+
+            {{/unless}}
+        </div>
+
+        <div class="form__div">
+            {{#unless facebookAuth}}
+                {{#unless passwordChange}}
+
+                    <a class="fake-link" data-hook="change-password">Change Password</a>
+
+                {{else}}
+
+                    <div class="input-group {{errorClass 'password'}}">
+                        <input class="input-group__input" name="password" data-hook="password" type="password" id="password" required>
+                        <label class="input-group__label" for="password">Current Password</label>
+                        <span class="input-group__bar"></span>
+                        <span class="help-block">{{errorMessage 'password'}}</span>
+                    </div>
+
+                    <div class="input-group {{errorClass 'newPassword'}}">
+                        <input class="input-group__input" name="new-password" data-hook="new-password" type="password" id="new-password" required>
+                        <label class="input-group__label" for="new-password">New Password</label>
+                        <span class="input-group__bar"></span>
+                        <span class="help-block">{{errorMessage 'newPassword'}}</span>
+                    </div>
+
+                    <div class="input-group {{errorClass 'passwordAgain'}}">
+                        <input class="input-group__input" name="password-again" data-hook="password-again" type="password" id="password-again" required>
+                        <label class="input-group__label" for="password-again">New Password (again)</label>
+                        <span class="input-group__bar"></span>
+                        <span class="help-block">{{errorMessage 'passwordAgain'}}</span>
+                    </div>
+
+                {{/unless}}
+            {{/unless}}
+        </div>
+
+
+
+        <input type="submit" value="Update" class="button button--raised button--block" />
+
+        <!--Add Facebook authentication after account has been created with email-->
+
+        <span class="error-message">{{accountSubmitErrors}}</span>
+        <span class="success-message">{{successMessage}}</span>
+
+    </form>
+</template>

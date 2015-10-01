@@ -1,0 +1,95 @@
+<template name="profile">
+    <div class="row">
+        <span class="success-message col-xs-10 col-xs-offset-1 col-md-6 col-md-offset-3">{{successMessage}}</span>
+
+        <form class="profile__form col-xs-10 col-xs-offset-1 col-md-6 col-md-offset-3" data-hook="account-form">
+            <div class="input-group {{errorClass 'username'}}">
+                <label class="input-group__label" for="username">Username</label>
+                <input class="input-group__input" name="username" value="{{profile.username}}" data-hook="username"
+                       type="text" id="username" required>
+                <span class="input-group__bar"></span>
+                <span class="help-block">{{errorMessage 'username'}}</span>
+            </div>
+            <!-- TODO make sure you can both upload and use a URL -->
+            <div class="input-group row {{errorClass 'image'}}">
+                <img class="form__thumbnail col-xs-4" src="{{profile.image}}"/>
+                <input class="input-group__file-input" name="image" placeholder="Image" type="file" id="image"
+                       required/>
+                <label class="input-group__file-label button col-xs-8" for="image">
+                    {{#unless imageName}}
+                        <span>Choose profile image</span>
+                    {{else}}
+                        <span>{{imageName}}</span>
+                    {{/unless}}
+                </label>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-s-6 {{errorClass 'firstName'}}">
+                    <label class="input-group__label" for="first-name">First Name</label>
+                    <input class="input-group__input" name="first-name" value="{{profile.firstName}}"
+                           data-hook="first-name" type="text" id="first-name">
+                    <span class="input-group__bar"></span>
+                    <span class="help-block">{{errorMessage 'firstName'}}</span>
+                </div>
+                <div class="col-xs-12 col-s-6 {{errorClass 'lastName'}}">
+                    <label class="input-group__label" for="last-name">Last Name</label>
+                    <input class="input-group__input" name="last-name" value="{{profile.lastName}}"
+                           data-hook="last-name" type="text" id="last-name">
+                    <span class="input-group__bar"></span>
+                    <span class="help-block">{{errorMessage 'lastName'}}</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-s-6 {{errorClass 'gender'}}">
+                    <label class="input-group__label" for="gender">Gender</label>
+                    <input class="input-group__radio" name="gender" value="male" data-hook="gender" type="radio"
+                           id="gender" {{genderActive 'male'}}>Male
+                    <input class="input-group__radio" name="gender" value="female" data-hook="gender" type="radio"
+                           id="gender" {{genderActive 'female'}}>Female
+                    <span class="help-block">{{errorMessage 'gender'}}</span>
+                </div>
+                <div class="col-xs-12 col-s-6 {{errorClass 'birthday'}}">
+                    <label class="input-group__label" for="birthday">Birthday</label>
+                    <input class="input-group__input" name="birthday" value="{{profile.birthday}}" data-hook="birthday"
+                           type="date" id="birthday">
+                    <span class="input-group__bar"></span>
+                    <span class="help-block">{{errorMessage 'birthday'}}</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 {{errorClass 'website'}}">
+                    <label class="input-group__label" for="website">Website</label>
+                    <input class="input-group__input" name="website" placeholder="http://example.com"
+                           value="{{profile.website}}" data-hook="website" type="url" id="website">
+                    <span class="input-group__bar"></span>
+                    <span class="help-block">{{errorMessage 'website'}}</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-group--select col-xs-12 col-s-6 {{errorClass 'country'}}">
+                    <label class="input-group__label" for="country">Country</label>
+                    <select name="country" value="country" data-hook="country"
+                            type="text" id="country">
+                        <option>Select one...</option>
+                        {{#each countries}}
+                            <option {{countryActive name}}>{{name}}</option>
+                        {{/each}}
+                    </select>
+                    <span class="input-group__bar"></span>
+                    <span class="help-block">{{errorMessage 'country'}}</span>
+                </div>
+                <div class="col-xs-12 col-s-6 {{errorClass 'location'}}">
+                    <label class="input-group__label" for="location">Location</label>
+                    <input class="input-group__input" name="location" placeholder="Santa's Workshop"
+                           value="{{profile.location}}" data-hook="location" type="text" id="location">
+                    <span class="input-group__bar"></span>
+                    <span class="help-block">{{errorMessage 'location'}}</span>
+                </div>
+            </div>
+            <div class="row">
+                <a class="button col-xs-12 col-md-7 col-md-push-5" data-hook="submit">Update</a>
+                <a class="button button--cancel col-xs-12 col-md-4 col-md-pull-7" data-hook="submit-cancel">Cancel</a>
+            </div>
+        </form>
+    </div>
+</template>

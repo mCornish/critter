@@ -1,0 +1,95 @@
+<template name="giftSubmit">
+    <div class="page row">
+        <form class="col-xs-10 col-xs-offset-1 col-md-6 col-md-offset-3" data-hook="form">
+            <div class="row">
+                <p class="text-center">Sharing is caring: The more you describe the gift, the more helpful it will be to
+                    other gift-givers!</p>
+            </div>
+
+            <!-- TODO make sure you can both upload and use a URL -->
+            <div class="row">
+                <div class="col-xs-12 {{errorClass 'image'}}">
+                    <input class="input-group__file-input" name="image" placeholder="Image" type="file" id="image"
+                           required/>
+                    <label class="input-group__file-label button col-xs-12" for="image">
+                        {{#unless imageName}}
+                            <span>Choose gift image</span>
+                        {{else}}
+                            <span>{{imageName}}</span>
+                        {{/unless}}
+                    </label>
+                    <span class="help-block">{{errorMessage 'image'}}</span>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-12 {{errorClass 'description'}}">
+                    <label for="description">Description</label>
+                    <textarea class="input-group__textarea" name="description"
+                              placeholder="Tell us a little about this gift..."
+                              id="description" type="text" rows="5" maxlength="1000" value=""></textarea>
+                    <span class="help-block">{{errorMessage 'description'}}</span>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-12 {{errorClass 'link'}}">
+                    <label for="link">Link</label>
+                    <input class="input-group__input" name="link" placeholder="Where can someone buy it online?" id="link"
+                           type="url" value="" required/>
+                    <span class="input-group__bar"></span>
+                    <span class="help-block">{{errorMessage 'link'}}</span>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-6 {{errorClass 'price'}}">
+                    <label for="price">Price</label>
+                    <span class="input-addon input-prefix">$
+                        <input class="input-group__input input-group" name="price"
+                               placeholder="#.##" id="price" type="number" step="any" min="0" value=""
+                               required/>
+                        <span class="input-group__bar"></span>
+                    </span>
+
+                    <span class="help-block">{{errorMessage 'price'}}</span>
+                </div>
+                <div class="col-xs-6 input-group--select {{errorClass 'occasion'}}">
+                    <label for="occasion">Occasion</label>
+                    <select class="select" id="occasion" name="occasion" value="occasion" data-hook="occasion">
+                        <option>I got it because...</option>
+                        {{#each occasions}}
+                            <option>{{name}}</option>
+                        {{/each}}
+                    </select>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-6 input-group--select {{errorClass 'recipient'}}">
+                    <label for="recipient">Recipient</label>
+                    <select id="recipient" name="recipient" value="recipient" data-hook="recipient">
+                        <option>This gift is for...</option>
+                        {{#each recipients}}
+                            <option>{{name}}</option>
+                        {{/each}}
+                    </select>
+                </div>
+
+                <div class="col-xs-6 {{errorClass 'age'}}">
+                    <label for="age">Recipient Age</label>
+                    <span class="input-addon input-suffix">
+                        <input class="input-group__input" name="age" placeholder="##" id="age"
+                               type="number" value="" required/>
+                        <span class="input-group__bar"></span> years old
+                    </span>
+                    <span class="help-block">{{errorMessage 'age'}}</span>
+                </div>
+            </div>
+        </form>
+        <div class="row">
+            <a class="button button--submit col-xs-12 col-md-6 col-md-offset-3" data-hook="submit">Submit</a>
+            <!--<a class="button button-.-cancel col-xs-12 col-md-4 col-md-pull-7" data-hook="submit-cancel">Cancel</a>-->
+        </div>
+    </div>
+</template>

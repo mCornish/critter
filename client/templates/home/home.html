@@ -1,0 +1,12 @@
+<template name="home">
+    {{#if isLive}}
+    <div class="row">
+        <a class="button col-xs-12" data-hook="live">Watch Live!</a>
+    </div>
+    {{/if}}
+    <div class="row">
+        <a href="{{pathFor 'track'}}" class="button col-xs-12 col-md-4">Track</a>
+        <a href="{{pathFor 'stats'}}" class="button col-xs-12 col-md-4">Stats</a>
+        <a href="{{pathFor 'watch'}}" class="button col-xs-12 col-md-4">Watch</a>
+    </div>
+</template>

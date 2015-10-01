@@ -1,0 +1,59 @@
+<template name="userPage">
+    <div class="user-page">
+        <div class="home__user">
+            <h1>{{user.profile.username}}</h1>
+            <img class="user__image" src="{{user.profile.image}}" />
+
+            <!-- TODO level system -->
+            <!--<h2>{{getGenerosityLevel profile.generosity}}</h2>-->
+
+            <h1>{{user.profile.username}} Recommends</h1>
+            <div class="user__gifts">
+                {{#if haveRecommendations}}
+                    {{#each gifts}}
+                        <a class="no-hover" href="{{pathFor 'giftPage'}}">
+                            <img class="user__gift" src="{{image}}" />
+                        </a>
+                    {{/each}}
+                {{else}}
+                    No recommendations yet. <a href="{{pathFor 'giftSubmit'}}">Submit a gift.</a>
+                {{/if}}
+            </div>
+
+            <h1>{{user.profile.username}} Wants</h1>
+            <div class="user__gifts">
+                {{#if haveWants}}
+                    {{#each wants}}
+                        <a class="no-hover" href="{{pathFor 'giftPage'}}">
+                            <img class="user__gift" src="{{image}}" />
+                        </a>
+                    {{/each}}
+                {{else}}
+                    No wants yet. <a href="{{pathFor 'browse'}}">Browse gifts.</a>
+                {{/if}}
+            </div>
+            <ul class="user__info">
+                {{#if hasName}}
+                    <li>Name: {{user.profile.firstName}} {{user.profile.lastName}}</li>
+                {{/if}}
+                {{#if hasGender}}
+                    <li>Gender: {{user.profile.gender}}</li>
+                {{/if}}
+                <!-- TODO Fix birthday format-->
+                {{#if hasBirthday}}
+                    <li>Birthday: {{birthdayFormatted}}</li>
+                {{/if}}
+                {{#if hasCountry}}
+                    <li>Country: {{user.profile.country}}</li>
+                {{/if}}
+                {{#if hasLocation}}
+                    <li>Location: {{user.profile.location}}</li>
+                {{/if}}
+                {{#if hasWebsite}}
+                    <li>Website: <a href={{user.profile.website}}>{{websiteName}}</a></li>
+                {{/if}}
+            </ul>
+
+        </div>
+    </div>
+</template>

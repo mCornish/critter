@@ -1,0 +1,10 @@
+<template name="commentItem">
+    <li class="comment">
+        <a class="no-hover" href="/user/{{userId}}">
+            <img class="comment__image" src="{{user.profile.image}}" />
+            <span class="comment__author">{{user.profile.username}}</span>
+            <span class="comment__submitted"> {{submittedMoment}}</span>
+        </a>
+        <p>{{body}}</p>
+    </li>
+</template>

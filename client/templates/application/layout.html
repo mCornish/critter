@@ -1,0 +1,9 @@
+<template name="layout">
+    <div class="container">
+        {{> header}}
+        {{> errors}}
+        <div class="main" data-hook="main">
+                {{> yield}}
+        </div>
+    </div>
+</template>
