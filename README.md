@@ -1,1 +1,2 @@
-# ygmyg
+# critter
+Critical Role Companion App
