@@ -1,3 +1,10 @@
+Template.layout.onCreated(function() {
+    Twitch.init({clientId: 'gnaco6mlplv9shlc9demh6dljdny4we'}, function(error, status) {
+        if (error) {
+            console.log(error);
+        }
+    });
+});
 Template.layout.onRendered(function() {
     this.find('[data-hook="main"]')._uihooks = {
         insertElement: function(node, next) {

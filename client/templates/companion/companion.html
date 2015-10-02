@@ -1,9 +1,49 @@
 <template name="companion">
     <h1>Watch Live</h1>
-    <h2>Cast</h2>
-    <div class="characters row">
-    {{#each liveChars}}
-        <img class="character__image" src="{{imageURL}}"/>
-    {{/each}}
-    </div>
+
+    {{#if isLive}}
+
+        <div class="row">
+            <h2>Cast</h2>
+
+            <div class="characters row">
+                {{#each liveChars}}
+                    <img class="character__image" src="{{imageURL}}"/>
+                {{/each}}
+            </div>
+        </div>
+
+        <div class="companion__content row">
+            {{#if contentType 'tweet'}}
+                <blockquote class="twitter-tweet" lang="en">
+                    <p lang="en" dir="ltr">
+                        {{stream.liveContent.message}}
+                    </p>&mdash; {{stream.liveContent.tweeter}} <a href="{{stream.liveContent.link}}"></a>
+                </blockquote>
+                <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+            {{/if}}
+            {{#if contentType 'yt'}}
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/{{stream.liveContent.link}}" frameborder="0" allowfullscreen></iframe>
+            {{/if}}
+            {{#if contentType 'image'}}
+                <image src="{{stream.liveContent.link}}" />
+            {{/if}}
+        </div>
+
+        <div class="row">
+            <h2>Stats</h2>
+
+            <div class="stats">
+                <li class="stat">Duration: {{duration}}</li>
+                <li class="stat">Subscribers: {{stream.subCount}}</li>
+                <li class="stat">Subs Until Giveaway: {{subsLeft}}</li>
+                <li class="stat">Giveaway Winner: {{stream.subWinner}}</li>
+            </div>
+        </div>
+
+    {{else}}
+
+        <h2>Sorry, Critical Role isn't live right now. Come back on Thursday at 7pm PST!</h2>
+
+    {{/if}}
 </template>

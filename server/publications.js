@@ -1,3 +1,7 @@
+Meteor.publish('stream', function() {
+    return Stream.find();
+});
+
 Meteor.publish('characters', function(queries, options) {
     queries = typeof queries !== 'undefined' ? queries : {};
 

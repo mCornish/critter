@@ -3,15 +3,101 @@
 
     <form>
         <h2>Live Characters</h2>
+
         <div class="row">
             {{#each characters}}
-                <div class="button button--toggle col-xs-6 col-md-3" data-hook="live-toggle" data-name="{{name}}" data-live="{{live}}">
+                <div class="button button--toggle col-xs-6 col-md-3" data-hook="live-toggle" data-name="{{name}}"
+                     data-live="{{live}}">
                     {{name}} {{#if live}}<i class="fa fa-check"></i>{{/if}}
                 </div>
             {{/each}}
         </div>
+    </form>
+
+    <form data-hook="form-content">
+        <h2>Live Content</h2>
+
         <div class="row">
-            <button class="button button--submit" type="submit">Update</button>
+            <select class="col-xs-12 col-md-4" data-hook="live-content-type">
+                <option value="text">Text</option>
+                <option value="image">Image</option>
+                <option value="link">Link</option>
+                <option value="tweet">Tweet</option>
+                <option value="yt">YouTube video</option>
+            </select>
+
+            <div class="row col-xs-12 col-md-8">
+                {{#if contentType 'text'}}
+                    <label for="live-content">Text to Display</label>
+                    <textarea id="live-content" data-hook="live-content"></textarea>
+                {{/if}}
+                {{#if contentType 'image'}}
+                    <div class="col-xs-6 {{errorClass 'image'}}">
+                        <input class="input-group__file-input" name="live-image" placeholder="Image" type="file" id="image"
+                               required/>
+                        <label class="input-group__file-label button col-xs-12" for="image">
+                            {{#unless imageName}}
+                                <span>Choose Image</span>
+                            {{else}}
+                                <span>{{imageName}}</span>
+                            {{/unless}}
+                        </label>
+                        <span class="help-block">{{errorMessage 'image'}}</span>
+                    </div>
+                    <img class="col-xs-6" src="{{imageURL}}" />
+                {{/if}}
+                {{#if contentType 'link'}}
+                    <label for="live-content">Link URL</label>
+                    <input id="live-content" type="url" data-hook="live-content">
+                {{/if}}
+                {{#if contentType 'tweet'}}
+                    <label for="live-content">Tweet Embed Code</label>
+                    <textarea id="live-content" data-hook="live-content"></textarea>
+                {{/if}}
+                {{#if contentType 'yt'}}
+                    <label for="live-content">YouTube Video URL</label>
+                    <input id="live-content" type="url" data-hook="live-content">
+                {{/if}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="button button--submit" data-hook="submit-content">Insert Content</div>
+            <div class="button button--submit" data-hook="clear-content">Clear Content</div>
+        </div>
+    </form>
+
+    <form data-hook="form-stream">
+        <h2>Stream Stats</h2>
+
+        <div class="row">
+            <div class="{{errorClass 'subCount'}}">
+                <label for="sub-count">Sub Count</label>
+
+                <div class="row">
+                    <input id="sub-count" name="sub-count" value="{{stream.subCount}}" type="number">
+
+                    <div class="button" data-hook="inc-count"><i class="fa fa-plus"> 1</i></div>
+
+                </div>
+                <span class="help-block">{{errorMessage 'subCount'}}</span>
+            </div>
+
+            <div class="{{errorClass 'subGoal'}}">
+                <label for="sub-count">Sub Goal</label>
+
+                <div class="row">
+                    <input id="sub-count" name="sub-goal" value="{{stream.subGoal}}" type="number">
+
+                    <div class="button" data-hook="inc-goal"><i class="fa fa-plus"> 100</i></div>
+                </div>
+                <span class="help-block">{{errorMessage 'subGoal'}}</span>
+            </div>
+
+            <label for="sub-count">Giveaway Winner</label>
+            <input id="sub-count" name="sub-winner" value="{{stream.subWinner}}" type="text">
+        </div>
+        <div class="row">
+            <div class="button button--submit" data-hook="submit-stream">Update Stats</div>
         </div>
     </form>
 
