@@ -1,0 +1,18 @@
+<template name="admin">
+    <h1>Admin</h1>
+
+    <form>
+        <h2>Live Characters</h2>
+        <div class="row">
+            {{#each characters}}
+                <div class="button button--toggle col-xs-6 col-md-3" data-hook="live-toggle" data-name="{{name}}" data-live="{{live}}">
+                    {{name}} {{#if live}}<i class="fa fa-check"></i>{{/if}}
+                </div>
+            {{/each}}
+        </div>
+        <div class="row">
+            <button class="button button--submit" type="submit">Update</button>
+        </div>
+    </form>
+
+</template>

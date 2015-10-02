@@ -1,9 +1,9 @@
 <template name="companion">
     <h1>Watch Live</h1>
     <h2>Cast</h2>
+    <div class="characters row">
     {{#each liveChars}}
-    <div class="characters">
-        <p>{{name}}</p>
-    </div>
+        <img class="character__image" src="{{imageURL}}"/>
     {{/each}}
+    </div>
 </template>

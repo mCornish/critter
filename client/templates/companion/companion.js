@@ -1,6 +1,6 @@
-Template.companion.onRendered(function() {
-    // TODO Create admin panel to manage live chars
-    Session.set('liveNames', ['Pike', 'Scanlan']);
+Template.companion.onCreated(function() {
+    // TODO Create admin panel to manage liveChars
+    Session.set('liveNames', ['Vax', 'Vex', 'Grog', 'Percy', 'Keyleth', 'Tiberius', 'Scanlan']);
 });
 
 Template.companion.helpers({
@@ -8,7 +8,7 @@ Template.companion.helpers({
         const names = Session.get('liveNames');
 
         // get all characters from liveNames array
-        const chars = Characters.find({ 'name': {$in: names } });
+        const chars = Characters.find({ name: { $in: names }, live: true });
         return chars;
     }
 });
