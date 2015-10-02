@@ -40,6 +40,8 @@ Template.admin.events({
 
         const
             liveContent = $('[data-hook=live-content]').val(),
+            liveText = $('[data-hook=live-text]').val(),
+            liveLink = $('[data-hook=live-link]').val(),
             contentType = $('[data-hook=live-content-type]').val();
 
         const stream = {
@@ -48,7 +50,12 @@ Template.admin.events({
             }
         };
 
-        if (contentType === 'tweet') {
+        if (contentType === 'text') {
+            stream.liveContent.message = liveContent;
+        } else if (contentType === 'link') {
+            stream.liveContent.link = liveLink;
+            stream.liveContent.message = liveText;
+        } else if (contentType === 'tweet') {
             stream.liveContent.message = liveContent.slice(liveContent.indexOf('"ltr">') + 6, liveContent.indexOf('</p>&mdash;'));
             // poster name and Twitter name
             stream.liveContent.tweeter = liveContent.slice(liveContent.indexOf('</p>&mdash; ') + 12, liveContent.indexOf(' <a href="https://twitter'));

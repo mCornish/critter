@@ -14,6 +14,14 @@
         </div>
 
         <div class="companion__content row">
+            {{#if contentType 'text'}}
+                <h1>{{stream.liveContent.message}}</h1>
+            {{/if}}
+            {{#if contentType 'link'}}
+                <h1>
+                    <a class="live-link" href="{{stream.liveContent.link}}" target="_blankgit ">{{stream.liveContent.message}}</a>
+                </h1>
+            {{/if}}
             {{#if contentType 'tweet'}}
                 <blockquote class="twitter-tweet" lang="en">
                     <p lang="en" dir="ltr">

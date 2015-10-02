@@ -47,8 +47,10 @@
                     <img class="col-xs-12" src="{{imageURL}}" />
                 {{/if}}
                 {{#if contentType 'link'}}
-                    <label for="live-content">Link URL</label>
-                    <input id="live-content" type="url" data-hook="live-content">
+                    <label for="live-content">Link Text</label>
+                    <input id="live-content" type="url" data-hook="live-text">
+                    <label for="live-content">Link Url</label>
+                    <input id="live-content" type="text" data-hook="live-link">
                 {{/if}}
                 {{#if contentType 'tweet'}}
                     <label for="live-content">Tweet Embed Code</label>
