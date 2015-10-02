@@ -32,7 +32,7 @@
                     <textarea id="live-content" data-hook="live-content"></textarea>
                 {{/if}}
                 {{#if contentType 'image'}}
-                    <div class="col-xs-6 {{errorClass 'image'}}">
+                    <div class="{{errorClass 'image'}}">
                         <input class="input-group__file-input" name="live-image" placeholder="Image" type="file" id="image"
                                required/>
                         <label class="input-group__file-label button col-xs-12" for="image">
@@ -44,7 +44,7 @@
                         </label>
                         <span class="help-block">{{errorMessage 'image'}}</span>
                     </div>
-                    <img class="col-xs-6" src="{{imageURL}}" />
+                    <img class="col-xs-12" src="{{imageURL}}" />
                 {{/if}}
                 {{#if contentType 'link'}}
                     <label for="live-content">Link URL</label>

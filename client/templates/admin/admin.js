@@ -56,7 +56,7 @@ Template.admin.events({
         } else if (contentType === 'yt') {
             stream.liveContent.link = liveContent.slice(liveContent.indexOf('watch?v=') + 8);
         } else if (contentType === 'image') {
-            stream.liveContent.link = liveContent;
+            stream.liveContent.link = Session.get('imageURL');
         }
 
         Stream.update(this.stream._id, {$set: stream}, function(error) {
@@ -75,10 +75,12 @@ Template.admin.events({
         FS.Utility.eachFile(e, function(file) {
             Images.insert(file, function (err, fileObj) {
                 if (err) {
-                    alert(err.reason)
+                    alert(err.reason);
                 } else {
                     Session.set('imageName', fileObj.original.name);
-                    Session.set('imageURL', '/cfs/files/images/' + fileObj._id);
+                    setTimeout(function() {
+                        Session.set('imageURL', '/cfs/files/images/' + fileObj._id);
+                    }, 1000);
                 }
             });
         });
