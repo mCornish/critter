@@ -17,19 +17,46 @@
             </div>
         {{else}}
             {{#if watching}}
-
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/{{videoId}}" frameborder="0" allowfullscreen></iframe>
             {{/if}}
 
             <h1>Track</h1>
 
-            <div class="track__chars">
+            <div class="track__chars row">
                 {{#each activeChars}}
-                    <div class="track__char">
+                    <div class="track__char col-xs-4">
                         <img src="{{imageURL}}">
                     </div>
                 {{/each}}
+                <div class="track__char col-xs-4">
+                    DM
+                </div>
             </div>
         {{/unless}}
+    {{/if}}
+
+    {{#if modal}}
+        <div class="track__modal">
+        {{#if choosingAction}}
+            <div class="button" data-hook="action" data-action="check">Check</div>
+            <div class="button" data-hook="action" data-action="save">Save</div>
+            <div class="button" data-hook="action" data-action="attack">Attack</div>
+            <div class="button" data-hook="action" data-action="cast">Cast</div>
+        {{else}}
+            {{#if choosingCheck}}
+                <div class="button" data-hook="check" data-check="acr">Acrobatics</div>
+                <div class="button" data-hook="check" data-check="dec">Deception</div>
+                <div class="button" data-hook="check" data-check="dex">Dexterity</div>
+                <div class="button" data-hook="check" data-check="dip">Diplomacy</div>
+                <div class="button" data-hook="check" data-check="int">Intimidation</div>
+                <div class="button" data-hook="check" data-check="med">Medicine</div>
+                <div class="button" data-hook="check" data-check="per">Perception</div>
+                <div class="button" data-hook="check" data-check="sli">Slight of Hand</div>
+                <div class="button" data-hook="check" data-check="sur">Survival</div>
+                <div class="button" data-hook="check" data-check="wis">Wisdom</div>
+            {{/if}}
+        {{/if}}
+        </div>
     {{/if}}
 
 </template>

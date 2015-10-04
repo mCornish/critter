@@ -9,20 +9,26 @@ Template.track.helpers({
     choosing: function() {
         return Session.get('choosing');
     },
+    watching: function() {
+        return Session.get('watching');
+    },
     tracking: function() {
         return Session.get('tracking');
     },
     activeChars: function() {
         if (Session.get('cast')) {
-            console.log(Session.get('cast'));
             return Characters.find({name: {$in: Session.get('cast')} });
         }
+    },
+    videoId: function() {
+        return Session.get('videoId');
     }
 });
 
 Template.track.events({
     'click [data-hook=watch-here]': function() {
         Session.set('choosing', false);
+        Session.set('watching', true);
     },
     'click [data-hook=watch-else]': function() {
         Session.set('choosing', false);
@@ -33,6 +39,7 @@ Template.track.events({
 
         Session.set('episode', episodeNum);
         Session.set('cast', episode.cast);
+        Session.set('videoId', episode.videoId);
         Session.set('tracking', true);
     }
 });
