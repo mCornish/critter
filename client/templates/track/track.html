@@ -5,14 +5,31 @@
             <a class="button col-xs-6" data-hook="watch-else">Just Track</a>
         </div>
     {{else}}
-        <div class="row">
-            <label for="episode">Which episode?</label>
-            <select id="episode" name="episode">
-                {{#each episode}}
-                    <option value="{{number}}">Episode {{number}}: {{name}}</option>
+        {{#unless tracking}}
+            <div class="row">
+                <label for="episode">Which episode?</label>
+                <select id="episode" name="episode">
+                    <option>Choose...</option>
+                    {{#each episodes}}
+                        <option value="{{number}}">Episode {{number}}: {{name}}</option>
+                    {{/each}}
+                </select>
+            </div>
+        {{else}}
+            {{#if watching}}
+
+            {{/if}}
+
+            <h1>Track</h1>
+
+            <div class="track__chars">
+                {{#each activeChars}}
+                    <div class="track__char">
+                        <img src="{{imageURL}}">
+                    </div>
                 {{/each}}
-            </select>
-        </div>
+            </div>
+        {{/unless}}
     {{/if}}
 
 </template>
