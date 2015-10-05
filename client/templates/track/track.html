@@ -1,5 +1,66 @@
 <template name="track">
-    <div id="js-yt" class="youtube-player" data-hook="youtube-player" data-youtube-videoid="{{videoId}}"></div>
+    <div class="youtube-container {{videoClass}}">
+        <div id="js-yt" class="youtube-player" data-hook="youtube-player" data-youtube-videoid="{{videoId}}"></div>
+    </div>
+
+    {{#unless modal}}
+        <h1>Track</h1>
+    {{else}}
+        <h1>{{charName}} {{type}} {{action}}</h1>
+    {{/unless}}
+
+    {{#if modal}}
+        <div class="track__modal">
+            {{#if choosingAction}}
+                <div class="button" data-hook="action" data-action="Check">Check</div>
+                <div class="button" data-hook="action" data-action="Save">Save</div>
+                <div class="button" data-hook="action" data-action="Attack">Attack</div>
+                {{#if charSpells}}
+                    <div class="button" data-hook="action" data-action="Cast">Cast</div>
+                {{/if}}
+            {{else}}
+                {{#if choosingType}}
+                    {{#if actionIs 'check'}}
+                        <div class="button" data-hook="check" data-check="Acrobatics">Acrobatics</div>
+                        <div class="button" data-hook="check" data-check="Deception">Deception</div>
+                        <div class="button" data-hook="check" data-check="Dexterity">Dexterity</div>
+                        <div class="button" data-hook="check" data-check="Diplomacy">Diplomacy</div>
+                        <div class="button" data-hook="check" data-check="Intimidation">Intimidation</div>
+                        <div class="button" data-hook="check" data-check="Medicine">Medicine</div>
+                        <div class="button" data-hook="check" data-check="Perception">Perception</div>
+                        <div class="button" data-hook="check" data-check="Slight of Hand">Slight of Hand</div>
+                        <div class="button" data-hook="check" data-check="Survival">Survival</div>
+                        <div class="button" data-hook="check" data-check="Wisdom">Wisdom</div>
+                    {{/if}}
+                    {{#if actionIs 'save'}}
+                        <div class="button" data-hook="check" data-check="Acrobatics">Acrobatics</div>
+                        <div class="button" data-hook="check" data-check="Diplomacy">Constitution</div>
+                        <div class="button" data-hook="check" data-check="Dexterity">Dexterity</div>
+                        <div class="button" data-hook="check" data-check="Wisdom">Wisdom</div>
+                    {{/if}}
+                    {{#if actionIs 'attack'}}
+                        {{#each charAttacks}}
+                            <!-- The character's attacks -->
+                        {{/each}}
+                    {{/if}}
+                    {{#if actionIs 'cast'}}
+                        {{#each charSpells}}
+                            <!-- The character's spells -->
+                        {{/each}}
+                    {{/if}}
+                {{else}}
+                    <div class="track__check">
+                        <label for="roll">Roll: </label>
+                        <input id="roll" name="roll" type="number" min="1" max="20">
+                        <label for="success">Success?</label>
+                        <input type="checkbox" id="success" name="success">
+                        <a class="button" data-hook="submit-roll"><i class="fa fa-plus"></i></a>
+                    </div>
+                {{/if}}
+            {{/if}}
+        </div>
+    {{/if}}
+
     {{#if choosing}}
         <div class="row">
             <a class="button col-xs-6" data-hook="watch-here">Watch Here</a>
@@ -17,64 +78,27 @@
                 </select>
             </div>
         {{else}}
-            {{#if watching}}
-                <!--<iframe width="560" height="315" src="https://www.youtube.com/embed/{{videoId}}" frameborder="0" allowfullscreen></iframe>-->
-            {{/if}}
+
             {{#unless watching}}
                 <div class="row">
                     <a class="button col-xs-6" data-hook="start-button">Start</a>
+
                     <p class="col-xs-6">{{duration}}</p>
                 </div>
             {{/unless}}
-
-            <h1>Track</h1>
-
-            <div class="track__chars row">
-                {{#each activeChars}}
-                    <div class="track__char col-xs-4" data-hook="track" data-name="{{name}}">
-                        <img src="{{imageURL}}" data-name="{{name}}">
+            {{#unless modal}}
+                <div class="track__chars">
+                    {{#each activeChars}}
+                        <div class="track__char" data-hook="track" data-name="{{name}}">
+                            <img src="{{imageURL}}" data-name="{{name}}">
+                        </div>
+                    {{/each}}
+                    <div class="track__char" data-hook="track" data-name="DM">
+                        <img src="/images/dm.jpg" data-name="DM">
                     </div>
-                {{/each}}
-                <div class="track__char col-xs-4" data-hook="track" data-name="DM">
-                    DM
                 </div>
-            </div>
+            {{/unless}}
         {{/unless}}
-    {{/if}}
-
-    {{#if modal}}
-        <div class="track__modal">
-            {{#if choosingAction}}
-                <div class="button" data-hook="action" data-action="Check">Check</div>
-                <div class="button" data-hook="action" data-action="Save">Save</div>
-                <div class="button" data-hook="action" data-action="Attack">Attack</div>
-                <div class="button" data-hook="action" data-action="Cast">Cast</div>
-            {{else}}
-                {{#if choosingCheck}}
-                    <div class="button" data-hook="check" data-check="Acrobatics">Acrobatics</div>
-                    <div class="button" data-hook="check" data-check="Deception">Deception</div>
-                    <div class="button" data-hook="check" data-check="Dexterity">Dexterity</div>
-                    <div class="button" data-hook="check" data-check="Diplomacy">Diplomacy</div>
-                    <div class="button" data-hook="check" data-check="Intimidation">Intimidation</div>
-                    <div class="button" data-hook="check" data-check="Medicine">Medicine</div>
-                    <div class="button" data-hook="check" data-check="Perception">Perception</div>
-                    <div class="button" data-hook="check" data-check="Slight of Hand">Slight of Hand</div>
-                    <div class="button" data-hook="check" data-check="Survival">Survival</div>
-                    <div class="button" data-hook="check" data-check="Wisdom">Wisdom</div>
-                {{else}}
-                    <div class="track__check">
-                        <h1>{{check}}</h1>
-
-                        <h2>{{charName}}</h2>
-                        <label for="roll">Roll: </label>
-                        <input id="roll" name="roll" type="number" min="1" max="20">
-                        <label for="success">Success?</label>
-                        <input type="checkbox" id="success" name="success">
-                        <a class="button" data-hook="submit-roll"><i class="fa fa-plus"></i></a>
-                    </div>
-                {{/if}}
-            {{/if}}
-        </div>
     {{/if}}
 
 </template>

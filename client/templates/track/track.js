@@ -5,9 +5,10 @@ Template.track.onCreated(function() {
     Session.set('cast', null);
     Session.set('modal', false);
     Session.set('choosingAction', true);
-    Session.set('choosingCheck', true);
-    Session.set('charName', null);
-    Session.set('check', null);
+    Session.set('choosingType', true);
+    Session.set('charName', '');
+    Session.set('action', '');
+    Session.set('type', '');
     Session.set('duration', '0:00:00');
 });
 
@@ -38,11 +39,23 @@ Template.track.helpers({
     choosingAction: function() {
         return Session.get('choosingAction');
     },
-    choosingCheck: function() {
-        return Session.get('choosingCheck');
+    choosingType: function() {
+        return Session.get('choosingType');
     },
-    check: function() {
-        return Session.get('check');
+    charName: function() {
+        return Session.get('charName');
+    },
+    action: function() {
+        return Session.get('action');
+    },
+    type: function() {
+        return Session.get('type');
+    },
+    videoClass: function() {
+        return Session.get('tracking') && Session.get('watching') ? '' : 'hidden';
+    },
+    actionIs: function(action) {
+        return action === Session.get('action');
     }
 });
 
@@ -147,8 +160,8 @@ Template.track.events({
     },
     'click [data-hook=check]': function(e) {
         const check = $(e.target).attr('data-check');
-        Session.set('check', check);
-        Session.set('choosingCheck', false);
+        Session.set('type', check);
+        Session.set('choosingType', false);
     },
     'click [data-hook=submit-roll]': function(e) {
         Session.set('modal', false);
@@ -167,7 +180,7 @@ Template.track.events({
             if (error) {
                 return throwError(error.reason);
             }
-            mixpanel.track("Check submit");
+            mixpanel.track(Session.get('action') + " submit");
         });
     }
 });
