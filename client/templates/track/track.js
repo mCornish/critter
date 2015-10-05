@@ -76,6 +76,10 @@ Template.track.events({
                 let minutes = Math.floor(totalSeconds / 60);
                 let seconds = Math.floor(totalSeconds % 60);
 
+                Session.set('seconds', seconds);
+                Session.set('minutes', minutes);
+                Session.set('hours', hours);
+
                 // add zero for single-digit seconds/minutes
                 if (seconds < 10) {
                     seconds = ('0' + seconds).slice(-2);
@@ -129,6 +133,11 @@ Template.track.events({
         Session.set('charName', charName);
         Session.set('modal', true);
         Session.set('choosingAction', true);
+        Session.set('trackTime', {
+            hour: Session.get('hours'),
+            minute: Session.get('minutes'),
+            second: Session.get('seconds')
+        });
     },
     'click [data-hook=action]': function(e) {
         const action = $(e.target).attr('data-action');
@@ -151,11 +160,7 @@ Template.track.events({
             character: Session.get('charName'),
             roll: roll,
             success: success,
-            time: {
-                hour: Session.get('hours'),
-                minute: Session.get('minutes'),
-                second: Session.get('seconds')
-            }
+            time: Session.get('trackTime')
         };
 
         Meteor.call(action + 'Insert', check, function(error, result) {
