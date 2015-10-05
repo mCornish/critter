@@ -63,6 +63,30 @@ Template.track.events({
         Session.set('cast', episode.cast);
         Session.set('videoId', episode.videoId);
         Session.set('tracking', true);
+
+        if(Session.get('watching')) {
+            // Used ID because jQuery select wasn't working
+            const ytEl = document.getElementById('js-yt');
+            const player = youtube({ el:ytEl, id:episode.videoId });
+
+            const ytInterval = setInterval(function() {
+                let totalSeconds = player.currentTime;
+                const hours = Math.floor(totalSeconds / 3600);
+                totalSeconds %= 3600;
+                let minutes = Math.floor(totalSeconds / 60);
+                let seconds = Math.floor(totalSeconds % 60);
+
+                // add zero for single-digit seconds/minutes
+                if (seconds < 10) {
+                    seconds = ('0' + seconds).slice(-2);
+                }
+                if (minutes < 10) {
+                    minutes = ('0' + minutes).slice(-2);
+                }
+
+                Session.set('duration', `${hours}:${minutes}:${seconds}`);
+            }, 1000);
+        }
     },
     'click [data-hook=start-button]': function(e) {
         e.preventDefault();

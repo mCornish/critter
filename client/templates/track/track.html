@@ -1,4 +1,6 @@
 <template name="track">
+    <div id="js-yt" class="youtube-player" data-hook="youtube-player" data-youtube-videoid="{{videoId}}"></div>
+    {{duration}}
     {{#if choosing}}
         <div class="row">
             <a class="button col-xs-6" data-hook="watch-here">Watch Here</a>
@@ -17,8 +19,7 @@
             </div>
         {{else}}
             {{#if watching}}
-                <iframe width="560" height="315" src="https://www.youtube.com/embed/{{videoId}}" frameborder="0"
-                        allowfullscreen></iframe>
+                <!--<iframe width="560" height="315" src="https://www.youtube.com/embed/{{videoId}}" frameborder="0" allowfullscreen></iframe>-->
             {{/if}}
             {{#unless watching}}
                 <div class="row">
