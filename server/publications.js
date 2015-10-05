@@ -37,6 +37,21 @@ Meteor.publish('episodes', function(queries, options) {
     return Episodes.find(queries, options);
 });
 
+Meteor.publish('checks', function(queries, options) {
+    queries = typeof queries !== 'undefined' ? queries : {};
+
+    if (options) {
+        check(options, {
+            sort: Object,
+            limit: Number
+        });
+    } else {
+        options = {};
+    }
+
+    return Checks.find(queries, options);
+});
+
 Meteor.publish('comments', function(giftId) {
     check(giftId, String);
     return Comments.find({giftId: giftId});

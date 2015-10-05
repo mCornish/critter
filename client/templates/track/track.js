@@ -70,14 +70,20 @@ Template.track.events({
         let hours = 0,
             minutes = 0,
             seconds = 0;
+        Session.set('seconds', 0);
+        Session.set('minutes', 0);
+        Session.set('hours', 0);
 
         const interval = setInterval(function () {
             seconds++;
+            Session.set('seconds', seconds);
 
             if (seconds >= 60) {
                 minutes++;
+                Session.set('minutes', minutes);
                 if (minutes >= 60) {
                     hours++;
+                    Session.set('hours', hours);
                     minutes = 0;
                 }
                 seconds = 0;
@@ -95,7 +101,7 @@ Template.track.events({
         }, 1000);
     },
     'click [data-hook=track]': function(e) {
-        const charName = $(e.target).attr('[data-name]');
+        const charName = $(e.target).attr('data-name');
         Session.set('charName', charName);
         Session.set('modal', true);
         Session.set('choosingAction', true);
@@ -113,18 +119,26 @@ Template.track.events({
     },
     'click [data-hook=submit-roll]': function(e) {
         Session.set('modal', false);
-        const roll = parseInt( $('[name=roll]').val() );
-        const success = $('[name=success]').val() === 'true' ? true : false;
 
+        const roll = parseInt( $('[name=roll]').val() );
+        const success = $('[name=success]').val() === 'on' ? true : false;
+        const action = Session.get('action').toLowerCase();
         const check = {
             character: Session.get('charName'),
             roll: roll,
             success: success,
             time: {
-                hour: Match.Integer,
-                minute: Match.Integer,
-                second: Match.Integer
+                hour: Session.get('hours'),
+                minute: Session.get('minutes'),
+                second: Session.get('seconds')
             }
         };
+
+        Meteor.call(action + 'Insert', check, function(error, result) {
+            if (error) {
+                return throwError(error.reason);
+            }
+            mixpanel.track("Check submit");
+        });
     }
 });

@@ -103,4 +103,17 @@
         </div>
     </form>
 
+    <div class="admin__checks">
+        <h1>Checks</h1>
+        {{#each checks}}
+            <ul class="admin__check">
+                <li>Character: {{character}}</li>
+                <li>Roll: {{roll}}</li>
+                <li>Success: {{success}}</li>
+                <li>Time: {{time.hour}}:{{time.minute}}:{{time.second}}</li>
+                <li>Submitted: {{submitted}}</li>
+            </ul>
+        {{/each}}
+    </div>
+
 </template>
