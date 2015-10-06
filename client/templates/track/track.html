@@ -33,27 +33,41 @@
                         <div class="button" data-hook="check" data-check="Wisdom">Wisdom</div>
                     {{/if}}
                     {{#if actionIs 'save'}}
-                        <div class="button" data-hook="check" data-check="Acrobatics">Acrobatics</div>
-                        <div class="button" data-hook="check" data-check="Diplomacy">Constitution</div>
-                        <div class="button" data-hook="check" data-check="Dexterity">Dexterity</div>
-                        <div class="button" data-hook="check" data-check="Wisdom">Wisdom</div>
+                        <div class="button" data-hook="save" data-check="Acrobatics">Acrobatics</div>
+                        <div class="button" data-hook="save" data-check="Diplomacy">Constitution</div>
+                        <div class="button" data-hook="save" data-check="Dexterity">Dexterity</div>
+                        <div class="button" data-hook="save" data-check="Wisdom">Wisdom</div>
                     {{/if}}
                     {{#if actionIs 'attack'}}
                         {{#each charAttacks}}
-                            <!-- The character's attacks -->
+                            <div class="button" data-hook="attack" data-check="{{name}}">{{name}}</div>
                         {{/each}}
                     {{/if}}
                     {{#if actionIs 'cast'}}
                         {{#each charSpells}}
-                            <!-- The character's spells -->
+                            <div class="button" data-hook="cast" data-check="{{name}}">{{name}}</div>
                         {{/each}}
                     {{/if}}
                 {{else}}
                     <div class="track__check">
                         <label for="roll">Roll: </label>
                         <input id="roll" name="roll" type="number" min="1" max="20">
-                        <label for="success">Success?</label>
+                        <label for="success">
+                            {{#if actionIs 'attack'}}
+                                Hit?
+                            {{else}}
+                                {{#if actionIs 'cast'}}
+                                    Intended effect?
+                                {{else}}
+                                    Success?
+                                {{/if}}
+                            {{/if}}
+                        </label>
                         <input type="checkbox" id="success" name="success">
+                        {{#if actionIs 'attack'}}
+                            <label for="lethal">Lethal</label>
+                            <input type="checkbox" id="lethal" name="lethal">
+                        {{/if}}
                         <a class="button" data-hook="submit-roll"><i class="fa fa-plus"></i></a>
                     </div>
                 {{/if}}

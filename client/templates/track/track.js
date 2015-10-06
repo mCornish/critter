@@ -10,6 +10,8 @@ Template.track.onCreated(function() {
     Session.set('action', '');
     Session.set('type', '');
     Session.set('duration', '0:00:00');
+    Session.set('charAttacks', null);
+    Session.set('charSpells', null)
 });
 
 Template.track.helpers({
@@ -55,7 +57,13 @@ Template.track.helpers({
         return Session.get('tracking') && Session.get('watching') ? '' : 'hidden';
     },
     actionIs: function(action) {
-        return action === Session.get('action');
+        return action === Session.get('action').toLowerCase();
+    },
+    charAttacks: function() {
+        return Session.get('charAttacks');
+    },
+    charSpells: function() {
+        return Session.get('charSpells');
     }
 });
 
@@ -143,6 +151,8 @@ Template.track.events({
     },
     'click [data-hook=track]': function(e) {
         const charName = $(e.target).attr('data-name');
+        const character = Characters.findOne({name: charName});
+
         Session.set('charName', charName);
         Session.set('modal', true);
         Session.set('choosingAction', true);
@@ -151,32 +161,58 @@ Template.track.events({
             minute: Session.get('minutes'),
             second: Session.get('seconds')
         });
+        Session.set('charAttacks', character.attacks);
+        if(character.spells) {
+            Session.set('charSpells', character.spells);
+        }
     },
     'click [data-hook=action]': function(e) {
         const action = $(e.target).attr('data-action');
         Session.set('action', action);
         Session.set('choosingAction', false);
-        Session.set('choosing' + action, true);
+        Session.set('choosingType', true);
     },
-    'click [data-hook=check]': function(e) {
-        const check = $(e.target).attr('data-check');
-        Session.set('type', check);
+    'click [data-hook=type]': function(e) {
+        const type = $(e.target).attr('data-type');
+        Session.set('type', type);
         Session.set('choosingType', false);
     },
     'click [data-hook=submit-roll]': function(e) {
         Session.set('modal', false);
 
+        let charAttacks,
+            attack,
+            attackType;
+
+        if (Session.get('charAttacks')) {
+            charAttacks = Session.get('charAttacks');
+            attack = charAttacks.indexOf(Session.get('type'));
+            attackType = attack.type;
+        }
+
         const roll = parseInt( $('[name=roll]').val() );
         const success = $('[name=success]').val() === 'on' ? true : false;
         const action = Session.get('action').toLowerCase();
-        const check = {
+        const submission = {
             character: Session.get('charName'),
             roll: roll,
-            success: success,
             time: Session.get('trackTime')
         };
 
-        Meteor.call(action + 'Insert', check, function(error, result) {
+        if (action === 'check' || action === 'save') {
+            submission.type = Session.get('type');
+            submission.success = success;
+        } else if (action === 'attack') {
+            submission.name = Session.get('type');
+            submission.hit = success;
+            submission.lethal = lethal;
+            submission.type = attackType;
+        } else if (action === 'spell') {
+            submission.name = Session.get('type');
+            submission.success = success;
+        }
+
+        Meteor.call(action + 'Insert', submission, function(error, result) {
             if (error) {
                 return throwError(error.reason);
             }

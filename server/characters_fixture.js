@@ -16,10 +16,33 @@ if (Characters.find().count() === 0) {
             strength: 19,
             wisdom: 10
         },
+        attacks: [
+            {
+                name: 'Call Lightning',
+                diceNum: 3,
+                diceVal: 6,
+                type: 'Electricity'
+            },
+            {
+                name: 'Thunder Wave',
+                diceNum: 2,
+                diceVal: 8,
+                dicePerLev: 1,
+                type: 'Normal'
+            },
+            {
+                name: 'Thunder Wave',
+                diceNum: 2,
+                diceVal: 8,
+                dicePerLev: 1,
+                type: 'Normal'
+            }
+        ],
         imageURL: '/images/grog.png',
         submitted: new Date(),
         live: false
     });
+
 
     Characters.insert({
         name: 'Keyleth',
@@ -37,10 +60,56 @@ if (Characters.find().count() === 0) {
             strength: 14,
             wisdom: 22
         },
+        attacks: [
+            {
+                name: 'Call Lightning',
+                diceNum: 3,
+                diceVal: 6,
+                type: 'Electricity'
+            },
+            {
+                name: 'Thunder Wave',
+                diceNum: 2,
+                diceVal: 8,
+                dicePerLev: 1,
+                type: 'Normal'
+            },
+            {
+                name: 'Thunder Wave',
+                diceNum: 2,
+                diceVal: 8,
+                dicePerLev: 1,
+                type: 'Normal'
+            }
+        ],
+        spells: [
+            {
+                name: 'Wind Wall'
+            },
+            {
+                name: 'Stone Shape'
+            },
+            {
+                name: 'Stone Skin'
+            },
+            {
+                name: 'Wall of Stone'
+            },
+            {
+                name: 'Control Water'
+            },
+            {
+                name: 'Cure Wounds',
+                diceNum: 1,
+                diceVal: 8,
+                dicePerLev: 8
+            }
+        ],
         imageURL: '/images/keyleth.png',
         submitted: new Date(),
         live: false
     });
+
 
     Characters.insert({
         name: 'Percy',
@@ -58,10 +127,33 @@ if (Characters.find().count() === 0) {
             strength: 12,
             wisdom: 16
         },
+        attacks: [
+            {
+                name: 'Call Lightning',
+                diceNum: 3,
+                diceVal: 6,
+                type: 'Electricity'
+            },
+            {
+                name: 'Thunder Wave',
+                diceNum: 2,
+                diceVal: 8,
+                dicePerLev: 1,
+                type: 'Normal'
+            },
+            {
+                name: 'Thunder Wave',
+                diceNum: 2,
+                diceVal: 8,
+                dicePerLev: 1,
+                type: 'Normal'
+            }
+        ],
         imageURL: '/images/percy.png',
         submitted: new Date(),
         live: false
     });
+
 
     Characters.insert({
         name: 'Pike',
@@ -79,10 +171,56 @@ if (Characters.find().count() === 0) {
             strength: 13,
             wisdom: 18
         },
+        attacks: [
+            {
+                name: 'Call Lightning',
+                diceNum: 3,
+                diceVal: 6,
+                type: 'Electricity'
+            },
+            {
+                name: 'Thunder Wave',
+                diceNum: 2,
+                diceVal: 8,
+                dicePerLev: 1,
+                type: 'Normal'
+            },
+            {
+                name: 'Thunder Wave',
+                diceNum: 2,
+                diceVal: 8,
+                dicePerLev: 1,
+                type: 'Normal'
+            }
+        ],
+        spells: [
+            {
+                name: 'Wind Wall'
+            },
+            {
+                name: 'Stone Shape'
+            },
+            {
+                name: 'Stone Skin'
+            },
+            {
+                name: 'Wall of Stone'
+            },
+            {
+                name: 'Control Water'
+            },
+            {
+                name: 'Cure Wounds',
+                diceNum: 1,
+                diceVal: 8,
+                dicePerLev: 8
+            }
+        ],
         imageURL: '/images/pike.png',
         submitted: new Date(),
         live: false
     });
+
 
     Characters.insert({
         name: 'Scanlan',
@@ -100,10 +238,56 @@ if (Characters.find().count() === 0) {
             strength: 13,
             wisdom: 7
         },
+        attacks: [
+            {
+                name: 'Call Lightning',
+                diceNum: 3,
+                diceVal: 6,
+                type: 'Electricity'
+            },
+            {
+                name: 'Thunder Wave',
+                diceNum: 2,
+                diceVal: 8,
+                dicePerLev: 1,
+                type: 'Normal'
+            },
+            {
+                name: 'Thunder Wave',
+                diceNum: 2,
+                diceVal: 8,
+                dicePerLev: 1,
+                type: 'Normal'
+            }
+        ],
+        spells: [
+            {
+                name: 'Wind Wall'
+            },
+            {
+                name: 'Stone Shape'
+            },
+            {
+                name: 'Stone Skin'
+            },
+            {
+                name: 'Wall of Stone'
+            },
+            {
+                name: 'Control Water'
+            },
+            {
+                name: 'Cure Wounds',
+                diceNum: 1,
+                diceVal: 8,
+                dicePerLev: 8
+            }
+        ],
         imageURL: '/images/scanlan.png',
         submitted: new Date(),
         live: false
     });
+
 
     Characters.insert({
         name: 'Tiberius',
@@ -121,10 +305,56 @@ if (Characters.find().count() === 0) {
             strength: 12,
             wisdom: 4
         },
+        attacks: [
+            {
+                name: 'Call Lightning',
+                diceNum: 3,
+                diceVal: 6,
+                type: 'Electricity'
+            },
+            {
+                name: 'Thunder Wave',
+                diceNum: 2,
+                diceVal: 8,
+                dicePerLev: 1,
+                type: 'Normal'
+            },
+            {
+                name: 'Thunder Wave',
+                diceNum: 2,
+                diceVal: 8,
+                dicePerLev: 1,
+                type: 'Normal'
+            }
+        ],
+        spells: [
+            {
+                name: 'Wind Wall'
+            },
+            {
+                name: 'Stone Shape'
+            },
+            {
+                name: 'Stone Skin'
+            },
+            {
+                name: 'Wall of Stone'
+            },
+            {
+                name: 'Control Water'
+            },
+            {
+                name: 'Cure Wounds',
+                diceNum: 1,
+                diceVal: 8,
+                dicePerLev: 8
+            }
+        ],
         imageURL: '/images/tiberius.png',
         submitted: new Date(),
         live: false
     });
+
 
     Characters.insert({
         name: 'Vax',
@@ -142,10 +372,33 @@ if (Characters.find().count() === 0) {
             strength: 14,
             wisdom: 14
         },
+        attacks: [
+            {
+                name: 'Call Lightning',
+                diceNum: 3,
+                diceVal: 6,
+                type: 'Electricity'
+            },
+            {
+                name: 'Thunder Wave',
+                diceNum: 2,
+                diceVal: 8,
+                dicePerLev: 1,
+                type: 'Normal'
+            },
+            {
+                name: 'Thunder Wave',
+                diceNum: 2,
+                diceVal: 8,
+                dicePerLev: 1,
+                type: 'Normal'
+            }
+        ],
         imageURL: '/images/vax.png',
         submitted: new Date(),
         live: false
     });
+
 
     Characters.insert({
         name: 'Vex',
@@ -163,6 +416,51 @@ if (Characters.find().count() === 0) {
             strength: 7,
             wisdom: 14
         },
+        attacks: [
+            {
+                name: 'Call Lightning',
+                diceNum: 3,
+                diceVal: 6,
+                type: 'Electricity'
+            },
+            {
+                name: 'Thunder Wave',
+                diceNum: 2,
+                diceVal: 8,
+                dicePerLev: 1,
+                type: 'Normal'
+            },
+            {
+                name: 'Thunder Wave',
+                diceNum: 2,
+                diceVal: 8,
+                dicePerLev: 1,
+                type: 'Normal'
+            }
+        ],
+        spells: [
+            {
+                name: 'Wind Wall'
+            },
+            {
+                name: 'Stone Shape'
+            },
+            {
+                name: 'Stone Skin'
+            },
+            {
+                name: 'Wall of Stone'
+            },
+            {
+                name: 'Control Water'
+            },
+            {
+                name: 'Cure Wounds',
+                diceNum: 1,
+                diceVal: 8,
+                dicePerLev: 8
+            }
+        ],
         imageURL: '/images/vex.png',
         submitted: new Date(),
         live: false
