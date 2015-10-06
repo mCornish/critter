@@ -64,8 +64,8 @@ p {
 a,
 .fake-link {
     color: inherit;
-    border-bottom: .2em solid $color-1;
-    padding-bottom: .1em;
+    //border-bottom: .2em solid $color-1;
+    //padding-bottom: .1em;
     position: relative;
 }
 a:after,
@@ -82,17 +82,17 @@ a:before,
 }
 a:before,
 .fake-link:before {
-    left: 50%;
+    //left: 50%;
 }
 a:after,
 .fake-link:after {
-    right: 50%;
+    //right: 50%;
 }
 a:hover:not(.button):before,
 a:hover:not(.button):after,
 .fake-link:not(.button):hover:before,
 .fake-link:not(.button):hover:after {
-    width: 50%;
+    //width: 50%;
 }
 a:hover,
 a:focus,
@@ -1177,6 +1177,26 @@ input[type=radio] + input[type=radio] {
     margin: 0 1em 1em;
     width: 5em;
     height: 5em;
+    border-radius: 100%;
+}
+
+
+/* -------------------- */
+/* --- #TRACK */
+/* -------------------- */
+.stats__chars {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.stats__char {
+    cursor: pointer;
+}
+.stats__char img {
+    margin: 0 1em 1em;
+    width: 10em;
+    height: 10em;
     border-radius: 100%;
 }
 

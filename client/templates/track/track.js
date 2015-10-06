@@ -213,18 +213,24 @@ function submitRoll(callback) {
     let charAttacks,
         attack,
         attackType;
+    const character = Characters.findOne({name: Session.get('charName')});
+    const charId = character._id;
 
     if (Session.get('charAttacks')) {
         charAttacks = Session.get('charAttacks');
-        attack = charAttacks.indexOf(Session.get('type'));
+        const attackName = Session.get('type');
+        attack = _.find(charAttacks, function(item) {
+            return item.name === attackName;
+        });
         attackType = attack.type;
     }
 
     const roll = parseInt( $('[name=roll]').val() );
     const success = $('[name=success]').val() === 'on' ? true : false;
+    const lethal = $('[name=lethal]').val() === 'on' ? true : false;
     const action = Session.get('action').toLowerCase();
     const submission = {
-        character: Session.get('charName'),
+        character: charId,
         roll: roll,
         time: Session.get('trackTime')
     };
@@ -247,7 +253,7 @@ function submitRoll(callback) {
             return throwError(error.reason);
         }
         mixpanel.track(Session.get('action') + " submit");
-        if (callback) {
+        if (typeof callback == 'function') {
             callback();
         }
     });

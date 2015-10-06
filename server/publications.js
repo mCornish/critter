@@ -37,7 +37,52 @@ Meteor.publish('episodes', function(queries, options) {
     return Episodes.find(queries, options);
 });
 
+Meteor.publish('attacks', function(queries, options) {
+    queries = typeof queries !== 'undefined' ? queries : {};
+
+    if (options) {
+        check(options, {
+            sort: Object,
+            limit: Number
+        });
+    } else {
+        options = {};
+    }
+
+    return Attacks.find(queries, options);
+});
+
+Meteor.publish('casts', function(queries, options) {
+    queries = typeof queries !== 'undefined' ? queries : {};
+
+    if (options) {
+        check(options, {
+            sort: Object,
+            limit: Number
+        });
+    } else {
+        options = {};
+    }
+
+    return Checks.find(queries, options);
+});
+
 Meteor.publish('checks', function(queries, options) {
+    queries = typeof queries !== 'undefined' ? queries : {};
+
+    if (options) {
+        check(options, {
+            sort: Object,
+            limit: Number
+        });
+    } else {
+        options = {};
+    }
+
+    return Checks.find(queries, options);
+});
+
+Meteor.publish('saves', function(queries, options) {
     queries = typeof queries !== 'undefined' ? queries : {};
 
     if (options) {

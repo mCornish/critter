@@ -1,123 +1,124 @@
 <template name="track">
-    <div class="youtube-container {{videoClass}}">
-        <div id="js-yt" class="youtube-player" data-hook="youtube-player" data-youtube-videoid="{{videoId}}"></div>
-    </div>
+    <div class="page">
+        <div class="youtube-container {{videoClass}}">
+            <div id="js-yt" class="youtube-player" data-hook="youtube-player" data-youtube-videoid="{{videoId}}"></div>
+        </div>
 
-    {{#unless modal}}
-        <h1>Track</h1>
-    {{else}}
-        <h1>{{charName}} {{type}} {{action}}</h1>
-    {{/unless}}
+        {{#unless modal}}
+            <h1>Track</h1>
+        {{else}}
+            <h1>{{charName}} {{type}} {{action}}</h1>
+        {{/unless}}
 
-    {{#if modal}}
-        <div class="track__modal">
-            {{#if choosingAction}}
-                <div class="button" data-hook="action" data-action="Check">Check</div>
-                <div class="button" data-hook="action" data-action="Save">Save</div>
-                <div class="button" data-hook="action" data-action="Attack">Attack</div>
-                {{#if charSpells}}
-                    <div class="button" data-hook="action" data-action="Cast">Cast</div>
-                {{/if}}
-            {{else}}
-                {{#if choosingType}}
-                    {{#if actionIs 'check'}}
-                        <div class="button" data-hook="type" data-type="Acrobatics">Acrobatics</div>
-                        <div class="button" data-hook="type" data-type="Deception">Deception</div>
-                        <div class="button" data-hook="type" data-type="Dexterity">Dexterity</div>
-                        <div class="button" data-hook="type" data-type="Diplomacy">Diplomacy</div>
-                        <div class="button" data-hook="type" data-type="Intimidation">Intimidation</div>
-                        <div class="button" data-hook="type" data-type="Medicine">Medicine</div>
-                        <div class="button" data-hook="type" data-type="Perception">Perception</div>
-                        <div class="button" data-hook="type" data-type="Slight of Hand">Slight of Hand</div>
-                        <div class="button" data-hook="type" data-type="Survival">Survival</div>
-                        <div class="button" data-hook="type" data-type="Wisdom">Wisdom</div>
-                    {{/if}}
-                    {{#if actionIs 'save'}}
-                        <div class="button" data-hook="type" data-type="Acrobatics">Acrobatics</div>
-                        <div class="button" data-hook="type" data-type="Diplomacy">Constitution</div>
-                        <div class="button" data-hook="type" data-type="Dexterity">Dexterity</div>
-                        <div class="button" data-hook="type" data-type="Wisdom">Wisdom</div>
-                    {{/if}}
-                    {{#if actionIs 'attack'}}
-                        {{#each charAttacks}}
-                            <div class="button" data-hook="type" data-type="{{name}}">{{name}}</div>
-                        {{/each}}
-                    {{/if}}
-                    {{#if actionIs 'cast'}}
-                        {{#each charSpells}}
-                            <div class="button" data-hook="type" data-type="{{name}}">{{name}}</div>
-                        {{/each}}
+        {{#if modal}}
+            <div class="track__modal">
+                {{#if choosingAction}}
+                    <div class="button" data-hook="action" data-action="Check">Check</div>
+                    <div class="button" data-hook="action" data-action="Save">Save</div>
+                    <div class="button" data-hook="action" data-action="Attack">Attack</div>
+                    {{#if charSpells}}
+                        <div class="button" data-hook="action" data-action="Cast">Cast</div>
                     {{/if}}
                 {{else}}
-                    <div class="track__check">
-                        <label for="roll">Roll: </label>
-                        <input id="roll" name="roll" type="number" min="1" max="20">
-                        <label for="success">
-                            {{#if actionIs 'attack'}}
-                                Hit?
-                            {{else}}
-                                {{#if actionIs 'cast'}}
-                                    Intended effect?
-                                {{else}}
-                                    Success?
-                                {{/if}}
-                            {{/if}}
-                        </label>
-                        <input type="checkbox" id="success" name="success">
-                        {{#if actionIs 'attack'}}
-                            <label for="lethal">Lethal</label>
-                            <input type="checkbox" id="lethal" name="lethal">
+                    {{#if choosingType}}
+                        {{#if actionIs 'check'}}
+                            <div class="button" data-hook="type" data-type="Acrobatics">Acrobatics</div>
+                            <div class="button" data-hook="type" data-type="Deception">Deception</div>
+                            <div class="button" data-hook="type" data-type="Dexterity">Dexterity</div>
+                            <div class="button" data-hook="type" data-type="Diplomacy">Diplomacy</div>
+                            <div class="button" data-hook="type" data-type="Intimidation">Intimidation</div>
+                            <div class="button" data-hook="type" data-type="Medicine">Medicine</div>
+                            <div class="button" data-hook="type" data-type="Perception">Perception</div>
+                            <div class="button" data-hook="type" data-type="Slight of Hand">Slight of Hand</div>
+                            <div class="button" data-hook="type" data-type="Survival">Survival</div>
+                            <div class="button" data-hook="type" data-type="Wisdom">Wisdom</div>
                         {{/if}}
-                        <a class="button" data-hook="add-roll"><i class="fa fa-plus"></i></a>
-                        <a class="button" data-hook="submit-roll">Submit</a>
-                    </div>
+                        {{#if actionIs 'save'}}
+                            <div class="button" data-hook="type" data-type="Acrobatics">Acrobatics</div>
+                            <div class="button" data-hook="type" data-type="Diplomacy">Constitution</div>
+                            <div class="button" data-hook="type" data-type="Dexterity">Dexterity</div>
+                            <div class="button" data-hook="type" data-type="Wisdom">Wisdom</div>
+                        {{/if}}
+                        {{#if actionIs 'attack'}}
+                            {{#each charAttacks}}
+                                <div class="button" data-hook="type" data-type="{{name}}">{{name}}</div>
+                            {{/each}}
+                        {{/if}}
+                        {{#if actionIs 'cast'}}
+                            {{#each charSpells}}
+                                <div class="button" data-hook="type" data-type="{{name}}">{{name}}</div>
+                            {{/each}}
+                        {{/if}}
+                    {{else}}
+                        <div class="track__check">
+                            <label for="roll">Roll: </label>
+                            <input id="roll" name="roll" type="number" min="1" max="20">
+                            <label for="success">
+                                {{#if actionIs 'attack'}}
+                                    Hit?
+                                {{else}}
+                                    {{#if actionIs 'cast'}}
+                                        Intended effect?
+                                    {{else}}
+                                        Success?
+                                    {{/if}}
+                                {{/if}}
+                            </label>
+                            <input type="checkbox" id="success" name="success">
+                            {{#if actionIs 'attack'}}
+                                <label for="lethal">Lethal</label>
+                                <input type="checkbox" id="lethal" name="lethal">
+                            {{/if}}
+                            <a class="button" data-hook="add-roll"><i class="fa fa-plus"></i></a>
+                            <a class="button" data-hook="submit-roll">Submit</a>
+                        </div>
+                    {{/if}}
                 {{/if}}
-            {{/if}}
-        </div>
-    {{/if}}
+            </div>
+        {{/if}}
 
-    {{#if choosing}}
-        <div class="row">
-            <a class="button col-xs-6" data-hook="watch-here">Watch Here</a>
-            <a class="button col-xs-6" data-hook="watch-else">Just Track</a>
-        </div>
-    {{else}}
-        {{#unless tracking}}
+        {{#if choosing}}
             <div class="row">
-                <label for="episode">Which episode?</label>
-                <select id="episode" name="episode">
-                    <option>Choose...</option>
-                    {{#each episodes}}
-                        <option value="{{number}}">Episode {{number}}: {{name}}</option>
-                    {{/each}}
-                </select>
+                <a class="button col-xs-6" data-hook="watch-here">Watch Here</a>
+                <a class="button col-xs-6" data-hook="watch-else">Just Track</a>
             </div>
         {{else}}
-
-            {{#unless watching}}
+            {{#unless tracking}}
                 <div class="row">
-                    <a class="button col-xs-12" data-hook="start-button">
-                        {{#unless timing}}
-                            Start
-                        {{else}}
-                            {{duration}}
-                        {{/unless}}
-                    </a>
+                    <label for="episode">Which episode?</label>
+                    <select id="episode" name="episode">
+                        <option>Choose...</option>
+                        {{#each episodes}}
+                            <option value="{{number}}">Episode {{number}}: {{name}}</option>
+                        {{/each}}
+                    </select>
                 </div>
-            {{/unless}}
-            {{#unless modal}}
-                <div class="track__chars">
-                    {{#each activeChars}}
-                        <div class="track__char" data-hook="track" data-name="{{name}}">
-                            <img src="{{imageURL}}" data-name="{{name}}">
-                        </div>
-                    {{/each}}
-                    <div class="track__char" data-hook="track" data-name="DM">
-                        <img src="/images/dm.jpg" data-name="DM">
-                    </div>
-                </div>
-            {{/unless}}
-        {{/unless}}
-    {{/if}}
+            {{else}}
 
+                {{#unless watching}}
+                    <div class="row">
+                        <a class="button col-xs-12" data-hook="start-button">
+                            {{#unless timing}}
+                                Start
+                            {{else}}
+                                {{duration}}
+                            {{/unless}}
+                        </a>
+                    </div>
+                {{/unless}}
+                {{#unless modal}}
+                    <div class="track__chars">
+                        {{#each activeChars}}
+                            <div class="track__char" data-hook="track" data-name="{{name}}">
+                                <img src="{{imageURL}}" data-name="{{name}}">
+                            </div>
+                        {{/each}}
+                        <div class="track__char" data-hook="track" data-name="DM">
+                            <img src="/images/dm.jpg" data-name="DM">
+                        </div>
+                    </div>
+                {{/unless}}
+            {{/unless}}
+        {{/if}}
+    </div>
 </template>
