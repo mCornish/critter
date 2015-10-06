@@ -11,7 +11,11 @@ Template.track.onCreated(function() {
     Session.set('type', '');
     Session.set('duration', '0:00:00');
     Session.set('charAttacks', null);
-    Session.set('charSpells', null)
+    Session.set('charSpells', null);
+    Session.set('timing', false);
+    Session.set('seconds', 0);
+    Session.set('minutes', 0);
+    Session.set('hours', 0);
 });
 
 Template.track.helpers({
@@ -64,6 +68,10 @@ Template.track.helpers({
     },
     charSpells: function() {
         return Session.get('charSpells');
+    },
+    // Controls start button text
+    timing: function() {
+        return Session.get('timing');
     }
 });
 
@@ -116,38 +124,47 @@ Template.track.events({
     'click [data-hook=start-button]': function(e) {
         e.preventDefault();
 
-        let hours = 0,
-            minutes = 0,
-            seconds = 0;
-        Session.set('seconds', 0);
-        Session.set('minutes', 0);
-        Session.set('hours', 0);
+        const timing = Session.get('timing');
 
-        const interval = setInterval(function () {
-            seconds++;
-            Session.set('seconds', seconds);
+        Session.set('timing', !timing);
 
-            if (seconds >= 60) {
-                minutes++;
-                Session.set('minutes', minutes);
-                if (minutes >= 60) {
-                    hours++;
-                    Session.set('hours', hours);
-                    minutes = 0;
+        let hours = Session.get('hours'),
+            minutes = Session.get('minutes'),
+            seconds = Session.get('seconds');
+
+        if (timing) {
+            clearInterval(Session.get('timingInterval'));
+        } else {
+            const interval = setInterval(function () {
+                seconds++;
+                Session.set('seconds', seconds);
+
+                if (seconds >= 60) {
+                    minutes++;
+                    Session.set('minutes', minutes);
+                    if (minutes >= 60) {
+                        hours++;
+                        Session.set('hours', hours);
+                        minutes = 0;
+                    }
+                    seconds = 0;
                 }
-                seconds = 0;
-            }
 
-            // add zero for single-digit seconds/minutes
-            if (seconds < 10) {
-                seconds = ('0' + seconds).slice(-2);
-            }
-            if (minutes < 10) {
-                minutes = ('0' + minutes).slice(-2);
-            }
+                // add zero for single-digit seconds/minutes
+                if (seconds < 10) {
+                    seconds = ('0' + seconds).slice(-2);
+                }
+                if (minutes < 10) {
+                    minutes = ('0' + minutes).slice(-2);
+                }
 
-            Session.set('duration', `${hours}:${minutes}:${seconds}`);
-        }, 1000);
+                Session.set('duration', `${hours}:${minutes}:${seconds}`);
+            }, 1000);
+            Session.set('timingInterval', interval)
+        }
+
+
+
     },
     'click [data-hook=track]': function(e) {
         const charName = $(e.target).attr('data-name');
@@ -177,46 +194,61 @@ Template.track.events({
         Session.set('type', type);
         Session.set('choosingType', false);
     },
+    'click [data-hook=add-roll]': function(e) {
+        submitRoll(function() {
+            Session.set('choosingAction', true);
+            Session.set('choosingType', true);
+            Session.set('action', '');
+            Session.set('type', '');
+        });
+    },
     'click [data-hook=submit-roll]': function(e) {
         Session.set('modal', false);
-
-        let charAttacks,
-            attack,
-            attackType;
-
-        if (Session.get('charAttacks')) {
-            charAttacks = Session.get('charAttacks');
-            attack = charAttacks.indexOf(Session.get('type'));
-            attackType = attack.type;
-        }
-
-        const roll = parseInt( $('[name=roll]').val() );
-        const success = $('[name=success]').val() === 'on' ? true : false;
-        const action = Session.get('action').toLowerCase();
-        const submission = {
-            character: Session.get('charName'),
-            roll: roll,
-            time: Session.get('trackTime')
-        };
-
-        if (action === 'check' || action === 'save') {
-            submission.type = Session.get('type');
-            submission.success = success;
-        } else if (action === 'attack') {
-            submission.name = Session.get('type');
-            submission.hit = success;
-            submission.lethal = lethal;
-            submission.type = attackType;
-        } else if (action === 'spell') {
-            submission.name = Session.get('type');
-            submission.success = success;
-        }
-
-        Meteor.call(action + 'Insert', submission, function(error, result) {
-            if (error) {
-                return throwError(error.reason);
-            }
-            mixpanel.track(Session.get('action') + " submit");
-        });
+        submitRoll();
     }
 });
+
+
+function submitRoll(callback) {
+    let charAttacks,
+        attack,
+        attackType;
+
+    if (Session.get('charAttacks')) {
+        charAttacks = Session.get('charAttacks');
+        attack = charAttacks.indexOf(Session.get('type'));
+        attackType = attack.type;
+    }
+
+    const roll = parseInt( $('[name=roll]').val() );
+    const success = $('[name=success]').val() === 'on' ? true : false;
+    const action = Session.get('action').toLowerCase();
+    const submission = {
+        character: Session.get('charName'),
+        roll: roll,
+        time: Session.get('trackTime')
+    };
+
+    if (action === 'check' || action === 'save') {
+        submission.type = Session.get('type');
+        submission.success = success;
+    } else if (action === 'attack') {
+        submission.name = Session.get('type');
+        submission.hit = success;
+        submission.lethal = lethal;
+        submission.type = attackType;
+    } else if (action === 'spell') {
+        submission.name = Session.get('type');
+        submission.success = success;
+    }
+
+    Meteor.call(action + 'Insert', submission, function(error, result) {
+        if (error) {
+            return throwError(error.reason);
+        }
+        mixpanel.track(Session.get('action') + " submit");
+        if (callback) {
+            callback();
+        }
+    });
+}

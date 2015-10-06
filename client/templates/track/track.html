@@ -21,31 +21,31 @@
             {{else}}
                 {{#if choosingType}}
                     {{#if actionIs 'check'}}
-                        <div class="button" data-hook="check" data-check="Acrobatics">Acrobatics</div>
-                        <div class="button" data-hook="check" data-check="Deception">Deception</div>
-                        <div class="button" data-hook="check" data-check="Dexterity">Dexterity</div>
-                        <div class="button" data-hook="check" data-check="Diplomacy">Diplomacy</div>
-                        <div class="button" data-hook="check" data-check="Intimidation">Intimidation</div>
-                        <div class="button" data-hook="check" data-check="Medicine">Medicine</div>
-                        <div class="button" data-hook="check" data-check="Perception">Perception</div>
-                        <div class="button" data-hook="check" data-check="Slight of Hand">Slight of Hand</div>
-                        <div class="button" data-hook="check" data-check="Survival">Survival</div>
-                        <div class="button" data-hook="check" data-check="Wisdom">Wisdom</div>
+                        <div class="button" data-hook="type" data-type="Acrobatics">Acrobatics</div>
+                        <div class="button" data-hook="type" data-type="Deception">Deception</div>
+                        <div class="button" data-hook="type" data-type="Dexterity">Dexterity</div>
+                        <div class="button" data-hook="type" data-type="Diplomacy">Diplomacy</div>
+                        <div class="button" data-hook="type" data-type="Intimidation">Intimidation</div>
+                        <div class="button" data-hook="type" data-type="Medicine">Medicine</div>
+                        <div class="button" data-hook="type" data-type="Perception">Perception</div>
+                        <div class="button" data-hook="type" data-type="Slight of Hand">Slight of Hand</div>
+                        <div class="button" data-hook="type" data-type="Survival">Survival</div>
+                        <div class="button" data-hook="type" data-type="Wisdom">Wisdom</div>
                     {{/if}}
                     {{#if actionIs 'save'}}
-                        <div class="button" data-hook="save" data-check="Acrobatics">Acrobatics</div>
-                        <div class="button" data-hook="save" data-check="Diplomacy">Constitution</div>
-                        <div class="button" data-hook="save" data-check="Dexterity">Dexterity</div>
-                        <div class="button" data-hook="save" data-check="Wisdom">Wisdom</div>
+                        <div class="button" data-hook="type" data-type="Acrobatics">Acrobatics</div>
+                        <div class="button" data-hook="type" data-type="Diplomacy">Constitution</div>
+                        <div class="button" data-hook="type" data-type="Dexterity">Dexterity</div>
+                        <div class="button" data-hook="type" data-type="Wisdom">Wisdom</div>
                     {{/if}}
                     {{#if actionIs 'attack'}}
                         {{#each charAttacks}}
-                            <div class="button" data-hook="attack" data-check="{{name}}">{{name}}</div>
+                            <div class="button" data-hook="type" data-type="{{name}}">{{name}}</div>
                         {{/each}}
                     {{/if}}
                     {{#if actionIs 'cast'}}
                         {{#each charSpells}}
-                            <div class="button" data-hook="cast" data-check="{{name}}">{{name}}</div>
+                            <div class="button" data-hook="type" data-type="{{name}}">{{name}}</div>
                         {{/each}}
                     {{/if}}
                 {{else}}
@@ -68,7 +68,8 @@
                             <label for="lethal">Lethal</label>
                             <input type="checkbox" id="lethal" name="lethal">
                         {{/if}}
-                        <a class="button" data-hook="submit-roll"><i class="fa fa-plus"></i></a>
+                        <a class="button" data-hook="add-roll"><i class="fa fa-plus"></i></a>
+                        <a class="button" data-hook="submit-roll">Submit</a>
                     </div>
                 {{/if}}
             {{/if}}
@@ -95,9 +96,13 @@
 
             {{#unless watching}}
                 <div class="row">
-                    <a class="button col-xs-6" data-hook="start-button">Start</a>
-
-                    <p class="col-xs-6">{{duration}}</p>
+                    <a class="button col-xs-12" data-hook="start-button">
+                        {{#unless timing}}
+                            Start
+                        {{else}}
+                            {{duration}}
+                        {{/unless}}
+                    </a>
                 </div>
             {{/unless}}
             {{#unless modal}}
