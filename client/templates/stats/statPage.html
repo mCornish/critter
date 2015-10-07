@@ -1,7 +1,9 @@
 <template name="statPage">
-    <h1>{{character.name}}</h1>
+    <div class="page">
+        <h1>{{character.name}}</h1>
 
-    {{#each attacks}}
-        <div>{{name}}</div>
-    {{/each}}
+        {{#each attacks}}
+            <div>{{name}}</div>
+        {{/each}}
+    </div>
 </template>

@@ -1,3 +1,58 @@
 <template name="watch">
+    <div class="page">
+        <div class="youtube-container {{videoClass}}">
+            <div id="js-yt" class="youtube-player" data-hook="youtube-player"></div>
+        </div>
 
+
+        <h1>Watch</h1>
+
+        {{#if choosing}}
+            <div class="row">
+                <a class="button col-xs-6" data-hook="watch-here">Watch Here</a>
+                <a class="button col-xs-6" data-hook="watch-else">Watch Elsewhere</a>
+            </div>
+        {{else}}
+            {{#unless tracking}}
+                <div class="row">
+                    <label for="episode">Which episode?</label>
+                    <select id="episode" name="episode">
+                        <option>Choose...</option>
+                        {{#each episodes}}
+                            <option value="{{number}}">Episode {{number}}: {{name}}</option>
+                        {{/each}}
+                    </select>
+                </div>
+            {{else}}
+                {{#if epContent}}
+                    <div class="watch__content row">
+                        {{#if contentTypeIs 'text'}}
+                            <h1>{{epContent.text}}</h1>
+                        {{/if}}
+                        {{#if contentTypeIs 'link'}}
+                            <h1>
+                                <a class="live-link" href="{{epContent.link}}" target="_blank">{{epContent.text}}</a>
+                            </h1>
+                        {{/if}}
+                        {{#if contentTypeIs 'tweet'}}
+                            <blockquote class="twitter-tweet" lang="en">
+                                <p lang="en" dir="ltr">
+                                    {{epContent.text}}
+                                </p>&mdash; {{epContent.from}} <a href="{{epContent.link}}"></a>
+                            </blockquote>
+                            <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+                        {{/if}}
+                        {{#if contentTypeIs 'yt'}}
+                            <iframe width="560" height="315"
+                                    src="https://www.youtube.com/embed/{{epContent.link}}" frameborder="0"
+                                    allowfullscreen></iframe>
+                        {{/if}}
+                        {{#if contentTypeIs 'image'}}
+                            <img class="col-xs-12" src="{{epContent.link}}"/>
+                        {{/if}}
+                    </div>
+                {{/if}}
+            {{/unless}}
+        {{/if}}
+    </div>
 </template>

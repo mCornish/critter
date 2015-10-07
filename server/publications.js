@@ -97,6 +97,21 @@ Meteor.publish('saves', function(queries, options) {
     return Checks.find(queries, options);
 });
 
+Meteor.publish('content', function(queries, options) {
+    queries = typeof queries !== 'undefined' ? queries : {};
+
+    if (options) {
+        check(options, {
+            sort: Object,
+            limit: Number
+        });
+    } else {
+        options = {};
+    }
+
+    return Content.find(queries, options);
+});
+
 Meteor.publish('comments', function(giftId) {
     check(giftId, String);
     return Comments.find({giftId: giftId});
