@@ -1,4 +1,4 @@
-Template.watch.onCreated(function() {
+Template.watch.onCreated(function () {
     Session.set('choosing', true);
     Session.set('tracking', false);
     Session.set('episode', null);
@@ -13,96 +13,88 @@ Template.watch.onCreated(function() {
 });
 
 Template.watch.helpers({
-    choosing: function() {
+    choosing: function () {
         return Session.get('choosing');
     },
-    watching: function() {
+    watching: function () {
         return Session.get('watching');
     },
-    tracking: function() {
+    tracking: function () {
         return Session.get('tracking');
     },
-    videoId: function() {
+    videoId: function () {
         return Session.get('videoId');
     },
-    duration: function() {
+    duration: function () {
         return Session.get('duration');
     },
-    videoClass: function() {
+    videoClass: function () {
         return Session.get('tracking') && Session.get('watching') ? '' : 'hidden';
     },
     // Controls start button text
-    timing: function() {
+    timing: function () {
         return Session.get('timing');
     },
-    epContent: function() {
+    epContent: function () {
         return Session.get('epContent');
     },
-    contentTypeIs: function(type) {
+    contentTypeIs: function (type) {
         return type === Session.get('contentType');
     }
 });
 
 Template.watch.events({
-    'click [data-hook=watch-here]': function() {
+    'click [data-hook=watch-here]': function () {
         Session.set('choosing', false);
         Session.set('watching', true);
     },
-    'click [data-hook=watch-else]': function() {
+    'click [data-hook=watch-else]': function () {
         Session.set('choosing', false);
         Session.set('watching', false);
     },
-    'change [name=episode]': function(e) {
-        const episodeNum = parseInt( $(e.target).val() );
+    'change [name=episode]': function (e) {
+        const episodeNum = parseInt($(e.target).val());
         const episode = Episodes.findOne({number: episodeNum});
         const contentCursor = Content.find({episode: episodeNum}, {$sort: {hour: -1, minute: -1, second: -1}})
-        const content = contentCursor.fetch();
-        const times = _.pluck(content, 'time');
-        console.log(times);
+        let content = contentCursor.fetch();
+        let times = _.pluck(content, 'time');
 
-        let cHour = times[0].hour,
-            cMinute = times[0].minute,
-            cSecond = times[0].second;
+        let cHourToSec = times[0].hour * 3600,
+            cMinToSec = times[0].minute * 60,
+            cSec = times[0].second,
+            cTotSec = cHourToSec + cMinToSec + cSec;
 
         Session.set('episode', episodeNum);
         Session.set('cast', episode.cast);
         Session.set('videoId', episode.videoId);
         Session.set('tracking', true);
 
-        if(Session.get('watching')) {
+
+        if (Session.get('watching')) {
             // Used ID because jQuery select wasn't working
             const ytEl = document.getElementById('js-yt');
-            const player = youtube({ el:ytEl, id:episode.videoId });
+            const player = youtube({el: ytEl, id: episode.videoId});
 
-            const ytInterval = setInterval(function() {
-                let totalSeconds = player.currentTime;
+            player.on('timeupdate', _.throttle(function () {
+                let totalSeconds = Math.floor(player.currentTime);
                 const hours = Math.floor(totalSeconds / 3600);
                 totalSeconds %= 3600;
                 let minutes = Math.floor(totalSeconds / 60);
                 let seconds = Math.floor(totalSeconds % 60);
+                console.log(totalSeconds + ' ' + cTotSec);
 
-                while(cHour < hours - 1 || cMinute < minutes - 1 || cSecond < seconds - 1) {
-                    times.shift();
-                    content.shift();
-                    if (times.length) {
-                        cHour = times[0].hour;
-                        cMinute = times[0].minute;
-                        cSecond = times[0].second;
-                    }
-                }
-
-                if (cHour === hours && cMinute === minutes && cSecond === seconds) {
-                    console.log('GO!');
+                console.log(content[0]);
+                if (cTotSec === totalSeconds && !Session.get('resetting')) {
                     Session.set('epContent', content[0]);
-                    console.log(content[0]);
                     Session.set('contentType', content[0].type);
                     // Remove first item from times & content, and reset times
                     times.shift();
                     content.shift();
                     if (times.length) {
-                        cHour = times[0].hour;
-                        cMinute = times[0].minute;
-                        cSecond = times[0].second;
+                        cHourToSec = times[0].hour * 3600;
+                        cMinToSec = times[0].minute * 60;
+                        cSec = times[0].second;
+                        cTotSec = cHourToSec + cMinToSec + cSec;
                     }
                 }
 
@@ -119,7 +111,50 @@ Template.watch.events({
                 }
 
                 Session.set('duration', `${hours}:${minutes}:${seconds}`);
-            }, 1000);
+            }, 500));
+
+            player.on('play', function (e) {
+                Session.set('resetting', true);
+                console.log('reset');
+                // Reset and update content and times after scrubbing.
+                content = contentCursor.fetch();
+                times = _.pluck(content, 'time');
+
+                cHourToSec = times[0].hour * 3600;
+                cMinToSec = times[0].minute * 60;
+                cSec = times[0].second;
+                cTotSec = cHourToSec + cMinToSec + cSec;
+
+                let totalSeconds = Math.floor(player.currentTime);
+                const hours = Math.floor(totalSeconds / 3600);
+                totalSeconds %= 3600;
+                let minutes = Math.floor(totalSeconds / 60);
+                let seconds = Math.floor(totalSeconds % 60);
+
+                //times.forEach(function(time) {
+                //    if (time.)
+                //});
+
+                while (cTotSec < totalSeconds) {
+                    console.log(content);
+                    if (times.length > 1) {
+                        times.shift();
+                        content.shift();
+                        cHourToSec = times[0].hour * 3600;
+                        cMinToSec = times[0].minute * 60;
+                        cSec = times[0].second;
+                        cTotSec = cHourToSec + cMinToSec + cSec;
+                    } else {
+                        break;
+                    }
+                }
+                Session.set('resetting', false);
+            })
+
         }
     }
 });
+
+function timeYoutube() {
+
+}
