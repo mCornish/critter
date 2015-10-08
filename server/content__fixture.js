@@ -50,7 +50,7 @@ if (Content.find().count() === 0) {
     Content.insert({
         episode: 1,
         type: 'image',  // text, link, tweet, yt, image
-        link: '/public/images/dm.jpg',  // link url, yt video url
+        link: '/images/dm.jpg',  // link url, yt video url
         time: {
             hour: 0,
             minute: 0,

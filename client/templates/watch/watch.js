@@ -75,22 +75,22 @@ Template.watch.events({
             const ytEl = document.getElementById('js-yt');
             const player = youtube({el: ytEl, id: episode.videoId});
 
+            // Keep track of content and play at correct time
             player.on('timeupdate', _.throttle(function () {
                 let totalSeconds = Math.floor(player.currentTime);
                 const hours = Math.floor(totalSeconds / 3600);
                 totalSeconds %= 3600;
                 let minutes = Math.floor(totalSeconds / 60);
                 let seconds = Math.floor(totalSeconds % 60);
-                console.log(totalSeconds + ' ' + cTotSec);
 
-                console.log(content[0]);
                 if (cTotSec === totalSeconds && !Session.get('resetting')) {
+                    $('iframe.twitter-tweet').remove();
                     Session.set('epContent', content[0]);
                     Session.set('contentType', content[0].type);
                     // Remove first item from times & content, and reset times
-                    times.shift();
-                    content.shift();
-                    if (times.length) {
+                    if (times.length > 1) {
+                        times.shift();
+                        content.shift();
                         cHourToSec = times[0].hour * 3600;
                         cMinToSec = times[0].minute * 60;
                         cSec = times[0].second;
@@ -113,6 +113,7 @@ Template.watch.events({
                 Session.set('duration', `${hours}:${minutes}:${seconds}`);
             }, 500));
 
+            // Reset and update content on scrub/play
             player.on('play', function (e) {
                 Session.set('resetting', true);
                 console.log('reset');
