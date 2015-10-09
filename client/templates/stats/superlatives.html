@@ -2,5 +2,18 @@
     <div class="page">
         <h1>Superlatives</h1>
 
+        <h2>Most Kills</h2>
+        <ol class="list">
+            {{#each mostKills}}
+                <li>{{name}}: {{gameStats.killCount}}</li>
+            {{/each}}
+        </ol>
+
+        <h2>Most Times Unconscious</h2>
+        <ol class="list">
+            {{#each mostKOs}}
+                <li>{{name}}: {{gameStats.koCount}}</li>
+            {{/each}}
+        </ol>
     </div>
 </template>

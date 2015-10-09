@@ -7,7 +7,7 @@ if (Characters.find().count() === 0) {
         race: 'Goliath',
         class: 'Barbarian',
         homeland: '',
-        stats: {
+        charStats: {
             level: 11,
             charisma: 13,
             constitution: 18,
@@ -38,6 +38,10 @@ if (Characters.find().count() === 0) {
                 type: 'Normal'
             }
         ],
+        gameStats: {
+            killCount: 22,
+            koCount: 5
+        },
         imageURL: '/images/grog.png',
         submitted: new Date(),
         live: false
@@ -51,7 +55,7 @@ if (Characters.find().count() === 0) {
         race: 'Half-elf',
         class: 'Druid',
         homeland: "",
-        stats: {
+        charStats: {
             level: 11,
             charisma: 10,
             constitution: 14,
@@ -105,6 +109,10 @@ if (Characters.find().count() === 0) {
                 dicePerLev: 8
             }
         ],
+        gameStats: {
+            killCount: 10,
+            koCount: 0
+        },
         imageURL: '/images/keyleth.png',
         submitted: new Date(),
         live: false
@@ -118,7 +126,7 @@ if (Characters.find().count() === 0) {
         race: 'Human',
         class: 'Gunslinger',
         homeland: 'Whitestone',
-        stats: {
+        charStats: {
             level: 11,
             charisma: 14,
             constitution: 14,
@@ -149,6 +157,10 @@ if (Characters.find().count() === 0) {
                 type: 'Normal'
             }
         ],
+        gameStats: {
+            killCount: 43,
+            koCount: 1
+        },
         imageURL: '/images/percy.png',
         submitted: new Date(),
         live: false
@@ -162,7 +174,7 @@ if (Characters.find().count() === 0) {
         race: 'Gnome',
         class: 'Cleric',
         homeland: '',
-        stats: {
+        charStats: {
             level: 10,
             charisma: 14,
             constitution: 12,
@@ -216,6 +228,10 @@ if (Characters.find().count() === 0) {
                 dicePerLev: 8
             }
         ],
+        gameStats: {
+            killCount: 5,
+            koCount: 2
+        },
         imageURL: '/images/pike.png',
         submitted: new Date(),
         live: false
@@ -229,7 +245,7 @@ if (Characters.find().count() === 0) {
         race: 'Gnome',
         class: 'Bard',
         homeland: '',
-        stats: {
+        charStats: {
             level: 11,
             charisma: 20,
             constitution: 15,
@@ -283,6 +299,10 @@ if (Characters.find().count() === 0) {
                 dicePerLev: 8
             }
         ],
+        gameStats: {
+            killCount: 22,
+            koCount: 2,
+        },
         imageURL: '/images/scanlan.png',
         submitted: new Date(),
         live: false
@@ -296,7 +316,7 @@ if (Characters.find().count() === 0) {
         race: 'Dragonborn',
         class: 'Sorcerer',
         homeland: "Ty'rex, Draconia",
-        stats: {
+        charStats: {
             level: 11,
             charisma: 20,
             constitution: 16,
@@ -350,6 +370,10 @@ if (Characters.find().count() === 0) {
                 dicePerLev: 8
             }
         ],
+        gameStats: {
+            killCount: 50,
+            koCount: 1,
+        },
         imageURL: '/images/tiberius.png',
         submitted: new Date(),
         live: false
@@ -363,7 +387,7 @@ if (Characters.find().count() === 0) {
         race: 'Half-elf',
         class: 'Rogue',
         homeland: "",
-        stats: {
+        charStats: {
             level: 11,
             charisma: 14,
             constitution: 10,
@@ -394,6 +418,10 @@ if (Characters.find().count() === 0) {
                 type: 'Normal'
             }
         ],
+        gameStats: {
+            killCount: 68,
+            koCount: 4
+        },
         imageURL: '/images/vax.png',
         submitted: new Date(),
         live: false
@@ -407,7 +435,7 @@ if (Characters.find().count() === 0) {
         race: 'Half-elf',
         class: 'Ranger',
         homeland: "",
-        stats: {
+        charStats: {
             level: 11,
             charisma: 17,
             constitution: 10,
@@ -461,6 +489,10 @@ if (Characters.find().count() === 0) {
                 dicePerLev: 8
             }
         ],
+        gameStats: {
+            killCount: 45,
+            koCount: 1
+        },
         imageURL: '/images/vex.png',
         submitted: new Date(),
         live: false
