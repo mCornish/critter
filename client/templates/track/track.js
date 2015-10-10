@@ -266,14 +266,14 @@ function submitRoll(callback) {
 
    const statExists = Stats.findOne(stat);
 
-    if (statExist) {
+    if (statExists) {
         Meteor.call('updateStat', stat, roll, function(error) {
             if (error) {
                 return throwError(error.reason);
             }
         });
     } else {
-        _.extend('stat', {
+        _.extend(stat, {
             value: roll,
             valueCount: 1
         });
