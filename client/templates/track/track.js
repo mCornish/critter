@@ -215,20 +215,11 @@ function submitRoll(callback) {
         attackType;
     const character = Characters.findOne({name: Session.get('charName')});
     const charId = character._id;
-
-    if (Session.get('charAttacks')) {
-        charAttacks = Session.get('charAttacks');
-        const attackName = Session.get('type');
-        attack = _.find(charAttacks, function(item) {
-            return item.name === attackName;
-        });
-        attackType = attack.type;
-    }
-
     const roll = parseInt( $('[name=roll]').val() );
     const success = $('[name=success]').val() === 'on' ? true : false;
     const lethal = $('[name=lethal]').val() === 'on' ? true : false;
     const action = Session.get('action').toLowerCase();
+
     const submission = {
         character: charId,
         roll: roll,
@@ -239,6 +230,14 @@ function submitRoll(callback) {
         submission.type = Session.get('type');
         submission.success = success;
     } else if (action === 'attack') {
+        // get attackType
+        charAttacks = Session.get('charAttacks');
+        const attackName = Session.get('type');
+        attack = _.find(charAttacks, function(item) {
+            return item.name === attackName;
+        });
+        attackType = attack.type;
+
         submission.name = Session.get('type');
         submission.hit = success;
         submission.lethal = lethal;
@@ -257,4 +256,27 @@ function submitRoll(callback) {
             callback();
         }
     });
+
+    const stat = {
+        action: action,
+        name: Session.get('type').toLowerCase(),
+        character: Session.get('charName').toLowerCase(),
+        episode: Session.get('episode')
+    };
+
+   const statExists = Stats.findOne(stat);
+
+    if (statExist) {
+        Meteor.call('updateStat', stat, roll, function(error) {
+            if (error) {
+                return throwError(error.reason);
+            }
+        });
+    } else {
+        _.extend('stat', {
+            value: roll,
+            valueCount: 1
+        });
+        Meteor.call('statInsert', stat);
+    }
 }

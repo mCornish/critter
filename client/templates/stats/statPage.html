@@ -2,8 +2,10 @@
     <div class="page">
         <h1>{{character.name}}</h1>
 
-        {{#each attacks}}
-            <div>{{name}}</div>
+        {{#each stats}}
+            <ul>
+                <li>{{name}}: {{value}}</li>
+            </ul>
         {{/each}}
     </div>
 </template>

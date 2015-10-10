@@ -21,41 +21,61 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="router.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="router.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lib/router.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.23415978">
-              <caret line="74" column="68" selection-start-line="74" selection-start-column="68" selection-end-line="74" selection-end-column="68" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="30" column="66" selection-start-line="30" selection-start-column="66" selection-end-line="30" selection-end-column="66" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="superlatives.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/templates/stats/superlatives.html">
+      <file leaf-file-name="track.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/templates/track/track.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-4.375">
-              <caret line="7" column="42" selection-start-line="7" selection-start-column="42" selection-end-line="7" selection-end-column="42" />
+            <state vertical-scroll-proportion="-7.0">
+              <caret line="27" column="53" selection-start-line="27" selection-start-column="53" selection-end-line="27" selection-end-column="53" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="superlatives.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/templates/stats/superlatives.js">
+      <file leaf-file-name="track.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/client/templates/track/track.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.88980716">
+              <caret line="279" column="40" selection-start-line="279" selection-start-column="40" selection-end-line="279" selection-end-column="40" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="stats_fixture.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/server/stats_fixture.js">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="4" column="31" selection-start-line="4" selection-start-column="31" selection-end-line="4" selection-end-column="31" />
+              <caret line="20" column="7" selection-start-line="20" selection-start-column="7" selection-end-line="20" selection-end-column="7" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="characters_fixture.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/server/characters_fixture.js">
+      <file leaf-file-name="stats.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/lib/collections/stats.js">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="17" column="10" selection-start-line="17" selection-start-column="10" selection-end-line="17" selection-end-column="10" />
+              <caret line="76" column="56" selection-start-line="76" selection-start-column="56" selection-end-line="76" selection-end-column="56" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="gifts.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/lib/collections/gifts.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="84" column="37" selection-start-line="84" selection-start-column="37" selection-end-line="84" selection-end-column="37" />
               <folding />
             </state>
           </provider>
@@ -117,12 +137,9 @@
         <option value="$PROJECT_DIR$/lib/collections/casts.js" />
         <option value="$PROJECT_DIR$/client/templates/stats/stats.html" />
         <option value="$PROJECT_DIR$/lib/collections/attacks.js" />
-        <option value="$PROJECT_DIR$/client/templates/track/track.js" />
         <option value="$PROJECT_DIR$/client/templates/stats/teamStats.html" />
-        <option value="$PROJECT_DIR$/client/templates/stats/statPage.html" />
         <option value="$PROJECT_DIR$/client/templates/track/track.html" />
         <option value="$PROJECT_DIR$/server/episodes_fixture.js" />
-        <option value="$PROJECT_DIR$/server/publications.js" />
         <option value="$PROJECT_DIR$/lib/collections/content.js" />
         <option value="$PROJECT_DIR$/client/templates/companion/companion.html" />
         <option value="$PROJECT_DIR$/client/templates/watch/watch.html" />
@@ -131,7 +148,13 @@
         <option value="$PROJECT_DIR$/client/templates/stats/superlatives.js" />
         <option value="$PROJECT_DIR$/server/characters_fixture.js" />
         <option value="$PROJECT_DIR$/client/templates/stats/superlatives.html" />
+        <option value="$PROJECT_DIR$/lib/collections/averages.js" />
+        <option value="$PROJECT_DIR$/server/publications.js" />
+        <option value="$PROJECT_DIR$/lib/collections/stats.js" />
         <option value="$PROJECT_DIR$/lib/router.js" />
+        <option value="$PROJECT_DIR$/client/templates/stats/statPage.html" />
+        <option value="$PROJECT_DIR$/server/stats_fixture.js" />
+        <option value="$PROJECT_DIR$/client/templates/track/track.js" />
       </list>
     </option>
   </component>
@@ -282,10 +305,6 @@
               <option name="myItemId" value="templates" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="watch" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -302,6 +321,10 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="templates" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="track" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -324,72 +347,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="stats" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="critter" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="critter" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="client" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="templates" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="gifts" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="critter" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="critter" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="client" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="templates" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="companion" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="critter" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="critter" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="client" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="templates" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="admin" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -442,6 +399,7 @@
     <property name="js.meteor.library.was.enabled" value="true" />
     <property name="JavaScriptLanguageLevel" value="ES6" />
     <property name="jsx.switch.disabled" value="true" />
+    <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file:///Users/mikecornish/critter/lib/collections/stats.js" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -573,21 +531,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/server/recipients.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="152" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/templates/application/layout.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.014084507">
-          <caret line="1" column="4" selection-start-line="1" selection-start-column="4" selection-end-line="1" selection-end-column="4" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/templates/gifts/gifts_list.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.3922925">
@@ -613,13 +556,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.13774104">
           <caret line="10" column="3" selection-start-line="10" selection-start-column="3" selection-end-line="10" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/collections/gifts.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="77" column="9" selection-start-line="64" selection-start-column="8" selection-end-line="77" selection-end-column="9" />
         </state>
       </provider>
     </entry>
@@ -724,6 +660,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-5.625">
           <caret line="9" column="74" selection-start-line="9" selection-start-column="74" selection-end-line="9" selection-end-column="74" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -755,20 +692,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/templates/stats/statPage.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/templates/stats/stats.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.2535211">
-          <caret line="18" column="60" selection-start-line="18" selection-start-column="60" selection-end-line="18" selection-end-column="60" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/templates/stats/teamStats.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -780,27 +703,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-4.375">
           <caret line="7" column="10" selection-start-line="0" selection-start-column="0" selection-end-line="8" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/templates/stats/statPage.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.09859155">
-          <caret line="7" column="10" selection-start-line="0" selection-start-column="0" selection-end-line="8" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/templates/track/track.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-43.125">
-          <caret line="122" column="10" selection-start-line="1" selection-start-column="4" selection-end-line="122" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/templates/track/track.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="1" column="4" selection-start-line="1" selection-start-column="4" selection-end-line="17" selection-end-column="28" />
         </state>
       </provider>
     </entry>
@@ -840,13 +742,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/server/publications.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.73829204">
-          <caret line="111" column="18" selection-start-line="111" selection-start-column="18" selection-end-line="111" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/server/attacks_fixture.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.2754821">
@@ -883,14 +778,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/collections/characters.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.87603307">
-          <caret line="79" column="14" selection-start-line="79" selection-start-column="14" selection-end-line="79" selection-end-column="14" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/templates/watch/watch.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.38016528">
@@ -915,14 +802,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/templates/stats/superlatives.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-4.375">
-          <caret line="7" column="42" selection-start-line="7" selection-start-column="42" selection-end-line="7" selection-end-column="42" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/templates/stats/superlatives.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -931,18 +810,106 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/client/templates/stats/superlatives.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.09859155">
+          <caret line="7" column="42" selection-start-line="7" selection-start-column="42" selection-end-line="7" selection-end-column="42" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/publications.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.54545456">
+          <caret line="111" column="38" selection-start-line="111" selection-start-column="38" selection-end-line="111" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/collections/characters.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.87603307">
+          <caret line="79" column="14" selection-start-line="79" selection-start-column="14" selection-end-line="79" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/server/characters_fixture.js">
       <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.45454547">
+          <caret line="33" column="37" selection-start-line="0" selection-start-column="0" selection-end-line="500" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/templates/stats/stats.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.2535211">
+          <caret line="18" column="60" selection-start-line="18" selection-start-column="60" selection-end-line="18" selection-end-column="60" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/templates/stats/statPage.js">
+      <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="17" column="10" selection-start-line="17" selection-start-column="10" selection-end-line="17" selection-end-column="10" />
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/templates/stats/statPage.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.07042254">
+          <caret line="5" column="16" selection-start-line="5" selection-start-column="16" selection-end-line="5" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/stats_fixture.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="20" column="7" selection-start-line="20" selection-start-column="7" selection-end-line="20" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/templates/track/track.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-7.0">
+          <caret line="27" column="53" selection-start-line="27" selection-start-column="53" selection-end-line="27" selection-end-column="53" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/router.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.23415978">
-          <caret line="74" column="68" selection-start-line="74" selection-start-column="68" selection-end-line="74" selection-end-column="68" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="30" column="66" selection-start-line="30" selection-start-column="66" selection-end-line="30" selection-end-column="66" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/collections/gifts.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="84" column="37" selection-start-line="84" selection-start-column="37" selection-end-line="84" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/collections/stats.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="76" column="56" selection-start-line="76" selection-start-column="56" selection-end-line="76" selection-end-column="56" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/templates/track/track.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.88980716">
+          <caret line="279" column="40" selection-start-line="279" selection-start-column="40" selection-end-line="279" selection-end-column="40" />
           <folding />
         </state>
       </provider>
