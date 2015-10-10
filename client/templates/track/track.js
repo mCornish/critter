@@ -1,4 +1,4 @@
-Template.track.onCreated(function() {
+Template.track.onCreated(function () {
     Session.set('choosing', true);
     Session.set('tracking', false);
     Session.set('episode', null);
@@ -19,73 +19,73 @@ Template.track.onCreated(function() {
 });
 
 Template.track.helpers({
-    choosing: function() {
+    choosing: function () {
         return Session.get('choosing');
     },
-    watching: function() {
+    watching: function () {
         return Session.get('watching');
     },
-    tracking: function() {
+    tracking: function () {
         return Session.get('tracking');
     },
-    activeChars: function() {
+    activeChars: function () {
         if (Session.get('cast')) {
-            return Characters.find({name: {$in: Session.get('cast')} });
+            return Characters.find({name: {$in: Session.get('cast')}});
         }
     },
-    videoId: function() {
+    videoId: function () {
         return Session.get('videoId');
     },
-    duration: function() {
+    duration: function () {
         return Session.get('duration');
     },
-    modal: function() {
+    modal: function () {
         return Session.get('modal');
     },
-    choosingAction: function() {
+    choosingAction: function () {
         return Session.get('choosingAction');
     },
-    choosingType: function() {
+    choosingType: function () {
         return Session.get('choosingType');
     },
-    charName: function() {
+    charName: function () {
         return Session.get('charName');
     },
-    action: function() {
+    action: function () {
         return Session.get('action');
     },
-    type: function() {
+    type: function () {
         return Session.get('type');
     },
-    videoClass: function() {
+    videoClass: function () {
         return Session.get('tracking') && Session.get('watching') ? '' : 'hidden';
     },
-    actionIs: function(action) {
+    actionIs: function (action) {
         return action === Session.get('action').toLowerCase();
     },
-    charAttacks: function() {
+    charAttacks: function () {
         return Session.get('charAttacks');
     },
-    charSpells: function() {
+    charSpells: function () {
         return Session.get('charSpells');
     },
     // Controls start button text
-    timing: function() {
+    timing: function () {
         return Session.get('timing');
     }
 });
 
 Template.track.events({
-    'click [data-hook=watch-here]': function() {
+    'click [data-hook=watch-here]': function () {
         Session.set('choosing', false);
         Session.set('watching', true);
     },
-    'click [data-hook=watch-else]': function() {
+    'click [data-hook=watch-else]': function () {
         Session.set('choosing', false);
         Session.set('watching', false);
     },
-    'change [name=episode]': function(e) {
-        const episodeNum = parseInt( $(e.target).val() );
+    'change [name=episode]': function (e) {
+        const episodeNum = parseInt($(e.target).val());
         const episode = Episodes.findOne({number: episodeNum});
 
         Session.set('episode', episodeNum);
@@ -93,12 +93,12 @@ Template.track.events({
         Session.set('videoId', episode.videoId);
         Session.set('tracking', true);
 
-        if(Session.get('watching')) {
+        if (Session.get('watching')) {
             // Used ID because jQuery select wasn't working
             const ytEl = document.getElementById('js-yt');
-            const player = youtube({ el:ytEl, id:episode.videoId });
+            const player = youtube({el: ytEl, id: episode.videoId});
 
-            const ytInterval = setInterval(function() {
+            const ytInterval = setInterval(function () {
                 let totalSeconds = player.currentTime;
                 const hours = Math.floor(totalSeconds / 3600);
                 totalSeconds %= 3600;
@@ -121,7 +121,7 @@ Template.track.events({
             }, 1000);
         }
     },
-    'click [data-hook=start-button]': function(e) {
+    'click [data-hook=start-button]': function (e) {
         e.preventDefault();
 
         const timing = Session.get('timing');
@@ -164,9 +164,8 @@ Template.track.events({
         }
 
 
-
     },
-    'click [data-hook=track]': function(e) {
+    'click [data-hook=track]': function (e) {
         const charName = $(e.target).attr('data-name');
         const character = Characters.findOne({name: charName});
 
@@ -179,30 +178,30 @@ Template.track.events({
             second: Session.get('seconds')
         });
         Session.set('charAttacks', character.attacks);
-        if(character.spells) {
+        if (character.spells) {
             Session.set('charSpells', character.spells);
         }
     },
-    'click [data-hook=action]': function(e) {
+    'click [data-hook=action]': function (e) {
         const action = $(e.target).attr('data-action');
         Session.set('action', action);
         Session.set('choosingAction', false);
         Session.set('choosingType', true);
     },
-    'click [data-hook=type]': function(e) {
+    'click [data-hook=type]': function (e) {
         const type = $(e.target).attr('data-type');
         Session.set('type', type);
         Session.set('choosingType', false);
     },
-    'click [data-hook=add-roll]': function(e) {
-        submitRoll(function() {
+    'click [data-hook=add-roll]': function (e) {
+        submitRoll(function () {
             Session.set('choosingAction', true);
             Session.set('choosingType', true);
             Session.set('action', '');
             Session.set('type', '');
         });
     },
-    'click [data-hook=submit-roll]': function(e) {
+    'click [data-hook=submit-roll]': function (e) {
         Session.set('modal', false);
         submitRoll();
     }
@@ -215,10 +214,18 @@ function submitRoll(callback) {
         attackType;
     const character = Characters.findOne({name: Session.get('charName')});
     const charId = character._id;
-    const roll = parseInt( $('[name=roll]').val() );
-    const success = $('[name=success]').val() === 'on' ? true : false;
-    const lethal = $('[name=lethal]').val() === 'on' ? true : false;
+    const roll = parseInt($('[name=roll]').val());
+    const success = $('[name=success]').checked ? true : false;
     const action = Session.get('action').toLowerCase();
+    let lethal, lethalCount;
+
+    if (action === 'attack') {
+        lethal = $('[name=lethal]').val() === 'on' ? true : false;
+        lethalCount = 1;
+    } else {
+        lethal = null;
+        lethalCount = null;
+    }
 
     const submission = {
         character: charId,
@@ -233,7 +240,7 @@ function submitRoll(callback) {
         // get attackType
         charAttacks = Session.get('charAttacks');
         const attackName = Session.get('type');
-        attack = _.find(charAttacks, function(item) {
+        attack = _.find(charAttacks, function (item) {
             return item.name === attackName;
         });
         attackType = attack.type;
@@ -247,7 +254,8 @@ function submitRoll(callback) {
         submission.success = success;
     }
 
-    Meteor.call(action + 'Insert', submission, function(error, result) {
+    // create a new object for the action
+    Meteor.call(action + 'Insert', submission, function (error, result) {
         if (error) {
             return throwError(error.reason);
         }
@@ -264,19 +272,31 @@ function submitRoll(callback) {
         episode: Session.get('episode')
     };
 
-   const statExists = Stats.findOne(stat);
+    const statExists = Stats.findOne(stat);
 
     if (statExists) {
-        Meteor.call('updateStat', stat, roll, function(error) {
+        // update the existing stat
+        Meteor.call('updateStat', stat, roll, success, lethal, function (error) {
             if (error) {
                 return throwError(error.reason);
             }
         });
     } else {
+        // create a new stat
+        const succVal = success ? 1 : 0;
         _.extend(stat, {
             value: roll,
-            valueCount: 1
+            valueCount: 1,
+            success: succVal,
+            successCount: 1
         });
+        if (action === 'attack') {
+            const lethalVal = lethal ? 1 : 0;
+            _.extend(stat, {
+                lethal: lethalVal,
+                lethalCount: lethalCount
+            });
+        }
         Meteor.call('statInsert', stat);
     }
 }

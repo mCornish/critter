@@ -2,9 +2,17 @@
     <div class="page">
         <h1>{{character.name}}</h1>
 
+        <h2>Rolls</h2>
         {{#each stats}}
             <ul>
                 <li>{{name}}: {{value}}</li>
+            </ul>
+        {{/each}}
+
+        <h2>Successes</h2>
+        {{#each stats}}
+            <ul>
+                <li>{{name}}: {{success}}</li>
             </ul>
         {{/each}}
     </div>
