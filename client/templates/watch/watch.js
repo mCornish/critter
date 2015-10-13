@@ -10,6 +10,10 @@ Template.watch.onCreated(function () {
     Session.set('hours', 0);
     Session.set('contentType', null);
     Session.set('epContent', null);
+    Session.set('contentActive', false);
+    Session.set('infoActive', false);
+    Session.set('detailActive', false);
+    Session.set('character', null);
 });
 
 Template.watch.helpers({
@@ -40,6 +44,22 @@ Template.watch.helpers({
     },
     contentTypeIs: function (type) {
         return type === Session.get('contentType');
+    },
+    contentActive: function () {
+        return Session.get('contentActive');
+    },
+    infoActive: function () {
+        return Session.get('infoActive');
+    },
+    detailActive: function () {
+        return Session.get('detailActive');
+    },
+    character: function () {
+        return Session.get('character');
+    },
+    detailClass: function (name) {
+        const activeName = Session.get('charName');
+        return name === activeName ? 'is-active' : '';
     }
 });
 
@@ -153,9 +173,19 @@ Template.watch.events({
             })
 
         }
+    },
+    'click [data-hook=content-button]': function() {
+        Session.set('contentActive', true);
+        Session.set('infoActive', false);
+    },
+    'click [data-hook=info-button]': function() {
+        Session.set('infoActive', true);
+        Session.set('contentActive', false);
+    },
+    'click [data-hook=detail-button]': function(e) {
+        const charName = $(e.target).attr('data-name');
+        Session.set('detailActive', true);
+        const character = Characters.findOne({name: charName});
+        Session.set('character', character);
     }
 });
-
-function timeYoutube() {
-
-}

@@ -220,7 +220,7 @@ function submitRoll(callback) {
     let lethal, lethalCount;
 
     if (action === 'attack') {
-        lethal = $('[name=lethal]').val() === 'on' ? true : false;
+        lethal = $('[name=lethal]').checked ? true : false;
         lethalCount = 1;
     } else {
         lethal = null;

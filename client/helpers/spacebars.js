@@ -28,3 +28,15 @@ Template.registerHelper('getGenerosityLevel', function(generosity) {
         return 'Giver'
     }
 });
+
+// turn object into array to allow looping
+Template.registerHelper('arrayify', function(obj) {
+    const result = [];
+    for (var key in obj) {
+        result.push({
+            key: key,
+            value: obj[key]
+        });
+    }
+    return result;
+});

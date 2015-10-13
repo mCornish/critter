@@ -1,0 +1,5 @@
+<template name="charList">
+    {{#each characters}}
+        <a class="button" href="{{pathFor 'charPage'}}">{{name}}</a>
+    {{/each}}
+</template>

@@ -18,24 +18,23 @@ if (Characters.find().count() === 0) {
         },
         attacks: [
             {
-                name: 'Call Lightning',
+                name: 'Fist',
                 diceNum: 3,
                 diceVal: 6,
-                type: 'Electricity'
+                type: 'Regular'
             },
             {
-                name: 'Thunder Wave',
+                name: 'Axe',
+                diceNum: 3,
+                diceVal: 6,
+                type: 'Regular'
+            },
+            {
+                name: 'Hammer',
                 diceNum: 2,
                 diceVal: 8,
                 dicePerLev: 1,
-                type: 'Normal'
-            },
-            {
-                name: 'Thunder Wave',
-                diceNum: 2,
-                diceVal: 8,
-                dicePerLev: 1,
-                type: 'Normal'
+                type: 'Regular'
             }
         ],
         gameStats: {
@@ -88,7 +87,58 @@ if (Characters.find().count() === 0) {
         ],
         spells: [
             {
-                name: 'Wind Wall'
+                name: 'Alter Self'
+            },
+            {
+                name: 'Beast Sense'
+            },
+            {
+                name: 'Bull Strength'
+            },
+            {
+                name: 'Commune with Nature'
+            },
+            {
+                name: 'Control Water'
+            },
+            {
+                name: 'Enhace Ability'
+            },
+            {
+                name: 'Entangle'
+            },
+            {
+                name: 'Fog Cloud'
+            },
+            {
+                name: 'Geas'
+            },
+            {
+                name: 'Grasping Vine'
+            },
+            {
+                name: 'Heat Metal'
+            },
+            {
+                name: 'Hold Person'
+            },
+            {
+                name: 'Illusionary Terrain'
+            },
+            {
+                name: 'Light'
+            },
+            {
+                name: 'Pass Without a Trace'
+            },
+            {
+                name: 'Polymorph Creature'
+            },
+            {
+                name: 'Scrying'
+            },
+            {
+                name: 'Speak with Animals'
             },
             {
                 name: 'Stone Shape'
@@ -100,8 +150,10 @@ if (Characters.find().count() === 0) {
                 name: 'Wall of Stone'
             },
             {
-                name: 'Control Water'
-            },
+                name: 'Wind Wall'
+            }
+        ],
+        heals: [
             {
                 name: 'Cure Wounds',
                 diceNum: 1,
@@ -137,20 +189,19 @@ if (Characters.find().count() === 0) {
         },
         attacks: [
             {
-                name: 'Call Lightning',
+                name: 'Fire Shot',
                 diceNum: 3,
                 diceVal: 6,
-                type: 'Electricity'
+                type: 'Ice'
             },
             {
-                name: 'Thunder Wave',
+                name: 'Fire Shot',
                 diceNum: 2,
                 diceVal: 8,
-                dicePerLev: 1,
-                type: 'Normal'
+                type: 'Fire'
             },
             {
-                name: 'Thunder Wave',
+                name: 'Head Shot',
                 diceNum: 2,
                 diceVal: 8,
                 dicePerLev: 1,

@@ -40,3 +40,5 @@ twbs:bootstrap
 mrt:jquery-masonry
 iamkevingreen:imagesloaded
 reactive-var
+sanjo:jasmine
+velocity:html-reporter

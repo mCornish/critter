@@ -24,34 +24,66 @@
                     </select>
                 </div>
             {{else}}
-                {{#if epContent}}
-                    <div class="watch__content row">
-                        {{#if contentTypeIs 'text'}}
-                            <h1>{{epContent.text}}</h1>
+                <div class="watch__container">
+                    {{#if contentActive}}
+                        <h2>Content</h2>
+
+                        <div class="watch__content row">
+                            {{#if contentTypeIs 'text'}}
+                                <h1>{{epContent.text}}</h1>
+                            {{/if}}
+                            {{#if contentTypeIs 'link'}}
+                                <h1>
+                                    <a class="live-link" href="{{epContent.link}}"
+                                       target="_blank">{{epContent.text}}</a>
+                                </h1>
+                            {{/if}}
+                            {{#if contentTypeIs 'tweet'}}
+                                <blockquote class="twitter-tweet" lang="en">
+                                    <p lang="en" dir="ltr">
+                                        {{epContent.text}}
+                                    </p>&mdash; {{epContent.from}} <a href="{{epContent.link}}"></a>
+                                </blockquote>
+                                <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+                            {{/if}}
+                            {{#if contentTypeIs 'yt'}}
+                                <iframe width="560" height="315"
+                                        src="https://www.youtube.com/embed/{{epContent.link}}" frameborder="0"
+                                        allowfullscreen></iframe>
+                            {{/if}}
+                            {{#if contentTypeIs 'image'}}
+                                <img class="col-xs-12" src="{{epContent.link}}"/>
+                            {{/if}}
+                        </div>
+                    {{/if}}
+                    {{#if infoActive}}
+                        <h2>Info</h2>
+
+                        <div class="watch__info">
+                            {{#unless detailActive}}
+                                {{#each characters}}
+                                    <img src="{{imageURL}}" data-hook="detail-button" data-name="{{name}}">
+                                {{/each}}
+                            {{/unless}}
+                        </div>
+                        {{#if detailActive}}
+                            <div class="char__detail">
+                                {{#with character}}
+                                    {{> charPage}}
+                                {{/with}}
+                            </div>
+                            <div class="row">
+                                {{#each characters}}
+                                    <div class="col-xs-3 {{detailClass name}}">{{name}}</div>
+                                {{/each}}
+                            </div>
                         {{/if}}
-                        {{#if contentTypeIs 'link'}}
-                            <h1>
-                                <a class="live-link" href="{{epContent.link}}" target="_blank">{{epContent.text}}</a>
-                            </h1>
-                        {{/if}}
-                        {{#if contentTypeIs 'tweet'}}
-                            <blockquote class="twitter-tweet" lang="en">
-                                <p lang="en" dir="ltr">
-                                    {{epContent.text}}
-                                </p>&mdash; {{epContent.from}} <a href="{{epContent.link}}"></a>
-                            </blockquote>
-                            <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-                        {{/if}}
-                        {{#if contentTypeIs 'yt'}}
-                            <iframe width="560" height="315"
-                                    src="https://www.youtube.com/embed/{{epContent.link}}" frameborder="0"
-                                    allowfullscreen></iframe>
-                        {{/if}}
-                        {{#if contentTypeIs 'image'}}
-                            <img class="col-xs-12" src="{{epContent.link}}"/>
-                        {{/if}}
-                    </div>
-                {{/if}}
+                    {{/if}}
+                </div>
+                <div class="watch__menu">
+                    <a class="button menu__button" data-hook="content-button">Content</a>
+                    <a class="button menu__button" data-hook="info-button">Info</a>
+                </div>
             {{/unless}}
         {{/if}}
     </div>

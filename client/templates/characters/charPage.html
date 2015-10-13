@@ -1,0 +1,9 @@
+<template name="charPage">
+    <h1>{{name}}</h1>
+    <div class="char__stats">
+        {{#each arrayify charStats}}
+            <div class="char__stat"><span class="char__stat-key">{{key}}:</span> {{value}}</div>
+        {{/each}}
+    </div>
+    <a href="{{pathFor 'charEdit'}}">Edit</a>
+</template>
