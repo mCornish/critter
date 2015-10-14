@@ -23,6 +23,9 @@ Template.home.onRendered(function() {
 Template.home.helpers({
     isLive: function() {
         return Session.get('isLive');
+    },
+    authed: function() {
+        return Meteor.userId().length > 0;
     }
 });
 

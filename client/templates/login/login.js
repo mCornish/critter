@@ -12,6 +12,9 @@ Template.login.helpers({
     forgottenPassword: function() {
         return Session.get('forgottenPassword');
     },
+    twitchUrl: function() {
+        return Session.get('twitchUrl');
+    },
     errorMessage: function(field) {
         return Session.get('userSubmitErrors')[field];
     },
@@ -115,7 +118,7 @@ Template.login.events({
         const currentState = Session.get('creatingUser');
         Session.set('creatingUser', !currentState);
     },
-    'click [data-hook=facebook]': function(e) {
+    'click [data-hook=facebook-login]': function(e) {
         e.preventDefault();
 
         Meteor.loginWithFacebook(function(error) {
@@ -143,6 +146,12 @@ Template.login.events({
 
                 Router.go('/');
             }
+        });
+    },
+    'click [data-hook=twitch-login]': function() {
+        Twitch.login({
+            scope: ['user_read'],
+            redirect_uri: 'http://localhost:3000'
         });
     },
     'click [data-hook=forgotten-password]': function(e) {

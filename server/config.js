@@ -30,7 +30,9 @@ Accounts.onCreateUser(function(options, user) {
         user.username = user.username.substr(0, user.username.indexOf('@'));
     }
 
-    options.profile.generosity = 0;
+    options.profile.roles = [];
+    options.profile.points = 0;
+
     if (options.profile) {
         user.profile = options.profile;
     }

@@ -103,16 +103,18 @@
         </div>
     </form>
 
-    <div class="admin__checks">
-        <h1>Checks</h1>
-        {{#each checks}}
-            <ul class="admin__check">
-                <li>Character: {{character}}</li>
-                <li>Roll: {{roll}}</li>
-                <li>Success: {{success}}</li>
-                <li>Time: {{time.hour}}:{{time.minute}}:{{time.second}}</li>
-                <li>Submitted: {{submitted}}</li>
-            </ul>
+    <div class="admin__users">
+        <h1>Users</h1>
+        {{#each users}}
+            <div class="admin__user">
+                <ul>
+                    <li>Name: {{profile.username}}</li>
+                    <li>Roles: {{profile.roles}}</li>
+                </ul>
+            </div>
+            <label for="role">Add Role</label>
+            <input id="role" name="role" type="text">
+            <a class="button button--submit" data-hook="add-role" data-uid="{{_id}}">Add</a>
         {{/each}}
     </div>
 

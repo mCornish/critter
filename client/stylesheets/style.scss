@@ -6,9 +6,9 @@
 /* --- #COLORS */
 /* -------------------- */
 $color-1: rgb(50,50,50); // dark gray
-$color-2: rgb(245,250,245); // greenish white
-$color-2-t: rgba(245,250,245,.9); // translucent greenish white
-$color-3: rgb(50,150,50); // green
+$color-2: hsl(38,79,98); // goldish white
+$color-2-t: hsla(38,79,98,.9); // translucent greenish white
+$color-3: hsl(4,80,52); // red
 $color-4: rgb(180,180,180); // light gray
 $color-5: rgb(235,240,235); // greenish gray
 
@@ -252,7 +252,7 @@ hr {
 }
 
 /* disabled button */
-.button.disabled {
+.button.is-disabled {
     cursor: default;
     background-color: rgb(150, 150, 150);
     color: rgb(100, 100, 100);
@@ -540,6 +540,17 @@ label.is-hidden {
 }
 .grid__container {
     padding: 1em;
+}
+
+
+/* -------------------- */
+/* --- #HEADER */
+/* -------------------- */
+.header {
+    background-color: $color-3;
+    text-align: center;
+    padding: 1em;
+    box-shadow: 0 1px 3px 0 rgba(0,0,0,.5);
 }
 
 
@@ -847,7 +858,7 @@ input[type=radio] + input[type=radio] {
 /* --- #LOGO */
 /* -------------------- */
 .logo {
-    font-size: 5em;
+    font-size: 2rem;
     margin-left: auto;
     margin-right: auto;
     text-align: center;
@@ -862,8 +873,8 @@ input[type=radio] + input[type=radio] {
     color: $color-1;
 }
 .logo__header {
-    margin-top: 0;
-    margin-bottom: .5em;
+    margin: 0;
+    font-size: inherit;
 }
 .logo__subheader {
     margin: 0;
@@ -1191,7 +1202,22 @@ input[type=radio] + input[type=radio] {
 
 
 /* -------------------- */
-/* --- #TRACK */
+/* --- #LOGIN */
+/* -------------------- */
+
+.login__facebook-icon {
+    background-color: rgb(59,89,152); // Facebook blue
+}
+.login__twitch-icon {
+    background-color: rgb(100,65,165); // Twitch purple
+}
+.login__icon i {
+    color: rgb(250,250,250);
+}
+
+
+/* -------------------- */
+/* --- #STATS */
 /* -------------------- */
 .stats__chars {
     display: flex;

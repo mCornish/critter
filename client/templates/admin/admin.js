@@ -126,6 +126,13 @@ Template.admin.events({
     },
     'click [data-hook=inc-goal]': function() {
         Meteor.call('incGoal', 100);
+    },
+    'click [data-hook=add-role]': function(e) {
+        const $input = $(e.target).siblings('[name=role]');
+        const role = $input.val();
+        const userId = $(e.target).attr('data-uid');
+
+        Meteor.call('addUserToRole', userId, role);
     }
 });
 

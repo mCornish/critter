@@ -139,9 +139,9 @@ Meteor.publish('notifications', function() {
 Meteor.publish('users', function() {
     return Meteor.users.find();
 });
-Meteor.publish('singleUser', function(id, userId) {
+Meteor.publish('user', function(id, userId) {
     if (id === userId) {
-        fields = {'profile': 1, 'services': 1};
+        fields = {'profile': 1, 'roles': 1, 'services': 1};
     } else {
         fields = {'profile': 1};
     }
