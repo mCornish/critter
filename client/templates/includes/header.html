@@ -1,7 +1,11 @@
 <template name="header">
-    <header class="header {{headerClass}} {{headerActive}}">
-        <a class="logo {{logoSize}} no-hover" href="{{pathFor 'home'}}">
-            <h1 class="logo__header">Critter</h1>
+    <header class="header {{headerClass}} {{headerActive}} {{authedClass}}">
+        <a class="logo {{logoSize}} no-hover row" href="{{pathFor 'home'}}">
+            <img class="logo__image col-xs-4" src="/images/logo.svg">
         </a>
+        {{#if homeUnauthed}}
+            <h1>Critter</h1>
+            <h2>A new way to watch</h2>
+        {{/if}}
     </header>
 </template>

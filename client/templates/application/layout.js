@@ -14,6 +14,7 @@ Template.layout.onCreated(function() {
         }
     });
 });
+
 Template.layout.onRendered(function() {
     this.find('[data-hook="main"]')._uihooks = {
         insertElement: function(node, next) {
@@ -27,6 +28,15 @@ Template.layout.onRendered(function() {
                 $(this).remove();
             });
         }
+    }
+});
+
+Template.layout.helpers({
+    authedClass: function() {
+        const unauthed = typeof Meteor.userId() !== 'String';
+        const isHome = Router.current().route.path() === '/';
+
+        return unauthed && isHome ? 'is-unauthed' : '';
     }
 });
 

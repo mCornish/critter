@@ -158,6 +158,8 @@ Template.track.events({
                     minutes = ('0' + minutes).slice(-2);
                 }
 
+                const totalSeconds = hours * 3600 + minutes * 60 + seconds;
+                Session.set('totalSeconds', totalSeconds);
                 Session.set('duration', `${hours}:${minutes}:${seconds}`);
             }, 1000);
             Session.set('timingInterval', interval)
@@ -269,7 +271,8 @@ function submitRoll(callback) {
         action: action,
         name: Session.get('type').toLowerCase(),
         character: Session.get('charName').toLowerCase(),
-        episode: Session.get('episode')
+        episode: Session.get('episode'),
+        time: Session.get('totalSeconds')
     };
 
     const statExists = Stats.findOne(stat);

@@ -9,8 +9,8 @@ $color-1: rgb(50,50,50); // dark gray
 $color-2: hsl(38,79,98); // goldish white
 $color-2-t: hsla(38,79,98,.9); // translucent greenish white
 $color-3: hsl(4,80,52); // red
-$color-4: rgb(180,180,180); // light gray
-$color-5: rgb(235,240,235); // greenish gray
+$color-4: hsl(38,79,54); // gold
+$color-5: rgb(235,240,235); // ?
 
 /* -------------------- */
 /* --- #MEDIA QUERY BREAKPOINTS */
@@ -77,7 +77,7 @@ a:before,
     width: 0;
     bottom: -.15em;
     position: absolute;
-    background: $color-3;
+    //background: $color-3;
     transition: .2s ease all;
 }
 a:before,
@@ -113,6 +113,17 @@ a:focus,
 .main {
     position: relative;
     margin-top: 4em;
+}
+.main.is-unauthed {
+    display: block;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100vw;
+    height: 100vh;
+    margin-top: 0;
+    padding-top: 60vh;
+    background-color: $color-3;
 }
 
 .page {
@@ -216,7 +227,7 @@ hr {
 /* -------------------- */
 .button {
     background-color: transparent;
-    color: $color-1;
+    color: $color-2;
     letter-spacing: 1px;
     font-size: 1.5em;
     font-weight: bold;
@@ -224,18 +235,19 @@ hr {
     min-width: 4em;
     text-align: center;
     display: inline;
-    border-color: $color-1;
+    border-color: $color-2;
     border-style: solid;
     border-width: .2em;
     transition: .2s color ease, .2s background-color ease;
     position: relative;
     cursor: pointer;
+    z-index: 1;
 }
 .button:hover,
 .button:focus,
 .button:hover span,
 .button:focus span {
-    color: $color-2;
+    color: $color-3;
     text-decoration: none;
 
     @media #{$break-small} {
@@ -275,10 +287,10 @@ hr {
     padding-bottom: 1em;
 }
 .button--addon:hover .button--addon__addon {
-    color: $color-1;
+    color: $color-3;
 }
 .button--addon .button--addon__addon {
-    color: $color-1;
+    color: $color-3;
 }
 
 .button--block {
@@ -299,7 +311,7 @@ hr {
     height: 0;
     top: 50%;
     left: 50%;
-    background-color: $color-1;
+    background-color: $color-2;
     opacity: 0;
     transform: translateX(-50%) translateY(-50%);
 }
@@ -327,7 +339,8 @@ hr {
     }
 }
 .button--submit:hover {
-    background-color: $color-3;
+    background-color: $color-1;
+    color: $color-4;
 }
 .button--submit:after {
     display: none;
@@ -547,10 +560,20 @@ label.is-hidden {
 /* --- #HEADER */
 /* -------------------- */
 .header {
+    position: relative;
     background-color: $color-3;
     text-align: center;
-    padding: 1em;
+    padding: .5em;
     box-shadow: 0 1px 3px 0 rgba(0,0,0,.5);
+    color: $color-2;
+    z-index: 3;
+}
+.header.is-unauthed {
+    box-shadow: none;
+}
+.header-spacer {
+    visibility: hidden;
+    display: block;
 }
 
 
@@ -876,8 +899,11 @@ input[type=radio] + input[type=radio] {
     margin: 0;
     font-size: inherit;
 }
-.logo__subheader {
-    margin: 0;
+.logo__image {
+    width: 2.5em;
+}
+.is-unauthed .logo__image {
+    width: 30vw;
 }
 .logo__back {
     position: absolute;
@@ -1199,6 +1225,12 @@ input[type=radio] + input[type=radio] {
     height: 5em;
     border-radius: 100%;
 }
+
+
+/* -------------------- */
+/* --- #HOME */
+/* -------------------- */
+
 
 
 /* -------------------- */

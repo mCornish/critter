@@ -1,8 +1,11 @@
 <template name="layout">
     {{> header}}
+    <div class="header-spacer {{authedClass}}">
+        {{> header}}
+    </div>
     <div class="container">
         {{> errors}}
-        <div class="main" data-hook="main">
+        <div class="main {{authedClass}}" data-hook="main">
                 {{> yield}}
         </div>
     </div>

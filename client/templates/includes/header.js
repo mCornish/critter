@@ -22,5 +22,17 @@ Template.header.helpers({
         } else {
             return '';
         }
+    },
+    authedClass: function() {
+        const unauthed = typeof Meteor.userId() !== 'String';
+        const isHome = Router.current().route.path() === '/';
+
+        return unauthed && isHome ? 'is-unauthed' : '';
+    },
+    homeUnauthed: function() {
+        const unauthed = typeof Meteor.userId() !== 'String';
+        const isHome = Router.current().route.path() === '/';
+
+        return unauthed && isHome;
     }
 });

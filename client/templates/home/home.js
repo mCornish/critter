@@ -24,6 +24,9 @@ Template.home.helpers({
     isLive: function() {
         return Session.get('isLive');
     },
+    authedClass: function() {
+        return typeof Meteor.userId() === 'String' ? '' : 'is-unauthed';
+    },
     authed: function() {
         return Meteor.userId().length > 0;
     }
