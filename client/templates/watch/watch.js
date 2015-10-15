@@ -66,6 +66,9 @@ Template.watch.helpers({
     detailClass: function (name) {
         const activeName = Session.get('charName');
         return name === activeName ? 'is-active' : '';
+    },
+    menuActive: function(item) {
+        return item === Session.get('menuActive') ? 'is-active' : '';
     }
 });
 
@@ -94,10 +97,14 @@ Template.watch.events({
         let content = contentCursor.fetch();
         let times = _.pluck(content, 'time');
 
-        let cHourToSec = times[0].hour * 3600,
-            cMinToSec = times[0].minute * 60,
-            cSec = times[0].second,
-            cTotSec = cHourToSec + cMinToSec + cSec;
+        let cHourToSec, cMinToSec, cSec, cTotSec;
+
+        if (times.length > 0) {
+            let cHourToSec = times[0].hour * 3600,
+                cMinToSec = times[0].minute * 60,
+                cSec = times[0].second,
+                cTotSec = cHourToSec + cMinToSec + cSec;
+        }
 
         Session.set('episode', episodeNum);
         Session.set('cast', episode.cast);
@@ -192,10 +199,12 @@ Template.watch.events({
     'click [data-hook=content-button]': function() {
         Session.set('contentActive', true);
         Session.set('infoActive', false);
+        Session.set('menuActive', 'content');
     },
     'click [data-hook=info-button]': function() {
         Session.set('infoActive', true);
         Session.set('contentActive', false);
+        Session.set('menuActive', 'info');
     },
     'click [data-hook=detail-button]': function(e) {
         const charName = $(e.target).attr('data-name');

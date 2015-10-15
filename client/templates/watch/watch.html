@@ -5,29 +5,41 @@
         </div>
 
 
-        <h1>I want to...</h1>
 
         {{#unless watching}}
-        <div class="row">
-            <a class="button col-xs-6" data-hook="watch">Watch</a>
-            <a class="button col-xs-6" href="{{pathFor 'track'}}">Track</a>
-        </div>
+            <h1>I want to...</h1>
+
+            <div class="row">
+                <div class="col-xs-10 col-xs-offset-1">
+                    <div class="row">
+                        <a class="button col-xs-12 col-md-5" data-hook="watch">Watch</a>
+                        <a class="button col-xs-12 col-md-5 col-md-offset-2" href="{{pathFor 'track'}}">Track</a>
+                    </div>
+                </div>
+            </div>
         {{else}}
             {{#if choosing}}
                 <div class="row">
-                    <a class="button col-xs-6" data-hook="watch-here">Watch Here</a>
-                    <a class="button col-xs-6" data-hook="watch-else">Watch Elsewhere</a>
+                    <div class="col-xs-10 col-xs-offset-1">
+                        <div class="row">
+                            <a class="button col-xs-12 col-md-5" data-hook="watch-here">Watch Here</a>
+                            <a class="button col-xs-12 col-md-5 col-md-offset-2" data-hook="watch-else">Watch
+                                Elsewhere</a>
+                        </div>
+                    </div>
                 </div>
             {{else}}
                 {{#unless selectedEp}}
                     <div class="row">
-                        <label for="episode">Which episode?</label>
-                        <select id="episode" name="episode">
-                            <option>Choose...</option>
-                            {{#each episodes}}
-                                <option value="{{number}}">Episode {{number}}: {{name}}</option>
-                            {{/each}}
-                        </select>
+                        <div class="col-xs-10 col-xs-offset-1 col-md-6 col-md-offset-3">
+                            <label for="episode">Which episode?</label>
+                            <select id="episode" name="episode">
+                                <option>Choose...</option>
+                                {{#each episodes}}
+                                    <option value="{{number}}">Episode {{number}}: {{name}}</option>
+                                {{/each}}
+                            </select>
+                        </div>
                     </div>
                 {{else}}
                     <div class="watch__container">
@@ -86,9 +98,9 @@
                             {{/if}}
                         {{/if}}
                     </div>
-                    <div class="watch__menu">
-                        <a class="button menu__button" data-hook="content-button">Content</a>
-                        <a class="button menu__button" data-hook="info-button">Info</a>
+                    <div class="menu row">
+                        <a class="button menu__button col-xs-6 {{menuActive 'content'}}" data-hook="content-button">Content</a>
+                        <a class="button menu__button col-xs-6 {{menuActive 'info'}}" data-hook="info-button">Info</a>
                     </div>
                 {{/unless}}
             {{/if}}

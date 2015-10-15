@@ -128,7 +128,7 @@ a:focus,
 
 .page {
     display: block;
-    padding-top: 3em;
+    //padding-top: 3em;
 }
 
 // Input placeholder text color
@@ -429,6 +429,15 @@ hr {
 }
 .button--overlay:after {
     display: none;
+}
+
+.row .button + .button {
+    @media #{$break-small} {
+        margin-top: 1em;
+    }
+    @media #{$break-medium} {
+        margin-top: 0;
+    }
 }
 
 
@@ -945,6 +954,35 @@ input[type=radio] + input[type=radio] {
 
 
 /* -------------------- */
+/* --- #MENU */
+/* -------------------- */
+.menu {
+  position: fixed;
+  display: block;
+  top: 100vh;
+  left: 0;
+  width: 105%;
+  background-color: $color-3;
+  transform: translateY(-100%);
+}
+.menu__button {
+  display: inline-block;
+  border: none;
+  color: $color-4;
+}
+.menu__button.is-active {
+  color: $color-2;
+  box-shadow: 0 1px 8px 1px rgba(0,0,0,.5);
+}
+.menu__button:after {
+  display: none;
+}
+.menu__button:active {
+  background-color: $color-3;
+}
+
+
+/* -------------------- */
 /* --- #MESSAGES */
 /* -------------------- */
 .success-message {
@@ -1311,6 +1349,14 @@ input[type=radio] + input[type=radio] {
     left:0;
     width:100%;
     height:100%;
+}
+
+
+/* -------------------- */
+/* --- #WATCH */
+/* -------------------- */
+.watch__container {
+  margin-bottom: 8em;
 }
 
 
