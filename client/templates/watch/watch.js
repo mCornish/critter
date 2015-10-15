@@ -1,6 +1,9 @@
 Template.watch.onCreated(function () {
-    Session.set('choosing', true);
-    Session.set('tracking', false);
+    Session.set('watching', null);
+    Session.set('tracking', null);
+    Session.set('choosing', false);
+    Session.set('watchHere', false);
+    Session.set('selectedEp', false);
     Session.set('episode', null);
     Session.set('cast', null);
     Session.set('duration', '0:00:00');
@@ -17,14 +20,17 @@ Template.watch.onCreated(function () {
 });
 
 Template.watch.helpers({
-    choosing: function () {
-        return Session.get('choosing');
-    },
     watching: function () {
         return Session.get('watching');
     },
     tracking: function () {
         return Session.get('tracking');
+    },
+    choosing: function () {
+        return Session.get('choosing');
+    },
+    selectedEp: function() {
+        return Session.get('selectedEp');
     },
     videoId: function () {
         return Session.get('videoId');
@@ -33,7 +39,7 @@ Template.watch.helpers({
         return Session.get('duration');
     },
     videoClass: function () {
-        return Session.get('tracking') && Session.get('watching') ? '' : 'hidden';
+        return Session.get('watchHere') && Session.get('episode') ? '' : 'hidden';
     },
     // Controls start button text
     timing: function () {
@@ -64,13 +70,22 @@ Template.watch.helpers({
 });
 
 Template.watch.events({
+    'click [data-hook=watch]': function() {
+        Session.set('watching', true);
+        Session.set('tracking', false);
+        Session.set('choosing', true);
+    },
+    'click [data-hook=track]': function() {
+        Session.set('tracking', true);
+        Session.set('watching', false);
+    },
     'click [data-hook=watch-here]': function () {
         Session.set('choosing', false);
-        Session.set('watching', true);
+        Session.set('watchHere', true);
     },
     'click [data-hook=watch-else]': function () {
         Session.set('choosing', false);
-        Session.set('watching', false);
+        Session.set('watchHere', false);
     },
     'change [name=episode]': function (e) {
         const episodeNum = parseInt($(e.target).val());
@@ -87,10 +102,10 @@ Template.watch.events({
         Session.set('episode', episodeNum);
         Session.set('cast', episode.cast);
         Session.set('videoId', episode.videoId);
-        Session.set('tracking', true);
+        Session.set('selectedEp', true);
 
 
-        if (Session.get('watching')) {
+        if (Session.get('watchHere')) {
             // Used ID because jQuery select wasn't working
             const ytEl = document.getElementById('js-yt');
             const player = youtube({el: ytEl, id: episode.videoId});

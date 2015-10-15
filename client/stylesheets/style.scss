@@ -227,7 +227,7 @@ hr {
 /* -------------------- */
 .button {
     background-color: transparent;
-    color: $color-2;
+    color: $color-1;
     letter-spacing: 1px;
     font-size: 1.5em;
     font-weight: bold;
@@ -235,7 +235,7 @@ hr {
     min-width: 4em;
     text-align: center;
     display: inline;
-    border-color: $color-2;
+    border-color: $color-1;
     border-style: solid;
     border-width: .2em;
     transition: .2s color ease, .2s background-color ease;
@@ -243,11 +243,13 @@ hr {
     cursor: pointer;
     z-index: 1;
 }
+.is-unauthed .button {
+    color: $color-2;
+    border-color: $color-2;
+}
 .button:hover,
-.button:focus,
-.button:hover span,
-.button:focus span {
-    color: $color-3;
+.button:focus {
+    color: $color-2;
     text-decoration: none;
 
     @media #{$break-small} {
@@ -256,6 +258,10 @@ hr {
     @media #{$break-medium} {
         background-color: transparent;
     }
+}
+.is-unauthed .button:hover,
+.is-unauthed .button:focus {
+    color: $color-3;
 }
 .button:active {
     text-decoration: none;
@@ -311,9 +317,12 @@ hr {
     height: 0;
     top: 50%;
     left: 50%;
-    background-color: $color-2;
+    background-color: $color-1;
     opacity: 0;
     transform: translateX(-50%) translateY(-50%);
+}
+.is-unauthed .button:after {
+    background-color: $color-2;
 }
 .button:hover:after {
     @media #{$break-small} {
@@ -573,6 +582,9 @@ label.is-hidden {
 }
 .header-spacer {
     visibility: hidden;
+    display: none;
+}
+.header-spacer.is-unauthed {
     display: block;
 }
 
