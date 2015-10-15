@@ -17,6 +17,7 @@ Template.watch.onCreated(function () {
     Session.set('infoActive', false);
     Session.set('detailActive', false);
     Session.set('character', null);
+    Session.set('menuActive', null);
 });
 
 Template.watch.helpers({

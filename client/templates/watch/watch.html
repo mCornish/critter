@@ -77,10 +77,13 @@
                         {{#if infoActive}}
                             <h2>Info</h2>
 
-                            <div class="watch__info">
+                            <div class="watch__info row">
                                 {{#unless detailActive}}
                                     {{#each characters}}
-                                        <img src="{{imageURL}}" data-hook="detail-button" data-name="{{name}}">
+                                        <div class="col-xs-3 watch__char-container">
+                                            <img src="{{imageURL}}" class="watch__char" data-hook="detail-button"
+                                                 data-name="{{name}}">
+                                        </div>
                                     {{/each}}
                                 {{/unless}}
                             </div>
@@ -92,7 +95,8 @@
                                 </div>
                                 <div class="row">
                                     {{#each characters}}
-                                        <div class="col-xs-3 {{detailClass name}}">{{name}}</div>
+                                        <a class="col-xs-3 watch__char-name {{detailClass name}}" data-hook="detail-button"
+                                           data-name="{{name}}">{{name}}</a>
                                     {{/each}}
                                 </div>
                             {{/if}}
