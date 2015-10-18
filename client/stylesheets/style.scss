@@ -564,7 +564,8 @@ label.is-hidden {
 /* --- #HEADER */
 /* -------------------- */
 .header {
-    position: relative;
+    position: fixed;
+    width: 100%;
     background-color: $color-3;
     text-align: center;
     padding: .5em;
@@ -577,10 +578,10 @@ label.is-hidden {
 }
 .header-spacer {
     visibility: hidden;
-    display: none;
-}
-.header-spacer.is-unauthed {
     display: block;
+}
+.header-spacer .header {
+    position: relative;
 }
 
 

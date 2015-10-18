@@ -4,8 +4,6 @@
             <div id="js-yt" class="youtube-player" data-hook="youtube-player"></div>
         </div>
 
-
-
         {{#unless watching}}
             <div class="row">
                 <div class="col-xs-12 col-md-10 col-md-offset-1">
@@ -29,14 +27,12 @@
         {{else}}
             {{#unless selectedEp}}
                 <div class="row">
-                    <div class="col-xs-10 col-xs-offset-1 col-md-6 col-md-offset-3">
-                        <label for="episode">Which episode?</label>
-                        <select id="episode" name="episode">
-                            <option>Choose...</option>
+                    <div class="col-xs-12 col-md-6 col-md-offset-3">
+                        <div class="row">
                             {{#each episodes}}
-                                <option value="{{number}}">Episode {{number}}: {{name}}</option>
+                                <div class="button button--vert col-xs-12" data-hook="episode-button" data-number="{{number}}">Episode {{number}}: {{name}}</div>
                             {{/each}}
-                        </select>
+                        </div>
                     </div>
                 </div>
             {{else}}
@@ -102,11 +98,20 @@
                 </div>
                 <div class="menu row">
                     <a class="button menu__button col-xs-4 {{menuActive 'content'}}"
-                       data-hook="content-button"><i class="fa fa-eye"></i><div class="hidden-xs hidden-sm">Content</div></a>
+                       data-hook="content-button"><i class="fa fa-eye"></i>
+
+                        <div class="hidden-xs hidden-sm">Content</div>
+                    </a>
                     <a class="button menu__button col-xs-4 {{menuActive 'info'}}" data-hook="info-button"><i
-                            class="fa fa-users"></i><div class="hidden-xs hidden-sm">Characters</div></a>
-                    <a class="button menu__button col-xs-4 {{menuActive 'watch-here'}}" data-hook="watch-button"><i
-                            class="fa fa-play"></i><div class="hidden-xs hidden-sm">Watch</div></a>
+                            class="fa fa-users"></i>
+
+                        <div class="hidden-xs hidden-sm">Characters</div>
+                    </a>
+                    <a class="button menu__button col-xs-3 col-xs-offset-1 {{watchActive}}" data-hook="watch-button"><i
+                            class="fa fa-play"></i>
+
+                        <div class="hidden-xs hidden-sm">Watch</div>
+                    </a>
                 </div>
             {{/unless}}
         {{/unless}}
