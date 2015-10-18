@@ -112,7 +112,7 @@ a:focus,
 
 .main {
     position: relative;
-    margin-top: 4em;
+    //margin-top: 4em;
 }
 .main.is-unauthed {
     display: block;
@@ -355,36 +355,9 @@ hr {
     display: none;
 }
 
-.button--long,
-.button--short {
-    @media #{$break-small} {
-        width: 100%;
-        display: block;
-    }
-    @media #{$break-large} {
-        display: inline-block;
-        margin-top: 0;
-    }
-}
-.button--long {
-    @media #{$break-large} {
-        width: 65%;
-    }
-}
-.button--short {
-    @media #{$break-large} {
-        width: 25%;
-    }
-}
-// add space between buttons
-* + .button--long,
-* + .button--short {
-    @media #{$break-small} {
-        margin-top: 1em;
-    }
-    @media #{$break-large} {
-        margin-top: 0;
-    }
+// (Button) Half-height
+.button--half {
+  height: 48vh;
 }
 
 // (Button) Cancel
@@ -400,14 +373,18 @@ hr {
 }
 
 // (Button) Icon
-.button--icon {
+.button__icon {
     position: relative;
+    font-size: 3em;
+    top: 50%;
+    transform: translateY(-50%);
 }
-.button--icon:hover .hover-text {
+.button__icon:hover .hover-text {
     opacity: 1;
 }
-.button--icon i {
-    font-size: 2.5em;
+.button__icon i {
+    font-size: 2em;
+    margin-bottom: .2em;
 }
 
 // (Button) Overlay
@@ -431,13 +408,22 @@ hr {
     display: none;
 }
 
-.row .button + .button {
+.row .button--vert + .button--vert {
     @media #{$break-small} {
-        margin-top: 1em;
+      border-top-width: 0;
     }
     @media #{$break-medium} {
-        margin-top: 0;
+      border-top-width: .2em;
     }
+}
+
+.button--hor + .button--hor {
+  @media #{$break-small} {
+    border-left-width: 0;
+  }
+  @media #{$break-medium} {
+    border-left-width: .2em;
+  }
 }
 
 
