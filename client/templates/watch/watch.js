@@ -64,6 +64,9 @@ Template.watch.helpers({
     watchActive: function () {
         return Session.get('watchActive') ? 'is-active' : '';
     },
+    watchHere: function() {
+        return Session.get('watchHere');
+    },
     detailActive: function () {
         return Session.get('detailActive');
     },
@@ -111,10 +114,10 @@ Template.watch.events({
         let cHourToSec, cMinToSec, cSec, cTotSec;
 
         if (times.length > 0) {
-            let cHourToSec = times[0].hour * 3600,
-                cMinToSec = times[0].minute * 60,
-                cSec = times[0].second,
-                cTotSec = cHourToSec + cMinToSec + cSec;
+            cHourToSec = times[0].hour * 3600;
+            cMinToSec = times[0].minute * 60;
+            cSec = times[0].second;
+            cTotSec = cHourToSec + cMinToSec + cSec;
         }
 
         Session.set('episode', episodeNum);
@@ -203,6 +206,52 @@ Template.watch.events({
             }
             Session.set('resetting', false);
         })
+
+    },
+    'click [data-hook=start-button]': function (e) {
+        e.preventDefault();
+        console.log(Session.get('timingInterval'));
+        const timing = Session.get('timing');
+
+        Session.set('timing', !timing);
+
+        let hours = Session.get('hours'),
+            minutes = Session.get('minutes'),
+            seconds = Session.get('seconds');
+
+        if (timing) {
+            clearInterval(Session.get('timingInterval'));
+        } else {
+            const interval = setInterval(function () {
+                seconds++;
+                Session.set('seconds', seconds);
+
+                if (seconds >= 60) {
+                    minutes++;
+                    Session.set('minutes', minutes);
+                    if (minutes >= 60) {
+                        hours++;
+                        Session.set('hours', hours);
+                        minutes = 0;
+                    }
+                    seconds = 0;
+                }
+
+                // add zero for single-digit seconds/minutes
+                if (seconds < 10) {
+                    seconds = ('0' + seconds).slice(-2);
+                }
+                if (minutes < 10) {
+                    minutes = ('0' + minutes).slice(-2);
+                }
+
+                const totalSeconds = hours * 3600 + minutes * 60 + seconds;
+                Session.set('totalSeconds', totalSeconds);
+                Session.set('duration', `${hours}:${minutes}:${seconds}`);
+            }, 1000);
+            Session.set('timingInterval', interval)
+        }
+
 
     },
     'click [data-hook=content-button]': function () {

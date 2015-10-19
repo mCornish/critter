@@ -10,12 +10,16 @@ Template.track.onCreated(function () {
     Session.set('action', '');
     Session.set('type', '');
     Session.set('duration', '0:00:00');
+    Session.set('videoDuration', '0:00:00');
     Session.set('charAttacks', null);
     Session.set('charSpells', null);
     Session.set('timing', false);
+    Session.set('timingInterval', null);
     Session.set('seconds', 0);
     Session.set('minutes', 0);
     Session.set('hours', 0);
+    Session.set('watchActive', false);
+    Session.set('watchHere', false);
 });
 
 Template.track.helpers({
@@ -58,7 +62,7 @@ Template.track.helpers({
         return Session.get('type');
     },
     videoClass: function () {
-        return Session.get('tracking') && Session.get('watching') ? '' : 'hidden';
+        return Session.get('watchHere') && Session.get('episode') ? '' : 'hidden';
     },
     actionIs: function (action) {
         return action === Session.get('action').toLowerCase();
@@ -72,6 +76,12 @@ Template.track.helpers({
     // Controls start button text
     timing: function () {
         return Session.get('timing');
+    },
+    watchActive: function () {
+        return Session.get('watchActive') ? 'is-active' : '';
+    },
+    watchHere: function () {
+        return Session.get('watchHere');
     }
 });
 
@@ -80,12 +90,20 @@ Template.track.events({
         Session.set('choosing', false);
         Session.set('watching', true);
     },
+    'click [data-hook=watch-button]': function () {
+        const isActive = Session.get('watchActive');
+        const player = Session.get('player');
+        Session.set('watchActive', !isActive);
+        Session.set('watchHere', !isActive);
+
+        // TODO Figure out how to pause video when button is pressed
+    },
     'click [data-hook=watch-else]': function () {
         Session.set('choosing', false);
         Session.set('watching', false);
     },
-    'change [name=episode]': function (e) {
-        const episodeNum = parseInt($(e.target).val());
+    'click [data-hook=episode-button]': function (e) {
+        const episodeNum = parseInt($(e.target).attr('data-number'));
         const episode = Episodes.findOne({number: episodeNum});
 
         Session.set('episode', episodeNum);
@@ -93,37 +111,36 @@ Template.track.events({
         Session.set('videoId', episode.videoId);
         Session.set('tracking', true);
 
-        if (Session.get('watching')) {
-            // Used ID because jQuery select wasn't working
-            const ytEl = document.getElementById('js-yt');
-            const player = youtube({el: ytEl, id: episode.videoId});
 
-            const ytInterval = setInterval(function () {
-                let totalSeconds = player.currentTime;
-                const hours = Math.floor(totalSeconds / 3600);
-                totalSeconds %= 3600;
-                let minutes = Math.floor(totalSeconds / 60);
-                let seconds = Math.floor(totalSeconds % 60);
+        // Used ID because jQuery select wasn't working
+        const ytEl = document.getElementById('js-yt');
+        const player = youtube({el: ytEl, id: episode.videoId});
 
-                Session.set('seconds', seconds);
-                Session.set('minutes', minutes);
-                Session.set('hours', hours);
+        const ytInterval = setInterval(function () {
+            let totalSeconds = player.currentTime;
+            const hours = Math.floor(totalSeconds / 3600);
+            totalSeconds %= 3600;
+            let minutes = Math.floor(totalSeconds / 60);
+            let seconds = Math.floor(totalSeconds % 60);
 
-                // add zero for single-digit seconds/minutes
-                if (seconds < 10) {
-                    seconds = ('0' + seconds).slice(-2);
-                }
-                if (minutes < 10) {
-                    minutes = ('0' + minutes).slice(-2);
-                }
+            Session.set('seconds', seconds);
+            Session.set('minutes', minutes);
+            Session.set('hours', hours);
 
-                Session.set('duration', `${hours}:${minutes}:${seconds}`);
-            }, 1000);
-        }
+            // add zero for single-digit seconds/minutes
+            if (seconds < 10) {
+                seconds = ('0' + seconds).slice(-2);
+            }
+            if (minutes < 10) {
+                minutes = ('0' + minutes).slice(-2);
+            }
+
+            Session.set('videoDuration', `${hours}:${minutes}:${seconds}`);
+        }, 1000);
     },
     'click [data-hook=start-button]': function (e) {
         e.preventDefault();
-
+        console.log(Session.get('timingInterval'));
         const timing = Session.get('timing');
 
         Session.set('timing', !timing);

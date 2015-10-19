@@ -1,14 +1,8 @@
 <template name="track">
 
     <div class="youtube-container {{videoClass}}">
-        <div id="js-yt" class="youtube-player" data-hook="youtube-player" data-youtube-videoid="{{videoId}}"></div>
+        <div id="js-yt" class="youtube-player" data-hook="youtube-player"></div>
     </div>
-
-    {{#unless modal}}
-        <h1>Track</h1>
-    {{else}}
-        <h1>{{charName}} {{type}} {{action}}</h1>
-    {{/unless}}
 
     {{#if modal}}
         <div class="track__modal">
@@ -77,47 +71,43 @@
         </div>
     {{/if}}
 
-    {{#if choosing}}
+    {{#unless tracking}}
         <div class="row">
-            <a class="button col-xs-6" data-hook="watch-here">Watch Here</a>
-            <a class="button col-xs-6" data-hook="watch-else">Just Track</a>
+            {{#each episodes}}
+                <div class="button button--vert col-xs-12" data-hook="episode-button" data-number="{{number}}">Episode {{number}}: {{name}}</div>
+            {{/each}}
         </div>
     {{else}}
-        {{#unless tracking}}
-            <div class="row">
-                <label for="episode">Which episode?</label>
-                <select id="episode" name="episode">
-                    <option>Choose...</option>
-                    {{#each episodes}}
-                        <option value="{{number}}">Episode {{number}}: {{name}}</option>
-                    {{/each}}
-                </select>
-            </div>
-        {{else}}
 
-            {{#unless watching}}
-                <div class="row">
-                    <a class="button col-xs-12" data-hook="start-button">
-                        {{#unless timing}}
-                            Start
-                        {{else}}
-                            {{duration}}
-                        {{/unless}}
-                    </a>
-                </div>
-            {{/unless}}
-            {{#unless modal}}
-                <div class="track__chars">
-                    {{#each activeChars}}
-                        <div class="track__char" data-hook="track" data-name="{{name}}">
-                            <img src="{{imageURL}}" data-name="{{name}}">
-                        </div>
-                    {{/each}}
-                    <div class="track__char" data-hook="track" data-name="DM">
-                        <img src="/images/dm.jpg" data-name="DM">
-                    </div>
-                </div>
-            {{/unless}}
+        {{#unless watchHere}}
+            <div class="row">
+                <a class="button col-xs-12" data-hook="start-button">
+                    {{#unless timing}}
+                        Start
+                    {{else}}
+                        {{duration}}
+                    {{/unless}}
+                </a>
+            </div>
         {{/unless}}
-    {{/if}}
+        {{#unless modal}}
+            <div class="track__chars">
+                {{#each activeChars}}
+                    <div class="track__char" data-hook="track" data-name="{{name}}">
+                        <img src="{{imageURL}}" data-name="{{name}}">
+                    </div>
+                {{/each}}
+                <div class="track__char" data-hook="track" data-name="DM">
+                    <img src="/images/dm.jpg" data-name="DM">
+                </div>
+            </div>
+            <div class="menu row">
+                <a class="button menu__button col-xs-12 {{watchActive}}" data-hook="watch-button"><i
+                        class="fa fa-play"></i>
+
+                    <div class="hidden-xs hidden-sm">Watch</div>
+                </a>
+            </div>
+        {{/unless}}
+    {{/unless}}
 </template>

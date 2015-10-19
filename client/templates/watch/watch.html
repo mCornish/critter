@@ -36,6 +36,18 @@
                     </div>
                 </div>
             {{else}}
+                {{#unless watchHere}}
+                    <div class="row">
+                        <a class="button col-xs-12" data-hook="start-button">
+                            {{#unless timing}}
+                                Start
+                            {{else}}
+                                {{duration}}
+                            {{/unless}}
+                        </a>
+                    </div>
+                {{/unless}}
+
                 <div class="watch__container">
                     {{#if contentActive}}
                         <h2>Content</h2>
