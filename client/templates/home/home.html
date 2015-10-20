@@ -8,10 +8,31 @@
         {{/if}}
         <div class="row">
             <!--<a href="{{pathFor 'track'}}" class="button col-xs-12 col-md-4">Track</a>-->
-            <a href="{{pathFor 'watch'}}" class="button col-xs-6 col-md-4">Watch</a>
-            <a href="{{pathFor 'stats'}}" class="button col-xs-6 col-md-4">Stats</a>
+            <a href="{{pathFor 'watch'}}" class="button button--vert col-xs-12 col-md-4">
+                <div class="button__icon row hidden-xs hidden-sm">
+                    <i class="fa fa-tv col-xs-4 col-md-12"></i>
+
+                    <div>Watch</div>
+                </div>
+                <div class="hidden-md hidden-lg">Watch</div>
+            </a>
+            <a href="{{pathFor 'stats'}}" class="button button--vert col-xs-12 col-md-4">
+                <div class="button__icon row hidden-xs hidden-sm">
+                    <i class="fa fa-bar-chart"></i>
+
+                    <div>Stats</div>
+                </div>
+                <div class="hidden-md hidden-lg">Stats</div>
+            </a>
             {{#if authed}}
-                <a href="{{pathFor 'me'}}" class="button col-xs-12 col-md-4">Me</a>
+                <a href="{{pathFor 'me'}}" class="button button--vert col-xs-12 col-md-4">
+                    <div class="button__icon row hidden-xs hidden-sm">
+                        <i class="fa fa-user"></i>
+
+                        <div>Me</div>
+                    </div>
+                    <div class="hidden-md hidden-lg">Me</div>
+                </a>
             {{/if}}
         </div>
         {{#unless authed}}

@@ -82,6 +82,9 @@ Template.track.helpers({
     },
     watchHere: function () {
         return Session.get('watchHere');
+    },
+    maxRoll: function() {
+        return Session.get('maxRoll');
     }
 });
 
@@ -116,7 +119,7 @@ Template.track.events({
         const ytEl = document.getElementById('js-yt');
         const player = youtube({el: ytEl, id: episode.videoId});
 
-        const ytInterval = setInterval(function () {
+        player.on('timeupdate', _.throttle(function () {
             let totalSeconds = player.currentTime;
             const hours = Math.floor(totalSeconds / 3600);
             totalSeconds %= 3600;
@@ -136,11 +139,10 @@ Template.track.events({
             }
 
             Session.set('videoDuration', `${hours}:${minutes}:${seconds}`);
-        }, 1000);
+        }, 500));
     },
     'click [data-hook=start-button]': function (e) {
         e.preventDefault();
-        console.log(Session.get('timingInterval'));
         const timing = Session.get('timing');
 
         Session.set('timing', !timing);
@@ -204,13 +206,24 @@ Template.track.events({
     'click [data-hook=action]': function (e) {
         const action = $(e.target).attr('data-action');
         Session.set('action', action);
-        Session.set('choosingAction', false);
-        Session.set('choosingType', true);
     },
     'click [data-hook=type]': function (e) {
         const type = $(e.target).attr('data-type');
         Session.set('type', type);
-        Session.set('choosingType', false);
+        Session.set('choosingAction', false);
+
+        if (Session.get('action').toLocaleLowerCase() === 'attack') {
+            // get the attack object from the character
+            const char = Characters.findOne({name: Session.get('charName')});
+            const attackName = type;
+            const attack = _.findWhere(char.attacks, {name: attackName});
+            // find and set the maximum roll value
+            const diceNum = attack.diceNum;
+            const diceVal = attack.diceVal;
+            const maxRoll = diceNum * diceVal;
+
+            Session.set('maxRoll', maxRoll);
+        }
     },
     'click [data-hook=add-roll]': function (e) {
         submitRoll(function () {

@@ -122,8 +122,14 @@ a:focus,
   width: 100vw;
   height: 100vh;
   margin-top: 0;
-  padding-top: 60vh;
   background-color: $color-3;
+
+  @media #{$break-small} {
+    padding-top: 40vh;
+  }
+  @media #{$break-medium} {
+    padding-top: 60vh;
+  }
 }
 
 .page {
@@ -979,6 +985,12 @@ input[type=radio] + input[type=radio] {
   color: rgb(50,180,50);
 }
 
+/* -------------------- */
+/* --- #MODAL */
+/* -------------------- */
+.modal__sub-menu .button {
+  font-size: .8em;
+}
 
 
 /* -------------------- */
@@ -1270,7 +1282,15 @@ input[type=radio] + input[type=radio] {
 /* -------------------- */
 /* --- #HOME */
 /* -------------------- */
-
+.home .button {
+  @media #{$break-small} {
+    font-size: 3em;
+  }
+  @media #{$break-medium} {
+    height: 40vh;
+    font-size: 1.5em;
+  }
+}
 
 
 /* -------------------- */
