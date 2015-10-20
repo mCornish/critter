@@ -104,13 +104,27 @@ Template.watch.events({
         Session.set('choosing', false);
         Session.set('watchHere', false);
     },
-    'click [data-hook=episode-button]': function (e) {
+    'click [data-hook=episode-button]': function (e, template) {
         const episodeNum = parseInt($(e.target).attr('data-number'));
-        const episode = Episodes.findOne({number: episodeNum});
-        const contentCursor = Content.find({episode: episodeNum}, {$sort: {hour: -1, minute: -1, second: -1}});
-        let content = contentCursor.fetch();
-        let times = _.pluck(content, 'time');
+        Session.set('episode', episodeNum);
+        const episodes = template.data.episodes.fetch();
+        const episode = _.findWhere(episodes, {number: episodeNum});
+        Session.set('cast', episode.cast);
+        Session.set('videoId', episode.videoId);
 
+        const contentCollection = template.data.content.fetch();
+        let content = _.where(contentCollection, {episode: episodeNum});
+        content.sort(function(x, y) {
+            xTotal = (x.hour * 3600) + (x.minute * 60) + x.second;
+            yTotal = (y.hour * 3600) + (y.minute * 60) + y.second;
+
+            if (x === y) {
+                return 0;
+            }
+            return x > y ? 1 : -1;
+        });
+
+        let times = _.pluck(content, 'time');
         let cHourToSec, cMinToSec, cSec, cTotSec;
 
         if (times.length > 0) {
@@ -120,10 +134,9 @@ Template.watch.events({
             cTotSec = cHourToSec + cMinToSec + cSec;
         }
 
-        Session.set('episode', episodeNum);
-        Session.set('cast', episode.cast);
-        Session.set('videoId', episode.videoId);
+
         Session.set('selectedEp', true);
+        Session.set('contentActive', true);
 
 
         // Used ID because jQuery select wasn't working
@@ -173,7 +186,17 @@ Template.watch.events({
         player.on('play', function (e) {
             Session.set('resetting', true);
             // Reset and update content and times after scrubbing.
-            content = contentCursor.fetch();
+            let content = _.where(contentCollection, {episode: episodeNum});
+            content.sort(function(x, y) {
+                xTotal = (x.hour * 3600) + (x.minute * 60) + x.second;
+                yTotal = (y.hour * 3600) + (y.minute * 60) + y.second;
+
+                if (x === y) {
+                    return 0;
+                }
+                return x > y ? 1 : -1;
+            });
+
             times = _.pluck(content, 'time');
 
             cHourToSec = times[0].hour * 3600;

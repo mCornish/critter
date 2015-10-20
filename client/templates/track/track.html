@@ -77,6 +77,8 @@
                     {{/if}}
                 </div>
             {{else}}
+                <h1>{{charName}} {{type}} {{action}}</h1>
+
                 <div class="track__check">
                     <label for="roll">Roll: </label>
                     <input id="roll" name="roll" type="number" min="1" max="{{maxRoll}}" value="1">
@@ -126,6 +128,7 @@
             <div class="menu row">
                 <a class="button menu__button col-xs-6" data-hook="start-button">
                     <i class="fa fa-clock-o"></i>
+                    <br class="hidden-xs hidden-sm">
                     {{#unless timing}}
                         Start
                     {{else}}

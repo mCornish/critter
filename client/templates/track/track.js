@@ -52,9 +52,6 @@ Template.track.helpers({
     choosingType: function () {
         return Session.get('choosingType');
     },
-    charName: function () {
-        return Session.get('charName');
-    },
     action: function () {
         return Session.get('action');
     },
@@ -66,6 +63,9 @@ Template.track.helpers({
     },
     actionIs: function (action) {
         return action === Session.get('action').toLowerCase();
+    },
+    charName: function () {
+        return Session.get('charName');
     },
     charAttacks: function () {
         return Session.get('charAttacks');
@@ -83,7 +83,7 @@ Template.track.helpers({
     watchHere: function () {
         return Session.get('watchHere');
     },
-    maxRoll: function() {
+    maxRoll: function () {
         return Session.get('maxRoll');
     }
 });
@@ -105,14 +105,15 @@ Template.track.events({
         Session.set('choosing', false);
         Session.set('watching', false);
     },
-    'click [data-hook=episode-button]': function (e) {
+    'click [data-hook=episode-button]': function (e, template) {
         const episodeNum = parseInt($(e.target).attr('data-number'));
-        const episode = Episodes.findOne({number: episodeNum});
-
         Session.set('episode', episodeNum);
+        Session.set('tracking', true);
+
+        const episodes = template.data.episodes.fetch();
+        const episode = _.findWhere(episodes, {number: episodeNum});
         Session.set('cast', episode.cast);
         Session.set('videoId', episode.videoId);
-        Session.set('tracking', true);
 
 
         // Used ID because jQuery select wasn't working
@@ -183,8 +184,6 @@ Template.track.events({
             }, 1000);
             Session.set('timingInterval', interval)
         }
-
-
     },
     'click [data-hook=track]': function (e) {
         const charName = $(e.target).attr('data-name');

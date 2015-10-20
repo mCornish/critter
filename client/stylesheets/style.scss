@@ -436,21 +436,21 @@ hr {
 /* -------------------- */
 /* --- #BUTTON GROUP */
 /* -------------------- */
-.button-group {
-  display: block;
-  margin: 0 auto;
+.buttons--full .button {
   @media #{$break-small} {
-    width: 100%;
+    border-width: 0;
   }
   @media #{$break-medium} {
-    width: 50%;
+    border-width: .2em;
   }
 }
-.button-group__right {
-  float: right;
-}
-.button-group__left {
-  float: left;
+.buttons--full .button + .button {
+  @media #{$break-small} {
+    border-top-width: .2em;
+  }
+  @media #{$break-medium} {
+    border-width: .2em;
+  }
 }
 
 

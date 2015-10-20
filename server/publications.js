@@ -37,6 +37,12 @@ Meteor.publish('episodes', function(queries, options) {
     return Episodes.find(queries, options);
 });
 
+Meteor.publish('episode', function(num) {
+    check(num, Number);
+
+    return Episodes.find({number: num});
+});
+
 Meteor.publish('attacks', function(queries, options) {
     queries = typeof queries !== 'undefined' ? queries : {};
 

@@ -7,7 +7,7 @@
         {{#unless watching}}
             <div class="row">
                 <div class="col-xs-12 col-md-10 col-md-offset-1">
-                    <div class="row">
+                    <div class="row buttons--full">
                         <a class="button button--vert button--half col-xs-12 col-md-5" data-hook="watch">
                             <div class="button__icon">
                                 <i class="fa fa-tv"></i><br>
@@ -28,7 +28,7 @@
             {{#unless selectedEp}}
                 <div class="row">
                     <div class="col-xs-12 col-md-6 col-md-offset-3">
-                        <div class="row">
+                        <div class="row buttons--full">
                             {{#each episodes}}
                                 <div class="button button--vert col-xs-12" data-hook="episode-button" data-number="{{number}}">Episode {{number}}: {{name}}</div>
                             {{/each}}
@@ -40,7 +40,7 @@
                     <div class="row">
                         <a class="button col-xs-12" data-hook="start-button">
                             {{#unless timing}}
-                                Start
+                                Start Episode
                             {{else}}
                                 {{duration}}
                             {{/unless}}
@@ -53,6 +53,9 @@
                         <h2>Content</h2>
 
                         <div class="watch__content row">
+                            {{#unless epContent}}
+                                No episode content right now
+                            {{/unless}}
                             {{#if contentTypeIs 'text'}}
                                 <h1>{{epContent.text}}</h1>
                             {{/if}}
