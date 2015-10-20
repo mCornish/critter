@@ -7,7 +7,7 @@
         {{#unless watching}}
             <div class="row">
                 <div class="col-xs-12 col-md-10 col-md-offset-1">
-                    <div class="row buttons--full">
+                    <div class="row buttons--full vert-margin">
                         <a class="button button--vert button--half col-xs-12 col-md-5" data-hook="watch">
                             <div class="button__icon">
                                 <i class="fa fa-tv"></i><br>
@@ -28,9 +28,23 @@
             {{#unless selectedEp}}
                 <div class="row">
                     <div class="col-xs-12 col-md-6 col-md-offset-3">
-                        <div class="row buttons--full">
+                        <div class="row cards">
                             {{#each episodes}}
-                                <div class="button button--vert col-xs-12" data-hook="episode-button" data-number="{{number}}">Episode {{number}}: {{name}}</div>
+                                <div class="card card--vert col-xs-12 hidden-xs hidden-sm" data-hook="episode-button"
+                                     data-number="{{number}}">
+                                    <h1 class="card__header">Episode {{number}}: {{name}}</h1>
+
+                                    <div>{{description}}</div>
+                                </div>
+                                <div class="card card--vert col-xs-12 hidden-md hidden-lg {{epActive number}}"
+                                     data-hook="episode-button"
+                                     data-number="{{number}}">
+                                    <h1 class="card__header">Episode {{number}}: {{name}}</h1>
+
+                                    <div class="card__more" data-hook="ep-more"><i class="fa fa-angle-down"
+                                                                                   data-hook="ep-more"></i></div>
+                                    <div class="card__more-container">{{description}}</div>
+                                </div>
                             {{/each}}
                         </div>
                     </div>
@@ -115,14 +129,17 @@
                     <a class="button menu__button col-xs-4 {{menuActive 'content'}}"
                        data-hook="content-button">
                         <i class="fa fa-eye"></i>
+
                         <div class="hidden-xs hidden-sm">Content</div>
                     </a>
                     <a class="button menu__button col-xs-4 {{menuActive 'info'}}" data-hook="info-button">
                         <i class="fa fa-users"></i>
+
                         <div class="hidden-xs hidden-sm">Characters</div>
                     </a>
                     <a class="button menu__button col-xs-3 col-xs-offset-1 {{watchActive}}" data-hook="watch-button">
                         <i class="fa fa-play"></i>
+
                         <div class="hidden-xs hidden-sm">Watch</div>
                     </a>
                 </div>

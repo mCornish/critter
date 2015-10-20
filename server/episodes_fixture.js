@@ -3,6 +3,7 @@ if (Episodes.find().count() === 0) {
     Episodes.insert({
         number: 1,
         name: 'Arrival at Kraghammer',
+        description: 'Our story begins as Vox Machina, the heroes of Emon, arrive at the cavernous underground city of Kraghammer. After wiping out a grave threat to Emon’s emperor, Sovereign Uriel Tal’Dorei III, the band of adventurers has been sent on a journey by Arcanist, Allura Vysoren to find Lady Kima of Vord, a Halfling Paladin of Bahamut, who was drawn to Kraghammer upon learning of a great evil resting beneath it..',
         cast: ['Vax', 'Vex', 'Grog', 'Percy', 'Keyleth', 'Tiberius', 'Scanlan'],
         // TODO Find original air dates
         airDate: new Date(2015, 3, 13),
@@ -12,6 +13,7 @@ if (Episodes.find().count() === 0) {
     Episodes.insert({
         number: 2,
         name: 'Into the Greyspine Mines',
+        description: 'After Scanlon Shorthalt brought the abomination of a Naga to it’s tortured end, the Vox Machina vowed to Nostoc Greyspine to put an end to the darkness now bubbling up out of the bowls of the earth. The team quickly gears up and makes their way into the mine, and begins a miles long trek down into the veins of Khaloor.',
         cast: ['Vax', 'Vex', 'Grog', 'Percy', 'Keyleth', 'Tiberius', 'Scanlan'],
         airDate: new Date(2015, 3, 20),
         videoId: 'JTie0S_5gjE'
@@ -20,6 +22,7 @@ if (Episodes.find().count() === 0) {
     Episodes.insert({
         number: 3,
         name: 'Strange Bedfellows',
+        description: 'With Grog’s mind now silenced, the twins fall upon the last surviving Duergar. Vex’ahlia presses their dwarven captive for information. The Duergar only laughs at the barbarian’s plight, and spits out warnings of the “master” that awaits them below, before Vax’ildan finally puts her out of her misery.',
         cast: ['Vax', 'Vex', 'Grog', 'Percy', 'Keyleth', 'Tiberius', 'Scanlan'],
         airDate: new Date(2015, 3, 27),
         videoId: 'kpkCcb--r90'
@@ -28,6 +31,7 @@ if (Episodes.find().count() === 0) {
     Episodes.insert({
         number: 4,
         name: 'Attack on the Duergar Warcamp',
+        description: 'The Vox Machina form a tentative alliance with an Illithid outcast named Clarota, deep inside the caverns under Kraghammer. They learn of the creature’s people and their subjugation to a mysterious being known only as Kvarn, as well as the haggard mind flayer’s expulsion from the hive.',
         cast: ['Vax', 'Vex', 'Pike', 'Grog', 'Percy', 'Keyleth', 'Tiberius', 'Scanlan'],
         airDate: new Date(2015, 4, 3),
         videoId: 'kGxiZNbjwGI'
@@ -36,6 +40,7 @@ if (Episodes.find().count() === 0) {
     Episodes.insert({
         number: 5,
         name: 'The Trick About Falling',
+        description: 'Having successfully slain a dangerous Illithid and its dwarven general, the Vox Machina find themselves surrounded by a small army of Duergar. They once again take to the air, hoping to clear the war camp and travel deeper into the territory of the Mind Flayers.',
         cast: ['Vax', 'Vex', 'Pike', 'Grog', 'Percy', 'Keyleth', 'Tiberius'],
         airDate: new Date(2015, 4, 3),
         videoId: 'u6QpXDL7E8Y'

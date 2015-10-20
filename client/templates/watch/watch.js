@@ -21,6 +21,7 @@ Template.watch.onCreated(function () {
     Session.set('character', null);
     Session.set('menuActive', null);
     Session.set('player', null);
+    Session.set('activeEp', 0);
 });
 
 Template.watch.helpers({
@@ -79,6 +80,9 @@ Template.watch.helpers({
     },
     menuActive: function (item) {
         return item === Session.get('menuActive') ? 'is-active' : '';
+    },
+    epActive: function (epNum) {
+        return epNum === Session.get('activeEp') ? 'is-active' : '';
     }
 });
 
@@ -103,6 +107,20 @@ Template.watch.events({
     'click [data-hook=watch-else]': function () {
         Session.set('choosing', false);
         Session.set('watchHere', false);
+    },
+    'click [data-hook=ep-more]': function(e) {
+        // don't fire click for parent
+        e.stopPropagation();
+
+        const $episode = $(e.target).parents('.card');
+        const epNum = parseInt($episode.attr('data-number'));
+        console.log(epNum + ' ' + Session.get('activeEp'));
+
+        if (epNum === Session.get('activeEp')) {
+            Session.set('activeEp', null);
+        } else {
+            Session.set('activeEp', epNum);
+        }
     },
     'click [data-hook=episode-button]': function (e, template) {
         const episodeNum = parseInt($(e.target).attr('data-number'));
@@ -186,7 +204,7 @@ Template.watch.events({
         player.on('play', function (e) {
             Session.set('resetting', true);
             // Reset and update content and times after scrubbing.
-            let content = _.where(contentCollection, {episode: episodeNum});
+            content = _.where(contentCollection, {episode: episodeNum});
             content.sort(function(x, y) {
                 xTotal = (x.hour * 3600) + (x.minute * 60) + x.second;
                 yTotal = (y.hour * 3600) + (y.minute * 60) + y.second;
@@ -215,7 +233,6 @@ Template.watch.events({
             //});
 
             while (cTotSec < totalSeconds) {
-                console.log(content);
                 if (times.length > 1) {
                     times.shift();
                     content.shift();
@@ -233,7 +250,6 @@ Template.watch.events({
     },
     'click [data-hook=start-button]': function (e) {
         e.preventDefault();
-        console.log(Session.get('timingInterval'));
         const timing = Session.get('timing');
 
         Session.set('timing', !timing);

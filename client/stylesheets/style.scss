@@ -10,7 +10,7 @@ $color-2: hsl(38,79,98); // goldish white
 $color-2-t: hsla(38,79,98,.9); // translucent greenish white
 $color-3: hsl(4,80,52); // red
 $color-4: hsl(38,79,54); // gold
-$color-5: rgb(235,240,235); // ?
+$color-5: hsl(0,0,95); // light gray
 
 /* -------------------- */
 /* --- #MEDIA QUERY BREAKPOINTS */
@@ -414,7 +414,7 @@ hr {
   display: none;
 }
 
-.row .button--vert + .button--vert {
+.button--vert + .button--vert {
   @media #{$break-small} {
     border-top-width: 0;
   }
@@ -451,6 +451,68 @@ hr {
   @media #{$break-medium} {
     border-width: .2em;
   }
+}
+
+
+/* -------------------- */
+/* --- #CARD */
+/* -------------------- */
+.card {
+  padding: 1em 1em 1.2em;
+  cursor: pointer;
+  transition: all .2s ease;
+
+  @media #{$break-small} {
+    text-align: center;
+    font-size: 1.5em;
+  }
+  @media #{$break-medium} {
+    text-align: left;
+    font-size: 1rem;
+  }
+}
+.card:hover {
+  @media #{$break-small} {
+    color: $color-2;
+    background-color: $color-1;
+  }
+  @media #{$break-medium} {
+
+  }
+}
+.card + .card {
+  @media #{$break-small} {
+    border-bottom: .2em solid $color-1;
+  }
+  @media #{$break-medium} {
+    border: none;
+    margin-top: 1em;
+  }
+}
+.card__more-container {
+  display: none;
+  text-align: left;
+  font-size: 1rem;
+}
+.card.is-active .card__more-container {
+  display: block;
+}
+.card__header {
+  @media #{$break-small} {
+    font-size: .8em;
+  }
+  @media #{$break-medium} {
+    font-size: 1em;
+  }
+}
+.card__more {
+  position: absolute;
+  bottom: -.3em;
+  width: 100%;
+  font-size: 1.5em;
+}
+.card__more:hover {
+  color: $color-3;
 }
 
 
@@ -1395,4 +1457,12 @@ input[type=radio] + input[type=radio] {
 }
 .text-center {
   text-align: center;
+}
+.vert-margin {
+  @media #{$break-small} {
+    margin-top: 0;
+  }
+  @media #{$break-medium} {
+    margin-top: 20vh;
+  }
 }
