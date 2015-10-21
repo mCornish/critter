@@ -38,13 +38,7 @@
             {{else}}
                 {{#unless watchHere}}
                     <div class="row">
-                        <a class="button col-xs-12" data-hook="start-button">
-                            {{#unless timing}}
-                                Start Episode
-                            {{else}}
-                                {{duration}}
-                            {{/unless}}
-                        </a>
+                        {{> timer}}
                     </div>
                 {{/unless}}
 

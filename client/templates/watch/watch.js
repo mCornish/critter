@@ -6,8 +6,6 @@ Template.watch.onCreated(function () {
     Session.set('selectedEp', false);
     Session.set('episode', null);
     Session.set('cast', null);
-    Session.set('duration', '0:00:00');
-    Session.set('timing', false);
     Session.set('seconds', 0);
     Session.set('minutes', 0);
     Session.set('hours', 0);
@@ -39,15 +37,8 @@ Template.watch.helpers({
     videoId: function () {
         return Session.get('videoId');
     },
-    duration: function () {
-        return Session.get('duration');
-    },
     videoClass: function () {
         return Session.get('watchHere') && Session.get('episode') ? '' : 'hidden';
-    },
-    // Controls start button text
-    timing: function () {
-        return Session.get('timing');
     },
     epContent: function () {
         return Session.get('epContent');
@@ -236,51 +227,6 @@ Template.watch.events({
             }
             Session.set('resetting', false);
         })
-
-    },
-    'click [data-hook=start-button]': function (e) {
-        e.preventDefault();
-        const timing = Session.get('timing');
-
-        Session.set('timing', !timing);
-
-        let hours = Session.get('hours'),
-            minutes = Session.get('minutes'),
-            seconds = Session.get('seconds');
-
-        if (timing) {
-            clearInterval(Session.get('timingInterval'));
-        } else {
-            const interval = setInterval(function () {
-                seconds++;
-                Session.set('seconds', seconds);
-
-                if (seconds >= 60) {
-                    minutes++;
-                    Session.set('minutes', minutes);
-                    if (minutes >= 60) {
-                        hours++;
-                        Session.set('hours', hours);
-                        minutes = 0;
-                    }
-                    seconds = 0;
-                }
-
-                // add zero for single-digit seconds/minutes
-                if (seconds < 10) {
-                    seconds = ('0' + seconds).slice(-2);
-                }
-                if (minutes < 10) {
-                    minutes = ('0' + minutes).slice(-2);
-                }
-
-                const totalSeconds = hours * 3600 + minutes * 60 + seconds;
-                Session.set('totalSeconds', totalSeconds);
-                Session.set('duration', `${hours}:${minutes}:${seconds}`);
-            }, 1000);
-            Session.set('timingInterval', interval)
-        }
-
 
     },
     'click [data-hook=content-button]': function () {

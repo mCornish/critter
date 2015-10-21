@@ -1,0 +1,9 @@
+<template name="timer">
+    <a class="button page-spacer col-xs-10 col-xs-offset-1" data-hook="start-button">
+        {{#unless timing}}
+            Start Episode
+        {{else}}
+            {{duration}}
+        {{/unless}}
+    </a>
+</template>

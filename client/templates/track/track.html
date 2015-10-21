@@ -7,7 +7,7 @@
     {{#if tracking}}
         {{#unless watchHere}}
             <div class="row">
-
+                {{> timer}}
             </div>
         {{/unless}}
     {{/if}}
@@ -107,11 +107,13 @@
 
     {{#unless tracking}}
         <div class="row">
-            {{#each episodes}}
-                <div class="button button--vert col-xs-12" data-hook="episode-button" data-number="{{number}}">
-                    <span>Episode {{number}}: {{name}}</span>
+            <div class="col-xs-12 col-md-6 col-md-offset-3">
+                <div class="row cards">
+                    {{#each episodes}}
+                        {{> episodeItem}}
+                    {{/each}}
                 </div>
-            {{/each}}
+            </div>
         </div>
     {{else}}
         {{#unless modal}}
@@ -126,16 +128,7 @@
                 </div>
             </div>
             <div class="menu row">
-                <a class="button menu__button col-xs-6" data-hook="start-button">
-                    <i class="fa fa-clock-o"></i>
-                    <br class="hidden-xs hidden-sm">
-                    {{#unless timing}}
-                        Start
-                    {{else}}
-                        {{duration}}
-                    {{/unless}}
-                </a>
-                <a class="button menu__button col-xs-6 {{watchActive}}" data-hook="watch-button"><i
+                <a class="button menu__button col-xs-12 {{watchActive}}" data-hook="watch-button"><i
                         class="fa fa-play"></i>
 
                     <div class="hidden-xs hidden-sm">Watch</div>
