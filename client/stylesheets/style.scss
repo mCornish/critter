@@ -465,10 +465,12 @@ hr {
   @media #{$break-small} {
     text-align: center;
     font-size: 1.5em;
+    box-shadow: 0 1px 1px 0 rgba(0,0,0,.5);
   }
   @media #{$break-medium} {
     text-align: left;
     font-size: 1rem;
+    box-shadow: none;
   }
 }
 .card:hover {
@@ -482,10 +484,9 @@ hr {
 }
 .card + .card {
   @media #{$break-small} {
-    border-bottom: .2em solid $color-1;
+
   }
   @media #{$break-medium} {
-    border: none;
     margin-top: 1em;
   }
 }
@@ -508,11 +509,16 @@ hr {
 .card__more {
   position: absolute;
   bottom: -.3em;
-  width: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 3em;
   font-size: 1.5em;
 }
 .card__more:hover {
   color: $color-3;
+}
+.card.is-active .card__more {
+
 }
 
 
@@ -650,6 +656,16 @@ label.is-hidden {
 }
 .header-spacer .header {
   position: relative;
+}
+.header__back {
+  position: absolute;
+  font-size: 4em;
+  left: 1em;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.header__back:hover {
+  color: $color-4;
 }
 
 
@@ -969,7 +985,7 @@ input[type=radio] + input[type=radio] {
 }
 .logo:hover,
 .logo:focus {
-  color: $color-1;
+  color: $color-4;
 }
 .logo__header {
   margin: 0;

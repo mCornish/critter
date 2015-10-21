@@ -21,7 +21,6 @@ Template.watch.onCreated(function () {
     Session.set('character', null);
     Session.set('menuActive', null);
     Session.set('player', null);
-    Session.set('activeEp', 0);
 });
 
 Template.watch.helpers({
@@ -80,9 +79,6 @@ Template.watch.helpers({
     },
     menuActive: function (item) {
         return item === Session.get('menuActive') ? 'is-active' : '';
-    },
-    epActive: function (epNum) {
-        return epNum === Session.get('activeEp') ? 'is-active' : '';
     }
 });
 
@@ -108,25 +104,20 @@ Template.watch.events({
         Session.set('choosing', false);
         Session.set('watchHere', false);
     },
-    'click [data-hook=ep-more]': function(e) {
-        // don't fire click for parent
-        e.stopPropagation();
-
-        const $episode = $(e.target).parents('.card');
-        const epNum = parseInt($episode.attr('data-number'));
-        console.log(epNum + ' ' + Session.get('activeEp'));
-
-        if (epNum === Session.get('activeEp')) {
-            Session.set('activeEp', null);
-        } else {
-            Session.set('activeEp', epNum);
-        }
-    },
     'click [data-hook=episode-button]': function (e, template) {
-        const episodeNum = parseInt($(e.target).attr('data-number'));
+        let episodeNum;
+        // Make sure the target is the episode button
+        if (!$(e.target).is('[data-hook=episode-button]')) {
+            const $button = $(e.target).parent();
+            episodeNum = parseInt($button.attr('data-number'));
+        } else {
+            episodeNum = parseInt($(e.target).attr('data-number'));
+        }
+
         Session.set('episode', episodeNum);
         const episodes = template.data.episodes.fetch();
         const episode = _.findWhere(episodes, {number: episodeNum});
+        console.log(episode);
         Session.set('cast', episode.cast);
         Session.set('videoId', episode.videoId);
 
@@ -155,7 +146,6 @@ Template.watch.events({
 
         Session.set('selectedEp', true);
         Session.set('contentActive', true);
-
 
         // Used ID because jQuery select wasn't working
         const ytEl = document.getElementById('js-yt');

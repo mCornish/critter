@@ -1,0 +1,22 @@
+<template name="episodeItem">
+    <div class="card card--vert col-xs-12 hidden-xs hidden-sm" data-hook="episode-button"
+         data-number="{{number}}">
+        <h1 class="card__header">Episode {{number}}: {{name}}</h1>
+
+        <div>{{description}}</div>
+    </div>
+    <div class="card card--vert col-xs-12 hidden-md hidden-lg {{epActive number}}"
+         data-hook="episode-button"
+         data-number="{{number}}">
+        <h1 class="card__header">Episode {{number}}: {{name}}</h1>
+
+        <div class="card__more" data-hook="ep-more">
+            {{#unless epActive number}}
+                <i class="fa fa-angle-down" data-hook="ep-more"></i>
+            {{else}}
+                <i class="fa fa-angle-up" data-hook="ep-more"></i>
+            {{/unless}}
+        </div>
+        <div class="card__more-container">{{description}}</div>
+    </div>
+</template>

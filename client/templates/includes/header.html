@@ -5,7 +5,11 @@
         </a>
         {{#if homeUnauthed}}
             <h1>Critter</h1>
+
             <h2>A new way to watch</h2>
+        {{/if}}
+        {{#if backLink}}
+            <a class="header__back" href="{{backLink}}"><i class="fa fa-angle-left"></i></a>
         {{/if}}
     </header>
 </template>

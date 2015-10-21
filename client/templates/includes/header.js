@@ -1,6 +1,7 @@
 Template.layout.onRendered(function() {
     Session.setDefault('headerIsSimple', false);
     Session.set('headerIsActive', true);
+    Session.set('backLink', null);
 });
 
 Template.header.helpers({
@@ -34,5 +35,8 @@ Template.header.helpers({
         const isHome = Router.current().route.path() === '/';
 
         return unauthed && isHome;
+    },
+    backLink: function() {
+        return Session.get('backLink');
     }
 });
