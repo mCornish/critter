@@ -5,6 +5,9 @@ Template.episodeItem.onCreated(function () {
 Template.episodeItem.helpers({
     epActive: function (epNum) {
         return epNum === Session.get('activeEp') ? 'is-active' : '';
+    },
+    watching: function() {
+        return Session.get('watching');
     }
 });
 

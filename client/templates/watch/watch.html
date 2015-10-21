@@ -1,129 +1,33 @@
 <template name="watch">
-    <div class="page">
-        <div class="youtube-container {{videoClass}}">
-            <div id="js-yt" class="youtube-player" data-hook="youtube-player"></div>
-        </div>
-
-        {{#unless watching}}
-            <div class="row">
-                <div class="col-xs-12 col-md-10 col-md-offset-1">
-                    <div class="row buttons--full vert-margin">
-                        <a class="button button--vert button--half col-xs-12 col-md-5" data-hook="watch">
-                            <div class="button__icon">
-                                <i class="fa fa-tv"></i><br>
-                                Watch
-                            </div>
-                        </a>
-                        <a class="button button--vert button--half col-xs-12 col-md-5 col-md-offset-2"
-                           href="{{pathFor 'track'}}">
-                            <div class="button__icon">
-                                <i class="fa fa-bar-chart"></i><br>
-                                Track
-                            </div>
-                        </a>
-                    </div>
+    {{#if choosing}}
+        <div class="row">
+            <div class="col-xs-12 col-md-10 col-md-offset-1">
+                <div class="row buttons--full vert-margin">
+                    <a class="button button--vert button--half col-xs-12 col-md-5" data-hook="watch">
+                        <div class="button__icon">
+                            <i class="fa fa-tv"></i><br>
+                            Watch
+                        </div>
+                    </a>
+                    <a class="button button--vert button--half col-xs-12 col-md-5 col-md-offset-2"
+                       href="{{pathFor 'track'}}">
+                        <div class="button__icon">
+                            <i class="fa fa-bar-chart"></i><br>
+                            Track
+                        </div>
+                    </a>
                 </div>
             </div>
-        {{else}}
-            {{#unless selectedEp}}
-                <div class="row">
-                    <div class="col-xs-12 col-md-6 col-md-offset-3">
-                        <div class="row cards">
-                            {{#each episodes}}
-                                {{> episodeItem}}
-                            {{/each}}
-                        </div>
-                    </div>
+        </div>
+    {{else}}
+        <div class="row">
+            <div class="col-xs-12 col-md-6 col-md-offset-3">
+                <div class="row cards">
+                        {{#each episodes}}
+                            {{> episodeItem}}
+                        {{/each}}
                 </div>
-            {{else}}
-                {{#unless watchHere}}
-                    <div class="row">
-                        {{> timer}}
-                    </div>
-                {{/unless}}
-
-                <div class="watch__container">
-                    {{#if contentActive}}
-                        <h2>Content</h2>
-
-                        <div class="watch__content row">
-                            {{#unless epContent}}
-                                No episode content right now
-                            {{/unless}}
-                            {{#if contentTypeIs 'text'}}
-                                <h1>{{epContent.text}}</h1>
-                            {{/if}}
-                            {{#if contentTypeIs 'link'}}
-                                <h1>
-                                    <a class="live-link" href="{{epContent.link}}"
-                                       target="_blank">{{epContent.text}}</a>
-                                </h1>
-                            {{/if}}
-                            {{#if contentTypeIs 'tweet'}}
-                                <blockquote class="twitter-tweet" lang="en">
-                                    <p lang="en" dir="ltr">
-                                        {{epContent.text}}
-                                    </p>&mdash; {{epContent.from}} <a href="{{epContent.link}}"></a>
-                                </blockquote>
-                                <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-                            {{/if}}
-                            {{#if contentTypeIs 'yt'}}
-                                <iframe width="560" height="315"
-                                        src="https://www.youtube.com/embed/{{epContent.link}}" frameborder="0"
-                                        allowfullscreen></iframe>
-                            {{/if}}
-                            {{#if contentTypeIs 'image'}}
-                                <img class="col-xs-12" src="{{epContent.link}}"/>
-                            {{/if}}
-                        </div>
-                    {{/if}}
-                    {{#if infoActive}}
-                        <h2>Info</h2>
-
-                        <div class="watch__info row">
-                            {{#unless detailActive}}
-                                {{#each characters}}
-                                    <div class="col-xs-3 watch__char-container">
-                                        <img src="{{imageURL}}" class="watch__char" data-hook="detail-button"
-                                             data-name="{{name}}">
-                                    </div>
-                                {{/each}}
-                            {{/unless}}
-                        </div>
-                        {{#if detailActive}}
-                            <div class="char__detail">
-                                    {{#with character}}
-                                        {{> charPage}}
-                                    {{/with}}
-                            </div>
-                            <div class="row">
-                                {{#each characters}}
-                                    <a class="col-xs-3 watch__char-name {{detailClass name}}" data-hook="detail-button"
-                                       data-name="{{name}}">{{name}}</a>
-                                {{/each}}
-                            </div>
-                        {{/if}}
-                    {{/if}}
-                </div>
-                <div class="menu row">
-                    <a class="button menu__button col-xs-4 {{menuActive 'content'}}"
-                       data-hook="content-button">
-                        <i class="fa fa-eye"></i>
-
-                        <div class="hidden-xs hidden-sm">Content</div>
-                    </a>
-                    <a class="button menu__button col-xs-4 {{menuActive 'info'}}" data-hook="info-button">
-                        <i class="fa fa-users"></i>
-
-                        <div class="hidden-xs hidden-sm">Characters</div>
-                    </a>
-                    <a class="button menu__button col-xs-3 col-xs-offset-1 {{watchActive}}" data-hook="watch-button">
-                        <i class="fa fa-play"></i>
-
-                        <div class="hidden-xs hidden-sm">Watch</div>
-                    </a>
-                </div>
-            {{/unless}}
-        {{/unless}}
-    </div>
+            </div>
+        </div>
+    {{/if}}
 </template>

@@ -4,17 +4,35 @@
 
         <div>{{description}}</div>
     </a>
-    <a class="card card--vert col-xs-12 hidden-md hidden-lg {{epActive number}}"
-       href="{{pathFor 'trackEp' ep=number}}" data-number="{{number}}">
-        <h1 class="card__header">Episode {{number}}: {{name}}</h1>
 
-        <div class="card__more" data-hook="ep-more">
-            {{#unless epActive number}}
-                <i class="fa fa-angle-down" data-hook="ep-more"></i>
-            {{else}}
-                <i class="fa fa-angle-up" data-hook="ep-more"></i>
-            {{/unless}}
-        </div>
-        <div class="card__more-container">{{description}}</div>
-    </a>
+    <!-- Determine which link to use -->
+    {{#if watching}}
+        <a class="card card--vert col-xs-12 hidden-md hidden-lg {{epActive number}}"
+           href="{{pathFor 'watchEp' ep=number}}" data-number="{{number}}">
+            <h1 class="card__header">Episode {{number}}: {{name}}</h1>
+
+            <div class="card__more" data-hook="ep-more">
+                {{#unless epActive number}}
+                    <i class="fa fa-angle-down" data-hook="ep-more"></i>
+                {{else}}
+                    <i class="fa fa-angle-up" data-hook="ep-more"></i>
+                {{/unless}}
+            </div>
+            <div class="card__more-container">{{description}}</div>
+        </a>
+    {{else}}
+        <a class="card card--vert col-xs-12 hidden-md hidden-lg {{epActive number}}"
+           href="{{pathFor 'trackEp' ep=number}}" data-number="{{number}}">
+            <h1 class="card__header">Episode {{number}}: {{name}}</h1>
+
+            <div class="card__more" data-hook="ep-more">
+                {{#unless epActive number}}
+                    <i class="fa fa-angle-down" data-hook="ep-more"></i>
+                {{else}}
+                    <i class="fa fa-angle-up" data-hook="ep-more"></i>
+                {{/unless}}
+            </div>
+            <div class="card__more-container">{{description}}</div>
+        </a>
+    {{/if}}
 </template>

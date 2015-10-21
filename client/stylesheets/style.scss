@@ -1042,6 +1042,9 @@ input[type=radio] + input[type=radio] {
   background-color: $color-3;
   transform: translateY(-100%);
 }
+.menu.row {
+  margin: 0;
+}
 .menu__button {
   display: inline-block;
   border: none;
