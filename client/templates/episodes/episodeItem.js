@@ -1,5 +1,5 @@
 Template.episodeItem.onCreated(function () {
-    Session.set('activeEp', 0);
+    Session.set('activeEp', null);
 });
 
 Template.episodeItem.helpers({
@@ -10,12 +10,13 @@ Template.episodeItem.helpers({
 
 Template.episodeItem.events({
     'click [data-hook=ep-more]': function(e) {
-        // don't fire click for parent
+        // prevent parent from firing event
         e.stopPropagation();
+        // don't activate link
+        e.preventDefault();
 
         const $episode = $(e.target).parents('.card');
         const epNum = parseInt($episode.attr('data-number'));
-        console.log(epNum + ' ' + Session.get('activeEp'));
 
         if (epNum === Session.get('activeEp')) {
             Session.set('activeEp', null);

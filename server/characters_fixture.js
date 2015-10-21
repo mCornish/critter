@@ -41,7 +41,7 @@ if (Characters.find().count() === 0) {
             killCount: 22,
             koCount: 5
         },
-        imageURL: '/images/grog.png',
+        imageURL: '/images/grog.svg',
         submitted: new Date(),
         live: false
     });

@@ -1,0 +1,209 @@
+<template name="trackEp">
+    <div class="row">
+        <div class="youtube-container col-xs-12 {{videoClass}}">
+            <div id="js-yt" class="youtube-player" data-hook="youtube-player"></div>
+        </div>
+    </div>
+
+    {{#unless watchHere}}
+        <div class="row">
+                {{> timer}}
+        </div>
+    {{/unless}}
+
+    {{#unless modal}}
+        <div class="row">
+            <div class="track__chars col-xs-12">
+                {{#each activeChars}}
+                    <div class="track__char" data-hook="track" data-name="{{name}}">
+                        <div class="track__name">{{name}}</div>
+                        <object type="image/svg+xml" data="{{imageURL}}" data-name="{{name}}">Grog</object>
+                    </div>
+                {{/each}}
+                <div class="track__char" data-hook="track" data-name="DM">
+                    <div class="track__name">DM</div>
+                    <object type="image/svg+xml" data="/images/dm.jpg" data-name="{{name}}">DM</object>
+                </div>
+            </div>
+        </div>
+
+        <div class="menu row">
+            <a class="button menu__button col-xs-12 {{watchActive}}" data-hook="watch-button"><i
+                    class="fa fa-play"></i>
+
+                <div class="hidden-xs hidden-sm">Watch</div>
+            </a>
+        </div>
+    {{else}}
+        <div class="track__modal row">
+            <div class="col-xs-12">
+                {{#if choosingAction}}
+                    <div class="row">
+                        <div class="col-xs-10 col-xs-offset-1">
+                            <div class="row">
+                                {{#unless charSpells}}
+                                    <div class="button button--vert col-xs-12 col-md-4 {{actionActive 'check'}}"
+                                         data-hook="action"
+                                         data-action="Check">Check</div>
+                                {{else}}
+                                    <div class="button button--vert col-xs-12 col-md-6 {{actionActive 'check'}}"
+                                         data-hook="action"
+                                         data-action="Check">Check</div>
+                                {{/unless}}
+                                {{#if actionIs 'check'}}
+                                    <div class="modal__sub-menu hidden-md hidden-lg">
+                                        <div class="button button--vert col-xs-12 col-md-3" data-hook="type"
+                                             data-type="Acrobatics">Acrobatics</div>
+                                        <div class="button button--vert col-xs-12 col-md-3" data-hook="type"
+                                             data-type="Deception">Deception</div>
+                                        <div class="button button--vert col-xs-12 col-md-3" data-hook="type"
+                                             data-type="Dexterity">Dexterity</div>
+                                        <div class="button button--vert col-xs-12 col-md-3" data-hook="type"
+                                             data-type="Diplomacy">Diplomacy</div>
+                                        <div class="button button--vert col-xs-12 col-md-3" data-hook="type"
+                                             data-type="Intimidation">Intimidation</div>
+                                        <div class="button button--vert col-xs-12 col-md-3" data-hook="type"
+                                             data-type="Medicine">Medicine</div>
+                                        <div class="button button--vert col-xs-12 col-md-3" data-hook="type"
+                                             data-type="Perception">Perception</div>
+                                        <div class="button button--vert col-xs-12 col-md-3" data-hook="type"
+                                             data-type="Slight of Hand">Slight of Hand</div>
+                                        <div class="button button--vert col-xs-12 col-md-3" data-hook="type"
+                                             data-type="Survival">Survival</div>
+                                        <div class="button button--vert col-xs-12 col-md-3" data-hook="type"
+                                             data-type="Wisdom">Wisdom</div>
+                                    </div>
+                                {{/if}}
+                                {{#unless charSpells}}
+                                    <div class="button button--vert col-xs-12 col-md-4 {{actionActive 'save'}}"
+                                         data-hook="action"
+                                         data-action="Save">Save</div>
+                                {{else}}
+                                    <div class="button button--vert col-xs-12 col-md-6 {{actionActive 'save'}}"
+                                         data-hook="action"
+                                         data-action="Save">Save</div>
+                                {{/unless}}
+                                {{#if actionIs 'save'}}
+                                    <div class="modal__sub-menu hidden-md hidden-lg">
+                                        <div class="button button--vert col-xs-12 col-md-3" data-hook="type"
+                                             data-type="Acrobatics">Acrobatics</div>
+                                        <div class="button button--vert col-xs-12 col-md-3" data-hook="type"
+                                             data-type="Diplomacy">Constitution</div>
+                                        <div class="button button--vert col-xs-12 col-md-3" data-hook="type"
+                                             data-type="Dexterity">Dexterity</div>
+                                        <div class="button button--vert col-xs-12 col-md-3" data-hook="type"
+                                             data-type="Wisdom">Wisdom</div>
+                                    </div>
+                                {{/if}}
+                                {{#unless charSpells}}
+                                    <div class="button button--vert col-xs-12 col-md-4 {{actionActive 'attack'}}"
+                                         data-hook="action"
+                                         data-action="Attack">Attack</div>
+                                {{else}}
+                                    <div class="button button--vert col-xs-12 col-md-6 {{actionActive 'attack'}}"
+                                         data-hook="action"
+                                         data-action="Attack">Attack</div>
+                                {{/unless}}
+                                {{#if actionIs 'attack'}}
+                                    <div class="modal__sub-menu hidden-md hidden-lg">
+                                        {{#each charAttacks}}
+                                            <div class="button button--vert col-xs-12 col-md-3" data-hook="type"
+                                                 data-type="{{name}}">{{name}}</div>
+                                        {{/each}}
+                                    </div>
+                                {{/if}}
+                                {{#if charSpells}}
+                                    <div class="button button--vert col-xs-12 col-md-6 {{actionActive 'cast'}}"
+                                         data-hook="action"
+                                         data-action="Cast">Cast</div>
+                                    <div class="modal__sub-menu hidden-md hidden-lg">
+                                        {{#if actionIs 'cast'}}
+                                            <div class="button button--vert col-xs-12 col-md-3" data-hook="type"
+                                                 data-type="{{name}}">{{name}}</div>
+                                        {{/if}}
+                                    </div>
+                                {{/if}}
+                            </div>
+
+                            <div class="row hidden-xs hidden-sm">
+                                {{#if actionIs 'check'}}
+                                    <div class="modal__sub-menu">
+                                        <div class="button button--vert col-xs-12 col-md-3" data-hook="type"
+                                             data-type="Acrobatics">Acrobatics</div>
+                                        <div class="button button--vert col-xs-12 col-md-3" data-hook="type"
+                                             data-type="Deception">Deception</div>
+                                        <div class="button button--vert col-xs-12 col-md-3" data-hook="type"
+                                             data-type="Dexterity">Dexterity</div>
+                                        <div class="button button--vert col-xs-12 col-md-3" data-hook="type"
+                                             data-type="Diplomacy">Diplomacy</div>
+                                        <div class="button button--vert col-xs-12 col-md-3" data-hook="type"
+                                             data-type="Intimidation">Intimidation</div>
+                                        <div class="button button--vert col-xs-12 col-md-3" data-hook="type"
+                                             data-type="Medicine">Medicine</div>
+                                        <div class="button button--vert col-xs-12 col-md-3" data-hook="type"
+                                             data-type="Perception">Perception</div>
+                                        <div class="button button--vert col-xs-12 col-md-3" data-hook="type"
+                                             data-type="Slight of Hand">Slight of Hand</div>
+                                        <div class="button button--vert col-xs-12 col-md-3" data-hook="type"
+                                             data-type="Survival">Survival</div>
+                                        <div class="button button--vert col-xs-12 col-md-3" data-hook="type"
+                                             data-type="Wisdom">Wisdom</div>
+                                    </div>
+                                {{/if}}
+                                {{#if actionIs 'save'}}
+                                    <div class="modal__sub-menu">
+                                        <div class="button button--vert col-xs-12 col-md-3" data-hook="type"
+                                             data-type="Acrobatics">Acrobatics</div>
+                                        <div class="button button--vert col-xs-12 col-md-3" data-hook="type"
+                                             data-type="Diplomacy">Constitution</div>
+                                        <div class="button button--vert col-xs-12 col-md-3" data-hook="type"
+                                             data-type="Dexterity">Dexterity</div>
+                                        <div class="button button--vert col-xs-12 col-md-3" data-hook="type"
+                                             data-type="Wisdom">Wisdom</div>
+                                    </div>
+                                {{/if}}
+                                {{#if actionIs 'attack'}}
+                                    <div class="modal__sub-menu">
+                                        {{#each charAttacks}}
+                                            <div class="button button--vert col-xs-12 col-md-3" data-hook="type"
+                                                 data-type="{{name}}">{{name}}</div>
+                                        {{/each}}
+                                    </div>
+                                {{/if}}
+                                {{#if actionIs 'cast'}}
+                                    <div class="button button--vert col-xs-12 col-md-3" data-hook="type"
+                                         data-type="{{name}}">{{name}}</div>
+                                {{/if}}
+                            </div>
+                        </div>
+                    </div>
+                {{else}}
+                    <h1>{{charName}} {{type}} {{action}}</h1>
+
+                    <div class="track__check">
+                        <label for="roll">Roll: </label>
+                        <input id="roll" name="roll" type="number" min="1" max="{{maxRoll}}" value="1">
+                        <label for="success">
+                            {{#if actionIs 'attack'}}
+                                Hit?
+                            {{else}}
+                                {{#if actionIs 'cast'}}
+                                    Intended effect?
+                                {{else}}
+                                    Success?
+                                {{/if}}
+                            {{/if}}
+                        </label>
+                        <input type="checkbox" id="success" name="success">
+                        {{#if actionIs 'attack'}}
+                            <label for="lethal">Lethal</label>
+                            <input type="checkbox" id="lethal" name="lethal">
+                        {{/if}}
+                        <a class="button" data-hook="add-roll"><i class="fa fa-plus"></i></a>
+                        <a class="button" data-hook="submit-roll">Submit</a>
+                    </div>
+                {{/if}}
+            </div>
+        </div>
+    {{/unless}}
+</template>
