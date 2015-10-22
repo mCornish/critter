@@ -125,9 +125,10 @@ Template.trackEp.events({
         Session.set('choosing', false);
         Session.set('watching', false);
     },
-    'click [data-hook=track]': function (e) {
+    'click [data-hook=track]': function (e, template) {
         const charName = $(e.target).attr('data-name');
-        const character = Characters.findOne({name: charName});
+        const characters = template.data.characters.fetch();
+        const character = _.findWhere(characters, {name: charName});
 
         Session.set('charName', charName);
         Session.set('modal', true);

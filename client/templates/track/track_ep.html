@@ -16,7 +16,7 @@
             <div class="track__chars col-xs-12">
                 {{#each activeChars}}
                     <div class="track__char" data-hook="track" data-name="{{name}}">
-                        <div class="track__name">{{name}}</div>
+                        <div class="track__name" data-name="{{name}}">{{name}}</div>
                         <object type="image/svg+xml" data="{{imageURL}}" data-name="{{name}}">Grog</object>
                     </div>
                 {{/each}}

@@ -25,13 +25,13 @@ Template.header.helpers({
         }
     },
     authedClass: function() {
-        const unauthed = typeof Meteor.userId() !== 'String';
+        const unauthed = typeof Meteor.userId() !== 'string';
         const isHome = Router.current().route.path() === '/';
 
         return unauthed && isHome ? 'is-unauthed' : '';
     },
     homeUnauthed: function() {
-        const unauthed = typeof Meteor.userId() !== 'String';
+        const unauthed = typeof Meteor.userId() !== 'string';
         const isHome = Router.current().route.path() === '/';
 
         return unauthed && isHome;
