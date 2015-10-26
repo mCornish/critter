@@ -1,71 +1,48 @@
 /* ------------------------------ */
 /* ------------- #VARIABLES */
 /* ------------------------------ */
-
 /* -------------------- */
 /* --- #COLORS */
 /* -------------------- */
-$color-1: rgb(50,50,50); // dark gray
-$color-2: hsl(38, 9,98); // goldish white
-$color-2-t: hsla(38, 9,98,.9); // translucent greenish white
-$color-3: hsl(4,80,52); // red
-$color-4: hsl(38,79,54); // gold
-$color-5: hsl(0,97,26); // dark red
-
 /* -------------------- */
 /* --- #MEDIA QUERY BREAKPOINTS */
 /* -------------------- */
-$break-small: 'screen and (min-width: 1px)';
-$break-medium: 'screen and (min-width: 992px)';
-$break-large: 'screen and (min-width: 1920px)';
-
 /* ------------------------------ */
 /* ------------- #BASE */
 /* ------------------------------ */
-
 html {
   font-family: 'Lato', sans-serif;
-  color: $color-1;
-  @media #{$break-small} {
-    font-size: 16px;
-  }
-  @media #{$break-medium} {
-    font-size: 18px;
-  }
-}
+  color: #323232; }
+  @media screen and (min-width: 1px) {
+    html {
+      font-size: 16px; } }
+  @media screen and (min-width: 992px) {
+    html {
+      font-size: 18px; } }
 
 body {
-  background: $color-2;
-  font-size: 1em;
-}
+  background: #fafaf9;
+  font-size: 1em; }
 
 h1, h2, h2, a, p, span, input {
   font-family: 'Lato', sans-serif;
-  color: inherit;
-}
+  color: inherit; }
 
 h1 {
   font-size: 3rem;
-  font-weight: 900;
-}
+  font-weight: 900; }
 
 h2 {
   font-size: 1.5rem;
-  font-weight: 300;
-}
+  font-weight: 300; }
 
 p {
-  font-size: 1rem;
-}
+  font-size: 1rem; }
 
-// Links
 a,
 .fake-link {
   color: inherit;
-  //border-bottom: .2em solid $color-1;
-  //padding-bottom: .1em;
-  position: relative;
-}
+  position: relative; }
 
 a:after,
 a:before,
@@ -76,72 +53,41 @@ a:before,
   width: 0;
   bottom: -.15em;
   position: absolute;
-  //background: $color-3;
-  transition: .2s ease all;
-}
-
-a:before,
-.fake-link:before {
-  //left: 50%;
-}
-
-a:after,
-.fake-link:after {
-  //right: 50%;
-}
-
-a:hover:not(.button):before,
-a:hover:not(.button):after,
-.fake-link:not(.button):hover:before,
-.fake-link:not(.button):hover:after {
-  //width: 50%;
-}
+  transition: .2s ease all; }
 
 a:hover,
 a:focus,
 .fake-link:hover {
-  color: $color-1;
+  color: #323232;
   text-decoration: none;
-  cursor: pointer;
-}
+  cursor: pointer; }
 
-// Input placeholder text color
 input::-webkit-input-placeholder {
-  color: $color-4;
-}
+  color: #e6a22d; }
 
 input:-moz-placeholder {
   /* Firefox 18- */
-  color: $color-4;
-}
+  color: #e6a22d; }
 
 input::-moz-placeholder {
   /* Firefox 19+ */
-  color: $color-4;
-}
+  color: #e6a22d; }
 
 input:-ms-input-placeholder {
-  color: $color-4;
-}
-
+  color: #e6a22d; }
 
 /* ------------------------------ */
 /* ------------- #COMPONENTS */
 /* ------------------------------ */
-
 /* -------------------- */
 /* --- #BOOTSTRAP ADDITIONS */
 /* -------------------- */
-.row {
-
-}
-
 /* -------------------- */
 /* --- #BUTTON */
 /* -------------------- */
 .button {
   background-color: transparent;
-  color: $color-1;
+  color: #323232;
   letter-spacing: 1px;
   font-size: 1.5em;
   font-weight: bold;
@@ -149,100 +95,82 @@ input:-ms-input-placeholder {
   min-width: 4em;
   text-align: center;
   display: inline;
-  border-color: $color-1;
+  border-color: #323232;
   border-style: solid;
   border-width: .2em;
   transition: .2s color ease, .2s background-color ease;
   position: relative;
   cursor: pointer;
-  z-index: 1;
-}
+  z-index: 1; }
 
 .button:hover,
 .button:focus {
-  color: $color-2;
-  text-decoration: none;
-
-  @media #{$break-small} {
-    background-color: $color-1;
-  }
-  @media #{$break-medium} {
-    background-color: transparent;
-  }
-}
+  color: #fafaf9;
+  text-decoration: none; }
+  @media screen and (min-width: 1px) {
+    .button:hover,
+    .button:focus {
+      background-color: #323232; } }
+  @media screen and (min-width: 992px) {
+    .button:hover,
+    .button:focus {
+      background-color: transparent; } }
 
 .button:after {
   content: '';
   position: absolute;
   z-index: -1;
   transition: all 0.2s;
-  // 101% to fix bug where button would not fill completely
   width: 101%;
   height: 0;
   top: 50%;
   left: 50%;
-  background-color: $color-1;
+  background-color: #323232;
   opacity: 0;
-  transform: translateX(-50%) translateY(-50%);
-}
+  transform: translateX(-50%) translateY(-50%); }
 
 /* -------------------- */
 /* --- #CONTENT CONTAINER */
 /* -------------------- */
 .content-container {
-  padding: 1em 2em;
-}
+  padding: 1em 2em; }
 
 /* -------------------- */
 /* --- #LOGO */
 /* -------------------- */
-.logo {
-
-}
-
 /* ------------------------------ */
 /* ------------- #PAGES */
 /* ------------------------------ */
-
 /* -------------------- */
 /* --- #INTRO */
 /* -------------------- */
-
 .intro {
   position: relative;
-  background-image: linear-gradient(to right, $color-5, $color-3);
-  background-color: $color-3;
-  color: $color-2;
-}
+  background-image: linear-gradient(to right, #830202, #e73023);
+  background-color: #e73023;
+  color: #fafaf9; }
 
 .intro_image {
   position: absolute;
   width: 40vw;
   height: auto;
   right: 0;
-  top: 0;
-}
-
+  top: 0; }
 
 /* ------------------------------ */
 /* ------------- #HELPERS */
 /* ------------------------------ */
 .capitalize {
-  text-transform: capitalize !important;
-}
+  text-transform: capitalize !important; }
 
 .float-right {
-  float: right;
-}
+  float: right; }
 
 .no-padding {
-  padding: 0 !important;
-}
+  padding: 0 !important; }
 
 .page-spacer {
-  margin-top: 2em;
-}
+  margin-top: 2em; }
 
 .text-center {
-  text-align: center;
-}
+  text-align: center; }

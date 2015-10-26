@@ -20,13 +20,13 @@ gulp.task('serve', ['sass'], function() {
     }) ;
 
     gulp.watch('./js/*.js', ['browserify']).on('change', browserSync.reload);
-    gulp.watch('.styles/sass/*.scss', ['sass']);
+    gulp.watch('./styles/scss/*.scss', ['sass']);
     gulp.watch('./index.html').on('change', browserSync.reload);
 });
 
 // compile sass into css & auto-inject into browsers
 gulp.task('sass', function() {
-    gulp.src('./styles/sass/*.scss')
+    gulp.src('./styles/scss/*.scss')
         .pipe(sass().on('error', sass.logError))
         .pipe(gulp.dest('./styles/css'))
         .pipe(browserSync.stream());
