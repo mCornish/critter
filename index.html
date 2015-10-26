@@ -10,15 +10,83 @@
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
     <!-- Place favicon.ico in the root directory -->
 
-    <link rel="stylesheet" href="css/main.min.css">
+    <link rel="stylesheet" href="styles/css/main.min.css">
+    <link rel="stylesheet" href="styles/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 </head>
 <body>
 <!--[if lt IE 8]>
-<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
+    your browser</a> to improve your experience.</p>
 <![endif]-->
 
-<!-- Add your site or application content here -->
-<p>Hello world!</p>
+<div class="container">
+    <section class="content-container">
+        <header>
+            <h1 class="logo">Critter</h1>
+
+            <h2 class="subhead-alpha">THE WEB'S GEEKIEST SHOW</h2>
+
+            <h2 class="subhead-beta">JUST GOT GEEKIER</h2>
+        </header>
+
+        <nav class="nav">
+            <a class="nav__item">About</a>
+            <a class="nav__item">Critical Role</a>
+            <a class="nav__item">Why</a>
+            <a class="nav__item">I Want It</a>
+        </nav>
+    </section>
+    <section class="content-container">
+        <div class="col-xs-6 col-md-4">
+            <i class="fa fa-tv"></i>
+            <header>
+                <h2>Watch</h2>
+            </header>
+            <p>Watch episodes with additional content like relevant fan art and tweets.</p>
+        </div>
+        <div class="col-xs-6 col-md-4">
+            <i class="fa fa-bar-chart"></i>
+            <header>
+                <h2>Track</h2>
+            </header>
+            <p>View and track Critical role stats like rolls, kills, and successes.</p>
+        </div>
+        <div class="col-xs-6 col-md-4">
+            <i class="fa fa-users"></i>
+            <header>
+                <h2>Cooperate</h2>
+            </header>
+            <p>Help build a growing community of fans like you.</p>
+        </div>
+    </section>
+    <section class="content-container">
+        <header>
+            <h2>Critical Role</h2>
+        </header>
+        <p>Critical Role is a show...</p>
+
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/B-9ssjy33J4" frameborder="0"
+                allowfullscreen></iframe>
+    </section>
+    <section class="content-container">
+        <header>
+            <h2>I Want It</h2>
+        </header>
+        <p>Critter isn't ready for you just yet. It's still under development, but should be ready soon.</p>
+
+        <p>If you want to try out Critter as soon as possible, you can sign up to be a tester. Just leave your email
+            address below.</p>
+    </section>
+    <section class="content-container">
+        <form>
+            <input type="email" placeholder="Email Address">
+            <button class="button" type="submit">Become a Tester</button>
+        </form>
+        <p>If you just want updates on how Critter is progressing, you can follow me on Twitter @MikeWCornish.</p>
+        <a class="button" href="https://twitter.com/intent/user?screen_name=MikeWCornish" target="_blank">Follow Me</a>
+    </section>
+</div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script src="js/main.js"></script>
