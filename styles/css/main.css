@@ -160,6 +160,22 @@ input:-ms-input-placeholder {
   margin-bottom: 0; }
 
 /* -------------------- */
+/* --- #INPUT */
+/* -------------------- */
+input {
+  font-size: 1rem;
+  padding: 1em;
+  background-color: inherit; }
+  @media screen and (min-width: 1px) {
+    input {
+      border: 0.2em solid #323232; } }
+  @media screen and (min-width: 992px) {
+    input {
+      border-top: none;
+      border-left: none;
+      border-right: none; } }
+
+/* -------------------- */
 /* --- #LOGO */
 /* -------------------- */
 .logo {
@@ -202,6 +218,24 @@ input:-ms-input-placeholder {
 @media screen and (min-width: 992px) {
   .nav__item + .nav__item {
     margin-left: 1em; } }
+
+/* -------------------- */
+/* --- #VIDEO WRAPPER */
+/* -------------------- */
+.video-wrapper {
+  position: relative;
+  padding-bottom: 56.25%;
+  /* 16:9 */
+  padding-top: 25px;
+  height: 0;
+  margin-top: 2em; }
+
+.video-wrapper iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%; }
 
 /* ------------------------------ */
 /* ------------- #PAGES */
@@ -279,6 +313,15 @@ input:-ms-input-placeholder {
   color: #fafaf9;
   font-size: 1rem; }
 
+/* -------------------- */
+/* --- #WANT */
+/* -------------------- */
+.tester-button {
+  margin-top: 1em; }
+
+.follow-button {
+  margin-top: 2em; }
+
 /* ------------------------------ */
 /* ------------- #HELPERS */
 /* ------------------------------ */
@@ -287,6 +330,9 @@ input:-ms-input-placeholder {
 
 .float-right {
   float: right; }
+
+.hidden {
+  display: none !important; }
 
 .no-padding {
   padding: 0 !important; }
