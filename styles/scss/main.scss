@@ -1,3 +1,5 @@
+@import url(https://fonts.googleapis.com/css?family=Euphoria+Script|Lato:400,700,400italic);
+
 /* ------------------------------ */
 /* ------------- #VARIABLES */
 /* ------------------------------ */
@@ -27,16 +29,17 @@ html {
   font-family: 'Lato', sans-serif;
   color: $color-1;
   @media #{$break-small} {
-    font-size: 16px;
+    font-size: 16px !important;
   }
   @media #{$break-medium} {
-    font-size: 18px;
+    font-size: 18px !important;
   }
 }
 
 body {
   background: $color-2;
   font-size: 1em;
+  margin: 0;
 }
 
 h1, h2, h2, a, p, span, input {
@@ -45,13 +48,17 @@ h1, h2, h2, a, p, span, input {
 }
 
 h1 {
-  font-size: 3rem;
+  font-size: 2rem;
   font-weight: 900;
+}
+h1:first-child {
+  margin-top: 0;
 }
 
 h2 {
-  font-size: 1.5rem;
-  font-weight: 300;
+  font-size: 2rem;
+  font-weight: 900;
+  text-transform: uppercase;
 }
 
 p {
@@ -65,6 +72,7 @@ a,
   //border-bottom: .2em solid $color-1;
   //padding-bottom: .1em;
   position: relative;
+  text-decoration: none;
 }
 
 a:after,
@@ -190,19 +198,104 @@ input:-ms-input-placeholder {
 /* --- #CONTENT CONTAINER */
 /* -------------------- */
 .content-container {
-  padding: 1em 2em;
+  @media #{$break-small} {
+    padding: 2em;
+  }
+  @media #{$break-medium} {
+    padding: 4em;
+  }
 }
+
+
+/* -------------------- */
+/* --- #ICON-DESCRIPTION */
+/* -------------------- */
+.icon-desc {
+  text-align: center;
+}
+.icon-desc i {
+  font-size: 2em;
+}
+.icon-desc h2 {
+  margin-bottom: 0;
+}
+
 
 /* -------------------- */
 /* --- #LOGO */
 /* -------------------- */
 .logo {
+  font-family: 'Euphoria Script', cursive;
+  margin-bottom: 0;
 
+  @media #{$break-small} {
+    font-size: 6em;
+    text-align: center;
+  }
+  @media #{$break-medium} {
+    font-size: 8em;
+    margin-top: .3em;
+    text-align: left;
+  }
 }
+
+
+/* -------------------- */
+/* --- #NAV */
+/* -------------------- */
+.nav__item {
+  transition: all .1s ease;
+
+  @media #{$break-small} {
+    border: 1px solid $color-2;
+    padding: .5em;
+  }
+  @media #{$break-medium} {
+    border: none;
+    padding: .2em;
+  }
+}
+.nav__item:hover {
+  text-decoration: none;
+
+  @media #{$break-small} {
+
+  }
+  @media #{$break-medium} {
+    border-bottom: 3px solid $color-2;
+  }
+}
+.nav__item + .nav__item {
+  @media #{$break-small} {
+    margin-left: 0;
+  }
+  @media #{$break-medium} {
+    margin-left: 1em;
+  }
+}
+
 
 /* ------------------------------ */
 /* ------------- #PAGES */
 /* ------------------------------ */
+
+/* -------------------- */
+/* --- #ABOUT */
+/* -------------------- */
+.about {
+  border-left: 1px solid hsl(0,0,80);
+  border-right: 1px solid hsl(0,0,80);
+}
+
+
+/* -------------------- */
+/* --- #CRIT ROLE */
+/* -------------------- */
+.crit-role {
+  background-color: $color-1;
+  color: $color-2;
+}
+
 
 /* -------------------- */
 /* --- #INTRO */
@@ -213,14 +306,57 @@ input:-ms-input-placeholder {
   background-image: linear-gradient(to right, $color-5, $color-3);
   background-color: $color-3;
   color: $color-2;
+  overflow: hidden;
 }
-
+.intro__subhead {
+  margin: 0;
+}
+.intro__subhead-alpha {
+  @media #{$break-small} {
+    font-size: 1em;
+    text-align: center;
+  }
+  @media #{$break-medium} {
+    font-size: 1.3em;
+    text-align: left;
+  }
+}
+.intro__subhead-beta {
+  @media #{$break-small} {
+    font-size: 1.5em;
+    text-align: center;
+  }
+  @media #{$break-medium} {
+    font-size: 1.85em;
+    text-align: left;
+  }
+}
 .intro_image {
-  position: absolute;
-  width: 40vw;
+  width: 100%;
   height: auto;
-  right: 0;
+  max-width: 650px;
+
+  @media #{$break-small} {
+    margin-top: 2em;
+  }
+  @media #{$break-medium} {
+    fmargin-top: 5em;
+  }
+}
+.intro__nav--large {
+  position: absolute;
   top: 0;
+  right: 0;
+  padding: 1em;
+  margin-top: .5em;
+  margin-right: 3em;
+}
+.intro__nav--small {
+  position: relative;
+}
+.intro__nav .nav__item {
+  color: $color-2;
+  font-size: 1rem;
 }
 
 
