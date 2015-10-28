@@ -1,7 +1,6 @@
 {
   "name": "critter-landing",
-  "root": "./",
-  "clean_urls": true,
-  "error_page": "error.html",
-  "exclude": ["./node_modules"]
+  "root": "./dist",
+  "clean_urls": true
+  //"error_page": "error.html"
 }

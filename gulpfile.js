@@ -9,7 +9,10 @@ var gulp = require('gulp'),
     rename = require('gulp-rename'),
     qunit = require('gulp-qunit'),
     uglify = require('gulp-uglify'),
-    minifyCss = require('gulp-minify-css');
+    concatCss = require('gulp-concat-css'),
+    minifyCss = require('gulp-minify-css'),
+    minifyHtml = require('gulp-minify-html'),
+    imagemin = require('gulp-imagemin');
 
 var debug = true;
 
@@ -28,6 +31,7 @@ gulp.task('serve', ['sass'], function() {
 gulp.task('sass', function() {
     gulp.src('./styles/scss/*.scss')
         .pipe(sass().on('error', sass.logError))
+        .pipe(rename('main.min.css'))  // Called .min.css for convenience sake, even though not minified
         .pipe(gulp.dest('./styles/css'))
         .pipe(browserSync.stream());
 });
@@ -40,10 +44,25 @@ gulp.task('uglify', function() {
 });
 
 gulp.task('minify-css', function() {
-    return gulp.src('./styles/css/main.css')
+    return gulp.src('./styles/css/*.css')
+        .pipe(concatCss('tmp/bundle.css'))
         .pipe(minifyCss())
         .pipe(rename('main.min.css'))
-        .pipe(gulp.dest('./styles/css'));
+        .pipe(gulp.dest('./dist/styles'));
+});
+
+gulp.task('minify-html', function() {
+    return gulp.src('./index.html')
+        .pipe(minifyHtml({conditionals: true}))  // Prevents removing conditional IE comments
+        .pipe(gulp.dest('./dist'));
+});
+
+gulp.task('compress-images', function () {
+    return gulp.src('./images/*')
+        .pipe(imagemin({
+            progressive: true
+        }))
+        .pipe(gulp.dest('./dist/images'));
 });
 
 gulp.task('browserify', function() {
@@ -56,4 +75,4 @@ gulp.task('browserify', function() {
 
 gulp.task('default', ['browserify', 'serve']);
 
-gulp.task('build', ['sass', 'minify-css', 'test', 'browserify', 'uglify']);
+gulp.task('build', ['sass', 'minify-css', 'minify-html', 'compress-images']);
