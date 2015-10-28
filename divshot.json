@@ -1,6 +1,10 @@
 {
   "name": "critter-landing",
   "root": "./dist",
-  "clean_urls": true
-  //"error_page": "error.html"
+  "clean_urls": true,
+  "cache_control": {
+    "/images/**": 2628000,
+    "/*.css": 86400,
+    "/*.html": "no-cache"
+  }
 }

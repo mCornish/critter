@@ -11,6 +11,7 @@ var gulp = require('gulp'),
     uglify = require('gulp-uglify'),
     concatCss = require('gulp-concat-css'),
     minifyCss = require('gulp-minify-css'),
+    replace = require('gulp-replace'),
     minifyHtml = require('gulp-minify-html'),
     imagemin = require('gulp-imagemin');
 
@@ -31,7 +32,7 @@ gulp.task('serve', ['sass'], function() {
 gulp.task('sass', function() {
     gulp.src('./styles/scss/*.scss')
         .pipe(sass().on('error', sass.logError))
-        .pipe(rename('main.min.css'))  // Called .min.css for convenience sake, even though not minified
+        .pipe(rename('main.css'))
         .pipe(gulp.dest('./styles/css'))
         .pipe(browserSync.stream());
 });
@@ -48,11 +49,13 @@ gulp.task('minify-css', function() {
         .pipe(concatCss('tmp/bundle.css'))
         .pipe(minifyCss())
         .pipe(rename('main.min.css'))
-        .pipe(gulp.dest('./dist/styles'));
+        .pipe(gulp.dest('./dist'));
 });
 
 gulp.task('minify-html', function() {
     return gulp.src('./index.html')
+        .pipe(replace('styles/css/main.css', 'main.min.css'))
+        .pipe(replace('<link rel="stylesheet" href="styles/css/bootstrap.min.css">', ''))
         .pipe(minifyHtml({conditionals: true}))  // Prevents removing conditional IE comments
         .pipe(gulp.dest('./dist'));
 });
