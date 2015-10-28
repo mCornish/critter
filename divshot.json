@@ -5,6 +5,6 @@
   "cache_control": {
     "/images/**": 2628000,
     "/*.css": 86400,
-    "/*.html": "no-cache"
+    "/*.html": 60
   }
 }
