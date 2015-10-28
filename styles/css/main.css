@@ -102,10 +102,8 @@ input:-ms-input-placeholder {
   min-width: 4em;
   text-align: center;
   display: inline;
-  border-color: #323232;
-  border-style: solid;
-  border-width: .2em;
-  transition: .2s color ease, .2s background-color ease;
+  box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.5);
+  transition: .2s color ease, .2s background-color ease, .2s box-shadow ease;
   position: relative;
   cursor: pointer;
   z-index: 1; }
@@ -113,7 +111,8 @@ input:-ms-input-placeholder {
 .button:hover,
 .button:focus {
   color: #fafaf9;
-  text-decoration: none; }
+  text-decoration: none;
+  box-shadow: 0 3px 8px 1px rgba(0, 0, 0, 0.5); }
   @media screen and (min-width: 1px) {
     .button:hover,
     .button:focus {
@@ -265,7 +264,8 @@ input {
   overflow: hidden; }
 
 .intro__subhead {
-  margin: 0; }
+  margin: 0;
+  opacity: .8; }
 
 @media screen and (min-width: 1px) {
   .intro__subhead-alpha {
@@ -286,6 +286,25 @@ input {
   .intro__subhead-beta {
     font-size: 1.85em;
     text-align: left; } }
+
+.intro__cta {
+  margin-top: 1em;
+  background-color: #fafaf9;
+  color: #323232;
+  border-color: #323232; }
+
+.intro__cta:hover {
+  background-color: #fafaf9;
+  color: #e73023; }
+
+.intro__cta i {
+  position: relative;
+  font-size: 1.1em;
+  left: .2em;
+  transition: left .2s ease; }
+
+.intro__cta:hover i {
+  left: .5em; }
 
 .intro_image {
   width: 100%;
