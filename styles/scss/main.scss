@@ -68,9 +68,7 @@ p {
 // Links
 a,
 .fake-link {
-  color: inherit;
-  //border-bottom: .2em solid $color-1;
-  //padding-bottom: .1em;
+  color: $color-4;
   position: relative;
   text-decoration: none;
 }
@@ -80,62 +78,68 @@ a:before,
 .fake-link:after,
 .fake-link:before {
   content: '';
-  height: .2em;
+  height: .1em;
   width: 0;
   bottom: -.15em;
   position: absolute;
-  //background: $color-3;
-  transition: .2s ease all;
+  background: $color-4;
+  transition: .1s ease all;
 }
 
 a:before,
 .fake-link:before {
-  //left: 50%;
+  left: 50%;
 }
 
 a:after,
 .fake-link:after {
-  //right: 50%;
+  right: 50%;
 }
 
 a:hover:not(.button):before,
 a:hover:not(.button):after,
 .fake-link:not(.button):hover:before,
 .fake-link:not(.button):hover:after {
-  //width: 50%;
+  width: 50%;
 }
 
 a:hover,
 a:focus,
 .fake-link:hover {
-  color: $color-1;
+  color: $color-4;
   text-decoration: none;
   cursor: pointer;
 }
 
 // Input placeholder text color
 input::-webkit-input-placeholder {
-  color: $color-4;
+  color: hsl(0,0,60);
 }
 
 input:-moz-placeholder {
   /* Firefox 18- */
-  color: $color-4;
+  color: hsl(0,0,60);
 }
 
 input::-moz-placeholder {
   /* Firefox 19+ */
-  color: $color-4;
+  color: hsl(0,0,60);
 }
 
 input:-ms-input-placeholder {
-  color: $color-4;
+  color: hsl(0,0,60);
 }
 
 
 /* ------------------------------ */
 /* ------------- #COMPONENTS */
 /* ------------------------------ */
+
+/* -------------------- */
+/* --- #ANIMATIONS */
+/* -------------------- */
+
+
 
 /* -------------------- */
 /* --- #BOOTSTRAP ADDITIONS */
@@ -148,8 +152,8 @@ input:-ms-input-placeholder {
 /* --- #BUTTON */
 /* -------------------- */
 .button {
-  background-color: transparent;
-  color: $color-1;
+  background-color: $color-3;
+  color: $color-2;
   letter-spacing: 1px;
   font-size: 1.5em;
   font-weight: bold;
@@ -157,8 +161,9 @@ input:-ms-input-placeholder {
   min-width: 4em;
   text-align: center;
   display: inline;
+  border: none;
   box-shadow: 0 3px 3px 0 hsla(0,0,0,.5);
-  transition: .2s color ease, .2s background-color ease, .2s box-shadow ease;
+  transition: .2s all ease;
   position: relative;
   cursor: pointer;
   z-index: 1;
@@ -166,43 +171,18 @@ input:-ms-input-placeholder {
 
 .button:hover,
 .button:focus {
+  background-color: $color-3;
   color: $color-2;
   text-decoration: none;
-  box-shadow: 0 3px 8px 1px hsla(0,0,0,.5);
-
-  @media #{$break-small} {
-    background-color: $color-1;
-  }
-  @media #{$break-medium} {
-    background-color: transparent;
-  }
 }
 
-.button:after {
-  content: '';
-  position: absolute;
-  z-index: -1;
-  transition: all 0.2s;
-  // 101% to fix bug where button would not fill completely
-  width: 101%;
-  height: 0;
-  top: 50%;
-  left: 50%;
-  background-color: $color-1;
-  opacity: 0;
-  transform: translateX(-50%) translateY(-50%);
-}
 
 /* -------------------- */
 /* --- #CONTENT CONTAINER */
 /* -------------------- */
 .content-container {
-  @media #{$break-small} {
-    padding: 2em;
-  }
-  @media #{$break-medium} {
-    padding: 4em;
-  }
+    padding-top: 4em;
+    padding-bottom: 4em;
 }
 
 
@@ -224,12 +204,12 @@ input:-ms-input-placeholder {
 /* --- #INPUT */
 /* -------------------- */
 input {
-  font-size: 1rem;
+  font-size: 1.5rem;
   padding: 1em;
   background-color: inherit;
 
   @media #{$break-small} {
-    border: .2em solid $color-1;
+    border: .1em solid $color-1;
   }
   @media #{$break-medium} {
     border-top: none;
@@ -247,7 +227,7 @@ input {
   margin-bottom: 0;
 
   @media #{$break-small} {
-    font-size: 6em;
+    font-size: 8em;
     text-align: center;
   }
   @media #{$break-medium} {
@@ -319,9 +299,8 @@ input {
 /* -------------------- */
 /* --- #ABOUT */
 /* -------------------- */
-.about {
-  border-left: 1px solid hsl(0,0,80);
-  border-right: 1px solid hsl(0,0,80);
+.about__intro {
+  margin-bottom: 5em;
 }
 
 
@@ -343,6 +322,15 @@ input {
   background-color: $color-3;
   color: $color-2;
   overflow: hidden;
+
+  @media #{$break-small} {
+    padding-top: 1em;
+    padding-bottom: 1em;
+  }
+  @media #{$break-medium} {
+    padding-top: 4em;
+    padding-bottom: 4em;
+  }
 }
 .intro__subhead {
   margin: 0;
@@ -350,7 +338,7 @@ input {
 }
 .intro__subhead-alpha {
   @media #{$break-small} {
-    font-size: 1em;
+    font-size: 1.2em;
     text-align: center;
   }
   @media #{$break-medium} {
@@ -360,7 +348,7 @@ input {
 }
 .intro__subhead-beta {
   @media #{$break-small} {
-    font-size: 1.5em;
+    font-size: 1.7em;
     text-align: center;
   }
   @media #{$break-medium} {
@@ -391,13 +379,7 @@ input {
   width: 100%;
   height: auto;
   max-width: 650px;
-
-  @media #{$break-small} {
-    margin-top: 2em;
-  }
-  @media #{$break-medium} {
-    fmargin-top: 5em;
-  }
+  margin-top: 4em;
 }
 .intro__nav--large {
   position: absolute;
@@ -419,11 +401,25 @@ input {
 /* -------------------- */
 /* --- #WANT */
 /* -------------------- */
+
+
+/* -------------------- */
+/* --- #CTA */
+/* -------------------- */
+.cta {
+  margin-bottom: 5em;
+}
 .tester-button {
   margin-top: 1em;
 }
+.tester-button:hover i {
+  color: $color-4;
+}
 .follow-button {
-  margin-top: 2em;
+  margin-top: 3em;
+}
+.follow-button:hover i {
+  color: #55acee;
 }
 
 

@@ -47,7 +47,7 @@ p {
 
 a,
 .fake-link {
-  color: inherit;
+  color: #e6a22d;
   position: relative;
   text-decoration: none; }
 
@@ -56,36 +56,54 @@ a:before,
 .fake-link:after,
 .fake-link:before {
   content: '';
-  height: .2em;
+  height: .1em;
   width: 0;
   bottom: -.15em;
   position: absolute;
-  transition: .2s ease all; }
+  background: #e6a22d;
+  transition: .1s ease all; }
+
+a:before,
+.fake-link:before {
+  left: 50%; }
+
+a:after,
+.fake-link:after {
+  right: 50%; }
+
+a:hover:not(.button):before,
+a:hover:not(.button):after,
+.fake-link:not(.button):hover:before,
+.fake-link:not(.button):hover:after {
+  width: 50%; }
 
 a:hover,
 a:focus,
 .fake-link:hover {
-  color: #323232;
+  color: #e6a22d;
   text-decoration: none;
   cursor: pointer; }
 
 input::-webkit-input-placeholder {
-  color: #e6a22d; }
+  color: #999999; }
 
 input:-moz-placeholder {
   /* Firefox 18- */
-  color: #e6a22d; }
+  color: #999999; }
 
 input::-moz-placeholder {
   /* Firefox 19+ */
-  color: #e6a22d; }
+  color: #999999; }
 
 input:-ms-input-placeholder {
-  color: #e6a22d; }
+  color: #999999; }
 
 /* ------------------------------ */
 /* ------------- #COMPONENTS */
 /* ------------------------------ */
+/* -------------------- */
+/* --- #ANIMATIONS */
+/* -------------------- */
 /* -------------------- */
 /* --- #BOOTSTRAP ADDITIONS */
 /* -------------------- */
@@ -93,8 +111,8 @@ input:-ms-input-placeholder {
 /* --- #BUTTON */
 /* -------------------- */
 .button {
-  background-color: transparent;
-  color: #323232;
+  background-color: #e73023;
+  color: #fafaf9;
   letter-spacing: 1px;
   font-size: 1.5em;
   font-weight: bold;
@@ -102,49 +120,25 @@ input:-ms-input-placeholder {
   min-width: 4em;
   text-align: center;
   display: inline;
+  border: none;
   box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.5);
-  transition: .2s color ease, .2s background-color ease, .2s box-shadow ease;
+  transition: .2s all ease;
   position: relative;
   cursor: pointer;
   z-index: 1; }
 
 .button:hover,
 .button:focus {
+  background-color: #e73023;
   color: #fafaf9;
-  text-decoration: none;
-  box-shadow: 0 3px 8px 1px rgba(0, 0, 0, 0.5); }
-  @media screen and (min-width: 1px) {
-    .button:hover,
-    .button:focus {
-      background-color: #323232; } }
-  @media screen and (min-width: 992px) {
-    .button:hover,
-    .button:focus {
-      background-color: transparent; } }
-
-.button:after {
-  content: '';
-  position: absolute;
-  z-index: -1;
-  transition: all 0.2s;
-  width: 101%;
-  height: 0;
-  top: 50%;
-  left: 50%;
-  background-color: #323232;
-  opacity: 0;
-  transform: translateX(-50%) translateY(-50%); }
+  text-decoration: none; }
 
 /* -------------------- */
 /* --- #CONTENT CONTAINER */
 /* -------------------- */
-@media screen and (min-width: 1px) {
-  .content-container {
-    padding: 2em; } }
-
-@media screen and (min-width: 992px) {
-  .content-container {
-    padding: 4em; } }
+.content-container {
+  padding-top: 4em;
+  padding-bottom: 4em; }
 
 /* -------------------- */
 /* --- #ICON-DESCRIPTION */
@@ -162,12 +156,12 @@ input:-ms-input-placeholder {
 /* --- #INPUT */
 /* -------------------- */
 input {
-  font-size: 1rem;
+  font-size: 1.5rem;
   padding: 1em;
   background-color: inherit; }
   @media screen and (min-width: 1px) {
     input {
-      border: 0.2em solid #323232; } }
+      border: 0.1em solid #323232; } }
   @media screen and (min-width: 992px) {
     input {
       border-top: none;
@@ -182,7 +176,7 @@ input {
   margin-bottom: 0; }
   @media screen and (min-width: 1px) {
     .logo {
-      font-size: 6em;
+      font-size: 8em;
       text-align: center; } }
   @media screen and (min-width: 992px) {
     .logo {
@@ -242,9 +236,8 @@ input {
 /* -------------------- */
 /* --- #ABOUT */
 /* -------------------- */
-.about {
-  border-left: 1px solid #cccccc;
-  border-right: 1px solid #cccccc; }
+.about__intro {
+  margin-bottom: 5em; }
 
 /* -------------------- */
 /* --- #CRIT ROLE */
@@ -262,6 +255,14 @@ input {
   background-color: #e73023;
   color: #fafaf9;
   overflow: hidden; }
+  @media screen and (min-width: 1px) {
+    .intro {
+      padding-top: 1em;
+      padding-bottom: 1em; } }
+  @media screen and (min-width: 992px) {
+    .intro {
+      padding-top: 4em;
+      padding-bottom: 4em; } }
 
 .intro__subhead {
   margin: 0;
@@ -269,7 +270,7 @@ input {
 
 @media screen and (min-width: 1px) {
   .intro__subhead-alpha {
-    font-size: 1em;
+    font-size: 1.2em;
     text-align: center; } }
 
 @media screen and (min-width: 992px) {
@@ -279,7 +280,7 @@ input {
 
 @media screen and (min-width: 1px) {
   .intro__subhead-beta {
-    font-size: 1.5em;
+    font-size: 1.7em;
     text-align: center; } }
 
 @media screen and (min-width: 992px) {
@@ -309,13 +310,8 @@ input {
 .intro_image {
   width: 100%;
   height: auto;
-  max-width: 650px; }
-  @media screen and (min-width: 1px) {
-    .intro_image {
-      margin-top: 2em; } }
-  @media screen and (min-width: 992px) {
-    .intro_image {
-      fmargin-top: 5em; } }
+  max-width: 650px;
+  margin-top: 4em; }
 
 .intro__nav--large {
   position: absolute;
@@ -335,11 +331,23 @@ input {
 /* -------------------- */
 /* --- #WANT */
 /* -------------------- */
+/* -------------------- */
+/* --- #CTA */
+/* -------------------- */
+.cta {
+  margin-bottom: 5em; }
+
 .tester-button {
   margin-top: 1em; }
 
+.tester-button:hover i {
+  color: #e6a22d; }
+
 .follow-button {
-  margin-top: 2em; }
+  margin-top: 3em; }
+
+.follow-button:hover i {
+  color: #55acee; }
 
 /* ------------------------------ */
 /* ------------- #HELPERS */
