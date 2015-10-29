@@ -38,10 +38,10 @@ gulp.task('sass', function() {
 });
 
 gulp.task('uglify', function() {
-    return gulp.src('./js/app.js')
+    return gulp.src('./js/*.js')
         .pipe(uglify())
-        .pipe(rename('app.min.js'))
-        .pipe(gulp.dest('./public/js'));
+        .pipe(rename('scripts.min.js'))
+        .pipe(gulp.dest('./dist'));
 });
 
 gulp.task('minify-css', ['sass'], function() {
@@ -56,6 +56,8 @@ gulp.task('minify-html', function() {
     return gulp.src('./index.html')
         .pipe(replace('styles/css/main.css', 'main.min.css'))
         .pipe(replace('<link rel="stylesheet" href="styles/css/bootstrap.min.css">', ''))
+        .pipe(replace('js/html5-youtube.min.js', ''))
+        .pipe(replace('js/scripts.js', 'scripts.min.js'))
         .pipe(minifyHtml({conditionals: true}))  // Prevents removing conditional IE comments
         .pipe(gulp.dest('./dist'));
 });
@@ -78,4 +80,4 @@ gulp.task('browserify', function() {
 
 gulp.task('default', ['browserify', 'serve']);
 
-gulp.task('build', ['minify-css', 'minify-html', 'compress-images']);
+gulp.task('build', ['minify-css', 'minify-html', 'compress-images', 'uglify']);

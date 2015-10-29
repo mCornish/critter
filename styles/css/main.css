@@ -307,7 +307,7 @@ input {
 .intro__cta:hover i {
   left: .5em; }
 
-.intro_image {
+.intro__image {
   width: 100%;
   height: auto;
   max-width: 650px;
