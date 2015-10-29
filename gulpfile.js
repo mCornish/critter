@@ -8,6 +8,7 @@ var gulp = require('gulp'),
     browserify = require('gulp-browserify'),
     rename = require('gulp-rename'),
     qunit = require('gulp-qunit'),
+    concat = require('gulp-concat'),
     uglify = require('gulp-uglify'),
     concatCss = require('gulp-concat-css'),
     minifyCss = require('gulp-minify-css'),
@@ -39,6 +40,7 @@ gulp.task('sass', function() {
 
 gulp.task('uglify', function() {
     return gulp.src('./js/*.js')
+        .pipe(concat('scripts.js'))
         .pipe(uglify())
         .pipe(rename('scripts.min.js'))
         .pipe(gulp.dest('./dist'));
