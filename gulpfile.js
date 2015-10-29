@@ -44,7 +44,7 @@ gulp.task('uglify', function() {
         .pipe(gulp.dest('./public/js'));
 });
 
-gulp.task('minify-css', function() {
+gulp.task('minify-css', ['sass'], function() {
     return gulp.src('./styles/css/*.css')
         .pipe(concatCss('tmp/bundle.css'))
         .pipe(minifyCss())
@@ -78,4 +78,4 @@ gulp.task('browserify', function() {
 
 gulp.task('default', ['browserify', 'serve']);
 
-gulp.task('build', ['sass', 'minify-css', 'minify-html', 'compress-images']);
+gulp.task('build', ['minify-css', 'minify-html', 'compress-images']);
