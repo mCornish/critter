@@ -171,17 +171,17 @@ input {
 /* -------------------- */
 /* --- #LOGO */
 /* -------------------- */
-.logo {
+h1.logo {
   font-family: 'Euphoria Script', cursive;
   margin-bottom: 0; }
   @media screen and (min-width: 1px) {
-    .logo {
+    h1.logo {
       font-size: 8em;
       text-align: center; } }
   @media screen and (min-width: 992px) {
-    .logo {
+    h1.logo {
       font-size: 8em;
-      margin-top: .3em;
+      margin-top: .5em;
       text-align: left; } }
 
 /* -------------------- */

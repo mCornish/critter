@@ -12,6 +12,7 @@ $(document).ready(function() {
     track($('[data-hook=beta-link]'), 'Beta link click');
     track($('[data-hook=gs-link]'), 'G&S link click');
     track($('[data-hook=twitter-link]'), 'Twitter click');
+    track($('[data-hook=gs-link2]'), 'G&S Show link click');
     track($('[data-hook=beta-submit]'), 'Beta sign up');
 });
 

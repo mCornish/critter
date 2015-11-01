@@ -222,7 +222,7 @@ input {
 /* -------------------- */
 /* --- #LOGO */
 /* -------------------- */
-.logo {
+h1.logo {
   font-family: 'Euphoria Script', cursive;
   margin-bottom: 0;
 
@@ -232,7 +232,7 @@ input {
   }
   @media #{$break-medium} {
     font-size: 8em;
-    margin-top: .3em;
+    margin-top: .5em;
     text-align: left;
   }
 }
