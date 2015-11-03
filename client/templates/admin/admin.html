@@ -33,7 +33,8 @@
                 {{/if}}
                 {{#if contentType 'image'}}
                     <div class="{{errorClass 'image'}}">
-                        <input class="input-group__file-input" name="live-image" placeholder="Image" type="file" id="image"
+                        <input class="input-group__file-input" name="live-image" placeholder="Image" type="file"
+                               id="image"
                                required/>
                         <label class="input-group__file-label button col-xs-12" for="image">
                             {{#unless imageName}}
@@ -44,7 +45,7 @@
                         </label>
                         <span class="help-block">{{errorMessage 'image'}}</span>
                     </div>
-                    <img class="col-xs-12" src="{{imageURL}}" />
+                    <img class="col-xs-12" src="{{imageURL}}"/>
                 {{/if}}
                 {{#if contentType 'link'}}
                     <label for="live-content">Link Text</label>
@@ -105,21 +106,34 @@
 
     <div class="admin__users">
         <h1>Users</h1>
-        <h2>Role</h2>
+
+        <h2>Add Role</h2>
         {{#each users}}
-            <div class="admin__user">
-                <ul>
-                    <li>Name: {{profile.username}}</li>
-                    <li>Roles: {{roles}}</li>
-                </ul>
+            <div class="row">
+                <div class="admin__user col-xs-4">
+                    <ul>
+                        <li>Name: {{profile.username}}</li>
+                        <li>Roles: {{roles}}</li>
+                    </ul>
+                </div>
+                <form class="col-xs-4">
+                    <label for="role">Add Role</label>
+                    <input id="role" name="role" type="text">
+                    <input type="submit" data-hook="add-role" data-uid="{{_id}}" value="Add">
+                </form>
+                <div class="col-xs-4">
+                    <label>Delete User</label>
+                    <button type="submit" data-hook="delete-user" data-uid="{{_id}}"><i class="fa fa-remove" data-uid="{{_id}}"></i></button>
+                </div>
             </div>
-            <label for="role">Add Role</label>
-            <input id="role" name="role" type="text">
-            <a class="button button--submit" data-hook="add-role" data-uid="{{_id}}">Add</a>
         {{/each}}
-        <h2>Add Beta User</h2>
-        <label for="email">Email</label>
-        <input id="email" type="email" placeholder="Email">
+        <h2>Create Beta User</h2>
+
+        <form data-hook="beta-form">
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" placeholder="Email">
+            <input type="submit" value="Create">
+        </form>
     </div>
 
 </template>

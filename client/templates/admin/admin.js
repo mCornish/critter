@@ -133,6 +133,35 @@ Template.admin.events({
         const userId = $(e.target).attr('data-uid');
 
         Meteor.call('addUserToRole', userId, role);
+    },
+    'submit [data-hook=beta-form]': function(e) {
+        e.preventDefault();
+
+        email = $(e.target).find('[name=email]').val();
+        //atLoc = email.indexOf('@');
+        //key = email.slice(0, atLoc);
+        // Generate three-digit number
+        //num = Math.floor(Math.random() * (999 - 100 + 1)) + 100;
+        //password = 'beta-' + key + '-' + num;
+
+        user = {
+            username: email,
+            email: email,
+            profile: {}
+        };
+
+        Meteor.call('createBetaUser', user);
+    },
+    'click [data-hook=delete-user]': function(e) {
+        const userId = $(e.target).attr('data-uid');
+        const confirmed = confirm('Delete user ' + userId + '?');
+        if (confirmed) {
+            Meteor.users.remove(userId, function(error) {
+                if (error) {
+                    throwError(error.reason);
+                }
+            })
+        }
     }
 });
 

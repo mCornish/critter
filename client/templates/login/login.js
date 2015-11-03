@@ -42,9 +42,8 @@ Template.login.events({
                 password: password,
                 passwordAgain: passwordAgain,
                 profile: {
-                    image: 'http://thesocietypages.org/socimages/files/2009/05/vimeo.jpg',
                     created: new Date(),
-                    generosity: 0
+                    points: 0
                 }
             };
 

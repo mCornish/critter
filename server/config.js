@@ -11,7 +11,9 @@ ServiceConfiguration.configurations.upsert(
 );
 
 Accounts.onCreateUser(function(options, user) {
-    user.emails = [];
+    if (typeof user.emails !== 'array') {
+        user.emails = [];
+    }
     if (user.services.facebook) {
         var facebook = user.services.facebook;
         user.emails.push(facebook.email);
@@ -30,7 +32,8 @@ Accounts.onCreateUser(function(options, user) {
         user.username = user.username.substr(0, user.username.indexOf('@'));
     }
 
-    options.profile.roles = [];
+    console.log(user.roles);
+    user.roles = [];
     options.profile.points = 0;
 
     if (options.profile) {
