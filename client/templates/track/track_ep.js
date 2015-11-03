@@ -12,6 +12,7 @@ Template.trackEp.onCreated(function () {
     Session.set('seconds', 0);
     Session.set('minutes', 0);
     Session.set('hours', 0);
+    Session.set('totalSeconds', 0);
     Session.set('watchActive', false);
     Session.set('watchHere', false);
 
@@ -155,12 +156,12 @@ Template.trackEp.events({
         if (Session.get('action').toLocaleLowerCase() === 'attack') {
             // get the attack object from the character
             const char = Characters.findOne({name: Session.get('charName')});
-            const attackName = type;
-            const attack = _.findWhere(char.attacks, {name: attackName});
+            const attack = _.findWhere(char.attacks, {name: type}); // Note: type => attack name
             // find and set the maximum roll value
-            const diceNum = attack.diceNum;
+            const diceCount = parseInt(attack.diceNum);
+            Session.set('diceCount', diceCount);
             const diceVal = attack.diceVal;
-            const maxRoll = diceNum * diceVal;
+            const maxRoll = diceCount * diceVal;
 
             Session.set('maxRoll', maxRoll);
         }
@@ -236,13 +237,19 @@ function submitRoll(callback) {
         }
     });
 
+    const path = window.location.pathname;
+    const slashLoc = path.lastIndexOf('/');
+    const episode = parseInt( path.slice(slashLoc + 1) );
+
     const stat = {
         action: action,
         name: Session.get('type').toLowerCase(),
         character: Session.get('charName').toLowerCase(),
-        episode: Session.get('episode'),
-        time: Session.get('totalSeconds')
+        episode: episode,
+        time: parseInt( Session.get('totalSeconds') )
     };
+
+    console.log(stat.time);
 
     const statExists = Stats.findOne(stat);
 
@@ -250,7 +257,7 @@ function submitRoll(callback) {
         // update the existing stat
         Meteor.call('updateStat', stat, roll, success, lethal, function (error) {
             if (error) {
-                return throwError(error.reason);
+                return throwError(error.reason);9
             }
         });
     } else {
