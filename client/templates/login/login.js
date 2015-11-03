@@ -115,38 +115,42 @@ Template.login.events({
     },
     'click [data-hook=switch-state]': function(e) {
         e.preventDefault();
-        const currentState = Session.get('creatingUser');
-        Session.set('creatingUser', !currentState);
+
+        throwError('You should already have beta credentials.');
+        //const currentState = Session.get('creatingUser');
+        //Session.set('creatingUser', !currentState);
     },
     'click [data-hook=facebook-login]': function(e) {
         e.preventDefault();
 
-        Meteor.loginWithFacebook(function(error) {
-            if (error) {
-                // clear errors
-                Session.set('userSubmitErrors', {});
-                mixpanel.track('login-failure', {
-                    timestamp: Date.now(),
-                    user: user._id,
-                    type: 'facebook'});
-                // throw login error
-                return throwError(error.reason);
-            } else {
-                const user = Meteor.user();
-                mixpanel.identify(user._id);
-                mixpanel.people.set_once({
-                    $email: user.profile.email,
-                    gender: user.profile.gender,
-                    locale: user.profile.locale
-                });
-                mixpanel.track('login', {
-                    timestamp: Date.now(),
-                    user: user._id,
-                    type: 'facebook'});
+        throwError('Facebook login is disabled for the beta. Sorry!');
 
-                Router.go('/');
-            }
-        });
+        //Meteor.loginWithFacebook(function(error) {
+        //    if (error) {
+        //        // clear errors
+        //        Session.set('userSubmitErrors', {});
+        //        mixpanel.track('login-failure', {
+        //            timestamp: Date.now(),
+        //            user: user._id,
+        //            type: 'facebook'});
+        //        // throw login error
+        //        return throwError(error.reason);
+        //    } else {
+        //        const user = Meteor.user();
+        //        mixpanel.identify(user._id);
+        //        mixpanel.people.set_once({
+        //            $email: user.profile.email,
+        //            gender: user.profile.gender,
+        //            locale: user.profile.locale
+        //        });
+        //        mixpanel.track('login', {
+        //            timestamp: Date.now(),
+        //            user: user._id,
+        //            type: 'facebook'});
+        //
+        //        Router.go('/');
+        //    }
+        //});
     },
     'click [data-hook=twitch-login]': function() {
         Twitch.login({

@@ -420,30 +420,22 @@ hr {
 .button__icon {
   position: relative;
   padding: .2em;
-
-  @media #{$break-small} {
-    font-size: 1em;
-    top: 0;
-    transform: none;
-  }
-  @media #{$break-medium} {
-    font-size: 3em;
-    top: 50%;
-    transform: translateY(-50%);
-  }
+  font-size: 3em;
+  top: 50%;
+  transform: translateY(-50%);
 }
+
 .button__icon:hover .hover-text {
   opacity: 1;
 }
 
 .button__icon i {
+  font-size: 2em;
   @media #{$break-small} {
     margin-bottom: 0;
-    font-size: 1em;
   }
   @media #{$break-medium} {
     margin-bottom: .2em;
-    font-size: 2em;
   }
 }
 
@@ -1507,11 +1499,10 @@ input[type=radio] + input[type=radio] {
 /* -------------------- */
 .home .button {
   @media #{$break-small} {
-    font-size: 3em;
+
   }
   @media #{$break-medium} {
     height: 40vh;
-    font-size: 1.5em;
   }
 }
 
@@ -1521,6 +1512,27 @@ input[type=radio] + input[type=radio] {
   }
   @media #{$break-medium} {
     margin-top: 0;
+  }
+}
+
+.home .button__icon {
+  font-size: 3rem;
+  @media #{$break-small} {
+    top: 0;
+    transform: none;
+  }
+  @media #{$break-medium} {
+    top: 50%;
+    transform: translateY(-50%);
+  }
+}
+
+.home .button__icon i {
+  @media #{$break-small} {
+    font-size: 1em;
+  }
+  @media #{$break-medium} {
+    font-size: 3em;
   }
 }
 

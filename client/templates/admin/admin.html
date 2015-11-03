@@ -105,17 +105,21 @@
 
     <div class="admin__users">
         <h1>Users</h1>
+        <h2>Role</h2>
         {{#each users}}
             <div class="admin__user">
                 <ul>
                     <li>Name: {{profile.username}}</li>
-                    <li>Roles: {{profile.roles}}</li>
+                    <li>Roles: {{roles}}</li>
                 </ul>
             </div>
             <label for="role">Add Role</label>
             <input id="role" name="role" type="text">
             <a class="button button--submit" data-hook="add-role" data-uid="{{_id}}">Add</a>
         {{/each}}
+        <h2>Add Beta User</h2>
+        <label for="email">Email</label>
+        <input id="email" type="email" placeholder="Email">
     </div>
 
 </template>
