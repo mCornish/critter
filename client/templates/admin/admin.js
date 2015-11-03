@@ -134,6 +134,17 @@ Template.admin.events({
 
         Meteor.call('addUserToRole', userId, role);
     },
+    'click [data-hook=delete-user]': function(e) {
+        const userId = $(e.target).attr('data-uid');
+        const confirmed = confirm('Delete user ' + userId + '?');
+        if (confirmed) {
+            Meteor.users.remove(userId, function(error) {
+                if (error) {
+                    throwError(error.reason);
+                }
+            })
+        }
+    },
     'submit [data-hook=beta-form]': function(e) {
         e.preventDefault();
 
@@ -151,17 +162,6 @@ Template.admin.events({
         };
 
         Meteor.call('createBetaUser', user);
-    },
-    'click [data-hook=delete-user]': function(e) {
-        const userId = $(e.target).attr('data-uid');
-        const confirmed = confirm('Delete user ' + userId + '?');
-        if (confirmed) {
-            Meteor.users.remove(userId, function(error) {
-                if (error) {
-                    throwError(error.reason);
-                }
-            })
-        }
     }
 });
 

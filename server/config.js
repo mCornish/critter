@@ -3,15 +3,15 @@ ServiceConfiguration.configurations.upsert(
     {
         $set: {
             // TODO Hide key and secret using settings (http://joshowens.me/environment-settings-and-security-with-meteor-js/)
-            appId: '955584821127237',
+            appId: '1065816680108624',
             loginStyle: 'popup',
-            secret: 'b3afbb652af09ad1d7249c6ce8b31760'
+            secret: 'eb38f5596605adafac6ba8f5a0e2e78c'
         }
     }
 );
 
 Accounts.onCreateUser(function(options, user) {
-    if (typeof user.emails !== 'array') {
+    if (typeof user.emails === 'undefined') {
         user.emails = [];
     }
     if (user.services.facebook) {
@@ -32,8 +32,9 @@ Accounts.onCreateUser(function(options, user) {
         user.username = user.username.substr(0, user.username.indexOf('@'));
     }
 
-    console.log(user.roles);
-    user.roles = [];
+    if (typeof user.roles === 'undefined') {
+        user.roles = [];
+    }
     options.profile.points = 0;
 
     if (options.profile) {
