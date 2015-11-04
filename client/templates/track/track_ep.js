@@ -161,6 +161,7 @@ Template.trackEp.events({
             const diceCount = parseInt(attack.diceNum);
             Session.set('diceCount', diceCount);
             const diceVal = attack.diceVal;
+            Session.set('diceVal', diceVal);
             const maxRoll = diceCount * diceVal;
 
             Session.set('maxRoll', maxRoll);
@@ -208,6 +209,8 @@ function submitRoll(callback) {
     if (action === 'check' || action === 'save') {
         submission.type = Session.get('type');
         submission.success = success;
+        submission.diceCount = Session.get('diceCount');
+        submission.diceVal = Session.get('diceVal');
     } else if (action === 'attack') {
         // get attackType
         charAttacks = Session.get('charAttacks');
@@ -224,6 +227,8 @@ function submitRoll(callback) {
     } else if (action === 'spell') {
         submission.name = Session.get('type');
         submission.success = success;
+        submission.diceCount = 0;
+        submission.diceVal = 0;
     }
 
     // create a new object for the action
@@ -248,8 +253,6 @@ function submitRoll(callback) {
         episode: episode,
         time: parseInt( Session.get('totalSeconds') )
     };
-
-    console.log(stat.time);
 
     const statExists = Stats.findOne(stat);
 
