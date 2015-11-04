@@ -165,7 +165,7 @@ if (Characters.find().count() === 0) {
             killCount: 10,
             koCount: 0
         },
-        imageURL: '/images/keyleth.png',
+        imageURL: '/images/keyleth.svg',
         submitted: new Date(),
         live: false
     });

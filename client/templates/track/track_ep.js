@@ -23,13 +23,15 @@ Template.trackEp.onCreated(function () {
     Session.set('videoId', episode.videoId);
 });
 
-Template.trackEp.onRendered(function() {
+Template.trackEp.onRendered(function () {
     // Used ID because jQuery select wasn't working
     const ytEl = document.getElementById('js-yt');
     const player = youtube({el: ytEl, id: Session.get('videoId')});
 
     player.on('timeupdate', _.throttle(function () {
         let totalSeconds = player.currentTime;
+        Session.set('totalSeconds', totalSeconds);
+
         const hours = Math.floor(totalSeconds / 3600);
         totalSeconds %= 3600;
         let minutes = Math.floor(totalSeconds / 60);
@@ -75,7 +77,7 @@ Template.trackEp.helpers({
     choosingAction: function () {
         return Session.get('choosingAction');
     },
-    actionActive: function(action) {
+    actionActive: function (action) {
         return action === Session.get('action').toLowerCase() ? 'is-active' : '';
     },
     choosingType: function () {
@@ -135,6 +137,7 @@ Template.trackEp.events({
         Session.set('modal', true);
         Session.set('choosingAction', true);
         Session.set('trackTime', {
+            total: Session.get('totalSeconds'),
             hour: Session.get('hours'),
             minute: Session.get('minutes'),
             second: Session.get('seconds')
@@ -181,104 +184,202 @@ Template.trackEp.events({
     }
 });
 
-function submitRoll(callback) {
-    let charAttacks,
-        attack,
-        attackType;
-    const character = Characters.findOne({name: Session.get('charName')});
-    const charId = character._id;
-    const roll = parseInt($('[name=roll]').val());
-    const success = $('[name=success]').checked ? true : false;
-    const action = Session.get('action').toLowerCase();
-    let lethal, lethalCount;
+const submitRoll = function (callback) {
 
-    if (action === 'attack') {
-        lethal = $('[name=lethal]').checked ? true : false;
-        lethalCount = 1;
-    } else {
-        lethal = null;
-        lethalCount = null;
-    }
+    validateRoll(function () {
+        let charAttacks,
+            attack,
+            attackType;
+        const character = Characters.findOne({name: Session.get('charName')});
+        const charId = character._id;
+        const roll = parseInt($('[name=roll]').val());
+        const success = $('[name=success]').checked ? true : false;
+        const action = Session.get('action').toLowerCase();
+        let lethal, lethalCount;
 
-    const submission = {
-        character: charId,
-        roll: roll,
-        time: Session.get('trackTime')
-    };
-
-    if (action === 'check' || action === 'save') {
-        submission.type = Session.get('type');
-        submission.success = success;
-        submission.diceCount = Session.get('diceCount');
-        submission.diceVal = Session.get('diceVal');
-    } else if (action === 'attack') {
-        // get attackType
-        charAttacks = Session.get('charAttacks');
-        const attackName = Session.get('type');
-        attack = _.find(charAttacks, function (item) {
-            return item.name === attackName;
-        });
-        attackType = attack.type;
-
-        submission.name = Session.get('type');
-        submission.hit = success;
-        submission.lethal = lethal;
-        submission.type = attackType;
-    } else if (action === 'spell') {
-        submission.name = Session.get('type');
-        submission.success = success;
-        submission.diceCount = 0;
-        submission.diceVal = 0;
-    }
-
-    // create a new object for the action
-    Meteor.call(action + 'Insert', submission, function (error, result) {
-        if (error) {
-            return throwError(error.reason);
+        if (action === 'attack') {
+            lethal = $('[name=lethal]').checked ? true : false;
+            lethalCount = 1;
+        } else {
+            lethal = null;
+            lethalCount = null;
         }
-        mixpanel.track(Session.get('action') + " submit");
-        if (typeof callback == 'function') {
-            callback();
+
+        const submission = {
+            character: charId,
+            roll: roll,
+            time: Session.get('trackTime')
+        };
+
+        if (action === 'check' || action === 'save') {
+            submission.type = Session.get('type');
+            submission.success = success;
+            submission.diceCount = Session.get('diceCount');
+            submission.diceVal = Session.get('diceVal');
+        } else if (action === 'attack') {
+            // get attackType
+            charAttacks = Session.get('charAttacks');
+            const attackName = Session.get('type');
+            attack = _.find(charAttacks, function (item) {
+                return item.name === attackName;
+            });
+            attackType = attack.type;
+
+            submission.name = Session.get('type');
+            submission.hit = success;
+            submission.lethal = lethal;
+            submission.type = attackType;
+        } else if (action === 'spell') {
+            submission.name = Session.get('type');
+            submission.success = success;
+            submission.diceCount = 0;
+            submission.diceVal = 0;
+        }
+
+        // create a new object for the action
+        Meteor.call(action + 'Insert', submission, function (error, result) {
+            if (error) {
+                return throwError(error.reason);
+            }
+            mixpanel.track(Session.get('action') + " submit");
+            if (typeof callback == 'function') {
+                callback();
+            }
+        });
+
+        const path = window.location.pathname;
+        const slashLoc = path.lastIndexOf('/');
+        const episode = parseInt(path.slice(slashLoc + 1));
+
+        const stat = {
+            action: action,
+            name: Session.get('type').toLowerCase(),
+            character: Session.get('charName').toLowerCase(),
+            episode: parseInt(Session.get('episodeNum')),
+            time: parseInt(Session.get('totalSeconds'))
+        };
+
+        const statExists = Stats.findOne(stat);
+
+        if (statExists) {
+            // update the existing stat
+            Meteor.call('updateStat', stat, roll, success, lethal, function (error) {
+                if (error) {
+                    return throwError(error.reason);
+                    9
+                }
+            });
+        } else {
+            // create a new stat
+            const succVal = success ? 1 : 0;
+            _.extend(stat, {
+                value: roll,
+                valueCount: 1,
+                success: succVal,
+                successCount: 1
+            });
+            if (action === 'attack') {
+                const lethalVal = lethal ? 1 : 0;
+                _.extend(stat, {
+                    lethal: lethalVal,
+                    lethalCount: lethalCount
+                });
+            }
+            Meteor.call('statInsert', stat);
         }
     });
 
-    const path = window.location.pathname;
-    const slashLoc = path.lastIndexOf('/');
-    const episode = parseInt( path.slice(slashLoc + 1) );
+};
 
-    const stat = {
-        action: action,
-        name: Session.get('type').toLowerCase(),
-        character: Session.get('charName').toLowerCase(),
-        episode: episode,
-        time: parseInt( Session.get('totalSeconds') )
-    };
+const validateRoll = function (callback) {
+    // First, check validity of roll
+    const time = parseInt(Session.get('totalSeconds'));
 
-    const statExists = Stats.findOne(stat);
+    // Get 5 seconds around time of submission
+    const timeBef = time - 5;
+    const timeAft = time + 5;
+    const action = Session.get('action').toLowerCase();
+    const character = Characters.findOne({name: Session.get('charName')});
+    const episode = parseInt(Session.get('episodeNum'));
 
-    if (statExists) {
-        // update the existing stat
-        Meteor.call('updateStat', stat, roll, success, lethal, function (error) {
-            if (error) {
-                return throwError(error.reason);9
-            }
-        });
-    } else {
-        // create a new stat
-        const succVal = success ? 1 : 0;
-        _.extend(stat, {
-            value: roll,
-            valueCount: 1,
-            success: succVal,
-            successCount: 1
-        });
-        if (action === 'attack') {
-            const lethalVal = lethal ? 1 : 0;
-            _.extend(stat, {
-                lethal: lethalVal,
-                lethalCount: lethalCount
-            });
-        }
-        Meteor.call('statInsert', stat);
+    // Get the correct collection based on the action
+    let Collection = {};
+    if (action === 'attack') {
+        Collection = Attacks;
+    } else if (action === 'cast') {
+        Collection = Casts;
+    } else if (action === 'check') {
+        Collection = Checks;
+    } else if (action === 'save') {
+        Collection = Saves;
     }
-}
+
+    // Get some rolls from before the time
+    const rollsBef = Collection.find({
+        character: character,
+        episode: episode,
+        'time.total': {$gte: timeBef, $lte: time}
+    }, {limit: 20}).fetch();
+    // Get some rolls from after the time
+    const rollsAft = Collection.find({
+        character: character,
+        episode: episode,
+        'time.total': {$gte: time, $lte: timeAft}
+    }, {limit: 20}).fetch();
+
+    // Find average roll for before and after
+    let aveBef = 0;
+    let sumBef = 0;
+    let countBef = 0;
+    let aveAft = 0;
+    let sumAft = 0;
+    let countAft = 0;
+    // If there are enough rolls for validation, find the average.
+    if (rollsBef.length >= 10) {
+        countBef = rollsBef.length;
+        rollsBef.forEach(function (roll, index) {
+            sumBef += roll;
+        });
+        aveBef = sumBef / countBef;
+    }
+    if (rollsAft.length >= 10) {
+        countAft = rollsAft.length;
+        rollsAft.forEach(function (roll, index) {
+            sumAft += roll;
+        });
+        aveAft = sumAft / countAft;
+    }
+
+    // Figure out which average is closer to the roll that is being validated. Also, make sure each average is valid.
+    const roll = parseInt($('[name=roll]').val());
+    const diffBef = Math.abs(roll - aveBef);
+    const diffAft = Math.abs(roll - aveAft);
+    let diff = null;
+    // Check which of the averages is valid
+    if (aveBef === 0 && aveAft === 0) {
+        // Submit
+        callback();
+        return 0;
+    } else if (aveBef === 0 && aveAft > 0) {
+        diff = diffAft;
+    } else if (aveBef > 0 && aveAft === 0) {
+        diff = diffBef;
+    } else {
+        // See which average is closer
+        if (diffBef > diffAft) {
+            diff = diffAft;
+        } else {  // Still works if they're equal, because it won't matter which
+            diff = diffBef;
+        }
+    }
+
+    // If the roll is valid, submit it. If not, notify the user.
+    if (diff <= 5) {
+        // Submit;
+        callback();
+    } else {
+        throwError('Your roll is an outlier. Check for mistakes.');
+    }
+
+
+};
