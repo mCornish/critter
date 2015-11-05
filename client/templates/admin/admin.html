@@ -114,12 +114,15 @@
                     </div>
                     <span class="help-block">{{errorMessage 'subGoal'}}</span>
                 </div>
-
-                <label for="sub-count">Giveaway Winner</label>
-                <input id="sub-count" name="sub-winner" value="{{stream.subWinner}}" type="text">
+                <div class="col-xs-12">
+                    <div class="row">
+                        <label for="sub-count">Giveaway Winner</label>
+                        <input id="sub-count" name="sub-winner" value="{{stream.subWinner}}" type="text">
+                    </div>
+                </div>
             </div>
             <div class="row">
-                <div class="button button--submit" data-hook="submit-stream">Update Stats</div>
+                <button type="submit" data-hook="submit-stream">Update Stats</button>
             </div>
         </div>
     </form>
@@ -132,7 +135,7 @@
             <div class="row">
                 <div class="admin__user col-xs-4">
                     <ul>
-                        <li>Name: {{profile.username}}</li>
+                        <li>Email: {{emails.[0].address}}</li>
                         <li>Roles: {{roles}}</li>
                     </ul>
                 </div>

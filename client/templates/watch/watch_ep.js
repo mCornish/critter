@@ -221,8 +221,9 @@ Template.watchEp.events({
         Session.set('menuActive', 'info');
     },
     'click [data-hook=detail-button]': function (e) {
-        const charName = $(e.target).attr('data-name');
         Session.set('detailActive', true);
+        const charName = $(e.target).attr('data-name');
+        Session.set('charName', charName);
         const character = Characters.findOne({name: charName});
         Session.set('character', character);
     }

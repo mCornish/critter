@@ -61,5 +61,5 @@
                 Stats.update({name: 'rolls', character: char.name}, {$set: stat});
             }
         });
-    }, 3600);
+    }, 3600000);
 })();

@@ -41,14 +41,33 @@
             </div>
         {{else}}
             {{#if infoActive}}
-                <div class="row">
-                    <h2>Cast</h2>
+                <div class="companion__info">
+                {{#unless detailActive}}
+                    <div class="row">
+                        <div class="characters row">
+                            {{#each liveChars}}
+                                <div class="track__char col-xs-6 col-md-4">
+                                    <div class="track__name" data-name="{{name}}">{{name}}</div>
+                                    <img class="character__image pointer" src="{{imageURL}}" data-hook="detail-button"
+                                     data-name={{name}}>
+                                </div>
+                            {{/each}}
+                        </div>
 
-                    <div class="characters row">
+                    </div>
+                {{else}}
+                    <div class="char__detail">
+                            {{#with character}}
+                                {{> charPage}}
+                            {{/with}}
+                    </div>
+                    <div class="row">
                         {{#each liveChars}}
-                            <img class="character__image" src="{{imageURL}}"/>
+                            <a class="col-xs-3 watch__char-name {{detailClass name}}" data-hook="detail-button"
+                               data-name="{{name}}">{{name}}</a>
                         {{/each}}
                     </div>
+                {{/unless}}
                 </div>
             {{else}}
                 {{#if giveawayActive}}

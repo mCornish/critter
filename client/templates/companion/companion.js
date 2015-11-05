@@ -41,6 +41,7 @@ Template.companion.onCreated(function () {
     Session.set('cast', null);
     Session.set('contentActive', true);
     Session.set('infoActive', false);
+    Session.set('detailActive', false);
     Session.set('giveawayActive', false);
     Session.set('menuActive', 'content');
 });
@@ -67,6 +68,16 @@ Template.companion.helpers({
     },
     infoActive: function () {
         return Session.get('infoActive');
+    },
+    detailActive: function () {
+        return Session.get('detailActive');
+    },
+    character: function () {
+        return Session.get('character');
+    },
+    detailClass: function (name) {
+        const activeName = Session.get('charName');
+        return name === activeName ? 'is-active' : '';
     },
     giveawayActive: function () {
         return Session.get('giveawayActive');
@@ -101,5 +112,12 @@ Template.companion.events({
         Session.set('contentActive', false);
         Session.set('giveawayActive', true);
         Session.set('menuActive', 'giveaway');
+    },
+    'click [data-hook=detail-button]': function (e) {
+        Session.set('detailActive', true);
+        const charName = $(e.target).attr('data-name');
+        Session.set('charName', charName);
+        const character = Characters.findOne({name: charName});
+        Session.set('character', character);
     }
 });

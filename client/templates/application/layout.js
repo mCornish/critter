@@ -44,3 +44,10 @@ Template.layout.helpers({
         return unauthed && isHome ? 'is-unauthed' : '';
     }
 });
+
+Template.layout.events({
+    'click [data-hook=noTest]': function(e) {
+        e.preventDefault();
+        throwError('Sorry, only the Companion (Watch Live) is available during this test.');
+    }
+});

@@ -23,7 +23,7 @@
                 </clipPath>
                 <g clip-path="url(#_clip1)">
                     <g transform="matrix(1.375,0,0,1.66667,-32.75,-310.167)">
-                        <path d="M117,482.5L121,475" style="fill:none;stroke-width:1px;stroke:rgb(231,47,34);"/>
+                        <path d="M117,482.5L121,475" style="fill:none;stroke-width:1px;stroke:white;"/>
                     </g>
                 </g>
             </g>
@@ -35,10 +35,10 @@
                 </clipPath>
                 <g clip-path="url(#_clip2)">
                     <g transform="matrix(0.785714,0,0,0.714286,31.2857,141.143)">
-                        <path d="M123,494L131,475L133,477L125,496L123,494Z" style="fill:rgb(231,47,34);"/>
+                        <path d="M123,494L131,475L133,477L125,496L123,494Z" style="fill:white;"/>
                     </g>
                     <g transform="matrix(0.785714,0,0,0.714286,31.6786,141.857)">
-                        <path d="M120,491L128,473" style="fill:none;stroke-width:1px;stroke:rgb(231,47,34);"/>
+                        <path d="M120,491L128,473" style="fill:none;stroke-width:1px;stroke:white;"/>
                     </g>
                 </g>
             </g>
@@ -50,10 +50,10 @@
                 </clipPath>
                 <g clip-path="url(#_clip3)">
                     <g transform="matrix(0.44,0,0,0.576923,55.36,211.308)">
-                        <path d="M160,487L174,464L179,468L165,490L160,487Z" style="fill:rgb(231,47,34);"/>
+                        <path d="M160,487L174,464L179,468L165,490L160,487Z" style="fill:white;"/>
                     </g>
                     <g transform="matrix(0.44,0,0,0.576923,55.36,211.308)">
-                        <path d="M156,482L168.5,462" style="fill:none;stroke-width:2px;stroke:rgb(231,47,34);"/>
+                        <path d="M156,482L168.5,462" style="fill:none;stroke-width:2px;stroke:white;"/>
                     </g>
                 </g>
             </g>
@@ -65,7 +65,7 @@
                 </clipPath>
                 <g clip-path="url(#_clip4)">
                     <g transform="matrix(0.916667,0,0,1.25,-37.3333,-89.75)">
-                        <path d="M178,466L186,455" style="fill:none;stroke-width:4px;stroke:rgb(231,47,34);"/>
+                        <path d="M178,466L186,455" style="fill:none;stroke-width:4px;stroke:white;"/>
                     </g>
                 </g>
             </g>

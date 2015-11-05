@@ -129,10 +129,12 @@ Template.admin.events({
             }
         });
     },
-    'click [data-hook=inc-count]': function() {
+    'click [data-hook=inc-count]': function(e) {
+        e.preventDefault();
         Meteor.call('incSub', 1);
     },
-    'click [data-hook=inc-goal]': function() {
+    'click [data-hook=inc-goal]': function(e) {
+        e.preventDefault();
         Meteor.call('incGoal', 100);
     },
     'click [data-hook=add-role]': function(e) {

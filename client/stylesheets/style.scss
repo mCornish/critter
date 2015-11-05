@@ -271,8 +271,20 @@ hr {
   border-color: $color-2;
 }
 
-.button:hover,
 .button:focus {
+  text-decoration: none;
+
+  @media #{$break-small} {
+    background-color: $color-1;
+    color: $color-2;
+  }
+  @media #{$break-medium} {
+    background-color: transparent;
+    color: $color-1;
+  }
+}
+// Hover comes after focus for color override
+.button:hover {
   color: $color-2;
   text-decoration: none;
 
@@ -291,8 +303,8 @@ hr {
 
 .button:active {
   text-decoration: none;
-  color: $color-2;
   background-color: $color-1;
+  color: $color-2;
 }
 
 /* disabled button */
@@ -401,7 +413,7 @@ hr {
 
 // (Button) Half-height
 .button--half {
-  height: 48vh;
+  height: 15em;
 }
 
 // (Button) Cancel
@@ -430,7 +442,7 @@ hr {
 }
 
 .button__icon i {
-  font-size: 2em;
+  font-size: 1em;
   @media #{$break-small} {
     margin-bottom: 0;
   }
@@ -1486,23 +1498,28 @@ input[type=radio] + input[type=radio] {
   flex-wrap: wrap;
   justify-content: center;
 }
-
+.companion__info {
+  margin-bottom: 5em;
+}
 .character__image {
   margin: 0 1em 1em;
-  width: 5em;
-  height: 5em;
-  border-radius: 100%;
+  width: 100%;
+  height: auto;
+  //border-radius: 100%;
 }
 
 /* -------------------- */
 /* --- #HOME */
 /* -------------------- */
+.home {
+  margin-top: 20vh;
+}
 .home .button {
   @media #{$break-small} {
 
   }
   @media #{$break-medium} {
-    height: 40vh;
+    height: 15em;
   }
 }
 
@@ -1529,7 +1546,7 @@ input[type=radio] + input[type=radio] {
 
 .home .button__icon i {
   @media #{$break-small} {
-    font-size: 1em;
+    font-size: .8em;
   }
   @media #{$break-medium} {
     font-size: 3em;
@@ -1654,6 +1671,10 @@ input[type=radio] + input[type=radio] {
   font-size: 1.5em;
   text-align: center;
 }
+.watch__char-name.is-active {
+  background-color: $color-1;
+  color: $color-2;
+}
 
 /* ------------------------------ */
 /* ------------- #HELPERS */
@@ -1672,6 +1693,10 @@ input[type=radio] + input[type=radio] {
 
 .page-spacer {
   margin-top: 2em;
+}
+
+.pointer {
+  cursor: pointer !important;
 }
 
 .text-center {
