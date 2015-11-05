@@ -212,7 +212,7 @@ if (Characters.find().count() === 0) {
             killCount: 43,
             koCount: 1
         },
-        imageURL: '/images/percy.png',
+        imageURL: '/images/percy.svg',
         submitted: new Date(),
         live: false
     });

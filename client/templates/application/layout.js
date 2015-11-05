@@ -15,7 +15,9 @@ Template.layout.onCreated(function() {
     });
 
     // Log Date that user loaded layout
-    Meteor.call('updateActivity');
+    if (Meteor.userId()) {
+        Meteor.call('updateActivity');
+    }
 });
 
 Template.layout.onRendered(function() {

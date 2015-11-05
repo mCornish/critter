@@ -8,16 +8,14 @@ Template.stats.onCreated(function () {
 
         // If it's been over an hour since last activity, update stats
         if (lastHour > lastMoment) {
-            updateStats(Template.parentData(1));
+            //updateStats(Template.parentData(1));
         }
-        // REMOVE THIS
-        updateStats(Template.parentData(1)); // REMOVE THIS
     }
 });
 
 Template.stats.helpers({
     topKiller: function () {
-        const kills = this.kills.fetch();
+
     }
 });
 
@@ -29,16 +27,20 @@ const updateStats = function (data) {
 
     episodes.forEach(function (ep) {
         const actions = data.actions.fetch();
-        console.log(actions);
         const epActions = _.where(actions, {episode: ep.number});
-        //console.log(epActions);
         const count = epActions.length;
-        console.log(count);
         let sum = 0;
         epActions.forEach(function (action) {
             sum += action.roll;
-            console.log(sum);
         });
+        stat = {
+            name: 'rolls',
+            character: '',
+            episode: '',
+            value: 0
+
+        };
+
         console.log(sum / count);
     });
 };
