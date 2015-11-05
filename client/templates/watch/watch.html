@@ -17,7 +17,7 @@
                     </a>
                     {{#if authed}}
                         <a class="button button--vert button--half col-xs-12 col-md-4 col-md-offset-0"
-                           href="{{pathFor 'track'}}" data-hook="noTest">
+                           href="{{pathFor 'track'}}" data-hook="noTest" data-track="track">
                             <div class="button__icon">
                                 <i class="fa fa-bar-chart"></i><br>
                                 Track
@@ -25,7 +25,7 @@
                         </a>
                     {{else}}
                         <a class="button button--vert button--half col-xs-12 col-md-4 col-md-offset-0"
-                           href="{{pathFor 'login'}}">
+                           href="{{pathFor 'login'}}" data-track="login">
                             <div class="button__icon">
                                 <i class="fa fa-user"></i><br>
                                 Log in to track

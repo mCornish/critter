@@ -33,5 +33,16 @@ Template.home.helpers({
 });
 
 Template.home.events({
-
+    'click [data-track=watch]': function() {
+        mixpanel.track('Watch button click');
+    },
+    'click [data-track=stats]': function() {
+        mixpanel.track('Stats button click');
+    },
+    'click [data-track=me]': function() {
+        mixpanel.track('Profile button click');
+    },
+    'click [data-track=login]': function() {
+        mixpanel.track('Login button click');
+    }
 });

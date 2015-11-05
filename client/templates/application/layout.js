@@ -18,6 +18,9 @@ Template.layout.onCreated(function() {
     if (Meteor.userId()) {
         Meteor.call('updateActivity');
     }
+
+    const route = Router.current().route.getName();
+    mixpanel.track('View', {route: route});
 });
 
 Template.layout.onRendered(function() {

@@ -17,8 +17,16 @@ Template.watch.events({
         throwError('Sorry, only the Companion (Watch Live) is available during this test.');
         //UNCOMMENT AFTER BETA Session.set('watching', true);
         //UNCOMMENT AFTER BETA Session.set('choosing', false);
+        mixpanel.track('Watch Past button click');
     },
     'click [data-hook="live"]': function(e) {
+        mixpanel.track('Watch Live button click');
         Router.go('companion');
+    },
+    'click [data-track="track"]': function(e) {
+        mixpanel.track('Track button click');
+    },
+    'click [data-track="login"]': function(e) {
+        mixpanel.track('Login button click');
     }
 });

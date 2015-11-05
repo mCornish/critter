@@ -40,3 +40,9 @@ Template.header.helpers({
         return Session.get('backLink');
     }
 });
+
+Template.header.events({
+    'click [data-track=logo]': function() {
+        mixpanel.track('Logo click');
+    }
+});

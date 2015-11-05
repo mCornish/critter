@@ -53,5 +53,7 @@ Accounts.onCreateUser(function (options, user) {
         user.profile = options.profile;
     }
 
+    // mixpanel.track('User created', user); Uncomment when ready to test
+
     return user;
 });
