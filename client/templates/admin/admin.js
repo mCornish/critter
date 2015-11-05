@@ -27,13 +27,21 @@ Template.admin.helpers({
 });
 
 Template.admin.events({
+    'click [data-hook=toggle-stream]': function(e) {
+        e.preventDefault();
+        Meteor.call('toggleStreamLive');
+    },
    'click [data-hook=live-toggle]': function(e) {
         e.preventDefault();
 
        const name = $(e.target).attr('data-name');
-       const bool = $(e.target).attr('data-live') === 'true' ? true : false;
+       const bool = $(e.target).attr('data-live') === 'true';
 
        Meteor.call('setLive', name.toString(), !bool);
+    },
+    'click [data-hook=toggle-timing]': function(e) {
+        e.preventDefault();
+        Meteor.call('toggleStreamTiming');
     },
     'click [data-hook=submit-content]': function() {
         $form = $('[data-hook=form-content]');

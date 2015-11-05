@@ -1,14 +1,13 @@
 Template.companion.onCreated(function () {
     const
         now = new Date(),
-        utc = now.getTime(),
         offset = -8,
         showTime = 19;
     let
-        pstDate = new Date(utc + (3600000 * offset)),
-        pstHours = pstDate.getHours(),
-        pstMinutes = pstDate.getMinutes(),
-        pstSeconds = pstDate.getSeconds(),
+        pstDate = moment(now).utcOffset(offset),
+        pstHours = pstDate.hours(),
+        pstMinutes = pstDate.minutes(),
+        pstSeconds = pstDate.seconds(),
 
         hours = pstHours - showTime,
         minutes = pstMinutes,
@@ -48,8 +47,8 @@ Template.companion.onCreated(function () {
 
 Template.companion.helpers({
     isLive: function() {
-        // return Session.get('isLive');
-        return true;
+        const stream = this.stream;
+        return stream.live;
     },
     liveContent: function() {
         return $.parseHTML(this.stream.liveContent);

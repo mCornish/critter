@@ -5,7 +5,9 @@ if (Stream.find().count() === 0) {
         subCount: 8470,
         subGoal: 8500,
         subWinner: '',
-        live: false
+        duration: 0,
+        live: false,
+        timing: false
     });
 
 }

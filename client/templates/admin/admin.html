@@ -1,21 +1,36 @@
 <template name="admin">
     <h1>Admin</h1>
 
-    <form>
-        <h2>Live Characters</h2>
+    <h2>Stream</h2>
 
-        <div class="row">
-            {{#each characters}}
-                <div class="button button--toggle col-xs-6 col-md-3" data-hook="live-toggle" data-name="{{name}}"
-                     data-live="{{live}}">
-                    {{name}} {{#if live}}<i class="fa fa-check"></i>{{/if}}
-                </div>
-            {{/each}}
+    <div class="row">
+        <h3 class="col-xs-12">Toggle Live</h3>
+
+        <div class="button col-xs-3" data-hook="toggle-stream">
+            {{#if stream.live}}
+                Online <i class="fa fa-toggle-on"></i>
+            {{else}}
+                Offline <i class="fa fa-toggle-off"></i>
+            {{/if}}
         </div>
-    </form>
 
-    <form data-hook="form-content">
-        <h2>Live Content</h2>
+    </div>
+    <div class="row">
+        <h3 class="col-xs-12">Live Characters</h3>
+
+        <div class="col-xs-12">
+            <div class="row">
+                {{#each characters}}
+                    <div class="button button--toggle col-xs-6 col-md-3" data-hook="live-toggle" data-name="{{name}}"
+                         data-live="{{live}}">
+                        {{name}} {{#if live}}<i class="fa fa-check"></i>{{/if}}
+                    </div>
+                {{/each}}
+            </div>
+        </div>
+    </div>
+    <form class="row" data-hook="form-content">
+        <h3>Live Content</h3>
 
         <div class="row">
             <select class="col-xs-12 col-md-4" data-hook="live-content-type">
@@ -123,7 +138,8 @@
                 </form>
                 <div class="col-xs-4">
                     <label>Delete User</label>
-                    <button type="submit" data-hook="delete-user" data-uid="{{_id}}"><i class="fa fa-remove" data-uid="{{_id}}"></i></button>
+                    <button type="submit" data-hook="delete-user" data-uid="{{_id}}"><i class="fa fa-remove"
+                                                                                        data-uid="{{_id}}"></i></button>
                 </div>
             </div>
         {{/each}}
