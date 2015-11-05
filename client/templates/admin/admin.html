@@ -4,7 +4,7 @@
     <h2>Stream</h2>
 
     <div class="row">
-        <h3 class="col-xs-12">Toggle Live</h3>
+        <h3>Toggle Live</h3>
 
         <div class="button col-xs-3" data-hook="toggle-stream">
             {{#if stream.live}}
@@ -16,7 +16,7 @@
 
     </div>
     <div class="row">
-        <h3 class="col-xs-12">Live Characters</h3>
+        <h3>Live Characters</h3>
 
         <div class="col-xs-12">
             <div class="row">
@@ -32,90 +32,95 @@
     <form class="row" data-hook="form-content">
         <h3>Live Content</h3>
 
-        <div class="row">
-            <select class="col-xs-12 col-md-4" data-hook="live-content-type">
-                <option value="text">Text</option>
-                <option value="image">Image</option>
-                <option value="link">Link</option>
-                <option value="tweet">Tweet</option>
-                <option value="yt">YouTube video</option>
-            </select>
+        <div class="col-xs-12">
+            <div class="row">
+                <select class="col-xs-12 col-md-3" data-hook="live-content-type">
+                    <option value="text">Text</option>
+                    <option value="image">Image</option>
+                    <option value="link">Link</option>
+                    <option value="tweet">Tweet</option>
+                    <option value="yt">YouTube video</option>
+                </select>
 
-            <div class="row col-xs-12 col-md-8">
-                {{#if contentType 'text'}}
-                    <label for="live-content">Text to Display</label>
-                    <textarea id="live-content" data-hook="live-content"></textarea>
-                {{/if}}
-                {{#if contentType 'image'}}
-                    <div class="{{errorClass 'image'}}">
-                        <input class="input-group__file-input" name="live-image" placeholder="Image" type="file"
-                               id="image"
-                               required/>
-                        <label class="input-group__file-label button col-xs-12" for="image">
-                            {{#unless imageName}}
-                                <span>Choose Image</span>
-                            {{else}}
-                                <span>{{imageName}}</span>
-                            {{/unless}}
-                        </label>
-                        <span class="help-block">{{errorMessage 'image'}}</span>
-                    </div>
-                    <img class="col-xs-12" src="{{imageURL}}"/>
-                {{/if}}
-                {{#if contentType 'link'}}
-                    <label for="live-content">Link Text</label>
-                    <input id="live-content" type="url" data-hook="live-text">
-                    <label for="live-content">Link Url</label>
-                    <input id="live-content" type="text" data-hook="live-link">
-                {{/if}}
-                {{#if contentType 'tweet'}}
-                    <label for="live-content">Tweet Embed Code</label>
-                    <textarea id="live-content" data-hook="live-content"></textarea>
-                {{/if}}
-                {{#if contentType 'yt'}}
-                    <label for="live-content">YouTube Video URL</label>
-                    <input id="live-content" type="url" data-hook="live-content">
-                {{/if}}
+                <div class="col-xs-12 col-md-7 col-offset-1">
+                    {{#if contentType 'text'}}
+                        <label for="live-content">Text to Display</label>
+                        <textarea id="live-content" data-hook="live-content"></textarea>
+                    {{/if}}
+                    {{#if contentType 'image'}}
+                        <div class="row">
+                            <div class="{{errorClass 'image'}}">
+                                <input class="input-group__file-input" name="live-image" placeholder="Image" type="file"
+                                       id="image"
+                                       required/>
+                                <label class="input-group__file-label button col-xs-12" for="image">
+                                    {{#unless imageName}}
+                                        <span>Choose Image</span>
+                                    {{else}}
+                                        <span>{{imageName}}</span>
+                                    {{/unless}}
+                                </label>
+                                <span class="help-block">{{errorMessage 'image'}}</span>
+                            </div>
+                            <img class="col-xs-12" src="{{imageURL}}"/>
+                        </div>
+                    {{/if}}
+                    {{#if contentType 'link'}}
+                        <label for="live-content">Link Text</label>
+                        <input id="live-content" type="url" data-hook="live-text">
+                        <label for="live-content">Link Url</label>
+                        <input id="live-content" type="text" data-hook="live-link">
+                    {{/if}}
+                    {{#if contentType 'tweet'}}
+                        <label for="live-content">Tweet Embed Code</label>
+                        <textarea id="live-content" data-hook="live-content"></textarea>
+                    {{/if}}
+                    {{#if contentType 'yt'}}
+                        <label for="live-content">YouTube Video URL</label>
+                        <input id="live-content" type="url" data-hook="live-content">
+                    {{/if}}
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="button button--submit" data-hook="submit-content">Insert Content</div>
-            <div class="button button--submit" data-hook="clear-content">Clear Content</div>
+            <div class="row">
+                <div class="button button--submit col-xs-3" data-hook="submit-content">Insert Content</div>
+                <div class="button button--submit col-xs-3 col-xs-offset-1"
+                     data-hook="clear-content">Clear Content</div>
+            </div>
         </div>
     </form>
 
-    <form data-hook="form-stream">
-        <h2>Stream Stats</h2>
+    <form class="row" data-hook="form-stream">
+        <h3>Stream Stats</h3>
 
-        <div class="row">
-            <div class="{{errorClass 'subCount'}}">
-                <label for="sub-count">Sub Count</label>
+        <div class="col-xs-12">
+            <div class="row">
+                <div class="{{errorClass 'subCount'}} col-xs-12">
+                    <label for="sub-count">Sub Count</label>
 
-                <div class="row">
-                    <input id="sub-count" name="sub-count" value="{{stream.subCount}}" type="number">
-
-                    <div class="button" data-hook="inc-count"><i class="fa fa-plus"> 1</i></div>
-
+                    <div class="row">
+                        <input id="sub-count" name="sub-count" value="{{stream.subCount}}" type="number">
+                        <button type="submit" data-hook="inc-count"><i class="fa fa-plus"> 1</i></button>
+                    </div>
+                    <span class="help-block">{{errorMessage 'subCount'}}</span>
                 </div>
-                <span class="help-block">{{errorMessage 'subCount'}}</span>
-            </div>
 
-            <div class="{{errorClass 'subGoal'}}">
-                <label for="sub-count">Sub Goal</label>
+                <div class="{{errorClass 'subGoal'}} col-xs-12">
+                    <label for="sub-count">Sub Goal</label>
 
-                <div class="row">
-                    <input id="sub-count" name="sub-goal" value="{{stream.subGoal}}" type="number">
+                    <div class="row">
+                        <input id="sub-count" name="sub-goal" value="{{stream.subGoal}}" type="number">
 
-                    <div class="button" data-hook="inc-goal"><i class="fa fa-plus"> 100</i></div>
+                        <button type="submit" data-hook="inc-goal"><i class="fa fa-plus"> 100</i></button>
+                    </div>
+                    <span class="help-block">{{errorMessage 'subGoal'}}</span>
                 </div>
-                <span class="help-block">{{errorMessage 'subGoal'}}</span>
-            </div>
 
-            <label for="sub-count">Giveaway Winner</label>
-            <input id="sub-count" name="sub-winner" value="{{stream.subWinner}}" type="text">
-        </div>
-        <div class="row">
-            <div class="button button--submit" data-hook="submit-stream">Update Stats</div>
+                <label for="sub-count">Giveaway Winner</label>
+                <input id="sub-count" name="sub-winner" value="{{stream.subWinner}}" type="text">
+            </div>
+            <div class="row">
+                <div class="button button--submit" data-hook="submit-stream">Update Stats</div>
+            </div>
         </div>
     </form>
 
