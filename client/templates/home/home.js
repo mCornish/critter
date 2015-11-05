@@ -33,7 +33,5 @@ Template.home.helpers({
 });
 
 Template.home.events({
-    'click [data-hook="live"]': function(e) {
-        Router.go('companion');
-    }
+
 });

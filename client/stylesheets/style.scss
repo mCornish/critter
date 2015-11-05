@@ -232,13 +232,13 @@ hr {
   //position: relative;
 }
 
-.row + .row {
-  margin-top: 2em;
-}
-
-.row + .row:last-of-type {
-  margin-bottom: 5em;
-}
+//.row + .row {
+//  margin-top: 2em;
+//}
+//
+//.row + .row:last-of-type {
+//  margin-bottom: 5em;
+//}
 
 .row:first-of-type:last-of-type {
   margin-bottom: 0;

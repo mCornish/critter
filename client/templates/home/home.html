@@ -1,13 +1,6 @@
 <template name="home">
     <div class="home">
-        {{#if isLive}}
-            <div class="row">
-                <a href="http://twitch.tv/geekandsundry" class="button col-xs-12" target="_blank" data-hook="live">Watch
-                    Live!</a>
-            </div>
-        {{/if}}
         <div class="row">
-            <!--<a href="{{pathFor 'track'}}" class="button col-xs-12 col-md-4">Track</a>-->
             <a href="{{pathFor 'watch'}}" class="button no-padding col-xs-10 col-xs-offset-1 col-md-4 col-md-offset-0">
                 <div class="button__icon row">
                     <i class="fa fa-tv col-md-12"></i>
@@ -30,11 +23,19 @@
                         <span class="col-md-12">Me</span>
                     </div>
                 </a>
+                {{else}}
+                <a href="{{pathFor 'login'}}" class="button no-padding col-xs-10 col-xs-offset-1 col-md-4 col-md-offset-0 hidden-xs hidden-sm">
+                    <div class="button__icon row">
+                        <i class="fa fa-user col-md-12"></i>
+                        <br class="hidden-xs hidden-sm">
+                        <span class="col-md-12">Log In</span>
+                    </div>
+                </a>
             {{/if}}
         </div>
         {{#unless authed}}
             <div class="row">
-                <a href="{{pathFor 'login'}}" class="button button--submit col-xs-12 col-md-6 col-md-offset-3">Log
+                <a href="{{pathFor 'login'}}" class="button button--submit col-xs-12 col-md-6 col-md-offset-3 hidden-md hidden-lg">Log
                     In</a>
             </div>
         {{/unless}}

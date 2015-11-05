@@ -1,25 +1,17 @@
 <template name="companion">
     <h1>Watch Live</h1>
 
-    {{#if isLive}}
+        <!--{{#if isLive}}-->
 
-        <div class="row">
-            <h2>Cast</h2>
-
-            <div class="characters row">
-                {{#each liveChars}}
-                    <img class="character__image" src="{{imageURL}}"/>
-                {{/each}}
-            </div>
-        </div>
-
+    {{#if contentActive}}
         <div class="companion__content row">
             {{#if contentType 'text'}}
                 <h1>{{stream.liveContent.message}}</h1>
             {{/if}}
             {{#if contentType 'link'}}
                 <h1>
-                    <a class="live-link" href="{{stream.liveContent.link}}" target="_blank">{{stream.liveContent.message}}</a>
+                    <a class="live-link" href="{{stream.liveContent.link}}"
+                       target="_blank">{{stream.liveContent.message}}</a>
                 </h1>
             {{/if}}
             {{#if contentType 'tweet'}}
@@ -31,10 +23,11 @@
                 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
             {{/if}}
             {{#if contentType 'yt'}}
-                <iframe width="560" height="315" src="https://www.youtube.com/embed/{{stream.liveContent.link}}" frameborder="0" allowfullscreen></iframe>
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/{{stream.liveContent.link}}"
+                        frameborder="0" allowfullscreen></iframe>
             {{/if}}
             {{#if contentType 'image'}}
-                <img class="col-xs-12" src="{{stream.liveContent.link}}" />
+                <img class="col-xs-12" src="{{stream.liveContent.link}}"/>
             {{/if}}
         </div>
 
@@ -43,15 +36,50 @@
 
             <div class="stats">
                 <li class="stat">Duration: {{duration}}</li>
+
+            </div>
+        </div>
+    {{else}}
+        {{#if infoActive}}
+            <div class="row">
+                <h2>Cast</h2>
+
+                <div class="characters row">
+                    {{#each liveChars}}
+                        <img class="character__image" src="{{imageURL}}"/>
+                    {{/each}}
+                </div>
+            </div>
+        {{else}}
+            {{#if giveawayActive}}
                 <li class="stat">Subscribers: {{stream.subCount}}</li>
                 <li class="stat">Subs Until Giveaway: {{subsLeft}}</li>
                 <li class="stat">Giveaway Winner: {{stream.subWinner}}</li>
-            </div>
-        </div>
-
-    {{else}}
-
-        <h2>Sorry, Critical Role isn't live right now. Come back on Thursday at 7pm PST!</h2>
-
+            {{/if}}
+        {{/if}}
     {{/if}}
+    <div class="menu row">
+        <a class="button menu__button col-xs-4 {{menuActive 'content'}}"
+           data-hook="content-button">
+            <i class="fa fa-eye"></i>
+
+            <div class="hidden-xs hidden-sm">Content</div>
+        </a>
+        <a class="button menu__button col-xs-4 {{menuActive 'info'}}" data-hook="info-button">
+            <i class="fa fa-users"></i>
+
+            <div class="hidden-xs hidden-sm">Characters</div>
+        </a>
+        <a class="button menu__button col-xs-4 {{menuActive 'giveaway'}}" data-hook="giveaway-button">
+            <i class="fa fa-trophy"></i>
+
+            <div class="hidden-xs hidden-sm">Giveaway</div>
+        </a>
+    </div>
+
+        <!--{{else}}-->
+
+    <!--<h2>Sorry, Critical Role isn't live right now. Come back on Thursday at 7pm PST!</h2>-->
+
+        <!--{{/if}}-->
 </template>

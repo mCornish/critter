@@ -39,6 +39,11 @@ Template.companion.onCreated(function () {
         Session.set('duration', `${hours}:${minutes}:${seconds}`);
     }, 1000);
 
+    Session.set('cast', null);
+    Session.set('contentActive', true);
+    Session.set('infoActive', false);
+    Session.set('giveawayActive', false);
+    Session.set('menuActive', 'content');
 });
 
 Template.companion.helpers({
@@ -50,10 +55,22 @@ Template.companion.helpers({
         return $.parseHTML(this.stream.liveContent);
     },
     contentType: function(type) {
-        return type === this.stream.liveContent.type;
+        if (typeof this.stream.liveContent === 'object') {
+            return type === this.stream.liveContent.type;
+        }
+        return '';
     },
     duration: function () {
         return Session.get('duration');
+    },
+    contentActive: function () {
+        return Session.get('contentActive');
+    },
+    infoActive: function () {
+        return Session.get('infoActive');
+    },
+    giveawayActive: function () {
+        return Session.get('giveawayActive');
     },
     subCount: function() {
         return this.stream.subCount;
@@ -61,7 +78,29 @@ Template.companion.helpers({
     subsLeft: function() {
         const stream = this.stream;
         return stream.subGoal - stream.subCount;
+    },
+    menuActive: function (item) {
+        return item === Session.get('menuActive') ? 'is-active' : '';
     }
 });
 
-Template.companion.events({});
+Template.companion.events({
+    'click [data-hook=content-button]': function () {
+        Session.set('contentActive', true);
+        Session.set('infoActive', false);
+        Session.set('giveawayActive', false);
+        Session.set('menuActive', 'content');
+    },
+    'click [data-hook=info-button]': function () {
+        Session.set('infoActive', true);
+        Session.set('contentActive', false);
+        Session.set('giveawayActive', false);
+        Session.set('menuActive', 'info');
+    },
+    'click [data-hook=giveaway-button]': function () {
+        Session.set('infoActive', false);
+        Session.set('contentActive', false);
+        Session.set('giveawayActive', true);
+        Session.set('menuActive', 'giveaway');
+    }
+});
