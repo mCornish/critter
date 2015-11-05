@@ -6,6 +6,9 @@ Template.watch.onCreated(function () {
 Template.watch.helpers({
     choosing: function() {
         return Session.get('choosing');
+    },
+    authed: function() {
+        return typeof Meteor.userId() === 'string' ? true : false;
     }
 });
 

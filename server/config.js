@@ -1,16 +1,30 @@
-ServiceConfiguration.configurations.upsert(
-    { service: 'facebook'},
-    {
-        $set: {
-            // TODO Hide key and secret using settings (http://joshowens.me/environment-settings-and-security-with-meteor-js/)
-            appId: '1065816680108624',
-            loginStyle: 'popup',
-            secret: 'eb38f5596605adafac6ba8f5a0e2e78c'
+if (process.env.NODE_ENV === 'development') {
+    ServiceConfiguration.configurations.upsert(
+        {service: 'facebook'},
+        {
+            $set: {
+                // TODO Hide key and secret using settings (http://joshowens.me/environment-settings-and-security-with-meteor-js/)
+                appId: '1066271376729821',
+                loginStyle: 'popup',
+                secret: 'acc50853b6d29bd4105e65651a2aa578'
+            }
         }
-    }
-);
+    )
+} else {
+    ServiceConfiguration.configurations.upsert(
+        {service: 'facebook'},
+        {
+            $set: {
+                // TODO Hide key and secret using settings (http://joshowens.me/environment-settings-and-security-with-meteor-js/)
+                appId: '1065816680108624',
+                loginStyle: 'popup',
+                secret: 'eb38f5596605adafac6ba8f5a0e2e78c'
+            }
+        }
+    )
+}
 
-Accounts.onCreateUser(function(options, user) {
+Accounts.onCreateUser(function (options, user) {
     if (typeof user.emails === 'undefined') {
         user.emails = [];
     }

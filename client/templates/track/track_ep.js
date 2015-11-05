@@ -15,6 +15,7 @@ Template.trackEp.onCreated(function () {
     Session.set('totalSeconds', 0);
     Session.set('watchActive', false);
     Session.set('watchHere', false);
+    Session.set('rolls', []);
 
     // initialize episode
     const episode = this.data.episode;
@@ -137,7 +138,7 @@ Template.trackEp.events({
         Session.set('modal', true);
         Session.set('choosingAction', true);
         Session.set('trackTime', {
-            total: Session.get('totalSeconds'),
+            total: parseInt( Session.get('totalSeconds') ),
             hour: Session.get('hours'),
             minute: Session.get('minutes'),
             second: Session.get('seconds')
@@ -161,13 +162,15 @@ Template.trackEp.events({
             const char = Characters.findOne({name: Session.get('charName')});
             const attack = _.findWhere(char.attacks, {name: type}); // Note: type => attack name
             // find and set the maximum roll value
-            const diceCount = parseInt(attack.diceNum);
+            const diceCount = parseInt( attack.diceNum );
             Session.set('diceCount', diceCount);
-            const diceVal = attack.diceVal;
+            const diceVal = parseInt( attack.diceVal );
             Session.set('diceVal', diceVal);
             const maxRoll = diceCount * diceVal;
 
             Session.set('maxRoll', maxRoll);
+        } else {
+            Session.set('maxRoll', 20);
         }
     },
     'click [data-hook=add-roll]': function (e) {
@@ -182,6 +185,22 @@ Template.trackEp.events({
         Session.set('modal', false);
         submitRoll();
     }
+});
+
+Template.trackEp.onDestroyed(function () {
+    const rolls = Session.get('rolls');
+
+    rolls.forEach(function (roll) {
+        Meteor.call('actionInsert', roll, function (error, result) {
+            if (error) {
+                return throwError(error.reason);
+            }
+            mixpanel.track(Session.get('action') + " submit");
+            if (typeof callback == 'function') {
+                callback();
+            }
+        });
+    });
 });
 
 const submitRoll = function (callback) {
@@ -206,16 +225,20 @@ const submitRoll = function (callback) {
         }
 
         const submission = {
+            action: action,
+            episode: Session.get('episodeNum'),
             character: charId,
             roll: roll,
             time: Session.get('trackTime')
         };
 
         if (action === 'check' || action === 'save') {
+            submission.name = Session.get('type');
             submission.type = Session.get('type');
             submission.success = success;
-            submission.diceCount = Session.get('diceCount');
-            submission.diceVal = Session.get('diceVal');
+            submission.diceCount = 1;
+            submission.diceVal = 20;
+            submission.lethal = false;
         } else if (action === 'attack') {
             // get attackType
             charAttacks = Session.get('charAttacks');
@@ -226,67 +249,60 @@ const submitRoll = function (callback) {
             attackType = attack.type;
 
             submission.name = Session.get('type');
-            submission.hit = success;
+            submission.success = success;
             submission.lethal = lethal;
             submission.type = attackType;
+            submission.diceCount = Session.get('diceCount');
+            submission.diceVal = Session.get('diceVal');
         } else if (action === 'spell') {
             submission.name = Session.get('type');
+            submission.type = Session.get('type');
             submission.success = success;
             submission.diceCount = 0;
             submission.diceVal = 0;
+            submission.lethal = false;
         }
 
-        // create a new object for the action
-        Meteor.call(action + 'Insert', submission, function (error, result) {
-            if (error) {
-                return throwError(error.reason);
-            }
-            mixpanel.track(Session.get('action') + " submit");
-            if (typeof callback == 'function') {
-                callback();
-            }
-        });
+        const rolls = Session.get('rolls');
+        rolls.push(submission);
+        Session.set('rolls', rolls);
 
-        const path = window.location.pathname;
-        const slashLoc = path.lastIndexOf('/');
-        const episode = parseInt(path.slice(slashLoc + 1));
-
-        const stat = {
-            action: action,
-            name: Session.get('type').toLowerCase(),
-            character: Session.get('charName').toLowerCase(),
-            episode: parseInt(Session.get('episodeNum')),
-            time: parseInt(Session.get('totalSeconds'))
-        };
-
-        const statExists = Stats.findOne(stat);
-
-        if (statExists) {
-            // update the existing stat
-            Meteor.call('updateStat', stat, roll, success, lethal, function (error) {
-                if (error) {
-                    return throwError(error.reason);
-                    9
-                }
-            });
-        } else {
-            // create a new stat
-            const succVal = success ? 1 : 0;
-            _.extend(stat, {
-                value: roll,
-                valueCount: 1,
-                success: succVal,
-                successCount: 1
-            });
-            if (action === 'attack') {
-                const lethalVal = lethal ? 1 : 0;
-                _.extend(stat, {
-                    lethal: lethalVal,
-                    lethalCount: lethalCount
-                });
-            }
-            Meteor.call('statInsert', stat);
-        }
+        //const stat = {
+        //    action: action,
+        //    name: Session.get('type').toLowerCase(),
+        //    character: Session.get('charName').toLowerCase(),
+        //    episode: parseInt(Session.get('episodeNum')),
+        //    time: parseInt(Session.get('totalSeconds'))
+        //};
+        //
+        //const statExists = Stats.findOne(stat);
+        //
+        //if (statExists) {
+        //    // update the existing stat
+        //    Meteor.call('updateStat', stat, roll, success, lethal, function (error) {
+        //        if (error) {
+        //            return throwError(error.reason);
+        //            9
+        //        }
+        //    });
+        //} else {
+        //    // create a new stat
+        //    const succVal = success ? 1 : 0;
+        //    _.extend(stat, {
+        //        value: roll,
+        //        valueCount: 1,
+        //        success: succVal,
+        //        successCount: 1
+        //    });
+        //    if (action === 'attack') {
+        //        const lethalVal = lethal ? 1 : 0;
+        //        _.extend(stat, {
+        //            lethal: lethalVal,
+        //            lethalCount: lethalCount
+        //        });
+        //    }
+        //    Meteor.call('statInsert', stat);
+        //}
     });
 
 };
@@ -380,6 +396,4 @@ const validateRoll = function (callback) {
     } else {
         throwError('Your roll is an outlier. Check for mistakes.');
     }
-
-
 };

@@ -43,6 +43,21 @@ Meteor.publish('episode', function(num) {
     return Episodes.find({number: num});
 });
 
+Meteor.publish('actions', function(queries, options) {
+    queries = typeof queries !== 'undefined' ? queries : {};
+
+    if (options) {
+        check(options, {
+            sort: Object,
+            limit: Number
+        });
+    } else {
+        options = {};
+    }
+
+    return Actions.find(queries, options);
+});
+
 Meteor.publish('attacks', function(queries, options) {
     queries = typeof queries !== 'undefined' ? queries : {};
 

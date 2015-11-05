@@ -9,13 +9,23 @@
                             Watch
                         </div>
                     </a>
-                    <a class="button button--vert button--half col-xs-12 col-md-5 col-md-offset-2"
-                       href="{{pathFor 'track'}}">
-                        <div class="button__icon">
-                            <i class="fa fa-bar-chart"></i><br>
-                            Track
-                        </div>
-                    </a>
+                    {{#if authed}}
+                        <a class="button button--vert button--half col-xs-12 col-md-5 col-md-offset-2"
+                           href="{{pathFor 'track'}}">
+                            <div class="button__icon">
+                                <i class="fa fa-bar-chart"></i><br>
+                                Track
+                            </div>
+                        </a>
+                    {{else}}
+                        <a class="button button--vert button--half col-xs-12 col-md-5 col-md-offset-2"
+                           href="{{pathFor 'login'}}">
+                            <div class="button__icon">
+                                <i class="fa fa-user"></i><br>
+                                Log in to track
+                            </div>
+                        </a>
+                    {{/if}}
                 </div>
             </div>
         </div>

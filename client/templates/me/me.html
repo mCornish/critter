@@ -1,3 +1,17 @@
 <template name="me">
-    <a class="button" data-hook="logout">Logout</a>
+    <div class="page">
+        <h1>Me</h1>
+
+        <div class="row">
+            <a class="button" data-hook="logout">Logout</a>
+        </div>
+        <div class="row">
+            <h2>Recent Submissions</h2>
+            <ul class="user__submissions">
+                {{#each submissions}}
+                    <li>{{episode}} | {{action}} | {{type}} | {{roll}}</li>
+                {{/each}}
+            </ul>
+        </div>
+    </div>
 </template>
