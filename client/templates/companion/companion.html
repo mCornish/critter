@@ -32,48 +32,51 @@
             </div>
 
             <div class="row">
-                <h2>Stats</h2>
+                <h2 class="col-xs-12 text-center"><b>{{durationText}}:</b> {{duration}}</h2>
+                <!--<h2>Stats</h2>-->
 
-                <div class="stats">
-                    <li class="stat">Duration: {{duration}}</li>
-
-                </div>
+                <!--<div class="stats">-->
+                <!--<li class="stat">Duration: {{duration}}</li>-->
+                <!--</div>-->
             </div>
         {{else}}
             {{#if infoActive}}
                 <div class="companion__info">
-                {{#unless detailActive}}
-                    <div class="row">
-                        <div class="characters row">
+                    {{#unless detailActive}}
+                        <div class="row">
+                            <div class="characters row">
+                                {{#each liveChars}}
+                                    <div class="track__char col-xs-6 col-md-4">
+                                        <div class="track__name" data-name="{{name}}">{{name}}</div>
+                                        <img class="character__image pointer" src="{{imageURL}}"
+                                             data-hook="detail-button"
+                                             data-name={{name}}>
+                                    </div>
+                                {{/each}}
+                            </div>
+
+                        </div>
+                    {{else}}
+                        <div class="char__detail">
+                                {{#with character}}
+                                    {{> charPage}}
+                                {{/with}}
+                        </div>
+                        <div class="row">
                             {{#each liveChars}}
-                                <div class="track__char col-xs-6 col-md-4">
-                                    <div class="track__name" data-name="{{name}}">{{name}}</div>
-                                    <img class="character__image pointer" src="{{imageURL}}" data-hook="detail-button"
-                                     data-name={{name}}>
-                                </div>
+                                <a class="col-xs-3 watch__char-name {{detailClass name}}" data-hook="detail-button"
+                                   data-name="{{name}}">{{name}}</a>
                             {{/each}}
                         </div>
-
-                    </div>
-                {{else}}
-                    <div class="char__detail">
-                            {{#with character}}
-                                {{> charPage}}
-                            {{/with}}
-                    </div>
-                    <div class="row">
-                        {{#each liveChars}}
-                            <a class="col-xs-3 watch__char-name {{detailClass name}}" data-hook="detail-button"
-                               data-name="{{name}}">{{name}}</a>
-                        {{/each}}
-                    </div>
-                {{/unless}}
+                    {{/unless}}
                 </div>
             {{else}}
                 {{#if giveawayActive}}
-                    <li class="stat">Subscribers: {{stream.subCount}}</li>
-                    <li class="stat">Subs Until Giveaway: {{subsLeft}}</li>
-                    <li class="stat">Giveaway Winner: {{stream.subWinner}}</li>
+                    <div class="companion__giveaway">
+                        <li class="stat">Subscribers: {{stream.subCount}}</li>
+                        <li class="stat">Subs Until Giveaway: {{subsLeft}}</li>
+                        <li class="stat">Giveaway Winner: {{stream.subWinner}}</li>
+                    </div>
                 {{/if}}
             {{/if}}
         {{/if}}
