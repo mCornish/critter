@@ -81,6 +81,10 @@ Template.companion.onCreated(function () {
     Session.set('menuActive', 'content');
 });
 
+Template.companion.onRendered(function() {
+
+});
+
 Template.companion.helpers({
     isLive: function () {
         const stream = this.stream;
@@ -89,11 +93,14 @@ Template.companion.helpers({
     liveContent: function () {
         return $.parseHTML(this.stream.liveContent);
     },
+    hasContent: function() {
+        return Object.keys(this.stream.liveContent).length;
+    },
     contentType: function (type) {
         if (typeof this.stream.liveContent === 'object') {
             return type === this.stream.liveContent.type;
         }
-        return '';
+        return false;
     },
     durationText: function () {
         return Session.get('durationIsPos') ? 'Duration' : 'Countdown';
@@ -119,6 +126,9 @@ Template.companion.helpers({
     },
     giveawayActive: function () {
         return Session.get('giveawayActive');
+    },
+    subPercent: function() {
+        return Session.get('subPercent');
     },
     subCount: function () {
         return this.stream.subCount;
@@ -171,6 +181,12 @@ Template.companion.events({
             type = this.stream.liveContent.type;
         }
         mixpanel.track('Giveaway button click', {contentType: type});
+
+        const data = Template.currentData();
+
+        setTimeout(function() {
+            renderSubBar(data, $('[data-hook=sub-bar]'));
+        }, 1000);
     },
     'click [data-hook=detail-button]': function (e) {
         Session.set('detailActive', true);
@@ -182,3 +198,14 @@ Template.companion.events({
         mixpanel.track('Character Detail button click', {character: charName});
     }
 });
+
+const renderSubBar = function(data, $bar) {
+    const stream = data.stream;
+    const subCount = stream.subCount;
+    const subGoal = stream.subGoal;
+    const subPercent = (subCount / subGoal) * 100;
+
+    Session.set('subPercent', Math.floor(subPercent));
+
+    $bar.css('width', subPercent + '%');
+};

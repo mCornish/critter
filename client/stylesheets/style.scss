@@ -1492,6 +1492,12 @@ input[type=radio] + input[type=radio] {
 /* -------------------- */
 /* --- #COMPANION */
 /* -------------------- */
+.companion__content-placeholder {
+  background-color: hsl(10,10,95);
+  padding: 5em;
+  font-size: 2rem;
+  font-weight: bold;
+}
 .characters {
   display: flex;
   flex-direction: row;
@@ -1506,6 +1512,34 @@ input[type=radio] + input[type=radio] {
   width: 100%;
   height: auto;
   //border-radius: 100%;
+}
+.giveaway__bar {
+  position: relative;
+  height: 5em;
+  background-color: $color-3;
+  box-shadow: inset 0px 1px 3px rgba(0,0,0,.5);
+}
+.giveaway__sub-bar {
+  position: absolute;
+  left: 3px;
+  top: 3px;
+  height: calc(5em - 6px);
+  width: 0;
+  background-color: $color-4;
+  z-index: 1;
+  //border: .2em solid $color-3;
+  border-right: none;
+}
+.giveaway__percent {
+  color: $color-1;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  font-size: 2em;
+  text-align: center;
+  z-index: 2;
+  transform: translateY(-50%);
 }
 
 /* -------------------- */
@@ -1610,14 +1644,16 @@ input[type=radio] + input[type=radio] {
 .track__name {
   display: none;
   position: absolute;
-  width: 100%;
+  width: calc(100% - 30px); // remove padding from column
   height: 100%;
-  left: 0;
-  top: calc(50% - 1em);
+  left: 30px; // account for removed padding
+  top: 0;
+  padding-top: calc(50% - 1em); // center it vertically
   text-align: center;
   color: $color-4;
   font-size: 2em;
   font-weight: bold;
+  z-index: 2;
 }
 
 .track__char:hover .track__name {

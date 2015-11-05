@@ -1,33 +1,39 @@
 <template name="companion">
-    <h1>Watch Live</h1>
+    <h1 class="col-xs-12 text-center">Watch Live</h1>
 
     {{#if isLive}}
 
         {{#if contentActive}}
             <div class="companion__content row">
-                {{#if contentType 'text'}}
-                    <h1>{{stream.liveContent.message}}</h1>
-                {{/if}}
-                {{#if contentType 'link'}}
-                    <h1>
-                        <a class="live-link" href="{{stream.liveContent.link}}"
-                           target="_blank">{{stream.liveContent.message}}</a>
-                    </h1>
-                {{/if}}
-                {{#if contentType 'tweet'}}
-                    <blockquote class="twitter-tweet" lang="en">
-                        <p lang="en" dir="ltr">
-                            {{stream.liveContent.message}}
-                        </p>&mdash; {{stream.liveContent.tweeter}} <a href="{{stream.liveContent.link}}"></a>
-                    </blockquote>
-                    <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-                {{/if}}
-                {{#if contentType 'yt'}}
-                    <iframe width="560" height="315" src="https://www.youtube.com/embed/{{stream.liveContent.link}}"
-                            frameborder="0" allowfullscreen></iframe>
-                {{/if}}
-                {{#if contentType 'image'}}
-                    <img class="col-xs-12" src="{{stream.liveContent.link}}"/>
+                {{#if hasContent}}
+                    {{#if contentType 'text'}}
+                        <h1>{{stream.liveContent.message}}</h1>
+                    {{/if}}
+                    {{#if contentType 'link'}}
+                        <h1>
+                            <a class="live-link" href="{{stream.liveContent.link}}"
+                               target="_blank">{{stream.liveContent.message}}</a>
+                        </h1>
+                    {{/if}}
+                    {{#if contentType 'tweet'}}
+                        <blockquote class="twitter-tweet" lang="en">
+                            <p lang="en" dir="ltr">
+                                {{stream.liveContent.message}}
+                            </p>&mdash; {{stream.liveContent.tweeter}} <a href="{{stream.liveContent.link}}"></a>
+                        </blockquote>
+                        <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+                    {{/if}}
+                    {{#if contentType 'yt'}}
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/{{stream.liveContent.link}}"
+                                frameborder="0" allowfullscreen></iframe>
+                    {{/if}}
+                    {{#if contentType 'image'}}
+                        <img class="col-xs-12" src="{{stream.liveContent.link}}"/>
+                    {{/if}}
+                {{else}}
+                    <div class="companion__content-placeholder col-xs-12 col-md-6 col-md-offset-3 text-center">
+                        Content will appear here
+                    </div>
                 {{/if}}
             </div>
 
@@ -41,20 +47,22 @@
             </div>
         {{else}}
             {{#if infoActive}}
-                <div class="companion__info">
+                <div class="companion__info row">
                     {{#unless detailActive}}
-                        <div class="row">
-                            <div class="characters row">
+                        <div class="col-xs-12">
+                            <div class="row">
                                 {{#each liveChars}}
-                                    <div class="track__char col-xs-6 col-md-4">
-                                        <div class="track__name" data-name="{{name}}">{{name}}</div>
-                                        <img class="character__image pointer" src="{{imageURL}}"
-                                             data-hook="detail-button"
-                                             data-name={{name}}>
+                                    <div class="track__char col-xs-4">
+                                        <div class="row">
+                                            <div class="track__name col-xs-12" data-hook="detail-button"
+                                                 data-name="{{name}}">{{name}}</div>
+                                            <img class="pointer col-xs-12" src="{{imageURL}}"
+                                                 data-hook="detail-button"
+                                                 data-name={{name}}>
+                                        </div>
                                     </div>
                                 {{/each}}
                             </div>
-
                         </div>
                     {{else}}
                         <div class="char__detail">
@@ -64,7 +72,7 @@
                         </div>
                         <div class="row">
                             {{#each liveChars}}
-                                <a class="col-xs-3 watch__char-name {{detailClass name}}" data-hook="detail-button"
+                                <a class="col-xs-4 watch__char-name {{detailClass name}}" data-hook="detail-button"
                                    data-name="{{name}}">{{name}}</a>
                             {{/each}}
                         </div>
@@ -72,10 +80,16 @@
                 </div>
             {{else}}
                 {{#if giveawayActive}}
-                    <div class="companion__giveaway">
-                        <li class="stat">Subscribers: {{stream.subCount}}</li>
-                        <li class="stat">Subs Until Giveaway: {{subsLeft}}</li>
-                        <li class="stat">Giveaway Winner: {{stream.subWinner}}</li>
+                    <div class="companion__giveaway row">
+                        <div class="giveaway__bar col-xs-12 col-md-6 col-md-offset-3">
+                            <div class="giveaway__sub-bar" data-hook="sub-bar"></div>
+                            <div class="giveaway__percent">{{subPercent}}%</div>
+                        </div>
+                        <div class="col-xs-12 col-md-6 col-md-offset-3">
+                            <div class="giveaway__sub-remaining">Subs Remaining: {{subsLeft}}</div>
+                            <div class="giveaway__subs">Subscribers: {{stream.subCount}}</div>
+                            <div class="giveaway__winner">Giveaway Winner: {{stream.subWinner}}</div>
+                        </div>
                     </div>
                 {{/if}}
             {{/if}}
