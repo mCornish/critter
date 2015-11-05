@@ -1529,6 +1529,7 @@ input[type=radio] + input[type=radio] {
   z-index: 1;
   //border: .2em solid $color-3;
   border-right: none;
+  transition: width .5s ease-out;
 }
 .giveaway__percent {
   color: $color-1;

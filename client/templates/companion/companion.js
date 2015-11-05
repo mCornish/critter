@@ -147,6 +147,7 @@ Template.companion.events({
         Session.set('contentActive', true);
         Session.set('infoActive', false);
         Session.set('giveawayActive', false);
+        Session.set('detailActive', false);
         Session.set('menuActive', 'content');
 
         const stream = Template.currentData();
@@ -160,6 +161,7 @@ Template.companion.events({
         Session.set('infoActive', true);
         Session.set('contentActive', false);
         Session.set('giveawayActive', false);
+        Session.set('detailActive', false);
         Session.set('menuActive', 'info');
 
         const stream = Template.currentData();
