@@ -179,7 +179,7 @@ if (Characters.find().count() === 0) {
         class: 'Gunslinger',
         homeland: 'Whitestone',
         charStats: {
-            level: 11,
+            level: 12,
             charisma: 14,
             constitution: 14,
             dexterity: 22,
@@ -283,7 +283,7 @@ if (Characters.find().count() === 0) {
             killCount: 5,
             koCount: 2
         },
-        imageURL: '/images/pike.png',
+        imageURL: '/images/pike.svg',
         submitted: new Date(),
         live: false
     });
@@ -297,7 +297,7 @@ if (Characters.find().count() === 0) {
         class: 'Bard',
         homeland: '',
         charStats: {
-            level: 11,
+            level: 12,
             charisma: 20,
             constitution: 15,
             dexterity: 11,
@@ -354,7 +354,7 @@ if (Characters.find().count() === 0) {
             killCount: 22,
             koCount: 2,
         },
-        imageURL: '/images/scanlan.png',
+        imageURL: '/images/scanlan.svg',
         submitted: new Date(),
         live: false
     });
@@ -425,7 +425,7 @@ if (Characters.find().count() === 0) {
             killCount: 50,
             koCount: 1,
         },
-        imageURL: '/images/tiberius.png',
+        imageURL: '/images/tiberius.svg',
         submitted: new Date(),
         live: false
     });
@@ -473,7 +473,7 @@ if (Characters.find().count() === 0) {
             killCount: 68,
             koCount: 4
         },
-        imageURL: '/images/vax.png',
+        imageURL: '/images/vax.svg',
         submitted: new Date(),
         live: false
     });
@@ -544,7 +544,7 @@ if (Characters.find().count() === 0) {
             killCount: 45,
             koCount: 1
         },
-        imageURL: '/images/vex.png',
+        imageURL: '/images/vex.svg',
         submitted: new Date(),
         live: false
     });

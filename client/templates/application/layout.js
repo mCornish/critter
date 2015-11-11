@@ -49,8 +49,8 @@ Template.layout.helpers({
 });
 
 Template.layout.events({
-    'click [data-hook=noTest]': function(e) {
-        e.preventDefault();
-        throwError('Sorry, only the Companion (Watch Live) is available during this test.');
-    }
+    //'click [data-hook=noTest]': function(e) {
+    //    e.preventDefault();
+    //    throwError('Sorry, only the Companion (Watch Live) is available during this test.');
+    //}
 });

@@ -14,9 +14,8 @@ Template.watch.helpers({
 
 Template.watch.events({
     'click [data-hook=watch]': function () {
-        throwError('Sorry, only the Companion (Watch Live) is available during this test.');
-        //UNCOMMENT AFTER BETA Session.set('watching', true);
-        //UNCOMMENT AFTER BETA Session.set('choosing', false);
+        Session.set('watching', true);
+        Session.set('choosing', false);
         mixpanel.track('Watch Past button click');
     },
     'click [data-hook="live"]': function(e) {

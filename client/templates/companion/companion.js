@@ -3,7 +3,7 @@ Template.companion.onCreated(function () {
     const
         now = new Date(),
         offset = -8,
-        showTime = 19;
+        showTime = 18;
     let
         pstDate = moment(now).utcOffset(offset),
         pstHours = pstDate.hours(),
