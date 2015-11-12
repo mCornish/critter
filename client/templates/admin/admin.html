@@ -34,19 +34,20 @@
 
         <div class="col-xs-12">
             <div class="row">
-                <select class="col-xs-12 col-md-3" data-hook="live-content-type">
-                    <option value="text">Text</option>
-                    <option value="image">Image</option>
+                <label for="text-content">Text Content</label>
+                <textarea id="text-content" placeholder="Text to display..." data-hook="text-content"></textarea>
+            </div>
+            <div class="row">
+                <label for="otherContent">Other Content</label>
+                <select id="otherContent" class="col-xs-12 col-md-3" data-hook="live-content-type">
+                    <option>Select content type</option>
                     <option value="link">Link</option>
+                    <option value="image">Image</option>
                     <option value="tweet">Tweet</option>
                     <option value="yt">YouTube video</option>
                 </select>
 
                 <div class="col-xs-12 col-md-7 col-offset-1">
-                    {{#if contentType 'text'}}
-                        <label for="live-content">Text to Display</label>
-                        <textarea id="live-content" data-hook="live-content"></textarea>
-                    {{/if}}
                     {{#if contentType 'image'}}
                         <div class="row">
                             <div class="{{errorClass 'image'}}">
@@ -83,8 +84,7 @@
             </div>
             <div class="row">
                 <div class="button button--submit col-xs-3" data-hook="submit-content">Insert Content</div>
-                <div class="button button--submit col-xs-3 col-xs-offset-1"
-                     data-hook="clear-content">Clear Content</div>
+                <div class="button button--submit col-xs-3 col-xs-offset-1" data-hook="clear-content">Clear Content</div>
             </div>
         </div>
     </form>

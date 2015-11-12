@@ -205,7 +205,8 @@ const renderSubBar = function(data, $bar) {
     const stream = data.stream;
     const subCount = stream.subCount;
     const subGoal = stream.subGoal;
-    const subPercent = (subCount / subGoal) * 100;
+    const prevSubGoal = stream.prevSubGoal;
+    const subPercent = ((subCount - prevSubGoal) / (subGoal - prevSubGoal)) * 100;
 
     Session.set('subPercent', Math.floor(subPercent));
 

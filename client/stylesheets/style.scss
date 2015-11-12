@@ -65,50 +65,23 @@ p {
 }
 
 // Links
-a,
+a:not(.button),
 .fake-link {
-  color: inherit;
-  //border-bottom: .2em solid $color-1;
-  //padding-bottom: .1em;
+  color: $color-3;
+  border-bottom: .1em solid $color-3;
+  padding-bottom: .1em;
   position: relative;
+  transition: all .2s ease;
 }
 
-a:after,
-a:before,
-.fake-link:after,
-.fake-link:before {
-  content: '';
-  height: .2em;
-  width: 0;
-  bottom: -.15em;
-  position: absolute;
-  //background: $color-3;
-  transition: .2s ease all;
-}
-
-a:before,
-.fake-link:before {
-  //left: 50%;
-}
-
-a:after,
-.fake-link:after {
-  //right: 50%;
-}
-
-a:hover:not(.button):before,
-a:hover:not(.button):after,
-.fake-link:not(.button):hover:before,
-.fake-link:not(.button):hover:after {
-  //width: 50%;
-}
-
-a:hover,
-a:focus,
+a:not(.button):hover,
+a:not(.button):focus,
 .fake-link:hover {
-  color: $color-1;
+  color: $color-4;
   text-decoration: none;
   cursor: pointer;
+  padding-bottom: 0;
+  border-bottom: .1em solid $color-4;
 }
 
 // For links that should have no hover affect
@@ -1492,11 +1465,36 @@ input[type=radio] + input[type=radio] {
 /* -------------------- */
 /* --- #COMPANION */
 /* -------------------- */
+.companion__content {
+  margin-bottom: 8em;
+}
+.companion__header {
+  margin-bottom: 0;
+}
+.companion__counter {
+  margin-bottom: 2em;
+}
 .companion__content-placeholder {
   background-color: hsl(10,10,95);
   padding: 5em;
   font-size: 2rem;
   font-weight: bold;
+}
+.companion__text {
+  @media #{$break-small} {
+    font-size: 1.8rem
+  }
+  @media #{$break-medium} {
+    font-size: 2rem;
+  }
+}
+.companion__link {
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.companion__image {
+  max-width: 100%;
 }
 .characters {
   display: flex;
@@ -1521,11 +1519,12 @@ input[type=radio] + input[type=radio] {
 }
 .giveaway__sub-bar {
   position: absolute;
-  left: 3px;
-  top: 3px;
-  height: calc(5em - 6px);
+  left: 0;
+  top: 0;
+  height: 5em;
   width: 0;
   background-color: $color-4;
+  border: 3px solid $color-3;
   z-index: 1;
   //border: .2em solid $color-3;
   border-right: none;

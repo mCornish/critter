@@ -1,19 +1,22 @@
 <template name="companion">
-    <h1 class="col-xs-12 text-center">Watch Live</h1>
+    <h1 class="companion__header col-xs-12 text-center">Watch Live</h1>
+    <div class="row">
+        <h2 class="companion__counter col-xs-12 text-center"><b>{{durationText}}:</b> {{duration}}</h2>
+    </div>
 
     {{#if isLive}}
 
         {{#if contentActive}}
             <div class="companion__content row">
                 {{#if hasContent}}
-                    {{#if contentType 'text'}}
-                        <h1>{{stream.liveContent.message}}</h1>
-                    {{/if}}
+
+                    <div class="companion__text col-xs-10 col-xs-offset-1">{{stream.liveContent.text}}</div>
+
                     {{#if contentType 'link'}}
-                        <h1>
-                            <a class="live-link" href="{{stream.liveContent.link}}"
+                        <div class="col-xs-10 col-xs-offset-1">
+                            <a class="companion__text companion__link text-center" href="{{stream.liveContent.link}}"
                                target="_blank">{{stream.liveContent.message}}</a>
-                        </h1>
+                        </div>
                     {{/if}}
                     {{#if contentType 'tweet'}}
                         <blockquote class="twitter-tweet" lang="en">
@@ -28,7 +31,7 @@
                                 frameborder="0" allowfullscreen></iframe>
                     {{/if}}
                     {{#if contentType 'image'}}
-                        <img class="col-xs-12" src="{{stream.liveContent.link}}"/>
+                        <img class="companion__image col-xs-8 col-xs-offset-2" src="{{stream.liveContent.link}}"/>
                     {{/if}}
                 {{else}}
                     <div class="companion__content-placeholder col-xs-12 col-md-6 col-md-offset-3 text-center">
@@ -38,7 +41,6 @@
             </div>
 
             <div class="row">
-                <h2 class="col-xs-12 text-center"><b>{{durationText}}:</b> {{duration}}</h2>
                 <!--<h2>Stats</h2>-->
 
                 <!--<div class="stats">-->

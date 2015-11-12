@@ -4,6 +4,7 @@ if (Stream.find().count() === 0) {
     Stream.insert({
         subCount: 8470,
         subGoal: 8500,
+        prevSubGoal: 8400,
         subWinner: '',
         duration: 0,
         live: false,

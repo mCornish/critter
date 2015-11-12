@@ -47,6 +47,7 @@ Template.admin.events({
         $form = $('[data-hook=form-content]');
 
         const
+            textContent = $('[data-hook=text-content]').val(),
             liveContent = $('[data-hook=live-content]').val(),
             liveText = $('[data-hook=live-text]').val(),
             liveLink = $('[data-hook=live-link]').val(),
@@ -58,8 +59,16 @@ Template.admin.events({
             }
         };
 
-        if (contentType === 'text') {
-            stream.liveContent.message = liveContent;
+        if (textContent.length) {
+            stream.liveContent.text = textContent;
+        } else {
+            stream.liveContent.text = null;
+        }
+
+        if (contentType.toLowerCase().indexOf('select') > -1) {
+            stream.liveContent.link = '';
+            stream.liveContent.message = '';
+            stream.liveContent.tweeter = '';
         } else if (contentType === 'link') {
             stream.liveContent.link = liveLink;
             stream.liveContent.message = liveText;
@@ -101,27 +110,41 @@ Template.admin.events({
         });
     },
     'click [data-hook=clear-content]': function() {
-        Stream.update(this.stream._id, {$set: {liveContent: {}}}, function(error, count) {
-            if (error) {
-                throwError(error.reason);
-            } else {
-                mixpanel.track('content-clear', {timestamp: Date.now()});
-            }
-        });
-    },
-    'click [data-hook=submit-stream]': function() {
-        $form = $('[data-hook=form-stream]');
+        const liveContent = this.stream.liveContent;
 
-        const stream = {
+        if (Object.keys(liveContent).length) {
+            Stream.update(this.stream._id, {$set: {liveContent: {}}}, function (error, count) {
+                if (error) {
+                    throwError(error.reason);
+                } else {
+                    mixpanel.track('content-clear', {timestamp: Date.now()});
+                }
+            });
+        }
+    },
+    'click [data-hook=submit-stream]': function(e) {
+        e.preventDefault();
+
+        $form = $('[data-hook=form-stream]');
+        const prevGoal = this.stream.prevSubGoal;
+        let currentGoal = this.stream.subGoal;
+        const newGoal = parseInt( $form.find('[name=sub-goal]').val() );
+        // If the sub goal hasn't been updated, don't change the previous sub goal
+        if (currentGoal === newGoal) {
+            currentGoal = prevGoal;
+        }
+
+        const streamObj = {
             subCount: parseInt( $form.find('[name=sub-count]').val() ),
-            subGoal: parseInt( $form.find('[name=sub-goal]').val() ),
+            subGoal: newGoal,
+            prevSubGoal: currentGoal,
             subWinner: $form.find('[name=sub-winner]').val()
         };
 
-        const errors = validateStream(stream, this.stream.subCount, this.stream.subGoal);
+        const errors = validateStream(streamObj, this.stream.subCount, this.stream.subGoal);
         if (errors.subCount || errors.subGoal)
             return Session.set('streamSubmitErrors', errors);
-        Stream.update(this.stream._id, {$set: stream}, function(error) {
+        Stream.update(this.stream._id, {$set: streamObj}, function(error) {
             if (error) {
                 throwError(error.reason);
             } else {
