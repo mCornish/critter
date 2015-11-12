@@ -1496,12 +1496,10 @@ input[type=radio] + input[type=radio] {
 .companion__image {
   max-width: 100%;
 }
-.twitter-tweet {
-  display: block;
+.companion__content iframe {
   position: relative !important;
   left: 50%;
   transform: translateX(-50%);
-
   @media #{$break-small} {
     width: 100% !important;
   }
