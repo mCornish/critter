@@ -1,5 +1,7 @@
 Template.companion.onCreated(function () {
     Session.set('durationIsPos', false);
+    Session.set('zeroFlip', true);
+
     const
         now = new Date(),
         offset = -8,
@@ -14,16 +16,24 @@ Template.companion.onCreated(function () {
         minutes = pstMinutes,
         seconds = pstSeconds;
 
-    if (hours < 0) {
+    if (hours <= 0) {
         seconds = 60 - seconds;
         minutes = 60 - minutes;
-        hours = -hours;
+        if (hours !== 0) {
+            hours = -hours;
+        }
     }
     Session.set('duration', `${hours}:${minutes}:${seconds}`);
 
     const interval = setInterval(function () {
         // Check whether it should count down (before show) or down (during show)
-        if (pstHours - showTime > 0) {
+        if (pstHours - showTime > 0) {  // Duration (at least 1 second past showtime)
+
+            // Can't currently explain the logic here (I'm distracted), but it seems to work
+            if (pstHours - showTime === 1) {
+                hours = 0;
+            }
+
             Session.set('durationIsPos', true);
             seconds++;
 
@@ -36,6 +46,7 @@ Template.companion.onCreated(function () {
                 seconds = 0;
             }
 
+
             // add zero for single-digit seconds/minutes
             if (seconds < 10) {
                 seconds = ('0' + seconds).slice(-2);
@@ -43,13 +54,34 @@ Template.companion.onCreated(function () {
             if (minutes < 10) {
                 minutes = ('0' + minutes).slice(-2);
             }
-        } else {
+        } else if (pstHours - showTime < 0) {  // Countdown at least 1 hour
+
             Session.set('durationIsPos', false);
             if (hours < 0) {
                 seconds = 60 - seconds;
                 minutes = 60 - minutes;
                 hours = -hours;
             }
+            seconds--;
+
+            if (seconds <= 0) {
+                minutes--;
+                if (minutes <= 0) {
+                    hours--;
+                    minutes = 59;
+                }
+                seconds = 59;
+            }
+
+            // add zero for single-digit seconds/minutes
+            if (seconds < 10) {
+                seconds = ('0' + seconds).slice(-2);
+            }
+            if (minutes < 10) {
+                minutes = ('0' + minutes).slice(-2);
+            }
+        } else {  // Countdown less than 1 hour
+            Session.set('durationIsPos', false);
             seconds--;
 
             if (seconds <= 0) {
@@ -81,7 +113,7 @@ Template.companion.onCreated(function () {
     Session.set('menuActive', 'content');
 });
 
-Template.companion.onRendered(function() {
+Template.companion.onRendered(function () {
 
 });
 
@@ -93,7 +125,7 @@ Template.companion.helpers({
     liveContent: function () {
         return $.parseHTML(this.stream.liveContent);
     },
-    hasContent: function() {
+    hasContent: function () {
         return Object.keys(this.stream.liveContent).length;
     },
     contentType: function (type) {
@@ -127,7 +159,7 @@ Template.companion.helpers({
     giveawayActive: function () {
         return Session.get('giveawayActive');
     },
-    subPercent: function() {
+    subPercent: function () {
         return Session.get('subPercent');
     },
     subCount: function () {
@@ -186,7 +218,7 @@ Template.companion.events({
 
         const data = Template.currentData();
 
-        setTimeout(function() {
+        setTimeout(function () {
             renderSubBar(data, $('[data-hook=sub-bar]'));
         }, 1000);
     },
@@ -201,7 +233,7 @@ Template.companion.events({
     }
 });
 
-const renderSubBar = function(data, $bar) {
+const renderSubBar = function (data, $bar) {
     const stream = data.stream;
     const subCount = stream.subCount;
     const subGoal = stream.subGoal;
