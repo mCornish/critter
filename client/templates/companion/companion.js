@@ -160,7 +160,23 @@ Template.companion.helpers({
         return Session.get('giveawayActive');
     },
     subPercent: function () {
-        return Session.get('subPercent');
+        const stream = this.stream;
+        const subCount = stream.subCount;
+        const subGoal = stream.subGoal;
+        const prevSubGoal = stream.prevSubGoal;
+
+        return Math.floor(((subCount - prevSubGoal) / (subGoal - prevSubGoal)) * 100);
+    },
+    meterOffset: function() {
+        const stream = this.stream;
+        const subCount = stream.subCount;
+        const subGoal = stream.subGoal;
+        const prevSubGoal = stream.prevSubGoal;
+
+        const subPercent = ((subCount - prevSubGoal) / (subGoal - prevSubGoal)) * 100;
+
+        const dashArray = 630; // Taken from the cricle's CSS
+        return dashArray * (1 - (subPercent / 100));
     },
     subCount: function () {
         return this.stream.subCount;
@@ -168,6 +184,10 @@ Template.companion.helpers({
     subsLeft: function () {
         const stream = this.stream;
         return stream.subGoal - stream.subCount;
+    },
+    winner: function() {
+        const stream = this.stream;
+        return stream.subWinner.length ? stream.subWinner : 'No winner yet'
     },
     menuActive: function (item) {
         return item === Session.get('menuActive') ? 'is-active' : '';
@@ -216,12 +236,11 @@ Template.companion.events({
         }
         mixpanel.track('Giveaway button click', {contentType: type});
 
-        const data = Template.currentData();
-
-        setTimeout(function () {
-            // Use bar's parent so that the animation can inherit the offset value
-            renderSubBar(data, $('[data-hook=bar-parent]'));
-        }, 500);
+        //const data = Template.currentData();
+        //setTimeout(function () {
+        //    // Use bar's parent so that the animation can inherit the offset value
+        //    renderSubBar(data, $('[data-hook=bar-parent]'));
+        //}, 500);
     },
     'click [data-hook=detail-button]': function (e) {
         Session.set('detailActive', true);
@@ -234,17 +253,17 @@ Template.companion.events({
     }
 });
 
-const renderSubBar = function (data, $parent) {
-    const stream = data.stream;
-    const subCount = stream.subCount;
-    const subGoal = stream.subGoal;
-    const prevSubGoal = stream.prevSubGoal;
-
-    const subPercent = ((subCount - prevSubGoal) / (subGoal - prevSubGoal)) * 100;
-    Session.set('subPercent', Math.floor(subPercent));
-
-    const dashArray = 650; // Taken from the cricle's CSS
-    const offset = dashArray * (1 - (subPercent / 100));
-
-    $parent.css('stroke-dashoffset', offset);
-};
+//const renderSubBar = function (data, $parent) {
+//    const stream = data.stream;
+//    const subCount = stream.subCount;
+//    const subGoal = stream.subGoal;
+//    const prevSubGoal = stream.prevSubGoal;
+//
+//    const subPercent = ((subCount - prevSubGoal) / (subGoal - prevSubGoal)) * 100;
+//    Session.set('subPercent', Math.floor(subPercent));
+//
+//    const dashArray = 650; // Taken from the cricle's CSS
+//    const offset = dashArray * (1 - (subPercent / 100));
+//
+//    $parent.css('stroke-dashoffset', offset);
+//};

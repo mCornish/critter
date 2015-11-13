@@ -1548,22 +1548,30 @@ input[type=radio] + input[type=radio] {
   transform: translateY(-50%);
   width: 100%;
 }
-
 .circle_animation {
-  stroke-dasharray: 650;
-  stroke-dashoffset: 650;
+  stroke-dasharray: 630;
+  stroke-dashoffset: 630;
+  transition: all .2s ease;
+}
+//.circle_animation {
+//  animation: meter .5s ease-out forwards;
+//  animation-delay: .5s;
+//}
+//
+//@keyframes meter {
+//  to {
+//    stroke-dashoffset: inherit;
+//  }
+//}
+.giveaway__info {
+  font-size: 1.5em;
+}
+.giveaway__link {
+  display: inline-block;
+  font-size: .9em;
+  margin-top: 1em;
 }
 
-.circle_animation {
-  animation: meter .5s ease-out forwards;
-  animation-delay: .5s;
-}
-
-@keyframes meter {
-  to {
-    stroke-dashoffset: inherit;
-  }
-}
 
 /* -------------------- */
 /* --- #HOME */

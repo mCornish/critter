@@ -96,14 +96,15 @@
                             <svg class="giveaway__meter-bar giveaway__meter-front" width="250" height="250" xmlns="http://www.w3.org/2000/svg">
                                 <g>
                                     <title>Layer 1</title>
-                                    <circle class="circle_animation" r="100" cy="126" cx="126" stroke-width="20" stroke="#E6A22D" fill="none" data-hook="giveaway-circle"/>
+                                    <circle class="circle_animation" r="100" cy="126" cx="126" stroke-width="20" stroke="#E6A22D" fill="none" style="stroke-dashoffset: {{meterOffset}}" data-hook="giveaway-circle"/>
                                 </g>
                             </svg>
                         </div>
-                        <div class="col-xs-12 col-md-6 col-md-offset-3">
+                        <div class="giveaway__info col-xs-12 col-md-6 col-md-offset-3 text-center">
                             <div class="giveaway__subs">Subscribers: {{stream.subCount}}</div>
                             <div class="giveaway__sub-remaining">Subs Remaining: {{subsLeft}}</div>
-                            <div class="giveaway__winner">Giveaway Winner: {{stream.subWinner}}</div>
+                            <div class="giveaway__winner">Giveaway Winner: {{winner}}</div>
+                            <a class="giveaway__link" href="{{pathFor 'giveawayInfo'}}">How do I win?</a>
                         </div>
                     </div>
                 {{/if}}
