@@ -1522,35 +1522,47 @@ input[type=radio] + input[type=radio] {
   height: auto;
   //border-radius: 100%;
 }
-.giveaway__bar {
+
+.giveaway__meter {
   position: relative;
-  height: 5em;
-  background-color: $color-3;
-  box-shadow: inset 0px 1px 3px rgba(0,0,0,.5);
+  height: 250px;
 }
-.giveaway__sub-bar {
+.giveaway__meter-bar {
   position: absolute;
-  left: 0;
+  left: 50%;
   top: 0;
-  height: 5em;
-  width: 0;
-  background-color: $color-4;
-  border: 3px solid $color-3;
+  transform: rotate(-90deg) translateY(-50%); //transform Y instead of X due to rotation
+}
+.giveaway__meter-back {
+  z-index: 0;
+}
+.giveaway__meter-front {
   z-index: 1;
-  //border: .2em solid $color-3;
-  border-right: none;
-  transition: width .5s ease-out;
 }
 .giveaway__percent {
-  color: $color-1;
+  text-align:center;
   position: absolute;
-  top: 50%;
   left: 0;
-  width: 100%;
   font-size: 2em;
-  text-align: center;
-  z-index: 2;
+  top: 50%;
   transform: translateY(-50%);
+  width: 100%;
+}
+
+.circle_animation {
+  stroke-dasharray: 650;
+  stroke-dashoffset: 650;
+}
+
+.circle_animation {
+  animation: meter .5s ease-out forwards;
+  animation-delay: .5s;
+}
+
+@keyframes meter {
+  to {
+    stroke-dashoffset: inherit;
+  }
 }
 
 /* -------------------- */

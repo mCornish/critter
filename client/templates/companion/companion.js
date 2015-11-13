@@ -219,8 +219,9 @@ Template.companion.events({
         const data = Template.currentData();
 
         setTimeout(function () {
-            renderSubBar(data, $('[data-hook=sub-bar]'));
-        }, 1000);
+            // Use bar's parent so that the animation can inherit the offset value
+            renderSubBar(data, $('[data-hook=bar-parent]'));
+        }, 500);
     },
     'click [data-hook=detail-button]': function (e) {
         Session.set('detailActive', true);
@@ -233,14 +234,17 @@ Template.companion.events({
     }
 });
 
-const renderSubBar = function (data, $bar) {
+const renderSubBar = function (data, $parent) {
     const stream = data.stream;
     const subCount = stream.subCount;
     const subGoal = stream.subGoal;
     const prevSubGoal = stream.prevSubGoal;
-    const subPercent = ((subCount - prevSubGoal) / (subGoal - prevSubGoal)) * 100;
 
+    const subPercent = ((subCount - prevSubGoal) / (subGoal - prevSubGoal)) * 100;
     Session.set('subPercent', Math.floor(subPercent));
 
-    $bar.css('width', subPercent + '%');
+    const dashArray = 650; // Taken from the cricle's CSS
+    const offset = dashArray * (1 - (subPercent / 100));
+
+    $parent.css('stroke-dashoffset', offset);
 };

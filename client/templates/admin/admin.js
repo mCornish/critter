@@ -130,7 +130,7 @@ Template.admin.events({
         let currentGoal = this.stream.subGoal;
         const newGoal = parseInt( $form.find('[name=sub-goal]').val() );
         // If the sub goal hasn't been updated, don't change the previous sub goal
-        if (currentGoal === newGoal) {
+        if (currentGoal >= newGoal) {
             currentGoal = prevGoal;
         }
 
@@ -205,10 +205,11 @@ var validateStream = function(stream, currentSubs, currentGoal) {
         errors.subCount = 'Please enter a Sub Count';
     } else if (!stream.subGoal) {
         errors.subGoal = 'Please enter a Sub Goal';
-    } else if (stream.subCount < currentSubs) {
-        errors.subCount = `Sub Count should be greater than ${currentSubs}`
-    } else if (stream.subGoal < currentGoal) {
-        errors.subGoal = `Sub Goal should be greater than ${currentGoal}`
     }
+    //else if (stream.subCount < currentSubs) {
+    //    errors.subCount = `Sub Count should be greater than ${currentSubs}`
+    //} else if (stream.subGoal < currentGoal) {
+    //    errors.subGoal = `Sub Goal should be greater than ${currentGoal}`
+    //}
     return errors;
 };
