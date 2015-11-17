@@ -14,5 +14,18 @@ Template.feedback.events({
     },
     'click [data-hook=close]': function() {
         Session.set('showForm', false);
+    },
+    'submit [data-hook=form]': function(e) {
+        e.preventDefault();
+        const $form = $(e.target);
+        const email = {
+            to: 'cornishmw@gmail.com',
+            from: $form.find('[name=email]').val(),
+            subject: $form.find('[name=subject]').val(),
+            text: $form.find('[name=message]').val()
+        };
+        console.log(email);
+
+        Meteor.call('sendEmail', email);
     }
 });
