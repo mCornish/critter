@@ -594,6 +594,75 @@ hr {
   top: .3em;
 }
 
+
+/* -------------------- */
+/* --- #FLOATING FORM */
+/* -------------------- */
+.floating-form {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  margin: 2em;
+  z-index: 3;
+}
+.floating-form__toggle {
+  display: block;
+  border-radius: 100%;
+  padding: 1em;
+  text-align: center;
+  background-color: $color-1;
+  color: $color-2;
+  cursor: pointer;
+}
+.floating-form__toggle:hover {
+  background-color: $color-3;
+  color: $color-4;
+}
+.floating-form__close {
+  display: block;
+  width: 100%;
+  text-align: right;
+  color: $color-3;
+  cursor: pointer;
+  @media #{$break-small} {
+    font-size: 1.5em;
+  }
+  @media #{$break-medium} {
+    font-size: 1.2em;
+  }
+}
+.floating-form__close:hover {
+  color: $color-4;
+}
+.floating-form__form {
+  background-color: $color-1;
+  color: $color-2;
+  padding: 1em;
+
+  @media #{$break-small} {
+    width: 100vw;
+    margin: -2em;
+  }
+  @media #{$break-medium} {
+    width: 50vw;
+  }
+}
+.floating-form__section + .floating-form__section {
+  margin-top: 1em;
+}
+.floating-form__submit {
+  margin-top: 2em;
+  background-color: $color-3;
+  color: $color-4;
+  width: 100%;
+}
+.floating-form__submit:hover,
+.floating-form__submit:focus {
+  background-color: $color-4;
+  color: $color-3;
+}
+
+
 /* -------------------- */
 /* --- #FORM */
 /* -------------------- */
@@ -767,7 +836,7 @@ label.input-group__label {
   color: inherit;
 }
 
-input:not([type=radio], [type=checkbox]),
+input:not([type=radio]):not([type=checkbox]):not(.button--submit),
 .input-addon {
   display: block;
   position: relative;

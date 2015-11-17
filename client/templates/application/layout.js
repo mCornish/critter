@@ -21,22 +21,12 @@ Template.layout.onCreated(function() {
 
     const route = Router.current().route.getName();
     mixpanel.track('View', {route: route});
+
+    Session.set('testing', true);
 });
 
 Template.layout.onRendered(function() {
-    //this.find('[data-hook="main"]')._uihooks = {
-    //    insertElement: function(node, next) {
-    //        $(node)
-    //            .hide()
-    //            .insertBefore(next)
-    //            .fadeIn();
-    //    },
-    //    removeElement: function(node) {
-    //        $(node).fadeOut(function() {
-    //            $(this).remove();
-    //        });
-    //    }
-    //}
+
 });
 
 Template.layout.helpers({
@@ -45,6 +35,9 @@ Template.layout.helpers({
         const isHome = Router.current().route.path() === '/';
 
         return unauthed && isHome ? 'is-unauthed' : '';
+    },
+    testing: function() {
+        return Session.get('testing');
     }
 });
 
