@@ -24,6 +24,10 @@ Template.header.helpers({
             return '';
         }
     },
+    menuActive: function(route) {
+
+        return route === Session.get('route') ? 'is-active' : '';
+    },
     authedClass: function() {
         const unauthed = typeof Meteor.userId() !== 'string';
         const isHome = Router.current().route.path() === '/';

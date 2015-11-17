@@ -1,4 +1,6 @@
 Template.watchEp.onCreated(function () {
+    Session.set('route', 'watch');
+
     Session.set('watchHere', false);
     Session.set('selectedEp', false);
     Session.set('episode', null);

@@ -1,4 +1,5 @@
 Template.watch.onCreated(function () {
+    Session.set('route', 'watch');
     Session.set('choosing', true);
     Session.set('watching', false)
 });

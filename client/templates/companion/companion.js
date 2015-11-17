@@ -1,4 +1,6 @@
 Template.companion.onCreated(function () {
+    Session.set('route', 'watch');
+
     Session.set('durationIsPos', false);
     Session.set('zeroFlip', true);
 

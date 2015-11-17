@@ -1,4 +1,6 @@
 Template.trackEp.onCreated(function () {
+    Session.set('route', 'watch');
+
     Session.set('modal', false);
     Session.set('choosingAction', true);
     Session.set('choosingType', true);

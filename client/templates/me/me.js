@@ -1,5 +1,5 @@
 Template.me.onCreated(function () {
-
+    Session.set('route', 'me');
 });
 
 Template.me.helpers({

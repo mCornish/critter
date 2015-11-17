@@ -1,5 +1,5 @@
 Template.superlatives.onCreated(function() {
-
+    Session.set('route', 'stats');
 });
 
 Template.superlatives.helpers({

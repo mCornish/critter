@@ -1,4 +1,6 @@
 Template.stats.onCreated(function () {
+    Session.set('route', 'stats');
+
     // Calculate stats
     if (typeof Meteor.userId() === 'string') {
         const lastActive = Meteor.user().profile.lastActive;

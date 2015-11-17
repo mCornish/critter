@@ -1,3 +1,7 @@
+Template.home.onCreated(function() {
+    Session.set('route', 'home');
+});
+
 Template.home.onRendered(function() {
     // check whether Critical Role is live
     const now = new Date(),

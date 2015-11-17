@@ -1,4 +1,6 @@
 Template.profile.onCreated( function() {
+    Session.set('route', 'me');
+
     const user = Router.current().data();
     const imageURL = user.profile.image;
 
