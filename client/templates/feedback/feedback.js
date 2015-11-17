@@ -24,7 +24,6 @@ Template.feedback.events({
             subject: $form.find('[name=subject]').val(),
             text: $form.find('[name=message]').val()
         };
-        console.log(email);
 
         Meteor.call('sendEmail', email);
     }

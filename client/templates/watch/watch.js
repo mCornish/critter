@@ -23,9 +23,13 @@ Template.watch.events({
         Router.go('companion');
     },
     'click [data-track="track"]': function(e) {
+        e.preventDefault(); // Remove for Stage 2
+
         mixpanel.track('Track button click');
     },
     'click [data-track="login"]': function(e) {
+        e.preventDefault(); // Remove for Stage 2
+
         mixpanel.track('Login button click');
     }
 });

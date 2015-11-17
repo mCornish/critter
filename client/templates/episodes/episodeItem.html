@@ -1,17 +1,15 @@
 <template name="episodeItem">
-    <a class="card card--vert col-xs-12 hidden-xs hidden-sm" href="{{pathFor 'trackEp' ep=number}}">
-        <h1 class="card__header">Episode {{number}}: {{name}}</h1>
 
-        <div>{{description}}</div>
-    </a>
 
     <!-- Determine which link to use -->
     {{#if watching}}
-        <a class="card card--vert col-xs-12 hidden-md hidden-lg {{epActive number}}"
+        <a class="card card--vert col-xs-12 {{epActive number}}"
            href="{{pathFor 'watchEp' ep=number}}" data-number="{{number}}">
             <h1 class="card__header">Episode {{number}}: {{name}}</h1>
 
-            <div class="card__more" data-hook="ep-more">
+            <div class="card__text hidden-xs hidden-sm">{{description}}</div>
+
+            <div class="card__more visible-xs visible-sm" data-hook="ep-more">
                 {{#unless epActive number}}
                     <i class="fa fa-angle-down" data-hook="ep-more"></i>
                 {{else}}
@@ -25,7 +23,9 @@
            href="{{pathFor 'trackEp' ep=number}}" data-number="{{number}}">
             <h1 class="card__header">Episode {{number}}: {{name}}</h1>
 
-            <div class="card__more" data-hook="ep-more">
+            <div class="card__text hidden-xs hidden-sm">{{description}}</div>
+
+            <div class="card__more visible-xs visible-sm" data-hook="ep-more">
                 {{#unless epActive number}}
                     <i class="fa fa-angle-down" data-hook="ep-more"></i>
                 {{else}}

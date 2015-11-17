@@ -7,7 +7,9 @@ Template.episodeItem.helpers({
         return epNum === Session.get('activeEp') ? 'is-active' : '';
     },
     watching: function() {
-        return Session.get('watching');
+        const path = window.location.pathname;
+        console.log(path.indexOf('watch'));
+        return true;
     }
 });
 

@@ -36,7 +36,8 @@ Template.home.events({
     'click [data-track=watch]': function() {
         mixpanel.track('Watch button click');
     },
-    'click [data-track=stats]': function() {
+    'click [data-track=stats]': function(e) {
+        e.preventDefault(); // Remove for Stage 2
         mixpanel.track('Stats button click');
     },
     'click [data-track=me]': function() {
