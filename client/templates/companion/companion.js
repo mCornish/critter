@@ -113,10 +113,7 @@ Template.companion.onCreated(function () {
     Session.set('detailActive', false);
     Session.set('giveawayActive', false);
     Session.set('menuActive', 'content');
-});
-
-Template.companion.onRendered(function () {
-
+    Session.set('showMenu', true);
 });
 
 Template.companion.helpers({
@@ -191,6 +188,9 @@ Template.companion.helpers({
         const stream = this.stream;
         return stream.subWinner.length ? stream.subWinner : 'No winner yet'
     },
+    showMenu: function() {
+        return Session.get('showMenu');
+    },
     menuActive: function (item) {
         return item === Session.get('menuActive') ? 'is-active' : '';
     }
@@ -252,6 +252,12 @@ Template.companion.events({
         Session.set('character', character);
 
         mixpanel.track('Character Detail button click', {character: charName});
+    },
+    'click [data-hook=hide-button]': function() {
+        Session.set('showMenu', false);
+    },
+    'click [data-hook=show-button]': function() {
+        Session.set('showMenu', true);
     }
 });
 

@@ -8,8 +8,7 @@ Template.episodeItem.helpers({
     },
     watching: function() {
         const path = window.location.pathname;
-        console.log(path.indexOf('watch'));
-        return true;
+        return path.indexOf('watch') > -1;
     }
 });
 

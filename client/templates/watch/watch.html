@@ -1,22 +1,22 @@
 <template name="watch">
-    {{#if choosing}}
-        <div class="row">
-            <div class="col-xs-12 col-md-10 col-md-offset-1">
-                <div class="row buttons--full vert-margin">
-                    <a class="button button--vert button--half col-xs-12 col-md-4" data-hook="live">
+    <div class="watch">
+        {{#if choosing}}
+            <div class="watch__buttons">
+                <div class="row">
+                    <a class="button button--vert col-xs-12" data-hook="live">
                         <div class="button__icon">
                             <i class="fa fa-twitch"></i><br>
                             Watch Live
                         </div>
                     </a>
-                    <a class="button button--vert button--half col-xs-12 col-md-4" data-hook="watch">
+                    <a class="button button--vert col-xs-12" data-hook="watch">
                         <div class="button__icon">
                             <i class="fa fa-tv"></i><br>
                             Watch Past
                         </div>
                     </a>
                     {{#if authed}}
-                        <a class="button button--vert button--half col-xs-12 col-md-4 col-md-offset-0 coming-soon__link"
+                        <a class="button button--vert col-xs-12 coming-soon__link"
                            href="{{pathFor 'track'}}" data-hook="noTest" data-track="track">
 
                             <div class="coming-soon"><span class="coming-soon__text">Coming Soon!</span></div>
@@ -27,7 +27,7 @@
                             </div>
                         </a>
                     {{else}}
-                        <a class="button button--vert button--half col-xs-12 col-md-4 col-md-offset-0 coming-soon__link"
+                        <a class="button button--vert button--half col-xs-12 coming-soon__link"
                            href="{{pathFor 'login'}}" data-track="login">
 
                             <div class="coming-soon"><span class="coming-soon__text">Coming Soon!</span></div>
@@ -40,16 +40,16 @@
                     {{/if}}
                 </div>
             </div>
-        </div>
-    {{else}}
-        <div class="row">
-            <div class="col-xs-12 col-md-6 col-md-offset-3">
-                <div class="row cards">
-                        {{#each episodes}}
-                            {{> episodeItem}}
-                        {{/each}}
+        {{else}}
+            <div class="row">
+                <div class="col-xs-12 col-md-6 col-md-offset-3">
+                    <div class="row cards">
+                            {{#each episodes}}
+                                {{> episodeItem}}
+                            {{/each}}
+                    </div>
                 </div>
             </div>
-        </div>
-    {{/if}}
+        {{/if}}
+    </div>
 </template>
