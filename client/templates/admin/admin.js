@@ -3,6 +3,117 @@ Template.admin.onCreated(function() {
     Session.set('contentType', 'text');
     Session.set('imageName', null);
     Session.set('imageURL', null);
+
+    Session.set('durationIsPos', false);
+    Session.set('zeroFlip', true);
+
+    const
+        now = new Date(),
+        offset = -8,
+        showTime = 18;
+    let
+        pstDate = moment(now).utcOffset(offset),
+        pstHours = pstDate.hours(),
+        pstMinutes = pstDate.minutes(),
+        pstSeconds = pstDate.seconds(),
+
+        hours = pstHours - showTime,
+        minutes = pstMinutes,
+        seconds = pstSeconds;
+
+    if (hours <= 0) {
+        seconds = 60 - seconds;
+        minutes = 60 - minutes;
+        if (hours !== 0) {
+            hours = -hours;
+        }
+    }
+    Session.set('duration', `${hours}:${minutes}:${seconds}`);
+
+    const interval = setInterval(function () {
+        // Check whether it should count down (before show) or down (during show)
+        if (pstHours - showTime > 0) {  // Duration (at least 1 second past showtime)
+
+            // Can't currently explain the logic here (I'm distracted), but it seems to work
+            if (pstHours - showTime === 1) {
+                hours = 0;
+            }
+
+            Session.set('durationIsPos', true);
+            seconds++;
+
+            if (seconds >= 60) {
+                minutes++;
+                if (minutes >= 60) {
+                    hours++;
+                    minutes = 0;
+                }
+                seconds = 0;
+            }
+
+
+            // add zero for single-digit seconds/minutes
+            if (seconds < 10) {
+                seconds = ('0' + seconds).slice(-2);
+            }
+            if (minutes < 10) {
+                minutes = ('0' + minutes).slice(-2);
+            }
+        } else if (pstHours - showTime < 0) {  // Countdown at least 1 hour
+
+            Session.set('durationIsPos', false);
+            if (hours < 0) {
+                seconds = 60 - seconds;
+                minutes = 60 - minutes;
+                hours = -hours;
+            }
+            seconds--;
+
+            if (seconds <= 0) {
+                minutes--;
+                if (minutes <= 0) {
+                    hours--;
+                    minutes = 59;
+                }
+                seconds = 59;
+            }
+
+            // add zero for single-digit seconds/minutes
+            if (seconds < 10) {
+                seconds = ('0' + seconds).slice(-2);
+            }
+            if (minutes < 10) {
+                minutes = ('0' + minutes).slice(-2);
+            }
+        } else {  // Countdown less than 1 hour
+            Session.set('durationIsPos', false);
+            seconds--;
+
+            if (seconds <= 0) {
+                minutes--;
+                if (minutes <= 0) {
+                    hours--;
+                    minutes = 59;
+                }
+                seconds = 59;
+            }
+
+            // add zero for single-digit seconds/minutes
+            if (seconds < 10) {
+                seconds = ('0' + seconds).slice(-2);
+            }
+            if (minutes < 10) {
+                minutes = ('0' + minutes).slice(-2);
+            }
+        }
+
+        Session.set('duration', `${hours}:${minutes}:${seconds}`);
+        Session.set('epTime', {
+            hour: hours,
+            minute: minutes,
+            second: seconds
+        });
+    }, 1000);
 });
 
 Template.admin.helpers({
@@ -12,8 +123,8 @@ Template.admin.helpers({
     errorClass: function(field) {
         return !!Session.get('streamSubmitErrors')[field] ? 'has-error' : '';
     },
-    characters: function() {
-        return Characters.find();
+    duration: function() {
+        return Session.get('duration');
     },
     contentType: function(type) {
         return type === Session.get('contentType');
@@ -39,9 +150,27 @@ Template.admin.events({
 
        Meteor.call('setLive', name.toString(), !bool);
     },
-    'click [data-hook=toggle-timing]': function(e) {
+    'click [data-hook=save-ep]': function(e) {
         e.preventDefault();
-        Meteor.call('toggleStreamTiming');
+        const epNumber = this.stream.epNumber;
+        const epCast = this.stream.epCast;
+
+        const episode = {
+            number: epNumber,
+            cast: epCast
+        };
+
+        Meteor.call('episodeUpsert', episode);
+    },
+    'submit [data-hook=ep-form]': function(e) {
+        const $form = $(e.target);
+        const epNumber = parseInt( $form.find('[name=ep]').val() );
+
+        Stream.update(this.stream._id, {$set: {epNumber: epNumber}}, function(err) {
+            if (err) {
+                throwError(err.reason);
+            }
+        });
     },
     'click [data-hook=submit-content]': function() {
         $form = $('[data-hook=form-content]');
@@ -65,7 +194,7 @@ Template.admin.events({
             stream.liveContent.text = null;
         }
 
-        if (contentType.toLowerCase().indexOf('select') > -1) {
+        if (contentType === 'text') {
             stream.liveContent.link = '';
             stream.liveContent.message = '';
             stream.liveContent.tweeter = '';
@@ -83,6 +212,7 @@ Template.admin.events({
             stream.liveContent.link = Session.get('imageURL');
         }
 
+        // Add content to live stream
         Stream.update(this.stream._id, {$set: stream}, function(error) {
             if (error) {
                 throwError(error.reason);
@@ -90,6 +220,26 @@ Template.admin.events({
                 mixpanel.track('content-update', {timestamp: Date.now()});
             }
         });
+
+        // Add content to episode
+        const content = {
+            episode: this.stream.epNumber,
+            text: '',
+            type: contentType,
+            link: stream.liveContent.link,
+            message: stream.liveContent.message,
+            from: '',
+            time: Session.get('epTime')
+        };
+        if (stream.liveContent.text) {
+            content.text = stream.liveContent.text;
+        }
+        if (stream.liveContent.tweeter) {
+            content.from = stream.liveContent.tweeter;
+        }
+
+        Meteor.call('contentInsert', content);
+
     },
     'change [data-hook=live-content-type]': function(e) {
         const type = $(e.target).val();

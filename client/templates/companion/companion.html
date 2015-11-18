@@ -1,5 +1,6 @@
 <template name="companion">
-    <h1 class="companion__header col-xs-12 text-center">Watch Live</h1>
+    <h1 class="companion__header col-xs-12 text-center hidden-xs hidden-sm">Watch Live</h1>
+    <h2 class="companion__header col-xs-12 text-center visible-xs visible-sm">Watch Live</h2>
 
     <div class="row">
         <h2 class="companion__counter col-xs-12 text-center"><b>{{durationText}}:</b> {{duration}}</h2>
@@ -48,10 +49,11 @@
                         <div class="col-xs-12">
                             <div class="row">
                                 {{#each liveChars}}
-                                    <div class="track__char col-xs-4">
+                                    <div class="track__char col-xs-6 col-sm-4">
                                         <div class="row">
-                                            <div class="track__name col-xs-12" data-hook="detail-button"
-                                                 data-name="{{name}}">{{name}}</div>
+                                            <div class="track__name-container col-xs-12" data-hook="detail-button" data-name="{{name}}">
+                                                <div class="track__name" data-name="{{name}}">{{name}}</div>
+                                            </div>
                                             <img class="pointer col-xs-12" src="{{imageURL}}"
                                                  data-hook="detail-button"
                                                  data-name={{name}}>
@@ -61,35 +63,45 @@
                             </div>
                         </div>
                     {{else}}
-                        <div class="char__detail">
-                                {{#with character}}
-                                    {{> charPage}}
-                                {{/with}}
+                        <div class="char__detail col-xs-12">
+                            <div class="row">
+                                {{#each liveChars}}
+                                    <button class="col-xs-4 watch__char-name {{detailClass name}}" data-hook="detail-button"
+                                       data-name="{{name}}">{{name}}</button>
+                                {{/each}}
+                            </div>
+                            {{#with character}}
+                                {{> charPage}}
+                            {{/with}}
                         </div>
-                        <div class="row">
-                            {{#each liveChars}}
-                                <a class="col-xs-4 watch__char-name {{detailClass name}}" data-hook="detail-button"
-                                   data-name="{{name}}">{{name}}</a>
-                            {{/each}}
-                        </div>
+
                     {{/unless}}
                 </div>
             {{else}}
                 {{#if giveawayActive}}
                     <div class="companion__giveaway row">
-                        <div class="giveaway__bar col-xs-12 col-md-6 col-md-offset-3">
-                            <div class="giveaway__sub-bar" data-hook="sub-bar"></div>
-                        </div>
                         <div class="giveaway__meter col-xs-10 col-xs-offset-1 col-md-6 col-md-offset-3"
                              data-hook="bar-parent">
-                            <svg class="giveaway__meter-bar giveaway__meter-back" width="250" height="250"
+
+                            <svg class="giveaway__meter-bar giveaway__meter-back hidden-xs hidden-sm" width="250"
+                                 height="250"
                                  xmlns="http://www.w3.org/2000/svg">
                                 <g>
                                     <circle r="100" cy="126" cx="126" stroke-width="20" stroke="#E73023" fill="none"/>
                                 </g>
                             </svg>
+                            <svg class="giveaway__meter-bar giveaway__meter-back visible-xs visible-sm" width="200"
+                                 height="200"
+                                 xmlns="http://www.w3.org/2000/svg">
+                                <g>
+                                    <circle r="70" cy="101" cx="101" stroke-width="20" stroke="#E73023" fill="none"/>
+                                </g>
+                            </svg>
+
                             <div class="giveaway__percent">{{subPercent}}%</div>
-                            <svg class="giveaway__meter-bar giveaway__meter-front" width="250" height="250"
+
+                            <svg class="giveaway__meter-bar giveaway__meter-front hidden-xs hidden-sm" width="250"
+                                 height="250"
                                  xmlns="http://www.w3.org/2000/svg">
                                 <g>
                                     <title>Layer 1</title>
@@ -98,6 +110,17 @@
                                             data-hook="giveaway-circle"/>
                                 </g>
                             </svg>
+                            <svg class="giveaway__meter-bar giveaway__meter-front visible-xs visible-sm" width="200"
+                                 height="200"
+                                 xmlns="http://www.w3.org/2000/svg">
+                                <g>
+                                    <title>Layer 1</title>
+                                    <circle class="circle_animation" r="70" cy="101" cx="101" stroke-width="20"
+                                            stroke="#E6A22D" fill="none" style="stroke-dashoffset: {{meterOffset}}"
+                                            data-hook="giveaway-circle"/>
+                                </g>
+                            </svg>
+
                         </div>
                         <div class="giveaway__info col-xs-12 col-md-6 col-md-offset-3 text-center">
                             <div class="giveaway__subs">Subscribers: {{stream.subCount}}</div>
@@ -113,19 +136,25 @@
             <div class="row">
                 <a class="button menu__button col-xs-4 {{menuActive 'content'}}"
                    data-hook="content-button">
-                    <i class="fa fa-eye"></i>
+                    <div class="menu__content">
+                        <i class="fa fa-eye"></i>
 
-                    <div>Content</div>
+                        <div>Content</div>
+                    </div>
                 </a>
                 <a class="button menu__button col-xs-4 {{menuActive 'info'}}" data-hook="info-button">
-                    <i class="fa fa-users"></i>
+                    <div class="menu__content">
+                        <i class="fa fa-users"></i>
 
-                    <div>Characters</div>
+                        <div>Characters</div>
+                    </div>
                 </a>
                 <a class="button menu__button col-xs-4 {{menuActive 'giveaway'}}" data-hook="giveaway-button">
-                    <i class="fa fa-trophy"></i>
+                    <div class="menu__content">
+                        <i class="fa fa-trophy"></i>
 
-                    <div>Giveaway</div>
+                        <div>Giveaway</div>
+                    </div>
                 </a>
             </div>
         </div>
@@ -133,24 +162,32 @@
             <div class="menu visible-xs visible-sm">
                 <div class="row">
                     <a class="button menu__button col-xs-3" data-hook="hide-button">
-                        <i class="fa fa-angle-left"></i>
+                        <div class="menu__content">
+                            <i class="fa fa-angle-left"></i>
 
-                        <div>Hide</div>
+                            <div>Hide</div>
+                        </div>
                     </a>
                     <a class="button menu__button col-xs-3 {{menuActive 'content'}}" data-hook="content-button">
-                        <i class="fa fa-eye"></i>
+                        <div class="menu__content">
+                            <i class="fa fa-eye"></i>
 
-                        <div>Content</div>
+                            <div>Content</div>
+                        </div>
                     </a>
                     <a class="button menu__button col-xs-3 {{menuActive 'info'}}" data-hook="info-button">
-                        <i class="fa fa-users"></i>
+                        <div class="menu__content">
+                            <i class="fa fa-users"></i>
 
-                        <div>Characters</div>
+                            <div>Characters</div>
+                        </div>
                     </a>
                     <a class="button menu__button col-xs-3 {{menuActive 'giveaway'}}" data-hook="giveaway-button">
-                        <i class="fa fa-trophy"></i>
+                        <div class="menu__content">
+                            <i class="fa fa-trophy"></i>
 
-                        <div>Giveaway</div>
+                            <div>Giveaway</div>
+                        </div>
                     </a>
                 </div>
             </div>

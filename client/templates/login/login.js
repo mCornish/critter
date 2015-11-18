@@ -2,9 +2,7 @@ Template.login.onCreated( function() {
     if (typeof Meteor.userId() === 'string') {
         Router.go('home');
     }
-});
 
-Template.login.onRendered( function() {
     Session.set('creatingUser', false);
     Session.set('forgottenPassword', false);
     Session.set('userSubmitErrors', {});

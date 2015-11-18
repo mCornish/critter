@@ -686,7 +686,7 @@ hr {
   bottom: 0;
   right: 0;
   margin: 2em;
-  z-index: 3;
+  z-index: 5;
 }
 .floating-form__toggle {
   display: block;
@@ -697,9 +697,15 @@ hr {
   color: $color-4;
   width: 3em;
   height: 3em;
-  opacity: .7;
   cursor: pointer;
   transition: opacity .2s;
+
+  @media #{$break-small} {
+    opacity: 1;
+  }
+  @media #{$break-medium} {
+    opacity: .7;
+  }
 }
 .floating-form__toggle:hover {
   opacity: 1;
@@ -726,6 +732,7 @@ hr {
   text-align: right;
   color: $color-3;
   cursor: pointer;
+
   @media #{$break-small} {
     font-size: 1.5em;
   }
@@ -1302,6 +1309,7 @@ input[type=radio] + input[type=radio] {
   min-height: 4em;
   background-color: $color-2;
   border-top: 1px solid hsl(0,0,70);
+  z-index: 3;
   //top: 100vh;
   //transform: translateY(-100%);
 }
@@ -1337,6 +1345,17 @@ input[type=radio] + input[type=radio] {
 .menu__button i {
   font-size: 2em;
 }
+.menu__content {
+  @media #{$break-small} {
+
+  }
+  @media #{$break-medium} {
+    display:block;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+}
 .row .menu__button + .menu__button {
   margin-top: 0;
 }
@@ -1344,9 +1363,10 @@ input[type=radio] + input[type=radio] {
   position: fixed;
   top: 100vh;
   left: 0;
-  padding-bottom: 1em;
+  padding: 1em 0;
   text-align: center;
   cursor: pointer;
+  background-color: hsla(0,0,100,.9);
   transform: translateY(-100%);
   transition: color .2s ease;
 }
@@ -1709,7 +1729,12 @@ input[type=radio] + input[type=radio] {
   margin-bottom: 0;
 }
 .companion__counter {
-  margin-bottom: 2em;
+  @media #{$break-small} {
+    margin-bottom: 1em;
+  }
+  @media #{$break-medium} {
+    margin-bottom: 2em;
+  }
 }
 .companion__content-placeholder {
   background-color: hsl(10,10,95);
@@ -1759,10 +1784,18 @@ input[type=radio] + input[type=radio] {
   height: auto;
   //border-radius: 100%;
 }
-
+.companion__giveaway {
+  margin-bottom: 8em;
+}
 .giveaway__meter {
   position: relative;
-  height: 250px;
+
+  @media #{$break-small} {
+    height: 200px;
+  }
+  @media #{$break-medium} {
+    height: 250px;
+  }
 }
 .giveaway__meter-bar {
   position: absolute;
@@ -1918,19 +1951,30 @@ input[type=radio] + input[type=radio] {
   cursor: pointer;
 }
 
-.track__name {
-  display: none;
+.track__name-container {
   position: absolute;
   width: calc(100% - 30px); // remove padding from column
   height: 100%;
-  left: 30px; // account for removed padding
+  left: 15px; // account for removed padding
   top: 0;
-  padding-top: calc(50% - 1em); // center it vertically
+  z-index: 2;
+}
+.track__name {
+  position: relative;
+  top: 50%;
   text-align: center;
   color: $color-4;
-  font-size: 2em;
   font-weight: bold;
-  z-index: 2;
+  transform: translateY(-50%);
+
+  @media #{$break-small} {
+    display: block;
+    font-size: 1.5em;
+  }
+  @media #{$break-medium} {
+    display: none;
+    font-size: 2em;
+  }
 }
 
 .track__char:hover .track__name {
@@ -1992,8 +2036,10 @@ input[type=radio] + input[type=radio] {
 .watch__char-name {
   color: $color-3;
   font-weight: bold;
-  font-size: 1.5em;
+  font-size: 1.2em;
   text-align: center;
+  background-color: transparent;
+  border: none;
 }
 .watch__char-name.is-active {
   background-color: $color-1;

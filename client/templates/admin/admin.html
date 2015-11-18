@@ -16,6 +16,32 @@
 
     </div>
     <div class="row">
+        <h3>Episode Info</h3>
+
+        <div class="col-xs-6">
+            <ul>
+                <li>Number: {{stream.epNumber}}</li>
+                <li>Cast: {{stream.epCast}}</li>
+                <li>Time: {{duration}}</li>
+                <li>
+                    Content:
+                    <ul>
+                        {{#each content}}
+                            <li>{{type}} - {{time.hour}}:{{time.minute}}:{{time.second}}</li>
+                        {{/each}}
+                    </ul>
+                </li>
+            </ul>
+
+            <button data-hook="save-ep"><i class="fa fa-save"></i> Save Episode</button>
+        </div>
+        <form class="col-xs-6" data-hook="ep-form">
+            <label for="number">Episode Number</label>
+            <input id="number" name="ep" type="text" placeholder="##">
+            <button type="submit">Update Episode</button>
+        </form>
+    </div>
+    <div class="row">
         <h3>Live Characters</h3>
 
         <div class="col-xs-12">
@@ -23,7 +49,7 @@
                 {{#each characters}}
                     <div class="button button--toggle col-xs-6 col-md-3" data-hook="live-toggle" data-name="{{name}}"
                          data-live="{{live}}">
-                        {{name}} {{#if live}}<i class="fa fa-check"></i>{{/if}}
+                        {{name}} {{#if live}}<i class="fa fa-check" data-name="{{name}}"></i>{{/if}}
                     </div>
                 {{/each}}
             </div>
@@ -40,7 +66,7 @@
             <div class="row">
                 <label for="otherContent">Other Content</label>
                 <select id="otherContent" class="col-xs-12 col-md-3" data-hook="live-content-type">
-                    <option>Select content type</option>
+                    <option value="text">Text</option>
                     <option value="link">Link</option>
                     <option value="image">Image</option>
                     <option value="tweet">Tweet</option>
@@ -84,7 +110,8 @@
             </div>
             <div class="row">
                 <div class="button button--submit col-xs-3" data-hook="submit-content">Insert Content</div>
-                <div class="button button--submit col-xs-3 col-xs-offset-1" data-hook="clear-content">Clear Content</div>
+                <div class="button button--submit col-xs-3 col-xs-offset-1"
+                     data-hook="clear-content">Clear Content</div>
             </div>
         </div>
     </form>

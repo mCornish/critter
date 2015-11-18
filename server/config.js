@@ -21,6 +21,12 @@ ServiceConfiguration.configurations.upsert(
     }
 );
 
+testerEmails = [
+    'cornishmw@gmail.com',
+    'mi_wi_co@yahoo.com',
+    'cole_peosoldier@yahoo.com'
+];
+
 
 Accounts.onCreateUser(function (options, user) {
     if (typeof user.emails === 'undefined') {
@@ -28,6 +34,9 @@ Accounts.onCreateUser(function (options, user) {
     }
     if (user.services.facebook) {
         var facebook = user.services.facebook;
+        if (testerEmails.indexOf(facebook.email) < 0) {
+            throw new Meteor.Error('non-tester', 'Only approved testers may register.')
+        }
         user.emails.push({address: facebook.email});
         // remove spaces from Facebook name and store as username
         options.profile.username = facebook.name.replace(/\s+/g, '');
@@ -38,6 +47,9 @@ Accounts.onCreateUser(function (options, user) {
         options.profile.locale = facebook.locale;
         options.profile.image = 'http://graph.facebook.com/' + facebook.id + '/picture/?type=large';
     } else {
+        if (testerEmails.indexOf(user.username) < 0) {
+            throw new Meteor.Error('non-tester', 'Only approved testers may register.')
+        }
         user.emails.push(user.username);
         options.profile.email = user.username;
         // convert email to username
