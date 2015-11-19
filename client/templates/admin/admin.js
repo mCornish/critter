@@ -109,9 +109,9 @@ Template.admin.onCreated(function() {
 
         Session.set('duration', `${hours}:${minutes}:${seconds}`);
         Session.set('epTime', {
-            hour: hours,
-            minute: minutes,
-            second: seconds
+            hour: parseInt( hours ),
+            minute: parseInt( minutes ),
+            second: parseInt( seconds )
         });
     }, 1000);
 });
@@ -209,7 +209,13 @@ Template.admin.events({
         } else if (contentType === 'yt') {
             stream.liveContent.link = liveContent.slice(liveContent.indexOf('watch?v=') + 8);
         } else if (contentType === 'image') {
-            stream.liveContent.link = Session.get('imageURL');
+            if (liveLink) {
+                stream.liveContent.link = liveLink;
+            } else {
+                stream.liveContent.link = Session.get('imageURL');
+            }
+            stream.liveContent.message = '';
+            stream.liveContent.tweeter = '';
         }
 
         // Add content to live stream
