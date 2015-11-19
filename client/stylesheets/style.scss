@@ -1858,9 +1858,6 @@ input[type=radio] + input[type=radio] {
 .home {
   position: relative;
   margin-top: 8em;
-  left: 50%;
-  width: 79vw; // Sum of buttons and their margins
-  transform: translateX(-50%);
 }
 .home .button {
   float: left;
@@ -2052,9 +2049,6 @@ input[type=radio] + input[type=radio] {
 }
 .watch__buttons {
   position: relative;
-  left: 50%;
-  width: 79vw;
-  transform: translateX(-50%);
 }
 .watch__button {
   float: left;
