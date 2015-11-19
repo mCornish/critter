@@ -863,11 +863,9 @@ label.is-hidden {
 .header {
   position: fixed;
   width: 100%;
-  background-color: $color-3;
   text-align: center;
   color: $color-2;
   z-index: 3;
-  height: 10vh;
   min-height: 4.5em;
 }
 
@@ -1391,7 +1389,7 @@ input[type=radio] + input[type=radio] {
   transform: none;
   font-size: 1.2em;
   background-color: transparent;
-  height: 10vh;
+  height: 5em;
   min-height: 4.5em;
 }
 .menu--header .menu__button {
@@ -1859,10 +1857,10 @@ input[type=radio] + input[type=radio] {
 /* -------------------- */
 .home {
   position: relative;
-  top: 50%;
+  margin-top: 8em;
   left: 50%;
-  width: 94vw;
-  transform: translateY(-50%) translateX(-50%);
+  width: 79vw; // Sum of buttons and their margins
+  transform: translateX(-50%);
 }
 .home .button {
   float: left;
@@ -1872,7 +1870,7 @@ input[type=radio] + input[type=radio] {
   }
   @media #{$break-medium} {
     height: 15em;
-    width: 30vw;
+    width: 25vw;
   }
 }
 
@@ -2050,13 +2048,53 @@ input[type=radio] + input[type=radio] {
 .watch {
   display: block;
   height: 100%;
+  margin-top: 8em;
 }
 .watch__buttons {
   position: relative;
-  top: 50%;
   left: 50%;
-  width: 94vw;
-  transform: translateY(-50%) translateX(-50%);
+  width: 79vw;
+  transform: translateX(-50%);
+}
+.watch__button {
+  float: left;
+
+  @media #{$break-small} {
+
+  }
+  @media #{$break-medium} {
+    height: 15em;
+    width: 25vw;
+  }
+}
+.watch__button + .watch__button {
+  @media #{$break-small} {
+    margin-top: .5em;
+  }
+  @media #{$break-medium} {
+    margin-top: 0;
+    margin-left: 2vw;
+  }
+}
+.watch .button__icon {
+  @media #{$break-small} {
+    font-size: 2rem;
+    top: 0;
+    transform: none;
+  }
+  @media #{$break-medium} {
+    font-size: 3rem;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+}
+.watch .button__icon i {
+  @media #{$break-small} {
+    font-size: 1.5em;
+  }
+  @media #{$break-medium} {
+    font-size: 3em;
+  }
 }
 .watch__container {
   margin-bottom: 10em;

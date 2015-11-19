@@ -3,38 +3,42 @@
         {{#if choosing}}
             <div class="watch__buttons">
                 <div class="row">
-                    <a class="button button--vert col-xs-12" data-hook="live">
-                        <div class="button__icon">
-                            <i class="fa fa-twitch"></i><br>
-                            Watch Live
+                    <a class="watch__button button col-xs-12" data-hook="live">
+                        <div class="button__icon row">
+                            <i class="fa fa-twitch col-md-12"></i>
+                            <br class="hidden-xs">
+                            <span class="col-md-12">Watch Live</span>
                         </div>
                     </a>
-                    <a class="button button--vert col-xs-12" data-hook="watch">
-                        <div class="button__icon">
-                            <i class="fa fa-tv"></i><br>
-                            Watch Past
+                    <a class="watch__button button col-xs-12" data-hook="watch">
+                        <div class="button__icon row">
+                            <i class="fa fa-tv col-md-12"></i>
+                            <br class="hidden-xs">
+                            <span class="col-md-12">Watch Past</span>
                         </div>
                     </a>
                     {{#if authed}}
-                        <a class="button button--vert col-xs-12 coming-soon__link"
+                        <a class="watch__button button col-xs-12 coming-soon__link"
                            href="{{pathFor 'track'}}" data-hook="noTest" data-track="track">
 
                             <div class="coming-soon"><span class="coming-soon__text">Coming Soon!</span></div>
 
-                            <div class="button__icon">
-                                <i class="fa fa-bar-chart"></i><br>
-                                Track
+                            <div class="button__icon row">
+                                <i class="fa fa-bar-chart col-md-12"></i>
+                                <br class="hidden-xs">
+                                <span class="col-md-12">Track</span>
                             </div>
                         </a>
                     {{else}}
-                        <a class="button button--vert button--half col-xs-12 coming-soon__link"
+                        <a class="watch__button button col-xs-12 coming-soon__link"
                            href="{{pathFor 'login'}}" data-track="login">
 
                             <div class="coming-soon"><span class="coming-soon__text">Coming Soon!</span></div>
 
-                            <div class="button__icon">
-                                <i class="fa fa-user"></i><br>
-                                Log in to track
+                            <div class="button__icon row">
+                                <i class="fa fa-user col-md-12"></i><br>
+                                <br class="hidden-xs">
+                                <span class="col-md-12">Login to Track</span>
                             </div>
                         </a>
                     {{/if}}
