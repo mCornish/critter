@@ -310,6 +310,43 @@ Template.admin.events({
         e.preventDefault();
         Meteor.call('incGoal', 100);
     },
+    'submit [data-hook=char-stats-form]': function(e) {
+        e.preventDefault();
+
+        const $form = $(e.target);
+
+        const stats = {
+            level: $form.find('[name=level]').val(),
+            charisma: $form.find('[name=charisma]').val(),
+            constitution: $form.find('[name=constitution]').val(),
+            dexterity: $form.find('[name=dexterity]').val(),
+            intelligence: $form.find('[name=intelligence]').val(),
+            strength: $form.find('[name=strength]').val(),
+            wisdom: $form.find('[name=wisdom]').val()
+        };
+
+        Characters.update($form.attr('data-id'), {$set: {charStats: stats}}, function(err) {
+            if (err) {
+                throwError(err.reason);
+            }
+        });
+    },
+    'submit [data-hook=char-vitals-form]': function(e) {
+        e.preventDefault();
+
+        const $form = $(e.target);
+
+        const vitals = {
+            hp: $form.find('[name=hp]').val(),
+            ac: $form.find('[name=ac]').val()
+        };
+
+        Characters.update($form.attr('data-id'), {$set: {vitals: vitals}}, function(err) {
+            if (err) {
+                throwError(err.reason);
+            }
+        });
+    },
     'click [data-hook=add-role]': function(e) {
         const $input = $(e.target).siblings('[name=role]');
         const role = $input.val();

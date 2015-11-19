@@ -1314,7 +1314,7 @@ input[type=radio] + input[type=radio] {
   width: 100%;
   height: 10vh;
   min-height: 4em;
-  background-color: $color-2;
+  background-color: hsla(0,0,100,.9);
   border-top: 1px solid hsl(0,0,70);
   z-index: 3;
   //top: 100vh;
@@ -1395,23 +1395,19 @@ input[type=radio] + input[type=radio] {
   min-height: 4.5em;
 }
 .menu--header .menu__button {
-  color: $color-1;
-  border-bottom: .3em solid $color-2;
-  height: 10vh;
-  min-height: 5em;
-}
-.menu--header .menu__button.is-active {
-  color: $color-2;
   background-color: $color-3;
+  color: $color-1;
+  border-bottom-color: $color-3;
+  border-bottom-style: solid;
+  border-bottom-width: 0;
+  height: 100%;
+  transition: all .2s ease;
 }
-.menu--header .menu__button:hover {
-  color: $color-2;
-  border-bottom: .3em solid $color-3;
-  border-top: 0;
-}
+.menu--header .menu__button:hover,
 .menu--header .menu__button.is-active {
-  border-bottom: .3em solid $color-3;
-  border-top: 0;
+  background-color: $color-3;
+  color: $color-2;
+  border-bottom-width: 10px;
 }
 
 .menu .logo__image {

@@ -1,10 +1,12 @@
 <template name="companion">
+    {{#unless infoActive}}
     <h1 class="companion__header col-xs-12 text-center hidden-xs hidden-sm">Watch Live</h1>
     <h2 class="companion__header col-xs-12 text-center visible-xs visible-sm">Watch Live</h2>
 
     <div class="row">
         <h2 class="companion__counter col-xs-12 text-center"><b>{{durationText}}:</b> {{duration}}</h2>
     </div>
+    {{/unless}}
 
     {{#if isLive}}
 

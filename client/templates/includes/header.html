@@ -3,7 +3,7 @@
         {{#unless homeUnauthed}}
             <div class="menu menu--header">
                 <div class="row">
-                    <a class="button menu__button col-xs-3 {{menuActive 'home'}}" href="{{pathFor 'home'}}"
+                    <a class="button menu__button col-xs-3 {{routeActive '/home'}}" href="{{pathFor 'home'}}"
                        data-hook="content-button">
                         <div class="row">
                             <img class="logo__image col-xs-12" src="/images/logo.svg">
@@ -11,7 +11,7 @@
                             <div class="col-xs-12">Home</div>
                         </div>
                     </a>
-                    <a class="button menu__button col-xs-3 {{menuActive 'watch'}}" href="{{pathFor 'watch'}}"
+                    <a class="button menu__button col-xs-3 {{routeActive '/watch'}}" href="{{pathFor 'watch'}}"
                        data-hook="content-button">
                         <div class="row">
                             <i class="fa fa-tv col-xs-12"></i>
@@ -19,7 +19,7 @@
                             <div class="col-xs-12">Watch</div>
                         </div>
                     </a>
-                    <a class="button menu__button col-xs-3 {{menuActive 'stats'}}" href="{{pathFor 'stats'}}"
+                    <a class="button menu__button col-xs-3 {{routeActive '/stats'}}" href="{{pathFor 'stats'}}"
                        data-hook="info-button">
                         <div class="row">
                             <i class="fa fa-bar-chart-o col-xs-12"></i>
@@ -28,7 +28,7 @@
                         </div>
                     </a>
                     {{#if isAuthed}}
-                        <a class="button menu__button col-xs-3 {{menuActive 'me'}}" href="{{pathFor 'me'}}"
+                        <a class="button menu__button col-xs-3 {{routeActive '/me'}}" href="{{pathFor 'me'}}"
                            data-hook="giveaway-button">
                             <div class="row">
                                 <i class="fa fa-user col-xs-12"></i>
@@ -37,7 +37,7 @@
                             </div>
                         </a>
                     {{else}}
-                        <a class="button menu__button col-xs-3 {{menuActive 'login'}}" href="{{pathFor 'login'}}"
+                        <a class="button menu__button col-xs-3 {{routeActive '/login'}}" href="{{pathFor 'login'}}"
                            data-hook="giveaway-button">
                             <div class="row">
                                 <i class="fa fa-user col-xs-12"></i>

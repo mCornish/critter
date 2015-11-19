@@ -107,6 +107,7 @@ Template.companion.onCreated(function () {
         Session.set('duration', `${hours}:${minutes}:${seconds}`);
     }, 1000);
 
+    Session.set('interval', interval);
     Session.set('cast', null);
     Session.set('contentActive', true);
     Session.set('infoActive', false);
@@ -261,17 +262,6 @@ Template.companion.events({
     }
 });
 
-//const renderSubBar = function (data, $parent) {
-//    const stream = data.stream;
-//    const subCount = stream.subCount;
-//    const subGoal = stream.subGoal;
-//    const prevSubGoal = stream.prevSubGoal;
-//
-//    const subPercent = ((subCount - prevSubGoal) / (subGoal - prevSubGoal)) * 100;
-//    Session.set('subPercent', Math.floor(subPercent));
-//
-//    const dashArray = 650; // Taken from the cricle's CSS
-//    const offset = dashArray * (1 - (subPercent / 100));
-//
-//    $parent.css('stroke-dashoffset', offset);
-//};
+Template.companion.onDestroyed(function() {
+    clearInterval(Session.get('interval'));
+});
