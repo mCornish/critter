@@ -122,6 +122,9 @@ Template.companion.helpers({
         const stream = this.stream;
         return stream.live;
     },
+    epNumber: function() {
+        return this.stream.epNumber;
+    },
     liveContent: function () {
         return $.parseHTML(this.stream.liveContent);
     },

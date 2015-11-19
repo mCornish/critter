@@ -29,7 +29,7 @@ Template.header.helpers({
         return route === Session.get('route') ? 'is-active' : '';
     },
     isAuthed: function() {
-        return Meteor.userId().length;
+        return typeof Meteor.userId() === 'string';
     },
     authedClass: function() {
         const unauthed = typeof Meteor.userId() !== 'string';
@@ -49,7 +49,7 @@ Template.header.helpers({
 });
 
 Template.header.events({
-    'click [data-track=logo]': function() {
-        mixpanel.track('Logo click');
+    'click [data-track=home]': function() {
+        analytics.track('Logo click');
     }
 });

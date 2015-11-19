@@ -14,20 +14,21 @@ ServiceConfiguration.configurations.upsert(
     {
         $set: {
             // TODO Hide key and secret using settings (http://joshowens.me/environment-settings-and-security-with-meteor-js/)
-            appId: FB_ID,
+            appId: '1065816680108624',
             loginStyle: 'popup',
-            secret: FB_SECRET
+            secret: 'eb38f5596605adafac6ba8f5a0e2e78c'
         }
     }
 );
 
 testerEmails = [
     'cornishmw@gmail.com',
+    'cornish.mw@gmail.com',
     'mi_wi_co@yahoo.com',
     'cole_peosoldier@yahoo.com'
 ];
 
-
+// REMEMBER TO REMOVE BETA ROLE
 Accounts.onCreateUser(function (options, user) {
     if (typeof user.emails === 'undefined') {
         user.emails = [];
@@ -57,15 +58,13 @@ Accounts.onCreateUser(function (options, user) {
     }
 
     if (typeof user.roles === 'undefined') {
-        user.roles = [];
+        user.roles = ['beta'];  // REMEMBER TO REMOVE THIS
     }
     options.profile.points = 0;
 
     if (options.profile) {
         user.profile = options.profile;
     }
-
-    // mixpanel.track('User created', user); Uncomment when ready to test
 
     return user;
 });

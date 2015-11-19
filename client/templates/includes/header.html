@@ -4,7 +4,7 @@
             <div class="menu menu--header">
                 <div class="row">
                     <a class="button menu__button col-xs-3 {{routeActive '/home'}}" href="{{pathFor 'home'}}"
-                       data-hook="content-button">
+                       data-track="home">
                         <div class="row">
                             <img class="logo__image col-xs-12" src="/images/logo.svg">
 
@@ -12,7 +12,7 @@
                         </div>
                     </a>
                     <a class="button menu__button col-xs-3 {{routeActive '/watch'}}" href="{{pathFor 'watch'}}"
-                       data-hook="content-button">
+                       data-track="watch">
                         <div class="row">
                             <i class="fa fa-tv col-xs-12"></i>
 
@@ -20,7 +20,7 @@
                         </div>
                     </a>
                     <a class="button menu__button col-xs-3 {{routeActive '/stats'}}" href="{{pathFor 'stats'}}"
-                       data-hook="info-button">
+                       data-track="stats">
                         <div class="row">
                             <i class="fa fa-bar-chart-o col-xs-12"></i>
 
@@ -29,7 +29,7 @@
                     </a>
                     {{#if isAuthed}}
                         <a class="button menu__button col-xs-3 {{routeActive '/me'}}" href="{{pathFor 'me'}}"
-                           data-hook="giveaway-button">
+                           data-track="me">
                             <div class="row">
                                 <i class="fa fa-user col-xs-12"></i>
 
@@ -38,7 +38,7 @@
                         </a>
                     {{else}}
                         <a class="button menu__button col-xs-3 {{routeActive '/login'}}" href="{{pathFor 'login'}}"
-                           data-hook="giveaway-button">
+                           data-track="login">
                             <div class="row">
                                 <i class="fa fa-user col-xs-12"></i>
 

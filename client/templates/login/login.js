@@ -59,9 +59,17 @@ Template.login.events({
                 if (error) {
                     // clear errors
                     Session.set('userSubmitErrors', {});
+                    analytics.track('Login Failure', {
+                        user: username,
+                        error: error.reason,
+                        service: 'Email'
+                    });
                     // throw createUser error
                     return throwError(error.reason);
                 } else {
+                    analytics.track('User Created', {
+                        user: username
+                    });
                     Router.go('/');
                 }
             });
@@ -93,24 +101,18 @@ Template.login.events({
                 if (error) {
                     // clear errors
                     Session.set('userSubmitErrors', {});
-                    mixpanel.track('login-failure', {
-                        timestamp: Date.now(),
-                        user: user._id,
-                        type: 'facebook'});
+                    analytics.track('Login Failure', {
+                        user: username,
+                        error: error.reason,
+                        service: 'email'
+                    });
                     // throw login error
                     return throwError(error.reason);
                 } else {
-                    const userID = Meteor.userId();
-                    mixpanel.identify(userID);
-                    mixpanel.people.set_once({
-                        $email: user.profile.email,
-                        gender: user.profile.gender,
-                        locale: user.profile.locale
+                    analytics.track('Login', {
+                        user: Meteor.userId(),
+                        service: 'email'
                     });
-                    mixpanel.track('login', {
-                        timestamp: Date.now(),
-                        user: user._id,
-                        type: 'email'});
                     Router.go('/');
                 }
             });
@@ -129,25 +131,17 @@ Template.login.events({
             if (error) {
                 // clear errors
                 Session.set('userSubmitErrors', {});
-                mixpanel.track('login-failure', {
-                    timestamp: Date.now(),
-                    user: user._id,
-                    type: 'facebook'});
+                mixpanel.track('Login Failure', {
+                    error: error.reason,
+                    service: 'facebook'
+                });
                 // throw login error
                 return throwError(error.reason);
             } else {
-                const user = Meteor.user();
-                mixpanel.identify(user._id);
-                mixpanel.people.set_once({
-                    $email: user.profile.email,
-                    gender: user.profile.gender,
-                    locale: user.profile.locale
+                analytics.track('Login', {
+                    user: Meteor.userId(),
+                    service: 'facebook'
                 });
-                mixpanel.track('login', {
-                    timestamp: Date.now(),
-                    user: user._id,
-                    type: 'facebook'});
-
                 Router.go('/');
             }
         });

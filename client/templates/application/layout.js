@@ -19,9 +19,6 @@ Template.layout.onCreated(function() {
         Meteor.call('updateActivity');
     }
 
-    const route = Router.current().route.getName();
-    mixpanel.track('View', {route: route});
-
     Session.set('testing', true);
 });
 

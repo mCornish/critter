@@ -38,16 +38,16 @@ Template.home.helpers({
 
 Template.home.events({
     'click [data-track=watch]': function() {
-        mixpanel.track('Watch button click');
+        analytics.track('Home Button: Watch');
     },
     'click [data-track=stats]': function(e) {
         e.preventDefault(); // Remove for Stage 2
-        mixpanel.track('Stats button click');
+        analytics.track('Home Button: Stats');
     },
     'click [data-track=me]': function() {
-        mixpanel.track('Profile button click');
+        analytics.track('Home Button: Me');
     },
     'click [data-track=login]': function() {
-        mixpanel.track('Login button click');
+        analytics.track('Home Button: Login');
     }
 });

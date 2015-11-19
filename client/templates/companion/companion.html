@@ -1,7 +1,9 @@
 <template name="companion">
     {{#unless infoActive}}
     <h1 class="companion__header col-xs-12 text-center hidden-xs hidden-sm">Watch Live</h1>
-    <h2 class="companion__header col-xs-12 text-center visible-xs visible-sm">Watch Live</h2>
+    <h2 class="col-xs-12 text-center hidden-xs hidden-sm">Episode {{epNumber}}</h2>
+    <h2 class="companion__header col-xs-12 text-center visible-xs visible-sm">Watch Live - Episode {{epNumber}}</h2>
+
 
     <div class="row">
         <h2 class="companion__counter col-xs-12 text-center"><b>{{durationText}}:</b> {{duration}}</h2>
@@ -128,7 +130,7 @@
                             <div class="giveaway__subs">Subscribers: {{stream.subCount}}</div>
                             <div class="giveaway__sub-remaining">Subs Remaining: {{subsLeft}}</div>
                             <div class="giveaway__winner">Giveaway Winner: {{winner}}</div>
-                            <a class="giveaway__link" href="{{pathFor 'giveawayInfo'}}">How do I win?</a>
+                            <a class="giveaway__link" href="{{pathFor 'giveaway'}}" target="_blank">How do I win?</a>
                         </div>
                     </div>
                 {{/if}}
