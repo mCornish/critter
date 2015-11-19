@@ -1,15 +1,17 @@
 <template name="layout">
-    {{> header}}
-    <div class="header-spacer {{authedClass}}">
-            {{> header}}
-    </div>
-    {{#if testing}}
-        {{> feedback}}
-    {{/if}}
-    <div class="container">
-        {{> errors}}
-        <div class="main {{authedClass}}" data-hook="main">
-                {{> yield}}
+    <div class="body {{homeUnauthed}}">
+        {{> header}}
+        <div class="header-spacer {{homeUnauthed}}">
+                {{> header}}
+        </div>
+        {{#if testing}}
+            {{> feedback}}
+        {{/if}}
+        <div class="container">
+            {{> errors}}
+            <div class="main {{homeUnauthed}}" data-hook="main">
+                    {{> yield}}
+            </div>
         </div>
     </div>
 </template>

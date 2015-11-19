@@ -28,6 +28,9 @@ Template.header.helpers({
 
         return route === Session.get('route') ? 'is-active' : '';
     },
+    isAuthed: function() {
+        return Meteor.userId().length;
+    },
     authedClass: function() {
         const unauthed = typeof Meteor.userId() !== 'string';
         const isHome = Router.current().route.path() === '/';

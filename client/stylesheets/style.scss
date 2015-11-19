@@ -65,7 +65,8 @@ p {
 }
 
 // Links
-a:not(.button):not(.card):not(.logo),
+// TODO: FIX THIS DAMN SPECIFICITY
+a:not(.button):not(.card):not(.logo):not(.login__link),
 .fake-link {
   color: $color-3;
   border-bottom: .1em solid $color-3;
@@ -74,8 +75,8 @@ a:not(.button):not(.card):not(.logo),
   transition: all .2s ease;
 }
 
-a:not(.button):not(.card):not(.logo):hover,
-a:not(.button):not(.card):not(.logo):focus,
+a:not(.button):not(.card):not(.logo):not(.login__link):hover,
+a:not(.button):not(.card):not(.logo):not(.login__link):focus,
 .fake-link:hover {
   color: $color-4;
   text-decoration: none;
@@ -94,6 +95,12 @@ a:not(.button):not(.card):not(.logo):focus,
   display: none;
 }
 
+.body {
+
+}
+.body.is-unauthed {
+  background-color: $color-3;
+}
 .main {
   display: block;
   position: relative;
@@ -101,21 +108,10 @@ a:not(.button):not(.card):not(.logo):focus,
 }
 
 .main.is-unauthed {
-  display: block;
-  position: absolute;
   left: 0;
   bottom: 0;
-  width: 100vw;
-  height: 100vh;
+  height: 60vh;
   margin-top: 0;
-  background-color: $color-3;
-
-  @media #{$break-small} {
-    padding-top: 40vh;
-  }
-  @media #{$break-medium} {
-    padding-top: 60vh;
-  }
 }
 
 .page {
@@ -876,8 +872,14 @@ label.is-hidden {
 }
 
 .header.is-unauthed {
-  box-shadow: none;
-  margin-top: 1em;
+  height: 40vh;
+
+  @media #{$break-small} {
+    padding-top: 2em;
+  }
+  @media #{$break-medium} {
+    padding-top: 3em;
+  }
 }
 
 .header-spacer {
@@ -1228,15 +1230,20 @@ input[type=radio] + input[type=radio] {
 /* -------------------- */
 .logo {
   position: relative;
-  font-size: 2rem;
   margin-left: auto;
   margin-right: auto;
   text-align: center;
   color: $color-2;
   display: inline-block;
   cursor: default;
-  top: 50%;
-  transform: translateY(-50%);
+  height: 40vh;
+
+  @media #{$break-small} {
+    font-size: 1em;
+  }
+  @media #{$break-medium} {
+    font-size: 2em;
+  }
 }
 
 .logo:hover,
@@ -1246,14 +1253,15 @@ input[type=radio] + input[type=radio] {
 
 .logo__header {
   margin: 0;
-  font-size: inherit;
+  font-size: 2em;
+}
+.logo__subheader {
+  margin: 0;
+  font-size: .7em;
 }
 
 .logo__image {
-  width: 100%;
-  height: 4vh;
-  opacity: .7;
-  transition: .2s opacity ease;
+  width: 10em;
 }
 .button:hover .logo__image,
 .button.is-active .logo__image {
@@ -1261,9 +1269,8 @@ input[type=radio] + input[type=radio] {
 }
 
 .is-unauthed .logo__image {
-  width: 30vw;
-  min-width: 250px;
-  max-width: 400px;
+  height: 20vh;
+  min-height: 100px;
 }
 
 .logo__back {
@@ -1406,6 +1413,14 @@ input[type=radio] + input[type=radio] {
   border-bottom: .3em solid $color-3;
   border-top: 0;
 }
+
+.menu .logo__image {
+  width: 100%;
+  height: 4vh;
+  opacity: .7;
+  transition: .2s opacity ease;
+}
+
 
 /* -------------------- */
 /* --- #MESSAGES */
@@ -1897,21 +1912,46 @@ input[type=radio] + input[type=radio] {
   }
 }
 
+.is-unauthed .home .row {
+  margin: 0;
+}
+
+
 /* -------------------- */
 /* --- #LOGIN */
 /* -------------------- */
-
+.login {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
 .login__facebook-icon {
   background-color: rgb(59, 89, 152); // Facebook blue
 }
-
 .login__twitch-icon {
   background-color: rgb(100, 65, 165); // Twitch purple
 }
-
 .login__icon i {
   color: rgb(250, 250, 250);
 }
+.login__form {
+  margin-top: 2em;
+}
+.login__links {
+  margin-top: .5em;
+  margin-bottom: 2em;
+}
+.login__link {
+  color: $color-3;
+  border-bottom: none;
+  cursor: pointer;
+}
+.login__link:hover {
+  color: $color-4;
+  border-bottom: none;
+  text-decoration: none;
+}
+
 
 /* -------------------- */
 /* --- #STATS */

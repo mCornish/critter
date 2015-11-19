@@ -30,7 +30,7 @@ Template.layout.onRendered(function() {
 });
 
 Template.layout.helpers({
-    authedClass: function() {
+    homeUnauthed: function() {
         const unauthed = typeof Meteor.userId() !== 'string';
         const isHome = Router.current().route.path() === '/';
 
