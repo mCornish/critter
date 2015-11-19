@@ -25,6 +25,13 @@ Template.feedback.events({
             text: $form.find('[name=message]').val()
         };
 
-        Meteor.call('sendEmail', email);
+        Meteor.call('sendEmail', email, function(err) {
+            if (err) {
+                throwError(error.reason);
+            } else {
+                notify('Feedback sent!');
+                Session.set('showForm', false);
+            }
+        });
     }
 });

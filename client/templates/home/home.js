@@ -29,10 +29,10 @@ Template.home.helpers({
         return Session.get('isLive');
     },
     authedClass: function() {
-        return typeof Meteor.userId() === 'String' ? '' : 'is-unauthed';
+        return typeof Meteor.userId() === 'string' ? '' : 'is-unauthed';
     },
     authed: function() {
-        return Meteor.userId().length > 0;
+        return typeof Meteor.userId() === 'string';
     }
 });
 
