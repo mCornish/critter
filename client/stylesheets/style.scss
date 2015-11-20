@@ -1761,8 +1761,8 @@ input[type=radio] + input[type=radio] {
 }
 .companion__link {
   position: relative;
-  left: 50%;
-  transform: translateX(-50%);
+  width: 100%;
+  display: block;
 }
 .companion__image {
   max-width: 100%;

@@ -206,7 +206,7 @@ Template.companion.events({
         if (typeof this.stream.liveContent === 'object') {
             type = this.stream.liveContent.type;
         }
-        mixpanel.track('Content button click', {contentType: type});
+        analytics.track('Content button click', {contentType: type});
     },
     'click [data-hook=info-button]': function () {
         Session.set('infoActive', true);
@@ -220,7 +220,7 @@ Template.companion.events({
         if (typeof this.stream.liveContent === 'object') {
             type = this.stream.liveContent.type;
         }
-        mixpanel.track('Info button click', {contentType: type});
+        analytics.track('Info button click', {contentType: type});
     },
     'click [data-hook=giveaway-button]': function () {
         Session.set('infoActive', false);
@@ -233,7 +233,7 @@ Template.companion.events({
         if (typeof this.stream.liveContent === 'object') {
             type = this.stream.liveContent.type;
         }
-        mixpanel.track('Giveaway button click', {contentType: type});
+        analytics.track('Giveaway button click', {contentType: type});
 
         //const data = Template.currentData();
         //setTimeout(function () {
@@ -248,7 +248,7 @@ Template.companion.events({
         const character = Characters.findOne({name: charName});
         Session.set('character', character);
 
-        mixpanel.track('Character Detail button click', {character: charName});
+        analytics.track('Character Detail button click', {character: charName});
     },
     'click [data-hook=hide-button]': function() {
         Session.set('showMenu', false);
