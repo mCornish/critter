@@ -1752,6 +1752,8 @@ input[type=radio] + input[type=radio] {
   font-weight: bold;
 }
 .companion__text {
+  text-align: center;
+
   @media #{$break-small} {
     font-size: 1.8rem
   }
