@@ -1,8 +1,8 @@
 <template name="companion">
     {{#unless infoActive}}
     <h1 class="companion__header col-xs-12 text-center hidden-xs hidden-sm">Watch Live</h1>
-    <h2 class="col-xs-12 text-center hidden-xs hidden-sm">Episode {{epNumber}}</h2>
-    <h2 class="companion__header col-xs-12 text-center visible-xs visible-sm">Watch Live - Episode {{epNumber}}</h2>
+    <h2 class="col-xs-12 text-center hidden-xs hidden-sm">Episode {{stream.epNumber}}</h2>
+    <h2 class="companion__header col-xs-12 text-center visible-xs visible-sm">Watch Live - Episode {{stream.epNumber}}</h2>
 
 
     <div class="row">
@@ -10,7 +10,7 @@
     </div>
     {{/unless}}
 
-    {{#if isLive}}
+    {{#if stream.live}}
 
         {{#if contentActive}}
             <div class="companion__content row">
