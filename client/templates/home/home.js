@@ -1,13 +1,17 @@
+Template.home.onCreated(function() {
+    Session.set('route', 'home');
+});
+
 Template.home.onRendered(function() {
     // check whether Critical Role is live
-    const now = new Date();
-    const isThur = now.getDay() === 4;
-    const utc = now.getTime();
-    const offset = -8;
-    const pstDate = new Date(utc + (3600000 * offset));
-    const isTen = pstDate.getUTCHours() >= 22;
+    const now = new Date(),
+        isThur = now.getDay() === 4,
+        utc = now.getTime(),
+        offset = -8,
+        pstDate = new Date(utc + (3600000 * offset)),
+        isTime = pstDate.getUTCHours() >= 19;
 
-    if (isThur && isTen) {
+    if (isThur && isTime) {
         $.get('https://api.twitch.tv/kraken/streams/geekandsundry', function(channel) {
            if (channel.stream) {
                Session.set('isLive', true);
@@ -23,11 +27,27 @@ Template.home.onRendered(function() {
 Template.home.helpers({
     isLive: function() {
         return Session.get('isLive');
+    },
+    authedClass: function() {
+        return typeof Meteor.userId() === 'string' ? '' : 'is-unauthed';
+    },
+    authed: function() {
+        return typeof Meteor.userId() === 'string';
     }
 });
 
 Template.home.events({
-    'click [data-hook="live"]': function(e) {
-        Router.go('companion');
+    'click [data-track=watch]': function() {
+        analytics.track('Home Button: Watch');
+    },
+    'click [data-track=stats]': function(e) {
+        e.preventDefault(); // Remove for Stage 2
+        analytics.track('Home Button: Stats');
+    },
+    'click [data-track=me]': function() {
+        analytics.track('Home Button: Me');
+    },
+    'click [data-track=login]': function() {
+        analytics.track('Home Button: Login');
     }
 });

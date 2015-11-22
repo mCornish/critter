@@ -1,7 +1,65 @@
 <template name="header">
-    <header class="header {{headerClass}} {{headerActive}}">
-        <a class="logo {{logoSize}} no-hover" href="{{pathFor 'home'}}">
-            <h1 class="logo__header">Critter</h1>
-        </a>
+    <header class="header {{headerClass}} {{headerActive}} {{authedClass}}">
+        {{#unless homeUnauthed}}
+            <div class="menu menu--header">
+                <div class="row">
+                    <a class="button menu__button col-xs-3 {{routeActive '/home'}}" href="{{pathFor 'home'}}"
+                       data-track="home">
+                        <div class="row">
+                            <img class="logo__image col-xs-12" src="/images/logo.svg">
+
+                            <div class="col-xs-12">Home</div>
+                        </div>
+                    </a>
+                    <a class="button menu__button col-xs-3 {{routeActive '/watch'}}" href="{{pathFor 'watch'}}"
+                       data-track="watch">
+                        <div class="row">
+                            <i class="fa fa-tv col-xs-12"></i>
+
+                            <div class="col-xs-12">Watch</div>
+                        </div>
+                    </a>
+                    <a class="button menu__button col-xs-3 {{routeActive '/stats'}}" href="{{pathFor 'stats'}}"
+                       data-track="stats">
+                        <div class="row">
+                            <i class="fa fa-bar-chart-o col-xs-12"></i>
+
+                            <div class="col-xs-12">Stats</div>
+                        </div>
+                    </a>
+                    {{#if isAuthed}}
+                        <a class="button menu__button col-xs-3 {{routeActive '/me'}}" href="{{pathFor 'me'}}"
+                           data-track="me">
+                            <div class="row">
+                                <i class="fa fa-user col-xs-12"></i>
+
+                                <div class="col-xs-12">Me</div>
+                            </div>
+                        </a>
+                    {{else}}
+                        <a class="button menu__button col-xs-3 {{routeActive '/login'}}" href="{{pathFor 'login'}}"
+                           data-track="login">
+                            <div class="row">
+                                <i class="fa fa-user col-xs-12"></i>
+
+                                <div class="col-xs-12">Login</div>
+                            </div>
+                        </a>
+                    {{/if}}
+                </div>
+            </div>
+        {{/unless}}
+        {{#if homeUnauthed}}
+            <div class="logo">
+                <img class="logo__image col-xs-12" src="/images/logo.svg">
+
+                <h1 class="logo__header">Critter</h1>
+
+                <h2 class="logo__subheader">A new way to watch</h2>
+            </div>
+        {{/if}}
+        {{#if backLink}}
+            <a class="header__back" href="{{backLink}}"><i class="fa fa-angle-left"></i></a>
+        {{/if}}
     </header>
 </template>

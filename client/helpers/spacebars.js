@@ -1,3 +1,21 @@
+Template.registerHelper('routeActive', function(path) {
+    const pathname = Router.current().route.path();
+    const slice1 = pathname.slice(0, -1);
+    const slice2 = pathname.slice(-1);
+    let route;
+    if (slice1 == "") {
+        route = "/home";
+    } else {
+        if (slice2 == "/"){
+            route = slice1;
+        } else {
+            route = pathname;
+        }
+    }
+
+    return route.indexOf(path) > -1 ? 'is-active' : '';
+});
+
 Template.registerHelper('pluralize', function(n, thing) {
     if (n === 1) {
         return '1 ' + thing;
@@ -27,4 +45,16 @@ Template.registerHelper('getGenerosityLevel', function(generosity) {
     } else if (generosity >= 100 && geneosity < 500) {
         return 'Giver'
     }
+});
+
+// turn object into array to allow looping
+Template.registerHelper('arrayify', function(obj) {
+    const result = [];
+    for (var key in obj) {
+        result.push({
+            key: key,
+            value: obj[key]
+        });
+    }
+    return result;
 });

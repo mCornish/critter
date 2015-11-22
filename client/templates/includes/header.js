@@ -1,6 +1,7 @@
 Template.layout.onRendered(function() {
     Session.setDefault('headerIsSimple', false);
     Session.set('headerIsActive', true);
+    Session.set('backLink', null);
 });
 
 Template.header.helpers({
@@ -22,5 +23,33 @@ Template.header.helpers({
         } else {
             return '';
         }
+    },
+    menuActive: function(route) {
+
+        return route === Session.get('route') ? 'is-active' : '';
+    },
+    isAuthed: function() {
+        return typeof Meteor.userId() === 'string';
+    },
+    authedClass: function() {
+        const unauthed = typeof Meteor.userId() !== 'string';
+        const isHome = Router.current().route.path() === '/';
+
+        return unauthed && isHome ? 'is-unauthed' : '';
+    },
+    homeUnauthed: function() {
+        const unauthed = typeof Meteor.userId() !== 'string';
+        const isHome = Router.current().route.path() === '/';
+
+        return unauthed && isHome;
+    },
+    backLink: function() {
+        return Session.get('backLink');
+    }
+});
+
+Template.header.events({
+    'click [data-track=home]': function() {
+        analytics.track('Logo click');
     }
 });

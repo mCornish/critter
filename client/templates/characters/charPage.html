@@ -1,0 +1,29 @@
+<template name="charPage">
+    <h1>
+        {{name}}
+        <small>
+            {{#if isAdmin}}
+                (<a href="{{pathFor 'charEdit'}}">Edit</a>)
+            {{/if}}
+        </small>
+    </h1>
+
+
+    <div class="char__stats row">
+        <div class="col-xs-12 col-md-6">
+            <h2>Character Sheet</h2>
+            <div class="row">
+                {{#each arrayify charStats}}
+                    <div class="char__stat col-xs-6"><span class="char__stat-key">{{key}}:</span> {{value}}</div>
+                {{/each}}
+            </div>
+        </div>
+        <div class="col-xs-12 col-md-6">
+            <h2>Character Vitals</h2>
+            {{#each arrayify vitals}}
+                <div class="char__stat col-xs-6"><span class="char__stat-key">{{key}}:</span> {{value}}</div>
+            {{/each}}
+        </div>
+    </div>
+
+</template>

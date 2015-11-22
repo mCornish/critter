@@ -39,3 +39,7 @@ es5-shim
 twbs:bootstrap
 mrt:jquery-masonry
 iamkevingreen:imagesloaded
+reactive-var
+gfk:mailgun-api
+cunneen:mailgun
+okgrow:analytics

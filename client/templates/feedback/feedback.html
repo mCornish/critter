@@ -1,0 +1,29 @@
+<template name="feedback">
+    <div class="floating-form feedback-form">
+        {{#unless showForm}}
+            <div class="floating-form__toggle" data-hook="open">
+                <i class="fa fa-send"></i>
+            </div>
+        {{else}}
+            <form class="floating-form__form" data-hook="form">
+                <h2>Send Feedback</h2>
+                <div class="floating-form__close" data-hook="close"><i class="fa fa-close"></i></div>
+
+                <div class="floating-form__section">
+                    <label for="email">Email Address</label>
+                    <input id="email" type="email" name="email" placeholder="Where can I respond to you?" required>
+                </div>
+                <div class="floating-form__section">
+                    <label for="subject">Subject</label>
+                    <input id="subject" type="text" name="subject" placeholder="What kind of feedback is it?" required>
+                </div>
+                <div class="floating-form__section">
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" placeholder="My feedback is..." required></textarea>
+                </div>
+
+                <input class="floating-form__submit button button--submit" value="Send" type="submit">
+            </form>
+        {{/unless}}
+    </div>
+</template>

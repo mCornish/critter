@@ -1,0 +1,38 @@
+<template name="stats">
+    <div class="page">
+        <h1>Stats</h1>
+
+        <div class="stats__section">
+            <div class="row">
+                <p>Top Killer: {{topKiller}}</p>
+            </div>
+            {{#each charRolls}}
+                <h3>Character {{character}}</h3>
+                <div>Average Roll: {{value}}</div>
+            {{/each}}
+            <div class="row">
+                <a class="button" href="{{pathFor 'superlatives'}}">More Superaltives</a>
+            </div>
+        </div>
+
+        <div class="stats__section">
+            <div class="row">
+                <p>Team Stealths: 7</p>
+            </div>
+            <div class="row">
+                <a class="button" href="{{pathFor 'teamStats'}}">More Team Stats</a>
+            </div>
+        </div>
+
+        <div class="stats__chars">
+            {{#each characters}}
+                <a class="stats__char" href="{{pathFor 'characterStats' _id=this._id}}">
+                    <img src="{{imageURL}}" data-name="{{name}}">
+                </a>
+            {{/each}}
+            <div class="stats__char" data-hook="track" data-name="DM">
+                <img src="/images/dm.jpg" data-name="DM">
+            </div>
+        </div>
+    </div>
+</template>

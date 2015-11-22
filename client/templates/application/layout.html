@@ -1,9 +1,18 @@
 <template name="layout">
-    <div class="container">
+    <div class="body {{homeUnauthed}}">
         {{> header}}
-        {{> errors}}
-        <div class="main" data-hook="main">
-                {{> yield}}
+        <div class="header-spacer {{homeUnauthed}}">
+                {{> header}}
+        </div>
+        {{#if testing}}
+            {{> feedback}}
+        {{/if}}
+        <div class="container">
+            {{> errors}}
+            {{> notes}}
+            <div class="main {{homeUnauthed}}" data-hook="main">
+                    {{> yield}}
+            </div>
         </div>
     </div>
 </template>

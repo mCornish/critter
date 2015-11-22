@@ -1,4 +1,8 @@
-Template.login.onRendered( function() {
+Template.login.onCreated( function() {
+    if (typeof Meteor.userId() === 'string') {
+        Router.go('home');
+    }
+
     Session.set('creatingUser', false);
     Session.set('forgottenPassword', false);
     Session.set('userSubmitErrors', {});
@@ -11,6 +15,9 @@ Template.login.helpers({
     },
     forgottenPassword: function() {
         return Session.get('forgottenPassword');
+    },
+    twitchUrl: function() {
+        return Session.get('twitchUrl');
     },
     errorMessage: function(field) {
         return Session.get('userSubmitErrors')[field];
@@ -39,9 +46,8 @@ Template.login.events({
                 password: password,
                 passwordAgain: passwordAgain,
                 profile: {
-                    image: 'http://thesocietypages.org/socimages/files/2009/05/vimeo.jpg',
                     created: new Date(),
-                    generosity: 0
+                    points: 0
                 }
             };
 
@@ -53,9 +59,17 @@ Template.login.events({
                 if (error) {
                     // clear errors
                     Session.set('userSubmitErrors', {});
+                    analytics.track('Login Failure', {
+                        user: username,
+                        error: error.reason,
+                        service: 'Email'
+                    });
                     // throw createUser error
                     return throwError(error.reason);
                 } else {
+                    analytics.track('User Created', {
+                        user: username
+                    });
                     Router.go('/');
                 }
             });
@@ -87,24 +101,18 @@ Template.login.events({
                 if (error) {
                     // clear errors
                     Session.set('userSubmitErrors', {});
-                    mixpanel.track('login-failure', {
-                        timestamp: Date.now(),
-                        user: user._id,
-                        type: 'facebook'});
+                    analytics.track('Login Failure', {
+                        user: username,
+                        error: error.reason,
+                        service: 'email'
+                    });
                     // throw login error
                     return throwError(error.reason);
                 } else {
-                    const userID = Meteor.userId();
-                    mixpanel.identify(userID);
-                    mixpanel.people.set_once({
-                        $email: user.profile.email,
-                        gender: user.profile.gender,
-                        locale: user.profile.locale
+                    analytics.track('Login', {
+                        user: Meteor.userId(),
+                        service: 'email'
                     });
-                    mixpanel.track('login', {
-                        timestamp: Date.now(),
-                        user: user._id,
-                        type: 'email'});
                     Router.go('/');
                 }
             });
@@ -112,37 +120,36 @@ Template.login.events({
     },
     'click [data-hook=switch-state]': function(e) {
         e.preventDefault();
+
         const currentState = Session.get('creatingUser');
         Session.set('creatingUser', !currentState);
     },
-    'click [data-hook=facebook]': function(e) {
+    'click [data-hook=facebook-login]': function(e) {
         e.preventDefault();
 
         Meteor.loginWithFacebook(function(error) {
             if (error) {
                 // clear errors
                 Session.set('userSubmitErrors', {});
-                mixpanel.track('login-failure', {
-                    timestamp: Date.now(),
-                    user: user._id,
-                    type: 'facebook'});
+                mixpanel.track('Login Failure', {
+                    error: error.reason,
+                    service: 'facebook'
+                });
                 // throw login error
                 return throwError(error.reason);
             } else {
-                const user = Meteor.user();
-                mixpanel.identify(user._id);
-                mixpanel.people.set_once({
-                    $email: user.profile.email,
-                    gender: user.profile.gender,
-                    locale: user.profile.locale
+                analytics.track('Login', {
+                    user: Meteor.userId(),
+                    service: 'facebook'
                 });
-                mixpanel.track('login', {
-                    timestamp: Date.now(),
-                    user: user._id,
-                    type: 'facebook'});
-
                 Router.go('/');
             }
+        });
+    },
+    'click [data-hook=twitch-login]': function() {
+        Twitch.login({
+            scope: ['user_read'],
+            redirect_uri: 'http://localhost:3000'
         });
     },
     'click [data-hook=forgotten-password]': function(e) {
