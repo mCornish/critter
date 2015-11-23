@@ -22,6 +22,17 @@ Template.charPage.helpers({
         });
 
         return Session.get('isAdmin');
+    },
+    loopCount: function(count){
+        var countArr = [];
+        for (var i=0; i<count; i++){
+            countArr.push({});
+        }
+        return countArr;
+    },
+    nonStrikes: function() {
+        const strikes = this.vitals.strikes;
+        return 3 - strikes;
     }
 });
 

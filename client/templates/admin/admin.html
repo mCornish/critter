@@ -180,6 +180,10 @@
                             <span class="char__stat-key">{{name}} AC</span>
                             <input type="number" name="ac" value="{{vitals.ac}}">
                         </div>
+                        <div class="char__stat col-xs-6">
+                            <span class="char__stat-key">{{name}} Death Strikes</span>
+                            <input type="number" name="strikes" min="0" max="3" value="{{vitals.strikes}}">
+                        </div>
                         <button class="col-xs-12" type="submit">Update {{name}} Vitals</button>
                     </form>
                 </div>

@@ -1798,6 +1798,7 @@ input[type=radio] + input[type=radio] {
 }
 .giveaway__meter {
   position: relative;
+  margin-bottom: 1em;
 
   @media #{$break-small} {
     height: 200px;
@@ -1811,6 +1812,9 @@ input[type=radio] + input[type=radio] {
   left: 50%;
   top: 0;
   transform: rotate(-90deg) translateY(-50%); //transform Y instead of X due to rotation
+}
+.giveaway__meter-bar--small {
+  transform: rotate(-90deg) translateY(-50%) scale(.75);
 }
 .giveaway__meter-back {
   z-index: 0;
@@ -2119,6 +2123,10 @@ input[type=radio] + input[type=radio] {
 /* ------------------------------ */
 .capitalize {
   text-transform: capitalize !important;
+}
+
+.color-3 {
+  color: $color-3;
 }
 
 .display-table {

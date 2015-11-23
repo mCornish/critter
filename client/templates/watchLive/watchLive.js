@@ -137,7 +137,9 @@ Template.watchLive.helpers({
         return Session.get('detailActive');
     },
     character: function () {
-        return Session.get('character');
+        const characters = this.liveChars.fetch();
+        const charName = Session.get('charName');
+        return _.findWhere(characters, {name: charName});
     },
     detailClass: function (name) {
         const activeName = Session.get('charName');
@@ -159,7 +161,7 @@ Template.watchLive.helpers({
 
         const subPercent = ((subCount - prevSubGoal) / (subGoal - prevSubGoal)) * 100;
 
-        const dashArray = 630; // Taken from the cricle's CSS
+        const dashArray = 630; // Taken from the circle's CSS
         return dashArray * (1 - (subPercent / 100));
     },
     subCount: function () {
@@ -230,8 +232,6 @@ Template.watchLive.events({
         Session.set('detailActive', true);
         const charName = $(e.target).attr('data-name');
         Session.set('charName', charName);
-        const character = Characters.findOne({name: charName});
-        Session.set('character', character);
 
         analytics.track('Character Detail button click', {character: charName});
     },

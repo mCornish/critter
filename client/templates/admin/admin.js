@@ -344,7 +344,8 @@ Template.admin.events({
 
         const vitals = {
             hp: $form.find('[name=hp]').val(),
-            ac: $form.find('[name=ac]').val()
+            ac: $form.find('[name=ac]').val(),
+            strikes: $form.find('[name=strikes]').val()
         };
 
         Characters.update($form.attr('data-id'), {$set: {vitals: vitals}}, function(err) {
