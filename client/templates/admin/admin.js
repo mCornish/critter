@@ -209,12 +209,12 @@ Template.admin.events({
         } else if (contentType === 'yt') {
             stream.liveContent.link = liveContent.slice(liveContent.indexOf('watch?v=') + 8);
         } else if (contentType === 'image') {
-            if (liveLink) {
-                stream.liveContent.link = liveLink;
+            if (liveText) {
+                stream.liveContent.message = liveText;
             } else {
-                stream.liveContent.link = Session.get('imageURL');
+                stream.liveContent.message = Session.get('imageURL');
             }
-            stream.liveContent.message = '';
+            stream.liveContent.link = liveLink;
             stream.liveContent.tweeter = '';
         }
 

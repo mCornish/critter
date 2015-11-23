@@ -183,6 +183,9 @@ Template.watchLive.helpers({
     },
     menuActive: function (item) {
         return item === Session.get('page') ? 'is-active' : '';
+    },
+    hasLink: function() {
+        return this.stream.liveContent.link != '' && this.stream.liveContent.link != null;
     }
 });
 
@@ -240,6 +243,9 @@ Template.watchLive.events({
     },
     'click [data-hook=show-button]': function() {
         Session.set('showMenu', true);
+    },
+    'click [data-track=content]': function() {
+        analytics.track('Live link click', {type: this.stream.liveContent.type});
     }
 });
 

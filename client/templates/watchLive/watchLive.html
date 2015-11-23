@@ -1,13 +1,16 @@
 <template name="watchLive">
     {{#unless pageIs 'characters'}}
-    <h1 class="companion__header col-xs-12 text-center hidden-xs hidden-sm">Watch Live</h1>
-    <h2 class="col-xs-12 text-center hidden-xs hidden-sm">Episode {{stream.epNumber}}</h2>
-    <h2 class="companion__header col-xs-12 text-center visible-xs visible-sm">Watch Live — Episode {{stream.epNumber}}</h2>
+        <h1 class="companion__header col-xs-12 text-center hidden-xs hidden-sm">Watch Live</h1>
+
+        <h2 class="col-xs-12 text-center hidden-xs hidden-sm">Episode {{stream.epNumber}}</h2>
+
+        <h2 class="companion__header col-xs-12 text-center visible-xs visible-sm">Watch Live —
+            Episode {{stream.epNumber}}</h2>
 
 
-    <div class="row">
-        <h2 class="companion__counter col-xs-12 text-center"><b>{{durationText}}:</b> {{duration}}</h2>
-    </div>
+        <div class="row">
+            <h2 class="companion__counter col-xs-12 text-center"><b>{{durationText}}:</b> {{duration}}</h2>
+        </div>
     {{/unless}}
 
     {{#if stream.live}}
@@ -21,7 +24,7 @@
                     {{#if contentType 'link'}}
                         <div class="col-xs-10 col-xs-offset-1">
                             <a class="companion__text companion__link text-center" href="{{stream.liveContent.link}}"
-                               target="_blank">{{stream.liveContent.message}}</a>
+                               target="_blank" data-track="content">{{stream.liveContent.message}}</a>
                         </div>
                     {{/if}}
                     {{#if contentType 'tweet'}}
@@ -37,8 +40,13 @@
                                 frameborder="0" allowfullscreen></iframe>
                     {{/if}}
                     {{#if contentType 'image'}}
-                        <img class="companion__image col-xs-12 col-md-8 col-md-offset-2"
-                             src="{{stream.liveContent.link}}"/>
+                        {{#if hasLink}}
+                            <a href="{{stream.liveContent.link}}" target="_blank" data-track="content"><img
+                                    class="companion__image col-xs-12 col-md-8 col-md-offset-2"
+                                    src="{{stream.liveContent.message}}"/></a>
+                        {{else}}
+                            <img class="companion__image col-xs-12 col-md-8 col-md-offset-2" src="{{stream.liveContent.message}}"/>
+                        {{/if}}
                     {{/if}}
                 {{else}}
                     <div class="companion__content-placeholder col-xs-12 col-md-6 col-md-offset-3 text-center">
@@ -55,7 +63,8 @@
                                 {{#each liveChars}}
                                     <div class="track__char col-xs-6 col-sm-4">
                                         <div class="row">
-                                            <div class="track__name-container col-xs-12" data-hook="detail-button" data-name="{{name}}">
+                                            <div class="track__name-container col-xs-12" data-hook="detail-button"
+                                                 data-name="{{name}}">
                                                 <div class="track__name" data-name="{{name}}">{{name}}</div>
                                             </div>
                                             <img class="pointer col-xs-12" src="{{imageURL}}"
@@ -70,8 +79,9 @@
                         <div class="char__detail col-xs-12">
                             <div class="row">
                                 {{#each liveChars}}
-                                    <button class="col-xs-4 watch__char-name {{detailClass name}}" data-hook="detail-button"
-                                       data-name="{{name}}">{{name}}</button>
+                                    <button class="col-xs-4 watch__char-name {{detailClass name}}"
+                                            data-hook="detail-button"
+                                            data-name="{{name}}">{{name}}</button>
                                 {{/each}}
                             </div>
                             {{#with character}}
@@ -94,7 +104,8 @@
                                     <circle r="100" cy="126" cx="126" stroke-width="20" stroke="#E73023" fill="none"/>
                                 </g>
                             </svg>
-                            <svg class="giveaway__meter-bar giveaway__meter-bar--small giveaway__meter-back visible-xs visible-sm" width="250"
+                            <svg class="giveaway__meter-bar giveaway__meter-bar--small giveaway__meter-back visible-xs visible-sm"
+                                 width="250"
                                  height="250"
                                  xmlns="http://www.w3.org/2000/svg">
                                 <g>
@@ -113,7 +124,8 @@
                                             data-hook="giveaway-circle"/>
                                 </g>
                             </svg>
-                            <svg class="giveaway__meter-bar giveaway__meter-bar--small giveaway__meter-front visible-xs visible-sm" width="250"
+                            <svg class="giveaway__meter-bar giveaway__meter-bar--small giveaway__meter-front visible-xs visible-sm"
+                                 width="250"
                                  height="250"
                                  xmlns="http://www.w3.org/2000/svg">
                                 <g>
@@ -170,21 +182,24 @@
                             <div>Hide</div>
                         </div>
                     </a>
-                    <a class="button menu__button col-xs-3 {{menuActive 'content'}}" href="{{pathFor 'watchLivePage' page='content'}}" data-hook="content-button">
+                    <a class="button menu__button col-xs-3 {{menuActive 'content'}}"
+                       href="{{pathFor 'watchLivePage' page='content'}}" data-hook="content-button">
                         <div class="menu__content">
                             <i class="fa fa-eye"></i>
 
                             <div>Content</div>
                         </div>
                     </a>
-                    <a class="button menu__button col-xs-3 {{menuActive 'info'}}" href="{{pathFor 'watchLivePage' page='characters'}}" data-hook="info-button">
+                    <a class="button menu__button col-xs-3 {{menuActive 'info'}}"
+                       href="{{pathFor 'watchLivePage' page='characters'}}" data-hook="info-button">
                         <div class="menu__content">
                             <i class="fa fa-users"></i>
 
                             <div>Characters</div>
                         </div>
                     </a>
-                    <a class="button menu__button col-xs-3 {{menuActive 'giveaway'}}" href="{{pathFor 'watchLivePage' page='giveaway'}}" data-hook="giveaway-button">
+                    <a class="button menu__button col-xs-3 {{menuActive 'giveaway'}}"
+                       href="{{pathFor 'watchLivePage' page='giveaway'}}" data-hook="giveaway-button">
                         <div class="menu__content">
                             <i class="fa fa-trophy"></i>
 
