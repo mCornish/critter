@@ -328,7 +328,8 @@ Template.admin.events({
             dexterity: $form.find('[name=dexterity]').val(),
             intelligence: $form.find('[name=intelligence]').val(),
             strength: $form.find('[name=strength]').val(),
-            wisdom: $form.find('[name=wisdom]').val()
+            wisdom: $form.find('[name=wisdom]').val(),
+            maxHp: $form.find('[name=maxHp]').val()
         };
 
         Characters.update($form.attr('data-id'), {$set: {charStats: stats}}, function(err) {
