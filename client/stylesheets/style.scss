@@ -1336,16 +1336,14 @@ input[type=radio] + input[type=radio] {
     font-size: 1em;
   }
 }
+.menu__button:hover,
+.menu__button:focus,
 .menu__button.is-active {
   color: $color-1;
   background-color: transparent;
 }
 .menu__button:after {
   display: none;
-}
-.menu__button:hover {
-  color: $color-1;
-  background-color: transparent;
 }
 .menu__button i {
   font-size: 2em;

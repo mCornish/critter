@@ -1,5 +1,5 @@
 Template.registerHelper('routeActive', function(path) {
-    const pathname = Router.current().route.path();
+    const pathname = Router.current().url.replace('http://','').replace('https://', '');
     const slice1 = pathname.slice(0, -1);
     const slice2 = pathname.slice(-1);
     let route;

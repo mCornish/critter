@@ -1,5 +1,5 @@
-Template.companion.onCreated(function () {
-    Session.set('route', 'watch');
+Template.watchLive.onCreated(function () {
+    Session.set('page', Template.parentData(1).page);
 
     Session.set('durationIsPos', false);
     Session.set('zeroFlip', true);
@@ -109,15 +109,12 @@ Template.companion.onCreated(function () {
 
     Session.set('interval', interval);
     Session.set('cast', null);
-    Session.set('contentActive', true);
-    Session.set('infoActive', false);
     Session.set('detailActive', false);
-    Session.set('giveawayActive', false);
     Session.set('menuActive', 'content');
     Session.set('showMenu', true);
 });
 
-Template.companion.helpers({
+Template.watchLive.helpers({
     liveContent: function () {
         return $.parseHTML(this.stream.liveContent);
     },
@@ -136,12 +133,6 @@ Template.companion.helpers({
     duration: function () {
         return Session.get('duration');
     },
-    contentActive: function () {
-        return Session.get('contentActive');
-    },
-    infoActive: function () {
-        return Session.get('infoActive');
-    },
     detailActive: function () {
         return Session.get('detailActive');
     },
@@ -151,9 +142,6 @@ Template.companion.helpers({
     detailClass: function (name) {
         const activeName = Session.get('charName');
         return name === activeName ? 'is-active' : '';
-    },
-    giveawayActive: function () {
-        return Session.get('giveawayActive');
     },
     subPercent: function () {
         const stream = this.stream;
@@ -188,16 +176,17 @@ Template.companion.helpers({
     showMenu: function() {
         return Session.get('showMenu');
     },
+    pageIs: function(page) {
+        return page === Session.get('page');
+    },
     menuActive: function (item) {
-        return item === Session.get('menuActive') ? 'is-active' : '';
+        return item === Session.get('page') ? 'is-active' : '';
     }
 });
 
-Template.companion.events({
+Template.watchLive.events({
     'click [data-hook=content-button]': function () {
-        Session.set('contentActive', true);
-        Session.set('infoActive', false);
-        Session.set('giveawayActive', false);
+        Session.set('page', 'content');
         Session.set('detailActive', false);
         Session.set('menuActive', 'content');
 
@@ -209,9 +198,7 @@ Template.companion.events({
         analytics.track('Content button click', {contentType: type});
     },
     'click [data-hook=info-button]': function () {
-        Session.set('infoActive', true);
-        Session.set('contentActive', false);
-        Session.set('giveawayActive', false);
+        Session.set('page', 'characters');
         Session.set('detailActive', false);
         Session.set('menuActive', 'info');
 
@@ -223,9 +210,7 @@ Template.companion.events({
         analytics.track('Info button click', {contentType: type});
     },
     'click [data-hook=giveaway-button]': function () {
-        Session.set('infoActive', false);
-        Session.set('contentActive', false);
-        Session.set('giveawayActive', true);
+        Session.set('page', 'giveaway');
         Session.set('menuActive', 'giveaway');
 
         const stream = Template.currentData();
@@ -258,6 +243,6 @@ Template.companion.events({
     }
 });
 
-Template.companion.onDestroyed(function() {
+Template.watchLive.onDestroyed(function() {
     Meteor.clearInterval(parseInt( Session.get('interval') ));
 });

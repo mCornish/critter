@@ -1,8 +1,8 @@
-<template name="companion">
-    {{#unless infoActive}}
+<template name="watchLive">
+    {{#unless pageIs 'characters'}}
     <h1 class="companion__header col-xs-12 text-center hidden-xs hidden-sm">Watch Live</h1>
     <h2 class="col-xs-12 text-center hidden-xs hidden-sm">Episode {{stream.epNumber}}</h2>
-    <h2 class="companion__header col-xs-12 text-center visible-xs visible-sm">Watch Live - Episode {{stream.epNumber}}</h2>
+    <h2 class="companion__header col-xs-12 text-center visible-xs visible-sm">Watch Live — Episode {{stream.epNumber}}</h2>
 
 
     <div class="row">
@@ -12,7 +12,7 @@
 
     {{#if stream.live}}
 
-        {{#if contentActive}}
+        {{#if pageIs 'content'}}
             <div class="companion__content row">
                 {{#if hasContent}}
 
@@ -47,7 +47,7 @@
                 {{/if}}
             </div>
         {{else}}
-            {{#if infoActive}}
+            {{#if pageIs 'characters'}}
                 <div class="companion__info row">
                     {{#unless detailActive}}
                         <div class="col-xs-12">
@@ -82,7 +82,7 @@
                     {{/unless}}
                 </div>
             {{else}}
-                {{#if giveawayActive}}
+                {{#if pageIs 'giveaway'}}
                     <div class="companion__giveaway row">
                         <div class="giveaway__meter col-xs-10 col-xs-offset-1 col-md-6 col-md-offset-3"
                              data-hook="bar-parent">
@@ -172,21 +172,21 @@
                             <div>Hide</div>
                         </div>
                     </a>
-                    <a class="button menu__button col-xs-3 {{menuActive 'content'}}" data-hook="content-button">
+                    <a class="button menu__button col-xs-3 {{menuActive 'content'}}" href="{{pathFor 'watchLivePage' page='content'}}" data-hook="content-button">
                         <div class="menu__content">
                             <i class="fa fa-eye"></i>
 
                             <div>Content</div>
                         </div>
                     </a>
-                    <a class="button menu__button col-xs-3 {{menuActive 'info'}}" data-hook="info-button">
+                    <a class="button menu__button col-xs-3 {{menuActive 'info'}}" href="{{pathFor 'watchLivePage' page='characters'}}" data-hook="info-button">
                         <div class="menu__content">
                             <i class="fa fa-users"></i>
 
                             <div>Characters</div>
                         </div>
                     </a>
-                    <a class="button menu__button col-xs-3 {{menuActive 'giveaway'}}" data-hook="giveaway-button">
+                    <a class="button menu__button col-xs-3 {{menuActive 'giveaway'}}" href="{{pathFor 'watchLivePage' page='giveaway'}}" data-hook="giveaway-button">
                         <div class="menu__content">
                             <i class="fa fa-trophy"></i>
 

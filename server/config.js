@@ -99,7 +99,8 @@ testerEmails = [
     'saevrick@gmail.com',
     'vanhallj@gmail.com',
     'stoo@stoo.org.uk',
-    'marly.atlin@gmail.com'
+    'marly.atlin@gmail.com',
+    'eliz@gammastronomer.com'
 ];
 
 // REMEMBER TO REMOVE BETA ROLE
