@@ -310,6 +310,10 @@ Template.admin.events({
         e.preventDefault();
         Meteor.call('incSub', 1);
     },
+    'click [data-hook=dec-count]': function(e) {
+        e.preventDefault();
+        Meteor.call('incSub', -1);
+    },
     'click [data-hook=inc-goal]': function(e) {
         e.preventDefault();
         Meteor.call('incGoal', 100);
