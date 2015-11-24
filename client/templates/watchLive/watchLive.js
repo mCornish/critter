@@ -143,7 +143,7 @@ Template.watchLive.onCreated(function () {
     Session.set('detailActive', false);
     Session.set('menuActive', 'content');
     Session.set('showMenu', true);
-    Session.set('page', Template.parentData(1).page);
+    Session.set('page', Template.parentData(1).page || 'content');
 });
 
 Template.watchLive.helpers({
@@ -223,6 +223,15 @@ Template.watchLive.helpers({
     // Used to check if image has a link before rendering
     hasLink: function() {
         return this.stream.liveContent.link != '' && this.stream.liveContent.link != null;
+    },
+    // Check if user has responded to poll/question
+    isResponder: function() {
+        if (typeof Meteor.userId() === 'string') {
+            const responders = this.stream.liveContent.responders;
+            return responders.indexOf(Meteor.userId()) > -1;
+        } else {
+            return false;
+        }
     }
 });
 
@@ -304,6 +313,14 @@ Template.watchLive.events({
     },
     'click [data-track=content]': function() {
         analytics.track('Live link click', {type: this.stream.liveContent.type});
+    },
+    'click [data-hook=poll-submit]': function(e) {
+        e.preventDefault();
+        const choice = $('[data-hook=choice]:checked');
+        const text = choice.val();
+
+        Meteor.call('incChoice', text);
+        Meteor.call('addResponder');
     }
 });
 

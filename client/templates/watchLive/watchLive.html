@@ -45,8 +45,27 @@
                                     class="companion__image col-xs-12 col-md-8 col-md-offset-2"
                                     src="{{stream.liveContent.message}}"/></a>
                         {{else}}
-                            <img class="companion__image col-xs-12 col-md-8 col-md-offset-2" src="{{stream.liveContent.message}}"/>
+                            <img class="companion__image col-xs-12 col-md-8 col-md-offset-2"
+                                 src="{{stream.liveContent.message}}"/>
                         {{/if}}
+                    {{/if}}
+                    {{#if contentType 'poll'}}
+                        <div class="companion__text col-xs-10 col-xs-offset-1">{{stream.liveContent.message}}</div>
+                        {{#unless isResponder}}
+                            <form class="col-xs-10 col-xs-offset-1">
+                                {{#each stream.liveContent.choices}}
+                                    <div class="col-xs-12 col-md-6 col-md-offset-3">
+                                        <input type="radio" name="choice" value="{{text}}"
+                                               data-hook="choice"><span>{{text}}</span>
+                                    </div>
+                                {{/each}}
+                                <button class="button button--submit col-xs-12 col-md-6 col-md-offset-3" type="submit"
+                                        data-hook="poll-submit">Answer
+                                </button>
+                            </form>
+                        {{else}}
+
+                        {{/unless}}
                     {{/if}}
                 {{else}}
                     <div class="companion__content-placeholder col-xs-12 col-md-6 col-md-offset-3 text-center">

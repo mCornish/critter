@@ -71,6 +71,8 @@
                     <option value="image">Image</option>
                     <option value="tweet">Tweet</option>
                     <option value="yt">YouTube video</option>
+                    <option value="poll">Poll</option>
+                    <option value="quiz">Quiz</option>
                 </select>
 
                 <div class="col-xs-12 col-md-7 col-offset-1">
@@ -98,8 +100,8 @@
                     {{#if contentType 'link'}}
                         <label for="live-content">Link Text</label>
                         <input id="live-content" type="text" data-hook="live-text">
-                        <label for="live-content">Link Url</label>
-                        <input id="live-content" type="url" data-hook="live-link">
+                        <label for="live-link">Link Url</label>
+                        <input id="live-link" type="url" data-hook="live-link">
                     {{/if}}
                     {{#if contentType 'tweet'}}
                         <label for="live-content">Tweet Embed Code</label>
@@ -108,6 +110,15 @@
                     {{#if contentType 'yt'}}
                         <label for="live-content">YouTube Video URL</label>
                         <input id="live-content" type="url" data-hook="live-content">
+                    {{/if}}
+                    {{#if contentType 'poll'}}
+                        <label for="live-text">Poll Question</label>
+                        <input id="live-text" type="url" data-hook="live-text">
+                        {{#each loopCount choiceCount}}
+                            <label for="live-choice">Poll Choice #{{@index}}</label>
+                            <input id="live-choice" type="url" data-hook="live-choice">
+                        {{/each}}
+                        <button data-hook="add-poll-choice"><i class="fa fa-plus"></i> Add Choice</button>
                     {{/if}}
                 </div>
             </div>

@@ -3,6 +3,7 @@ Template.admin.onCreated(function() {
     Session.set('contentType', 'text');
     Session.set('imageName', null);
     Session.set('imageURL', null);
+    Session.set('choiceCount', 1);
 
     Session.set('durationIsPos', false);
     Session.set('zeroFlip', true);
@@ -134,6 +135,16 @@ Template.admin.helpers({
     },
     imageURL: function() {
         return Session.get('imageURL');
+    },
+    choiceCount: function() {
+        return Session.get('choiceCount');
+    },
+    loopCount: function(count){
+        var countArr = [];
+        for (var i=0; i<count; i++){
+            countArr.push({});
+        }
+        return countArr;
     }
 });
 
@@ -180,7 +191,17 @@ Template.admin.events({
             liveContent = $('[data-hook=live-content]').val(),
             liveText = $('[data-hook=live-text]').val(),
             liveLink = $('[data-hook=live-link]').val(),
-            contentType = $('[data-hook=live-content-type]').val();
+            contentType = $('[data-hook=live-content-type]').val(),
+            liveChoices = [];
+
+
+        $('[data-hook=live-choice]').each(function() {
+            const choice = {
+                text: $(this).val(),
+                resCount: 0
+            };
+            liveChoices.push(choice);
+        });
 
         const stream = {
             liveContent: {
@@ -216,6 +237,12 @@ Template.admin.events({
             }
             stream.liveContent.link = liveLink;
             stream.liveContent.tweeter = '';
+        } else if (contentType === 'poll') {
+            stream.liveContent.message = liveText;
+            stream.liveContent.choices = liveChoices;
+            stream.liveContent.link = '';
+            stream.liveContent.resCount = 0;
+            stream.liveContent.responders = [];
         }
 
         // Add content to live stream
@@ -264,6 +291,11 @@ Template.admin.events({
                 }
             });
         });
+    },
+    'click [data-hook=add-poll-choice]': function(e) {
+        e.preventDefault();
+        const choiceCount = Session.get('choiceCount');
+        Session.set('choiceCount', choiceCount + 1);
     },
     'click [data-hook=clear-content]': function() {
         const liveContent = this.stream.liveContent;
