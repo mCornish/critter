@@ -137,7 +137,7 @@
 
                         </div>
                         <div class="giveaway__info col-xs-12 col-md-6 col-md-offset-3 text-center">
-                            <div class="giveaway__subs">Subscribers: {{stream.subCount}}</div>
+                            <div class="giveaway__subs">Subscribers: {{stream.giveaway.subCount}}</div>
                             <div class="giveaway__sub-remaining">Subs Remaining: {{subsLeft}}</div>
                             <div class="giveaway__winner">Giveaway Winner: {{winner}}</div>
                             <a class="giveaway__link" href="{{pathFor 'giveaway'}}" target="_blank">How do I win?</a>
@@ -154,6 +154,9 @@
                         <i class="fa fa-eye"></i>
 
                         <div>Content</div>
+                        {{#if pageChanged 'content'}}
+                            <i class="menu__notification fa fa-exclamation-circle"></i>
+                        {{/if}}
                     </div>
                 </a>
                 <a class="button menu__button col-xs-4 {{menuActive 'info'}}" data-hook="info-button">
@@ -161,6 +164,9 @@
                         <i class="fa fa-users"></i>
 
                         <div>Characters</div>
+                        {{#if pageChanged 'characters'}}
+                            <i class="menu__notification fa fa-exclamation-circle"></i>
+                        {{/if}}
                     </div>
                 </a>
                 <a class="button menu__button col-xs-4 {{menuActive 'giveaway'}}" data-hook="giveaway-button">
@@ -168,6 +174,9 @@
                         <i class="fa fa-trophy"></i>
 
                         <div>Giveaway</div>
+                        {{#if pageChanged 'giveaway'}}
+                            <i class="menu__notification fa fa-exclamation-circle"></i>
+                        {{/if}}
                     </div>
                 </a>
             </div>
@@ -188,6 +197,9 @@
                             <i class="fa fa-eye"></i>
 
                             <div>Content</div>
+                            {{#if pageChanged 'content'}}
+                                <i class="menu__notification fa fa-exclamation-circle"></i>
+                            {{/if}}
                         </div>
                     </a>
                     <a class="button menu__button col-xs-3 {{menuActive 'info'}}"
@@ -196,6 +208,9 @@
                             <i class="fa fa-users"></i>
 
                             <div>Characters</div>
+                            {{#if pageChanged 'characters'}}
+                                <i class="menu__notification fa fa-exclamation-circle"></i>
+                            {{/if}}
                         </div>
                     </a>
                     <a class="button menu__button col-xs-3 {{menuActive 'giveaway'}}"
@@ -204,6 +219,9 @@
                             <i class="fa fa-trophy"></i>
 
                             <div>Giveaway</div>
+                            {{#if pageChanged 'giveaway'}}
+                                <i class="menu__notification fa fa-exclamation-circle"></i>
+                            {{/if}}
                         </div>
                     </a>
                 </div>

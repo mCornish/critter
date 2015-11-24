@@ -282,29 +282,27 @@ Template.admin.events({
         e.preventDefault();
 
         $form = $('[data-hook=form-stream]');
-        const prevGoal = this.stream.prevSubGoal;
-        let currentGoal = this.stream.subGoal;
+        const prevGoal = this.stream.giveaway.prevSubGoal;
+        let currentGoal = this.stream.giveaway.subGoal;
         const newGoal = parseInt( $form.find('[name=sub-goal]').val() );
         // If the sub goal hasn't been updated, don't change the previous sub goal
         if (currentGoal >= newGoal) {
             currentGoal = prevGoal;
         }
 
-        const streamObj = {
+        const giveawayObj = {
             subCount: parseInt( $form.find('[name=sub-count]').val() ),
             subGoal: newGoal,
             prevSubGoal: currentGoal,
             subWinner: $form.find('[name=sub-winner]').val()
         };
 
-        const errors = validateStream(streamObj, this.stream.subCount, this.stream.subGoal);
+        const errors = validateStream(giveawayObj, this.stream.giveaway.subCount, this.stream.giveaway.subGoal);
         if (errors.subCount || errors.subGoal)
             return Session.set('streamSubmitErrors', errors);
-        Stream.update(this.stream._id, {$set: streamObj}, function(error) {
+        Stream.update(this.stream._id, {$set: {giveaway: giveawayObj}}, function(error) {
             if (error) {
                 throwError(error.reason);
-            } else {
-                mixpanel.track('stream-stats-update', {timestamp: Date.now()});
             }
         });
     },

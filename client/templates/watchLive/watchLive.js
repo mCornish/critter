@@ -1,6 +1,6 @@
 Template.watchLive.onCreated(function () {
-    Session.set('page', Template.parentData(1).page);
 
+    // Handle timer
     Session.set('durationIsPos', false);
     Session.set('zeroFlip', true);
 
@@ -107,11 +107,43 @@ Template.watchLive.onCreated(function () {
         Session.set('duration', `${hours}:${minutes}:${seconds}`);
     }, 1000);
 
+
+    // Handle page notification icons
+    Session.set('changeArray', []);
+    Session.set('currentContent', {});
+    Session.set('currentGiveaway', {});
+    const stream = Template.parentData(1).streamCursor;
+    stream.observe({
+        changed: function(id, fields) {
+            const changeArray = Session.get('changeArray');
+            const content = fields.liveContent;
+            const giveaway = fields.giveaway;
+            if (content !== Session.get('currentContent') && changeArray.indexOf('content') < 0) {
+                changeArray.push('content');
+            } else if (giveaway !== Session.get('currentGiveaway') && changeArray.indexOf('giveaway') < 0) {
+                changeArray.push('giveaway');
+            }
+            Session.set('changeArray', changeArray);
+        }
+    });
+    const chars = Template.parentData(1).liveChars;
+    chars.observe({
+        changed: function(id, fields) {
+            const changeArray = Session.get('changeArray');
+            if (changeArray.indexOf('characters') < 0) {
+                changeArray.push('characters');
+                Session.set('changeArray', changeArray);
+            }
+        }
+    });
+
+
     Session.set('interval', interval);
     Session.set('cast', null);
     Session.set('detailActive', false);
     Session.set('menuActive', 'content');
     Session.set('showMenu', true);
+    Session.set('page', Template.parentData(1).page);
 });
 
 Template.watchLive.helpers({
@@ -147,15 +179,15 @@ Template.watchLive.helpers({
     },
     subPercent: function () {
         const stream = this.stream;
-        const subCount = stream.subCount;
-        const subGoal = stream.subGoal;
-        const prevSubGoal = stream.prevSubGoal;
+        const subCount = stream.giveaway.subCount;
+        const subGoal = stream.giveaway.subGoal;
+        const prevSubGoal = stream.giveaway.prevSubGoal;
 
         return Math.floor(((subCount - prevSubGoal) / (subGoal - prevSubGoal)) * 100);
     },
     meterOffset: function() {
         const stream = this.stream;
-        const subCount = stream.subCount;
+        const subCount = stream.giveaway.subCount;
         const subGoal = stream.subGoal;
         const prevSubGoal = stream.prevSubGoal;
 
@@ -165,15 +197,15 @@ Template.watchLive.helpers({
         return dashArray * (1 - (subPercent / 100));
     },
     subCount: function () {
-        return this.stream.subCount;
+        return this.stream.giveaway.subCount;
     },
     subsLeft: function () {
         const stream = this.stream;
-        return stream.subGoal - stream.subCount;
+        return stream.giveaway.subGoal - stream.giveaway.subCount;
     },
     winner: function() {
         const stream = this.stream;
-        return stream.subWinner.length ? stream.subWinner : 'No winner yet'
+        return stream.giveaway.subWinner.length ? stream.giveaway.subWinner : 'No winner yet'
     },
     showMenu: function() {
         return Session.get('showMenu');
@@ -184,6 +216,11 @@ Template.watchLive.helpers({
     menuActive: function (item) {
         return item === Session.get('page') ? 'is-active' : '';
     },
+    pageChanged: function(page) {
+        const changeArray = Session.get('changeArray');
+        return changeArray.indexOf(page) > -1;
+    },
+    // Used to check if image has a link before rendering
     hasLink: function() {
         return this.stream.liveContent.link != '' && this.stream.liveContent.link != null;
     }
@@ -194,6 +231,13 @@ Template.watchLive.events({
         Session.set('page', 'content');
         Session.set('detailActive', false);
         Session.set('menuActive', 'content');
+        const changeArray = Session.get('changeArray');
+        const i = changeArray.indexOf('content');
+        if (i > -1) {
+            changeArray.splice(i, 1);
+            Session.set('changeArray', changeArray);
+            Session.set('currentContent', this.stream.liveContent);
+        }
 
         const stream = Template.currentData();
         let type = '';
@@ -206,6 +250,12 @@ Template.watchLive.events({
         Session.set('page', 'characters');
         Session.set('detailActive', false);
         Session.set('menuActive', 'info');
+        const changeArray = Session.get('changeArray');
+        const i = changeArray.indexOf('characters');
+        if (i > -1) {
+            changeArray.splice(i, 1);
+            Session.set('changeArray', changeArray);
+        }
 
         const stream = Template.currentData();
         let type = '';
@@ -217,6 +267,14 @@ Template.watchLive.events({
     'click [data-hook=giveaway-button]': function () {
         Session.set('page', 'giveaway');
         Session.set('menuActive', 'giveaway');
+        // Check for changes and update notifications
+        const changeArray = Session.get('changeArray');
+        const i = changeArray.indexOf('giveaway');
+        if (i > -1) {
+            changeArray.splice(i, 1);
+            Session.set('changeArray', changeArray);
+            Session.set('currentGiveaway', this.stream.giveaway);
+        }
 
         const stream = Template.currentData();
         let type = '';

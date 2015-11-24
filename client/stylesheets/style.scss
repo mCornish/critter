@@ -1379,6 +1379,16 @@ input[type=radio] + input[type=radio] {
 .menu__hide-button i {
   font-size: 2em;
 }
+i.menu__notification {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding-left: 3em;
+  text-align: center;
+  color: $color-3;
+  font-size: 1em;
+}
 
 // Header menu
 .menu--header {
