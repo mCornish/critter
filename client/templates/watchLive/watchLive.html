@@ -64,7 +64,15 @@
                                 </button>
                             </form>
                         {{else}}
-
+                            <div class="poll__results col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3">
+                                <div class="row">
+                                    {{#each results}}
+                                        <div class="poll__result col-xs-12">
+                                            <span>{{text}}: {{percentage}}%</span>
+                                        </div>
+                                    {{/each}}
+                                </div>
+                            </div>
                         {{/unless}}
                     {{/if}}
                 {{else}}

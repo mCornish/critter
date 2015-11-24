@@ -220,10 +220,12 @@ Template.watchLive.helpers({
         const changeArray = Session.get('changeArray');
         return changeArray.indexOf(page) > -1;
     },
+
     // Used to check if image has a link before rendering
     hasLink: function() {
         return this.stream.liveContent.link != '' && this.stream.liveContent.link != null;
     },
+
     // Check if user has responded to poll/question
     isResponder: function() {
         if (typeof Meteor.userId() === 'string') {
@@ -232,6 +234,20 @@ Template.watchLive.helpers({
         } else {
             return false;
         }
+    },
+
+    // Poll/question results for looping through
+    results: function() {
+        const results = [];
+        const resCount = this.stream.liveContent.resCount;
+        this.stream.liveContent.choices.forEach(function(choice) {
+            const result = {
+                text: choice.text,
+                percentage: (choice.resCount / resCount) * 100
+            };
+            results.push(result);
+        });
+        return results;
     }
 });
 
