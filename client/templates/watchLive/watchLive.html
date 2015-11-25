@@ -175,7 +175,7 @@
         {{/if}}
         <div class="menu hidden-xs hidden-sm">
             <div class="row">
-                <a class="button menu__button col-xs-4 {{menuActive 'content'}}"
+                <a class="button menu__button col-xs-4 {{menuActive 'content'}}" href="{{pathFor 'watchLivePage' page='content'}}"
                    data-hook="content-button">
                     <div class="menu__content">
                         <i class="fa fa-eye"></i>
@@ -186,7 +186,7 @@
                         {{/if}}
                     </div>
                 </a>
-                <a class="button menu__button col-xs-4 {{menuActive 'info'}}" data-hook="info-button">
+                <a class="button menu__button col-xs-4 {{menuActive 'info'}}" href="{{pathFor 'watchLivePage' page='characters'}}" data-hook="info-button">
                     <div class="menu__content">
                         <i class="fa fa-users"></i>
 
@@ -196,7 +196,7 @@
                         {{/if}}
                     </div>
                 </a>
-                <a class="button menu__button col-xs-4 {{menuActive 'giveaway'}}" data-hook="giveaway-button">
+                <a class="button menu__button col-xs-4 {{menuActive 'giveaway'}}" href="{{pathFor 'watchLivePage' page='giveaway'}}" data-hook="giveaway-button">
                     <div class="menu__content">
                         <i class="fa fa-trophy"></i>
 

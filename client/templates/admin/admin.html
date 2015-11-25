@@ -125,7 +125,8 @@
             <div class="row">
                 <div class="button button--submit col-xs-3" data-hook="submit-content">Insert Content</div>
                 <div class="button button--submit col-xs-3 col-xs-offset-1"
-                     data-hook="clear-content">Clear Content</div>
+                     data-hook="clear-content">Clear Content
+                </div>
             </div>
         </div>
     </form>
@@ -186,19 +187,74 @@
                         <button class="col-xs-12" type="submit">Update {{name}} Stats</button>
                     </form>
                     <form class="col-xs-6" data-id="{{_id}}" data-hook="char-vitals-form">
-                        <div class="char__stat col-xs-6">
-                            <span class="char__stat-key">{{name}} HP</span>
-                            <input type="number" name="hp" min="0" max="{{charStats.maxHp}}" value="{{vitals.hp}}">
+                        <div class="row">
+                            <div class="char__stat col-xs-6">
+                                <span class="char__stat-key">{{name}} HP</span>
+                                <input type="number" name="hp" min="0" max="{{charStats.maxHp}}" value="{{vitals.hp}}">
+                            </div>
+                            <div class="char__stat col-xs-6">
+                                <span class="char__stat-key">Update {{name}} HP</span>
+                                <input type="number" name="update-hp" min="1" max="{{charStats.maxHp}}" value="1" data-id="{{_id}}">
+                                <button type="button" data-hook="minus-hp"><i class="fa fa-minus"></i> HP</button>
+                                <button type="button" data-hook="plus-hp"><i class="fa fa-plus"></i> HP</button>
+                            </div>
+                            <div class="char__stat col-xs-6">
+                                <span class="char__stat-key">{{name}} AC</span>
+                                <input type="number" name="ac" value="{{vitals.ac}}">
+                            </div>
+                            <div class="char__stat col-xs-6">
+                                <span class="char__stat-key">{{name}} Death Strikes</span>
+                                <input type="number" name="strikes" min="0" max="3" value="{{vitals.strikes}}">
+                            </div>
+                            <button class="col-xs-12" type="submit">Update {{name}} Vitals</button>
                         </div>
-                        <div class="char__stat col-xs-6">
-                            <span class="char__stat-key">{{name}} AC</span>
-                            <input type="number" name="ac" value="{{vitals.ac}}">
+                    </form>
+                    <form class="col-xs-12" data-id="{{_id}}" data-hook="char-attacks-form">
+                        <h3>Attacks</h3>
+
+                        <div class="row">
+                            <h4 class="col-xs-4">Name</h4>
+                            <h4 class="col-xs-4">Type</h4>
+                            <h4 class="col-xs-2">Dice Number</h4>
+                            <h4 class="col-xs-2">Dice Value</h4>
+
+                            <div class="col-xs-12">
+                                {{#each attacks}}
+                                    <div class="row" data-hook="attack">
+                                        <div class="col-xs-4">
+                                            <input type="text" name="name" placeholder="Name" value="{{name}}">
+                                        </div>
+                                        <div class="col-xs-4">
+                                            <input type="text" name="type" placeholder="Type" value="{{type}}">
+                                        </div>
+                                        <div class="col-xs-2">
+                                            <input type="number" name="diceNum" placeholder="# of Dice"
+                                                   value="{{diceNum}}">
+                                        </div>
+                                        <div class="col-xs-2">
+                                            <input type="number" name="diceVal" placeholder="Dice Value"
+                                                   value="{{diceVal}}">
+                                        </div>
+                                    </div>
+                                {{/each}}
+                                <h4>New {{name}} Attack</h4>
+                                <div class="row" data-hook="attack">
+                                    <div class="col-xs-4">
+                                        <input type="text" name="name" placeholder="Name" value="">
+                                    </div>
+                                    <div class="col-xs-4">
+                                        <input type="text" name="type" placeholder="Type" value="">
+                                    </div>
+                                    <div class="col-xs-2">
+                                        <input type="number" name="diceNum" placeholder="# of Dice" value="">
+                                    </div>
+                                    <div class="col-xs-2">
+                                        <input type="number" name="diceVal" placeholder="Dice Value" value="">
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="char__stat col-xs-6">
-                            <span class="char__stat-key">{{name}} Death Strikes</span>
-                            <input type="number" name="strikes" min="0" max="3" value="{{vitals.strikes}}">
-                        </div>
-                        <button class="col-xs-12" type="submit">Update {{name}} Vitals</button>
+                        <button type="submit">Update {{name}} Attacks</button>
                     </form>
                 </div>
             {{/each}}

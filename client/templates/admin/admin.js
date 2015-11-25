@@ -378,14 +378,42 @@ Template.admin.events({
         const $form = $(e.target);
 
         const vitals = {
-            hp: $form.find('[name=hp]').val(),
-            ac: $form.find('[name=ac]').val(),
-            strikes: $form.find('[name=strikes]').val()
+            hp: parseInt( $form.find('[name=hp]').val() ),
+            ac: parseInt( $form.find('[name=ac]').val() ),
+            strikes: parseInt( $form.find('[name=strikes]').val() )
         };
 
         Characters.update($form.attr('data-id'), {$set: {vitals: vitals}}, function(err) {
             if (err) {
                 throwError(err.reason);
+            } else {
+                notify('Vitals Updated');
+            }
+        });
+    },
+    'click [data-hook=minus-hp]': function(e) {
+        const $input = $('[name=update-hp]');
+        const incValue = -parseInt( $input.val() );
+        const charId = $input.attr('data-id');
+
+        Characters.update(charId, {$inc: {'vitals.hp': incValue}}, function(err) {
+            if (err) {
+                throwError(err.reason);
+            } else {
+                notify('HP Subtracted');
+            }
+        });
+    },
+    'click [data-hook=plus-hp]': function(e) {
+        const $input = $('[name=update-hp]');
+        const incValue = parseInt( $input.val() );
+        const charId = $input.attr('data-id');
+
+        Characters.update(charId, {$inc: {'vitals.hp': incValue}}, function(err) {
+            if (err) {
+                throwError(err.reason);
+            } else {
+                notify('HP Added');
             }
         });
     },
@@ -424,6 +452,30 @@ Template.admin.events({
         };
 
         Meteor.call('createBetaUser', user);
+    },
+    'submit [data-hook=char-attacks-form]': function(e) {
+        e.preventDefault();
+        const attacks = [];
+        $(e.target).find('[data-hook=attack]').each(function() {
+            const attack = {
+                name: $(this).find('[name=name]').val(),
+                type: $(this).find('[name=type]').val(),
+                diceNum: $(this).find('[name=diceNum]').val(),
+                diceVal: $(this).find('[name=diceVal]').val()
+            };
+            if (attack.name !== '' && attack.name !== null) {
+                attacks.push(attack);
+            }
+        });
+
+        const id = $(e.target).attr('data-id');
+        Characters.update(id, {$set: {attacks: attacks}}, function(err) {
+            if (err) {
+                throwError(err.reason);
+            } else {
+                notify('Attacks updated');
+            }
+        });
     }
 });
 
