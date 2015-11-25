@@ -453,6 +453,27 @@ Template.admin.events({
 
         Meteor.call('createBetaUser', user);
     },
+    'submit [data-hook=char-items-form]': function(e) {
+        e.preventDefault();
+        const items = [];
+        $(e.target).find('[data-hook=item]').each(function() {
+            const item = {
+                name: $(this).val()
+            };
+            if (item.name !== '' && item.name !== null) {
+                items.push(item);
+            }
+        });
+
+        const id = $(e.target).attr('data-id');
+        Characters.update(id, {$set: {items: items}}, function(err) {
+            if (err) {
+                throwError(err.reason);
+            } else {
+                notify('Items updated');
+            }
+        });
+    },
     'submit [data-hook=char-attacks-form]': function(e) {
         e.preventDefault();
         const attacks = [];
