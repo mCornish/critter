@@ -160,6 +160,9 @@ Meteor.publish('notifications', function() {
 Meteor.publish('users', function() {
     return Meteor.users.find();
 });
+Meteor.publish('onlineUsers', function() {
+    return Meteor.users.find({ 'stats.online': true});
+});
 Meteor.publish('user', function(id, userId) {
     if (id === userId) {
         fields = {'profile': 1, 'roles': 1, 'services': 1};
