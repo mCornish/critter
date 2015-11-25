@@ -198,20 +198,8 @@ hr {
 /* -------------------- */
 /* --- #BOOTSTRAP ADDITIONS */
 /* -------------------- */
-.row {
-  //position: relative;
-}
-
-//.row + .row {
-//  margin-top: 2em;
-//}
-//
-//.row + .row:last-of-type {
-//  margin-bottom: 5em;
-//}
-
-.row:first-of-type:last-of-type {
-  margin-bottom: 0;
+.row--margin {
+  margin-top: 2em;
 }
 
 /* -------------------- */
@@ -945,7 +933,8 @@ label.input-group__label {
   color: inherit;
 }
 
-input:not([type=radio]):not([type=checkbox]):not(.button--submit),
+//input:not([type=radio]):not([type=checkbox]):not(.button--submit),
+input,
 .input-addon {
   display: block;
   position: relative;

@@ -126,7 +126,7 @@ Accounts.onCreateUser(function (options, user) {
         if (testerEmails.indexOf(user.username) < 0) {
             throw new Meteor.Error('non-tester', 'Only approved testers may register.')
         }
-        user.emails.push(user.username);
+        user.emails.push({address: user.username, verified: false});
         options.profile.email = user.username;
         // convert email to username
         user.username = user.username.substr(0, user.username.indexOf('@'));
