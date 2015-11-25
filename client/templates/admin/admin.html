@@ -175,7 +175,7 @@
             <h3>Character Info</h3>
             {{#each characters}}
                 <div class="row">
-                    <h4>{{name}}</h4>
+                    <h3>{{name}}</h3>
 
                     <form class="col-xs-6" data-id="{{_id}}" data-hook="char-stats-form">
                         {{#each arrayify charStats}}
@@ -194,7 +194,8 @@
                             </div>
                             <div class="char__stat col-xs-6">
                                 <span class="char__stat-key">Update {{name}} HP</span>
-                                <input type="number" name="update-hp" min="1" max="{{charStats.maxHp}}" value="1" data-id="{{_id}}">
+                                <input type="number" name="update-hp" min="1" max="{{charStats.maxHp}}" value="1"
+                                       data-id="{{_id}}">
                                 <button type="button" data-hook="minus-hp"><i class="fa fa-minus"></i> HP</button>
                                 <button type="button" data-hook="plus-hp"><i class="fa fa-plus"></i> HP</button>
                             </div>
@@ -210,7 +211,7 @@
                         </div>
                     </form>
                     <form class="col-xs-12" data-id="{{_id}}" data-hook="char-attacks-form">
-                        <h3>Attacks</h3>
+                        <h4>{{name}} Attacks</h4>
 
                         <div class="row">
                             <h4 class="col-xs-4">Name</h4>
@@ -238,6 +239,7 @@
                                     </div>
                                 {{/each}}
                                 <h4>New {{name}} Attack</h4>
+
                                 <div class="row" data-hook="attack">
                                     <div class="col-xs-4">
                                         <input type="text" name="name" placeholder="Name" value="">
@@ -255,6 +257,30 @@
                             </div>
                         </div>
                         <button type="submit">Update {{name}} Attacks</button>
+                    </form>
+                    <form class="col-xs-12" data-id="{{_id}}" data-hook="char-spells-form">
+                        <h4>{{name}} Spells</h4>
+
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="row">
+                                    {{#each spells}}
+                                        <div class="col-xs-4">
+                                            <input type="text" name="name" placeholder="Name" value="{{name}}"
+                                                   data-hook="spell">
+                                        </div>
+                                    {{/each}}
+                                </div>
+                                <div class="row">
+                                    <h4>New {{name}} Spell</h4>
+                                    <div class="col-xs-4">
+                                    <input type="text" name="name" placeholder="Name" value=""
+                                           data-hook="spell">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit">Update {{name}} Spells</button>
                     </form>
                 </div>
             {{/each}}

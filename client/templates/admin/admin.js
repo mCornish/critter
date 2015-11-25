@@ -476,6 +476,27 @@ Template.admin.events({
                 notify('Attacks updated');
             }
         });
+    },
+    'submit [data-hook=char-spells-form]': function(e) {
+        e.preventDefault();
+        const spells = [];
+        $(e.target).find('[data-hook=spell]').each(function() {
+            const spell = {
+                name: $(this).val()
+            };
+            if (spell.name !== '' && spell.name !== null) {
+                spells.push(spell);
+            }
+        });
+
+        const id = $(e.target).attr('data-id');
+        Characters.update(id, {$set: {spells: spells}}, function(err) {
+            if (err) {
+                throwError(err.reason);
+            } else {
+                notify('Spells updated');
+            }
+        });
     }
 });
 
