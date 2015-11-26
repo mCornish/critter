@@ -435,24 +435,6 @@ Template.admin.events({
             })
         }
     },
-    'submit [data-hook=beta-form]': function(e) {
-        e.preventDefault();
-
-        email = $(e.target).find('[name=email]').val();
-        //atLoc = email.indexOf('@');
-        //key = email.slice(0, atLoc);
-        // Generate three-digit number
-        //num = Math.floor(Math.random() * (999 - 100 + 1)) + 100;
-        //password = 'beta-' + key + '-' + num;
-
-        user = {
-            username: email,
-            email: email,
-            profile: {}
-        };
-
-        Meteor.call('createBetaUser', user);
-    },
     'submit [data-hook=char-items-form]': function(e) {
         e.preventDefault();
         const items = [];
