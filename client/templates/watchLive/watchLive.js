@@ -316,6 +316,7 @@ Template.watchLive.events({
     },
     'click [data-hook=detail-button]': function (e) {
         Session.set('detailActive', true);
+        Session.set('menuActive', 'info');
         const charName = $(e.target).attr('data-name');
         Session.set('charName', charName);
 
