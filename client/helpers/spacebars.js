@@ -17,7 +17,6 @@ Template.registerHelper('routeActive', function(path) {
             route = pathname;
         }
     }
-    console.log(route);
 
     return route.indexOf(path) > -1 ? 'is-active' : '';
 });
