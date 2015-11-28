@@ -96,21 +96,23 @@ a:not(.button):not(.card):not(.logo):not(.login__link):focus,
 }
 
 .body {
-
+  height: 100vh;
 }
 .body.is-unauthed {
   background-color: $color-3;
 }
+.container,
+.main {
+  height: 100%;
+}
 .main {
   display: block;
   position: relative;
-  height: 90vh;
 }
 
 .main.is-unauthed {
   left: 0;
   bottom: 0;
-  height: 60vh;
   margin-top: 0;
 }
 
@@ -391,8 +393,6 @@ hr {
   position: relative;
   padding: .2em;
   font-size: 2em;
-  top: 50%;
-  transform: translateY(-50%);
 }
 
 .button__icon:hover .hover-text {
@@ -858,13 +858,14 @@ label.is-hidden {
 }
 
 .header.is-unauthed {
-  height: 40vh;
+  display: none;
+  //height: 40vh;
 
   @media #{$break-small} {
-    padding-top: 2em;
+    //padding-top: 2em;
   }
   @media #{$break-medium} {
-    padding-top: 3em;
+    //padding-top: 3em;
   }
 }
 
@@ -1223,7 +1224,7 @@ input[type=radio] + input[type=radio] {
   color: $color-2;
   display: inline-block;
   cursor: default;
-  height: 40vh;
+  //height: 40vh;
 
   @media #{$break-small} {
     font-size: 1em;
@@ -1248,7 +1249,7 @@ input[type=radio] + input[type=radio] {
 }
 
 .logo__image {
-  width: 10em;
+  //width: 10em;
 }
 .button:hover .logo__image,
 .button.is-active .logo__image {
@@ -1860,7 +1861,11 @@ i.menu__notification {
 /* -------------------- */
 .home {
   position: relative;
-  margin-top: 8em;
+  height: 100%;
+}
+.home__counter {
+  margin-top: 2em;
+  margin-bottom: 1em;
 }
 .home .button {
   float: left;
@@ -1869,45 +1874,21 @@ i.menu__notification {
 
   }
   @media #{$break-medium} {
-    height: 15em;
-    width: 25vw;
+    //height: 15em;
+    //width: 25vw;
   }
 }
 
 .home .button + .button {
-  @media #{$break-small} {
-    margin-top: .5em;
-  }
-  @media #{$break-medium} {
-    margin-top: 0;
-    margin-left: 2vw;
-  }
+  margin-top: .5em;
 }
 
 .home .button__icon {
-  @media #{$break-small} {
-    font-size: 2rem;
-    top: 0;
-    transform: none;
-  }
-  @media #{$break-medium} {
-    font-size: 3rem;
-    top: 50%;
-    transform: translateY(-50%);
-  }
+  font-size: 2rem;
 }
 
 .home .button__icon i {
-  @media #{$break-small} {
-    font-size: 1.5em;
-  }
-  @media #{$break-medium} {
-    font-size: 3em;
-  }
-}
-
-.is-unauthed .home .row {
-  margin: 0;
+  font-size: 1.5em;
 }
 
 
@@ -2160,9 +2141,13 @@ i.menu__notification {
 }
 
 .text-center {
-  text-align: center;
+  text-align: center !important;
 }
-
+.vertical-center {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+}
 .vert-margin {
   @media #{$break-small} {
     margin-top: 0;

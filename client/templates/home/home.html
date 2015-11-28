@@ -1,46 +1,64 @@
 <template name="home">
-    <div class="home">
-        <h2 class="col-xs-12 text-center"><i class="fa fa-eye"></i> {{userCount}} Critters Online</h2>
-        <div class="row">
-            <a href="{{pathFor 'watch'}}" class="button no-padding col-xs-10 col-xs-offset-1 col-md-4 col-md-offset-0"
-               data-track="watch">
-                <div class="button__icon row">
-                    <i class="fa fa-tv col-md-12"></i>
-                    <br class="hidden-xs">
-                    <span class="col-md-12">Watch</span>
-                </div>
-            </a>
-            <a href="{{pathFor 'stats'}}"
-               class="button no-padding col-xs-10 col-xs-offset-1 col-md-4 col-md-offset-0 coming-soon__link" data-hook="noTest"
-               data-track="stats">
+    <div class="home page row">
+        {{#unless authed}}
+            <div class="col-xs-12 col-sm-6 vertical-center">
+                <div class="logo row">
+                    <div class="col-xs-12">
+                        <div class="row">
+                            <img class="logo__image col-xs-12" src="/images/logo.svg">
 
-                <div class="coming-soon"><span class="coming-soon__text">Coming Soon!</span></div>
+                            <div class="col-xs-12">
+                                <h1 class="logo__header">Critter</h1>
 
-                <div class="button__icon row">
-                    <i class="fa fa-bar-chart col-md-12"></i>
-                    <br class="hidden-xs">
-                    <span class="col-md-12">Stats</span>
+                                <h2 class="logo__subheader">A new way to watch</h2>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </a>
-            {{#if authed}}
-                <a href="{{pathFor 'me'}}" class="button no-padding col-xs-10 col-xs-offset-1 col-md-4 col-md-offset-0"
-                   data-hook="noTest" data-track="me">
-                    <div class="button__icon row">
-                        <i class="fa fa-user col-md-12"></i>
-                        <br class="hidden-xs">
-                        <span class="col-md-12">Me</span>
-                    </div>
-                </a>
-            {{else}}
-                <a href="{{pathFor 'login'}}" class="button no-padding col-xs-10 col-xs-offset-1 col-md-4 col-md-offset-0"
-                   data-track="login">
-                    <div class="button__icon row">
-                        <i class="fa fa-user col-md-12"></i>
-                        <br class="hidden-xs">
-                        <span class="col-md-12">Log In</span>
-                    </div>
-                </a>
-            {{/if}}
+            </div>
+        {{/unless}}
+        <div class="col-xs-12 col-sm-6 vertical-center">
+            <div class="row">
+                {{#if authed}}
+                    <h2 class="home__counter col-xs-12 text-center"><i class="fa fa-eye"></i> {{userCount}} Critters
+                        Online</h2>
+                {{/if}}
+
+                <div class="col-xs-12">
+                    <a href="{{pathFor 'watch'}}" class="button no-padding col-xs-12" data-track="watch">
+                        <div class="button__icon row">
+                            <i class="fa fa-tv"></i>
+                            <span>Watch</span>
+                        </div>
+                    </a>
+                    <a href="{{pathFor 'stats'}}" class="button no-padding col-xs-12 coming-soon__link"
+                       data-hook="noTest" data-track="stats">
+
+                        <div class="coming-soon"><span class="coming-soon__text">Coming Soon!</span></div>
+
+                        <div class="button__icon row">
+                            <i class="fa fa-bar-chart"></i>
+                            <span>Stats</span>
+                        </div>
+                    </a>
+                    {{#if authed}}
+                        <a href="{{pathFor 'me'}}" class="button no-padding col-xs-12" data-hook="noTest"
+                           data-track="me">
+                            <div class="button__icon row">
+                                <i class="fa fa-user"></i>
+                                <span>Me</span>
+                            </div>
+                        </a>
+                    {{else}}
+                        <a href="{{pathFor 'login'}}" class="button no-padding col-xs-12" data-track="login">
+                            <div class="button__icon row">
+                                <i class="fa fa-user"></i>
+                                <span>Log In</span>
+                            </div>
+                        </a>
+                    {{/if}}
+                </div>
+            </div>
         </div>
     </div>
 </template>
