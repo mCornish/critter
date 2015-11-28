@@ -153,6 +153,24 @@ Template.watchLive.onCreated(function () {
         }
     });
 
+    // Remove tweets manually when appropriate, since the iframe sticks around when new content is added
+    stream.observe({
+        changed: function (newDoc, oldDoc) {
+            // Only need to worry about this if the user is looking at the content page, otherwise the iframe will already be destroyed
+            if (Session.equals('menuActive', 'content')) {
+                const oldContent = oldDoc.liveContent;
+                if (oldContent['type'] === 'tweet') {
+                    const newContent = newDoc.liveContent;
+                    // If a second tweet is being added, we'll just have to reload. Otherwise, remove the iframe.
+                    if (newContent['type'] !== 'tweet') {
+                        $('iframe').remove();
+                    } else {
+                        Router.go('watchLive');
+                    }
+                }
+            }
+        }
+    });
 
     Session.set('interval', interval);
     Session.set('cast', null);
