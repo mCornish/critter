@@ -5,7 +5,7 @@ Template.watchLive.onCreated(function () {
 
     const
         offset = -8,
-        showTime = 15;
+        showTime = 18;
     let
         now = new Date(),
         pstDate = moment(now).utcOffset(offset),
@@ -19,7 +19,7 @@ Template.watchLive.onCreated(function () {
 
     if (hours <= 0) {
         seconds = 60 - seconds;
-        minutes = 60 - minutes;
+        minutes = 59 - minutes;
         if (hours !== 0) {
             hours = -hours;
         }
@@ -58,9 +58,9 @@ Template.watchLive.onCreated(function () {
             Session.set('durationIsPos', true);
             seconds++;
 
-            if (seconds > 60) {
+            if (seconds >= 60) {
                 minutes++;
-                if (minutes > 60) {
+                if (minutes >= 60) {
                     hours++;
                     minutes = 0;
                 }
@@ -78,7 +78,7 @@ Template.watchLive.onCreated(function () {
         } else if (pstHours - showTime < 0) {  // Countdown at least 1 hour
             Session.set('durationIsPos', false);
             seconds = 60 - seconds;
-            minutes = 60 - minutes;
+            minutes = 59 - minutes;
             hours = -hours;
 
             seconds--;
@@ -102,7 +102,7 @@ Template.watchLive.onCreated(function () {
         } else {  // Countdown less than 1 hour
             Session.set('durationIsPos', false);
             seconds = 60 - seconds;
-            minutes = 60 - minutes;
+            minutes = 59 - minutes;
 
             seconds--;
 
