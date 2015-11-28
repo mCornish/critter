@@ -497,7 +497,46 @@ Template.admin.events({
             if (err) {
                 throwError(err.reason);
             } else {
-                notify('Spells updated');
+                notify('Spells Updated');
+            }
+        });
+    },
+    'submit [data-hook=episode-form]': function(e) {
+        e.preventDefault();
+        const episode = {
+            name: $(e.target).find('[name=name]').val(),
+            cast: $(e.target).find('[name=cast]').val().split(','),
+            description: $(e.target).find('[name=description]').val(),
+            airDate: $(e.target).find('[name=air-date]').val(),
+            videoId: $(e.target).find('[name=video-id]').val()
+        };
+        const id = $(e.target).attr('data-id');
+
+        Episodes.update(id, {$set: episode}, function(err) {
+            if (err) {
+                throwError(err.reason);
+            } else {
+                notify('Episode Updated');
+            }
+        });
+    },
+    'submit [data-hook=new-episode-form]': function(e) {
+        e.preventDefault();
+        const episode = {
+            number: this.episodes.count() + 1,
+            name: $(e.target).find('[name=name]').val(),
+            cast: $(e.target).find('[name=cast]').val().split(','),
+            description: $(e.target).find('[name=description]').val(),
+            airDate: $(e.target).find('[name=air-date]').val(),
+            videoId: $(e.target).find('[name=video-id]').val()
+        };
+        console.log(episode);
+
+        Meteor.call('episodeInsert', episode, function(err) {
+            if (err) {
+                throwError(err.reason);
+            } else {
+                notify('Episode Added');
             }
         });
     }
