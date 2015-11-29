@@ -95,10 +95,8 @@ a:not(.button):not(.card):not(.logo):not(.login__link):focus,
   display: none;
 }
 
-.body {
-  height: 100vh;
-}
 .body.is-unauthed {
+  height: 100vh;
   background-color: $color-3;
 }
 .container,
@@ -1224,21 +1222,20 @@ input[type=radio] + input[type=radio] {
   color: $color-2;
   display: inline-block;
   cursor: default;
-  //height: 40vh;
+  width: 100%;
 
   @media #{$break-small} {
-    font-size: 1em;
+    font-size: 1.8em;
   }
   @media #{$break-medium} {
-    font-size: 2em;
+    font-size: 2.5em;
   }
 }
 
 .logo:hover,
 .logo:focus {
-  color: $color-4;
+  color: $color-2;
 }
-
 .logo__header {
   margin: 0;
   font-size: 2em;
@@ -1248,17 +1245,23 @@ input[type=radio] + input[type=radio] {
   font-size: .7em;
 }
 
-.logo__image {
-  //width: 10em;
-}
 .button:hover .logo__image,
 .button.is-active .logo__image {
   opacity: 1;
 }
 
 .is-unauthed .logo__image {
-  height: 20vh;
-  min-height: 100px;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+
+  @media #{$break-small} {
+    width: 50%;
+    max-width: 10em;
+  }
+  @media #{$break-medium} {
+    width: 60%;
+  }
 }
 
 .logo__back {
@@ -1897,8 +1900,6 @@ i.menu__notification {
 /* -------------------- */
 .login {
   position: relative;
-  top: 50%;
-  transform: translateY(-50%);
 }
 .login__facebook-icon {
   background-color: rgb(59, 89, 152); // Facebook blue
@@ -2123,7 +2124,9 @@ i.menu__notification {
 .float-right {
   float: right;
 }
-
+.full-height {
+  height: 100% !important;
+}
 .indent-container p {
   text-indent: 1.5em;
 }
@@ -2144,7 +2147,7 @@ i.menu__notification {
   text-align: center !important;
 }
 .vertical-center {
-  display: flex !important;
+  display: flex;
   flex-direction: column !important;
   justify-content: center !important;
 }
