@@ -2,99 +2,99 @@
 
     {{#unless currentUser}}
         <div class="login">
+
             <div class="row row--margin">
-
-                <div class="col-xs-10 col-xs-offset-1 col-md-6 col-md-offset-3">
-                    <div class="row">
-                        <a class="login__facebook button button--addon col-xs-12 col-md-12" href="#"
-                           data-hook="facebook-login">
-                            <div class="login__icon login__facebook-icon button--addon__addon col-xs-3"><i
-                                    class="fa fa-facebook"></i>
-                            </div>
-                            <span class="col-xs-9">Use Facebook</span>
-                        </a>
-
-                        <!--<a class="login__twitch button button-.-addon col-xs-12 col-md-5 col-md-offset-2" data-hook="twitch-login">
-                            <div class="login__icon login__twitch-icon button-.-addon__addon col-xs-3"><i
-                                    class="fa fa-twitch"></i>
-                            </div>
-                            <span class="col-xs-9">Use Twitch</span>
-                        </a>-->
-                    </div>
-                </div>
-
-            </div>
-
-            <div class="row">
-                <div class="col-xs-10 col-xs-offset-1 col-md-6 col-md-offset-3">
+                <div class="col-xs-12 col-md-6 col-md-offset-3">
                     {{#unless forgottenPassword}}
-                        <form data-hook="login-form">
-                        <div class="input-group {{errorClass 'username'}}">
-                            <input class="input-group__input" name="username" data-hook="username" type="email"
-                                   placeholder="Email">
-                            <span class="input-group__bar"></span>
-                            <span class="help-block">{{errorMessage 'username'}}</span>
-                        </div>
-                        <div class="input-group {{errorClass 'password'}}">
-                            <input class="input-group__input" name="password" data-hook="password" type="password"
-                                   placeholder="Password">
-                            <span class="input-group__bar"></span>
-                            <span class="help-block">{{errorMessage 'password'}}</span>
-                        </div>
-                        {{#if creatingUser}}
-                            <div class="input-group {{errorClass 'passwordAgain'}}">
-                                <input class="input-group__input" name="password-again" data-hook="password-again"
-                                       type="password" placeholder="Password (again)">
-                                <span class="input-group__bar"></span>
-                                <span class="help-block">{{errorMessage 'passwordAgain'}}</span>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <button class="login__facebook button button--addon col-xs-12"
+                                        data-hook="facebook-login">
+                                    <div class="login__icon login__facebook-icon button--addon__addon col-xs-3"><i
+                                            class="fa fa-facebook"></i>
+                                    </div>
+                                    <span class="col-xs-9">Use Facebook</span>
+                                </button>
                             </div>
-                        {{/if}}
+
+                            <!--<a class="login__twitch button button-.-addon col-xs-12 col-md-5 col-md-offset-2" data-hook="twitch-login">
+                                <div class="login__icon login__twitch-icon button-.-addon__addon col-xs-3"><i
+                                        class="fa fa-twitch"></i>
+                                </div>
+                                <span class="col-xs-9">Use Twitch</span>
+                            </a>-->
+                        </div>
+
+                        <form class="row row--margin" data-hook="login-form">
+                            <div class="col-xs-12">
+                                <div class="input-group {{errorClass 'username'}}">
+                                    <input class="input-group__input" name="username" data-hook="username" type="email"
+                                           placeholder="Email">
+                                    <span class="input-group__bar"></span>
+                                    <span class="help-block">{{errorMessage 'username'}}</span>
+                                </div>
+                                <div class="input-group {{errorClass 'password'}}">
+                                    <input class="input-group__input" name="password" data-hook="password"
+                                           type="password"
+                                           placeholder="Password">
+                                    <span class="input-group__bar"></span>
+                                    <span class="help-block">{{errorMessage 'password'}}</span>
+                                </div>
+                                {{#if creatingUser}}
+                                    <div class="input-group {{errorClass 'passwordAgain'}}">
+                                        <input class="input-group__input" name="password-again"
+                                               data-hook="password-again"
+                                               type="password" placeholder="Password (again)">
+                                        <span class="input-group__bar"></span>
+                                        <span class="help-block">{{errorMessage 'passwordAgain'}}</span>
+                                    </div>
+                                {{/if}}
+                            </div>
+                            <div class="login__links row">
+                                {{#unless creatingUser}}
+                                    <a class="login__link col-xs-6 text-center" data-hook="switch-state">Register
+                                        Instead</a>
+                                    <!-- TODO Hook up forgotten password -->
+                                    <a class="login__link col-xs-6 text-center" data-hook="forgotten-password">Forgot
+                                        Password</a>
+                                {{else}}
+                                    <a class="login__link col-xs-12 text-center" data-hook="switch-state">Log In
+                                        Instead</a>
+                                {{/unless}}
+                            </div>
+                            <div class="row row--margin">
+                                <button class="button button--submit col-xs-12" type="submit"
+                                        data-hook="submit">
+                                    {{#unless creatingUser}}
+                                        <span>Log In</span>
+                                    {{else}}
+                                        <span>Register</span>
+                                    {{/unless}}
+                                </button>
+                            </div>
                         </form>
                     {{else}}
-                        <h2 class="text-center">What is your email address?</h2>
+                        <a class="login__link" data-hook="password-cancel"><i class="fa fa-angle-left"></i> Back to
+                            Login</a>
 
-                        <form data-hook="forgot-pass-form">
-                            <div class="col-xs-12 {{errorClass 'email'}}">
-                                <input class="col-xs-12" name="email" data-hook="email" type="email"
-                                       placeholder="Email" required>
-                                <span class="input-group__bar"></span>
-                                <span class="help-block">{{errorMessage 'email'}}</span>
-                            </div>
-                            <button type="submit" class="button button--submit col-xs-12 col-md-7 col-md-push-5">
-                                Email Me
-                            </button>
-                            <button class="button button--cancel col-xs-12 col-md-4 col-md-pull-7"
-                                    data-hook="password-cancel">Cancel
-                            </button>
-                        </form>
-                    {{/unless}}
+                        <div class="row row--margin">
+                            <h2 class="text-center">What is your email address?</h2>
 
-                    {{#unless forgottenPassword}}
-                        <div class="login__links row">
-                            {{#unless creatingUser}}
-                                <a class="login__link col-xs-6 text-center" data-hook="switch-state">Register
-                                    Instead</a>
-                                <!-- TODO Hook up forgotten password -->
-                                <a class="login__link col-xs-6 text-center" data-hook="forgotten-password">Forgot
-                                    Password</a>
-                            {{else}}
-                                <a class="login__link col-xs-12 text-center" data-hook="switch-state">Log In Instead</a>
-                            {{/unless}}
+                            <form data-hook="forgot-pass-form">
+                                <div class="input-group {{errorClass 'email'}}">
+                                    <input class="input-group__input" name="email" data-hook="email" type="email"
+                                           placeholder="Email" required>
+                                    <span class="input-group__bar"></span>
+                                    <span class="help-block">{{errorMessage 'email'}}</span>
+                                </div>
+                                <div class="row row--margin">
+                                    <button type="submit" class="button button--submit col-xs-12">
+                                        Email Me
+                                    </button>
+                                </div>
+                            </form>
                         </div>
                     {{/unless}}
-
-                    <div class="login__buttons row">
-                        {{#unless forgottenPassword}}
-                            <button class="button button--submit col-xs-12" type="submit"
-                                    data-hook="submit">
-                                {{#unless creatingUser}}
-                                    <span>Log In</span>
-                                {{else}}
-                                    <span>Register</span>
-                                {{/unless}}
-                            </button>
-                        {{/unless}}
-                    </div>
                 </div>
             </div>
         </div>

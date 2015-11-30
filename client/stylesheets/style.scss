@@ -2,28 +2,12 @@
 /* ------------- #VARIABLES */
 /* ------------------------------ */
 
-/* -------------------- */
-/* --- #COLORS */
-/* -------------------- */
-$color-1: rgb(50, 50, 50);
-// dark gray
-$color-2: hsl(38, 79, 98);
-// goldish white
-$color-2-t: hsla(38, 79, 98, .9);
-// translucent greenish white
-$color-3: hsl(4, 80, 52);
-// red
-$color-4: hsl(38, 79, 54);
-// gold
-$color-5: hsl(0, 0, 95);
-// light gray
+@import "colors";
 
-/* -------------------- */
-/* --- #MEDIA QUERY BREAKPOINTS */
-/* -------------------- */
-$break-small: 'screen and (min-width: 1px)';
-$break-medium: 'screen and (min-width: 992px)';
-$break-large: 'screen and (min-width: 1920px)';
+@import "media-queries";
+
+@import "mixins";
+
 
 /* ------------------------------ */
 /* ------------- #BASE */
@@ -217,7 +201,7 @@ hr {
   display: inline;
   border-color: $color-1;
   border-style: solid;
-  border-width: .2em;
+  border-width: 3px;
   transition: .2s color ease, .2s background-color ease;
   position: relative;
   cursor: pointer;
@@ -328,7 +312,7 @@ hr {
   left: 50%;
   background-color: $color-1;
   opacity: 0;
-  transform: translateX(-50%) translateY(-50%);
+  @include transform(translateX(-50%) translateY(-50%));
 }
 
 .is-unauthed .button:after {
@@ -349,7 +333,7 @@ hr {
 .button--submit {
   color: $color-2;
   background-color: $color-1;
-  border: none;
+  border-color: $color-1;
   @media #{$break-small} {
     bottom: 0;
     left: 0;
@@ -390,19 +374,23 @@ hr {
 .button__icon {
   position: relative;
   padding: .2em;
-  font-size: 2em;
+  @media #{$break-small} {
+    font-size: 1.5em;
+  }
+  @media #{$break-medium} {
+    font-size: 2em;
+  }
 }
-
 .button__icon:hover .hover-text {
   opacity: 1;
 }
-
 .button__icon i {
-  font-size: 2em;
   @media #{$break-small} {
+    font-size: 1em;
     margin-bottom: 0;
   }
   @media #{$break-medium} {
+    font-size: 2em;
     margin-bottom: .2em;
   }
 }
@@ -430,55 +418,23 @@ hr {
   display: none;
 }
 
-.button--vert {
+.button--tall {
   float: left;
-
-  @media #{$break-small} {
-
-  }
-  @media #{$break-medium} {
-    height: 15em;
-    width: 30vw;
-  }
+  height: 15em;
+  width: calc(90% / 3);
 }
-.button--vert + .button--vert {
-  @media #{$break-small} {
-    margin-top: .5em;
-  }
-  @media #{$break-medium} {
-    margin-top: 0;
-    margin-left: 2vw;
-  }
+.button--tall + .button--tall {
+  margin-left: calc(10% / 2);
 }
-.button--vert .button__icon {
-  @media #{$break-small} {
-    font-size: 2rem;
-    top: 0;
-    transform: none;
-  }
-  @media #{$break-medium} {
-    font-size: 3rem;
-    top: 50%;
-    transform: translateY(-50%);
-  }
+.button--tall .button__icon {
+  font-size: 3rem;
+  top: 50%;
+  @include transform(translateY(-50%));
 }
-.button--vert .button__icon i {
-  @media #{$break-small} {
-    font-size: 1.5em;
-  }
-  @media #{$break-medium} {
-    font-size: 3em;
-  }
+.button--tall .button__icon i {
+  font-size: 3em;
 }
 
-.button--hor + .button--hor {
-  @media #{$break-small} {
-    border-left-width: 0;
-  }
-  @media #{$break-medium} {
-    border-left-width: .2em;
-  }
-}
 
 /* -------------------- */
 /* --- #BUTTON GROUP */
@@ -573,7 +529,7 @@ hr {
   position: absolute;
   bottom: -.3em;
   left: 50%;
-  transform: translateX(-50%);
+  @include transform(translateX(-50%));
   width: 3em;
   font-size: 1.5em;
 }
@@ -606,7 +562,7 @@ hr {
   display: block;
   position: relative;
   top: 50%;
-  transform: translateY(-50%);
+  @include transform(translateY(-50%));
 
   @media #{$break-small} {
     font-size: 1.5em;
@@ -706,7 +662,7 @@ hr {
 .floating-form__toggle i {
   position: relative;
   top: 40%;
-  transform: translateY(-50%);
+  @include transform(translateY(-50%));
 }
 .floating-form__close {
   display: block;
@@ -881,7 +837,7 @@ label.is-hidden {
   font-size: 4em;
   left: 1em;
   top: 50%;
-  transform: translateY(-50%);
+  @include transform(translateY(-50%));
 }
 
 .header__back:hover {
@@ -921,10 +877,6 @@ label.is-hidden {
   @media #{$break-medium} {
     margin-top: 2em;
   }
-}
-
-.input-group:last-of-type {
-  margin-bottom: 3em;
 }
 
 label.input-group__label {
@@ -1167,49 +1119,6 @@ input[type=radio] + input[type=radio] {
   transition: all 0.3s;
 }
 
-/*.submit-button:before {*/
-/*content: '>';*/
-/*color: rgb(255,255,255);*/
-/*left: -100%;*/
-/*position: absolute;*/
-/*height: 100%;*/
-/*width: 100%;*/
-/*font-size: 2.5em;*/
-/*line-height: 2.5;*/
-/*z-index: 1;*/
-/*-webkit-transition: all 0.3s;*/
-/*-moz-transition: all 0.3s;*/
-/*transition: all 0.3s;*/
-/*}*/
-/*.submit-button:hover:before {*/
-/*left: 50%;*/
-/*}*/
-/*.submit-button span {*/
-/*text-align: center;*/
-/*display: inline-block;*/
-/*width: 100%;*/
-/*-webkit-transition: all 0.2s;*/
-/*-webkit-backface-visibility: hidden;*/
-/*-moz-transition: all 0.2s;*/
-/*-moz-backface-visibility: hidden;*/
-/*transition: all 0.3s;*/
-/*backface-visibility: hidden;*/
-/*position: absolute;*/
-/*top: 50%;*/
-/*-webkit-transform: translateY(-50%);*/
-/*-moz-transform: translateY(-50%);*/
-/*-ms-transform: translateY(-50%);*/
-/*transform: translateY(-50%);*/
-/*color: rgb(255,255,255);*/
-/*font-size: 1.5em;*/
-/*}*/
-/*.submit-button:hover span {*/
-/*-webkit-transform: translateX(200%);*/
-/*-moz-transform: translateX(200%);*/
-/*-ms-transform: translateX(200%);*/
-/*transform: translateX(200%);*/
-/*color: rgb(255,255,255);*/
-/*}*/
 
 /* -------------------- */
 /* --- #LOGO */
@@ -1253,7 +1162,7 @@ input[type=radio] + input[type=radio] {
 .is-unauthed .logo__image {
   position: relative;
   left: 50%;
-  transform: translateX(-50%);
+  @include transform(translateX(-50%));
 
   @media #{$break-small} {
     width: 50%;
@@ -1384,7 +1293,7 @@ i.menu__notification {
   display: block;
   position: relative;
   top: 0;
-  transform: none;
+  @include transform(none);
   font-size: 1.2em;
   background-color: transparent;
   height: 5em;
@@ -1770,7 +1679,7 @@ i.menu__notification {
 .companion__content iframe {
   position: relative !important;
   left: 50%;
-  transform: translateX(-50%);
+  @include transform(translateX(-50%));
   @media #{$break-small} {
     width: 100% !important;
   }
@@ -1811,10 +1720,10 @@ i.menu__notification {
   position: absolute;
   left: 50%;
   top: 0;
-  transform: rotate(-90deg) translateY(-50%); //transform Y instead of X due to rotation
+  @include transform(rotate(-90deg) translateY(-50%)); //transform Y instead of X due to rotation
 }
 .giveaway__meter-bar--small {
-  transform: rotate(-90deg) translateY(-50%) scale(.75);
+  @include transform(rotate(-90deg) translateY(-50%) scale(.75));
 }
 .giveaway__meter-back {
   z-index: 0;
@@ -1828,7 +1737,7 @@ i.menu__notification {
   left: 0;
   font-size: 2em;
   top: 50%;
-  transform: translateY(-50%);
+  @include transform(translateY(-50%));
   width: 100%;
 }
 .circle_animation {
@@ -1881,14 +1790,6 @@ i.menu__notification {
 
 .home .button + .button {
   margin-top: .5em;
-}
-
-.home .button__icon {
-  font-size: 2rem;
-}
-
-.home .button__icon i {
-  font-size: 1.5em;
 }
 
 
@@ -1978,7 +1879,7 @@ i.menu__notification {
   text-align: center;
   color: $color-4;
   font-weight: bold;
-  transform: translateY(-50%);
+  @include transform(translateY(-50%));
 
   @media #{$break-small} {
     display: block;
@@ -2034,7 +1935,6 @@ i.menu__notification {
 .watch {
   display: block;
   height: 100%;
-  margin-top: 8em;
 }
 .watch__buttons {
   position: relative;
@@ -2059,26 +1959,7 @@ i.menu__notification {
     margin-left: 2vw;
   }
 }
-.watch .button__icon {
-  @media #{$break-small} {
-    font-size: 2rem;
-    top: 0;
-    transform: none;
-  }
-  @media #{$break-medium} {
-    font-size: 3rem;
-    top: 50%;
-    transform: translateY(-50%);
-  }
-}
-.watch .button__icon i {
-  @media #{$break-small} {
-    font-size: 1.5em;
-  }
-  @media #{$break-medium} {
-    font-size: 3em;
-  }
-}
+
 .watch__container {
   margin-bottom: 10em;
 }
