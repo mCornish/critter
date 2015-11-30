@@ -17,10 +17,8 @@ Template.layout.onCreated(function() {
 
 Template.layout.onRendered(function() {
     if (Meteor.userId()) {
-        console.log('hit');
         Meteor.setTimeout(function() {
             if('emails' in Meteor.user() && (typeof Meteor.user().emails[0] === 'string')) {
-                console.log('fix');
                 Meteor.call('fixEmail', Meteor.user().emails[0]);
             }
         }, 3000);

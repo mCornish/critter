@@ -183,7 +183,9 @@ Template.admin.events({
             }
         });
     },
-    'click [data-hook=submit-content]': function() {
+    'click [data-hook=submit-content]': function(e) {
+        e.preventDefault();
+
         $form = $('[data-hook=form-content]');
 
         const
@@ -196,10 +198,16 @@ Template.admin.events({
 
 
         $('[data-hook=live-choice]').each(function() {
+            const answerBool = $(this).siblings('[data-hook=live-answer]').is(':checked');
+            console.log($(this).siblings('[data-hook=live-answer]'));
             const choice = {
                 text: $(this).val(),
                 resCount: 0
             };
+            console.log(typeof answerBool);
+            if (typeof answerBool === 'boolean') {
+                _.extend(choice, {isAnswer: answerBool});
+            }
             liveChoices.push(choice);
         });
 
@@ -240,6 +248,13 @@ Template.admin.events({
         } else if (contentType === 'poll') {
             stream.liveContent.message = liveText;
             stream.liveContent.choices = liveChoices;
+            stream.liveContent.link = '';
+            stream.liveContent.resCount = 0;
+            stream.liveContent.responders = [];
+        } else if (contentType === 'quiz') {
+            stream.liveContent.message = liveText;
+            stream.liveContent.choices = liveChoices;
+            stream.liveContent.answer =
             stream.liveContent.link = '';
             stream.liveContent.resCount = 0;
             stream.liveContent.responders = [];
@@ -292,12 +307,13 @@ Template.admin.events({
             });
         });
     },
-    'click [data-hook=add-poll-choice]': function(e) {
+    'click [data-hook=add-content-choice]': function(e) {
         e.preventDefault();
         const choiceCount = Session.get('choiceCount');
         Session.set('choiceCount', choiceCount + 1);
     },
-    'click [data-hook=clear-content]': function() {
+    'click [data-hook=clear-content]': function(e) {
+        e.preventDefault();
         const liveContent = this.stream.liveContent;
 
         if (Object.keys(liveContent).length) {

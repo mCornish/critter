@@ -181,11 +181,14 @@ Template.watchLive.onCreated(function () {
 });
 
 Template.watchLive.helpers({
-    liveContent: function () {
-        return $.parseHTML(this.stream.liveContent);
+    answerClass: function(isAnswer) {
+        console.log(isAnswer);
+        return isAnswer ? 'is-answer' : '';
     },
-    hasContent: function () {
-        return Object.keys(this.stream.liveContent).length;
+    character: function () {
+        const characters = this.liveChars.fetch();
+        const charName = Session.get('charName');
+        return _.findWhere(characters, {name: charName});
     },
     contentType: function (type) {
         if (typeof this.stream.liveContent === 'object') {
@@ -193,23 +196,24 @@ Template.watchLive.helpers({
         }
         return false;
     },
-    durationText: function () {
-        return Session.get('durationIsPos') ? 'Duration' : 'Countdown';
-    },
-    duration: function () {
-        return Session.get('duration');
-    },
     detailActive: function () {
         return Session.get('detailActive');
-    },
-    character: function () {
-        const characters = this.liveChars.fetch();
-        const charName = Session.get('charName');
-        return _.findWhere(characters, {name: charName});
     },
     detailClass: function (name) {
         const activeName = Session.get('charName');
         return name === activeName ? 'is-active' : '';
+    },
+    duration: function () {
+        return Session.get('duration');
+    },
+    durationText: function () {
+        return Session.get('durationIsPos') ? 'Duration' : 'Countdown';
+    },
+    hasContent: function () {
+        return Object.keys(this.stream.liveContent).length;
+    },
+    liveContent: function () {
+        return $.parseHTML(this.stream.liveContent);
     },
     subPercent: function () {
         const stream = this.stream;
@@ -277,7 +281,8 @@ Template.watchLive.helpers({
         this.stream.liveContent.choices.forEach(function (choice) {
             const result = {
                 text: choice.text,
-                percentage: (choice.resCount / resCount) * 100
+                percentage: (choice.resCount / resCount) * 100,
+                isAnswer: choice.isAnswer
             };
             results.push(result);
         });
@@ -365,13 +370,19 @@ Template.watchLive.events({
     'click [data-track=content]': function () {
         analytics.track('Live link click', {type: this.stream.liveContent.type});
     },
-    'click [data-hook=poll-submit]': function (e) {
+    'click [data-hook=choice-submit]': function (e) {
         e.preventDefault();
         const choice = $('[data-hook=choice]:checked');
         const text = choice.val();
 
         Meteor.call('incChoice', text);
-        Meteor.call('addResponder');
+        Meteor.call('addResponder', function(err) {
+            if (err) {
+                throwError('Unable to save answer: ' + err.reason);
+            } else {
+                analytics.track('Live choice submitted');
+            }
+        });
     }
 });
 

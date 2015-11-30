@@ -1337,6 +1337,19 @@ i.menu__notification {
   font-size: .8em;
 }
 
+
+/* -------------------- */
+/* --- #QUESTION */
+/* -------------------- */
+.question__result {
+  font-size: 1.5em;
+}
+.question__result.is-answer {
+  color: $color-success;
+  font-weight: bold;
+}
+
+
 /* -------------------- */
 /* --- #RADIO SLIDER */
 /* -------------------- */
