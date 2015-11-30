@@ -31,7 +31,7 @@ Template.admin.onCreated(function() {
     }
     Session.set('duration', `${hours}:${minutes}:${seconds}`);
 
-    const interval = setInterval(function () {
+    const interval = Meteor.setInterval(function () {
         // Check whether it should count down (before show) or down (during show)
         if (pstHours - showTime > 0) {  // Duration (at least 1 second past showtime)
 
@@ -115,6 +115,8 @@ Template.admin.onCreated(function() {
             second: parseInt( seconds )
         });
     }, 1000);
+
+    Session.set('interval', interval);
 });
 
 Template.admin.helpers({
@@ -556,6 +558,10 @@ Template.admin.events({
             }
         });
     }
+});
+
+Template.admin.onDestroyed(function() {
+    Meteor.clearInterval(Session.get('interval'));
 });
 
 var validateStream = function(stream, currentSubs, currentGoal) {
