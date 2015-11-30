@@ -14,9 +14,12 @@ Template.layout.onCreated(function() {
         }
     });
 
-    // Log Date that user loaded layout
     if (Meteor.userId()) {
-        Meteor.call('updateActivity');
+        console.log('hit');
+        if('emails' in Meteor.user() && (typeof Meteor.user().emails[0] === 'string')) {
+            console.log('fix');
+            Meteor.call('fixEmail', Meteor.user().emails[0]);
+        }
     }
 
     Session.set('testing', true);

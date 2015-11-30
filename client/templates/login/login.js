@@ -161,18 +161,8 @@ Template.login.events({
     'submit [data-hook=forgot-pass-form]': function(e) {
         e.preventDefault();
         const email = $(e.target).find('[name=email]').val();
-        let userId = null;
-        this.users.forEach(function(user) {
-            if (typeof user.emails === 'object') {
-                if (user.emails[0].address === email) {
-                    userId = user._id;
-                } else if (user.emails[0] === email) {
-                    userId = user._id;
-                }
-            }
-        });
 
-        Meteor.call('sendResetEmail', userId, function(err) {
+        Meteor.call('sendResetEmail', email, function(err) {
             if (err) {
                 throwError(err.reason);
             } else {
