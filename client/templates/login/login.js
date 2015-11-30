@@ -31,7 +31,7 @@ Template.login.events({
     'click [data-hook=submit]': function(e) {
         e.preventDefault();
 
-        const $form = $('form');
+        const $form = $('[data-hook=login-form]');
 
         const
             password = $form.find('[data-hook=password]').val(),
@@ -154,10 +154,34 @@ Template.login.events({
     },
     'click [data-hook=forgotten-password]': function(e) {
         e.preventDefault();
-
-        const state = Session.get('forgottenPassword');
         // toggle the state
+        const state = Session.get('forgottenPassword');
         Session.set('forgottenPassword', !state);
+    },
+    'submit [data-hook=forgot-pass-form]': function(e) {
+        e.preventDefault();
+        const email = $(e.target).find('[name=email]').val();
+        let userId = null;
+        this.users.forEach(function(user) {
+            if (typeof user.emails === 'object') {
+                if (user.emails[0].address === email) {
+                    userId = user._id;
+                } else if (user.emails[0] === email) {
+                    userId = user._id;
+                }
+            }
+        });
+
+        Meteor.call('sendResetEmail', userId, function(err) {
+            if (err) {
+                throwError(err.reason);
+            } else {
+                notify('Email sent to ' + email);
+                // toggle the state
+                const state = Session.get('forgottenPassword');
+                Session.set('forgottenPassword', !state);
+            }
+        });
     },
     'click [data-hook=login-cancel]': function(e) {
         e.preventDefault();
@@ -186,4 +210,4 @@ var validateUser = function(user) {
 
 Template.login.onDestroyed(function() {
     Session.set('headerIsSimple', false);
-})
+});
