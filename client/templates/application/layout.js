@@ -13,17 +13,16 @@ Template.layout.onCreated(function() {
             }
         }
     });
-
-    // Log Date that user loaded layout
-    if (Meteor.userId()) {
-        Meteor.call('updateActivity');
-    }
-
-    Session.set('testing', true);
 });
 
 Template.layout.onRendered(function() {
-
+    if (Meteor.userId()) {
+        Meteor.setTimeout(function() {
+            if('emails' in Meteor.user() && (typeof Meteor.user().emails[0] === 'string')) {
+                Meteor.call('fixEmail', Meteor.user().emails[0]);
+            }
+        }, 3000);
+    }
 });
 
 Template.layout.helpers({

@@ -3,15 +3,87 @@
         <h1>Me</h1>
 
         <div class="row">
-            <a class="button col-xs-3" data-hook="logout">Logout</a>
+            <div class="col-xs-12 col-sm-6">
+                <form class="row row--margin" data-hook="username-form">
+                    {{#unless changingUsername}}
+                        <div class="col-xs-12"><strong>Username:</strong> {{user.username}}</div>
+                        <div class="col-xs-12">
+                            <button class="button col-xs-12" type="button" data-hook="change-username">
+                                Change Username
+                            </button>
+                        </div>
+                    {{else}}
+                        <div class="col-xs-12">
+                            <label for="username">Change Username</label>
+                            <input id="username" type="text" name="username" placeholder="Usernam"
+                                   value="{{user.username}}">
+                        </div>
+                        <div class="col-xs-12">
+                            <button class="button button--submit col-xs-12" type="submit">Change</button>
+                        </div>
+                    {{/unless}}
+                </form>
+            </div>
+
+            <div class="col-xs-12 col-sm-6">
+                <form class="row row--margin" data-hook="email-form">
+                    {{#unless changingEmail}}
+                        <div class="col-xs-12"><strong>Email:</strong> {{email}}</div>
+                        <div class="col-xs-12">
+                            <button class="button col-xs-12" type="button" data-hook="change-email">
+                                Change Email
+                            </button>
+                        </div>
+                    {{else}}
+                        <div class="col-xs-12">
+                            <label for="email">Change Email</label>
+                            <input id="email" type="email" name="email" placeholder="Email" value="{{email}}">
+                        </div>
+                        <div class="col-xs-12">
+                            <button class="button button--submit col-xs-12" type="submit">Update</button>
+                        </div>
+                    {{/unless}}
+                </form>
+            </div>
         </div>
         <div class="row">
-            <h2 class="col-xs-12">Recent Submissions</h2>
-            <ul class="user__submissions">
-                {{#each submissions}}
-                    <li>{{episode}} | {{action}} | {{type}} | {{roll}}</li>
-                {{/each}}
-            </ul>
+            <div class="col-xs-12 col-sm-6">
+                <form class="row row--margin" data-hook="password-form">
+                    {{#unless changingPassword}}
+                        <div class="col-xs-12">
+                            <button class="button col-xs-12" type="button" data-hook="change-password">
+                                Change Password
+                            </button>
+                        </div>
+                    {{else}}
+                        <div class="col-xs-12">
+                            <label for="password">Change Password</label>
+                            <input id="password" type="password" name="password"
+                                   placeholder="Password" value="">
+                            <input type="password" name="password-again"
+                                   placeholder="Password Again" value="">
+                            <input type="password" name="old-password"
+                                   placeholder="Current Password" value="">
+                            <button class="button button--submit col-xs-12" type="submit">Change</button>
+                        </div>
+                    {{/unless}}
+                </form>
+            </div>
+            <div class="col-xs-12 col-sm-6">
+                <div class="row row--margin">
+                    <div class="col-xs-12 col-sm-12">
+                        <button class="button col-xs-12" data-hook="logout">Logout</button>
+                    </div>
+                </div>
+            </div>
         </div>
+        <!--<div class="row">-->
+        <!--<h2 class="col-xs-12">Recent Submissions</h2>-->
+        <!--<ul class="user_._submissions">-->
+            <!--{{#each submissions}}-->
+        <!--<li>{{episode}} | {{action}} | {{type}} | {{roll}}</li>-->
+            <!--{{/each}}-->
+        <!--</ul>-->
+        <!--</div>-->
     </div>
 </template>

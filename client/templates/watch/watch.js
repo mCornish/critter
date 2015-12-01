@@ -19,9 +19,8 @@ Template.watch.events({
         Session.set('choosing', false);
         mixpanel.track('Watch Past button click');
     },
-    'click [data-hook="live"]': function(e) {
+    'click [data-hook="live"]': function() {
         mixpanel.track('Watch Live button click');
-        Router.go('companion');
     },
     'click [data-track="track"]': function(e) {
         e.preventDefault(); // Remove for Stage 2

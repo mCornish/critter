@@ -3,6 +3,7 @@ Template.admin.onCreated(function() {
     Session.set('contentType', 'text');
     Session.set('imageName', null);
     Session.set('imageURL', null);
+    Session.set('choiceCount', 1);
 
     Session.set('durationIsPos', false);
     Session.set('zeroFlip', true);
@@ -30,7 +31,7 @@ Template.admin.onCreated(function() {
     }
     Session.set('duration', `${hours}:${minutes}:${seconds}`);
 
-    const interval = setInterval(function () {
+    const interval = Meteor.setInterval(function () {
         // Check whether it should count down (before show) or down (during show)
         if (pstHours - showTime > 0) {  // Duration (at least 1 second past showtime)
 
@@ -114,6 +115,8 @@ Template.admin.onCreated(function() {
             second: parseInt( seconds )
         });
     }, 1000);
+
+    Session.set('interval', interval);
 });
 
 Template.admin.helpers({
@@ -134,6 +137,16 @@ Template.admin.helpers({
     },
     imageURL: function() {
         return Session.get('imageURL');
+    },
+    choiceCount: function() {
+        return Session.get('choiceCount');
+    },
+    loopCount: function(count){
+        var countArr = [];
+        for (var i=0; i<count; i++){
+            countArr.push({});
+        }
+        return countArr;
     }
 });
 
@@ -172,7 +185,9 @@ Template.admin.events({
             }
         });
     },
-    'click [data-hook=submit-content]': function() {
+    'click [data-hook=submit-content]': function(e) {
+        e.preventDefault();
+
         $form = $('[data-hook=form-content]');
 
         const
@@ -180,7 +195,23 @@ Template.admin.events({
             liveContent = $('[data-hook=live-content]').val(),
             liveText = $('[data-hook=live-text]').val(),
             liveLink = $('[data-hook=live-link]').val(),
-            contentType = $('[data-hook=live-content-type]').val();
+            contentType = $('[data-hook=live-content-type]').val(),
+            liveChoices = [];
+
+
+        $('[data-hook=live-choice]').each(function() {
+            const answerBool = $(this).siblings('[data-hook=live-answer]').is(':checked');
+            console.log($(this).siblings('[data-hook=live-answer]'));
+            const choice = {
+                text: $(this).val(),
+                resCount: 0
+            };
+            console.log(typeof answerBool);
+            if (typeof answerBool === 'boolean') {
+                _.extend(choice, {isAnswer: answerBool});
+            }
+            liveChoices.push(choice);
+        });
 
         const stream = {
             liveContent: {
@@ -209,13 +240,26 @@ Template.admin.events({
         } else if (contentType === 'yt') {
             stream.liveContent.link = liveContent.slice(liveContent.indexOf('watch?v=') + 8);
         } else if (contentType === 'image') {
-            if (liveLink) {
-                stream.liveContent.link = liveLink;
+            if (liveText) {
+                stream.liveContent.message = liveText;
             } else {
-                stream.liveContent.link = Session.get('imageURL');
+                stream.liveContent.message = Session.get('imageURL');
             }
-            stream.liveContent.message = '';
+            stream.liveContent.link = liveLink;
             stream.liveContent.tweeter = '';
+        } else if (contentType === 'poll') {
+            stream.liveContent.message = liveText;
+            stream.liveContent.choices = liveChoices;
+            stream.liveContent.link = '';
+            stream.liveContent.resCount = 0;
+            stream.liveContent.responders = [];
+        } else if (contentType === 'quiz') {
+            stream.liveContent.message = liveText;
+            stream.liveContent.choices = liveChoices;
+            stream.liveContent.answer =
+            stream.liveContent.link = '';
+            stream.liveContent.resCount = 0;
+            stream.liveContent.responders = [];
         }
 
         // Add content to live stream
@@ -265,7 +309,13 @@ Template.admin.events({
             });
         });
     },
-    'click [data-hook=clear-content]': function() {
+    'click [data-hook=add-content-choice]': function(e) {
+        e.preventDefault();
+        const choiceCount = Session.get('choiceCount');
+        Session.set('choiceCount', choiceCount + 1);
+    },
+    'click [data-hook=clear-content]': function(e) {
+        e.preventDefault();
         const liveContent = this.stream.liveContent;
 
         if (Object.keys(liveContent).length) {
@@ -282,35 +332,37 @@ Template.admin.events({
         e.preventDefault();
 
         $form = $('[data-hook=form-stream]');
-        const prevGoal = this.stream.prevSubGoal;
-        let currentGoal = this.stream.subGoal;
+        const prevGoal = this.stream.giveaway.prevSubGoal;
+        let currentGoal = this.stream.giveaway.subGoal;
         const newGoal = parseInt( $form.find('[name=sub-goal]').val() );
         // If the sub goal hasn't been updated, don't change the previous sub goal
         if (currentGoal >= newGoal) {
             currentGoal = prevGoal;
         }
 
-        const streamObj = {
+        const giveawayObj = {
             subCount: parseInt( $form.find('[name=sub-count]').val() ),
             subGoal: newGoal,
             prevSubGoal: currentGoal,
             subWinner: $form.find('[name=sub-winner]').val()
         };
 
-        const errors = validateStream(streamObj, this.stream.subCount, this.stream.subGoal);
+        const errors = validateStream(giveawayObj, this.stream.giveaway.subCount, this.stream.giveaway.subGoal);
         if (errors.subCount || errors.subGoal)
             return Session.set('streamSubmitErrors', errors);
-        Stream.update(this.stream._id, {$set: streamObj}, function(error) {
+        Stream.update(this.stream._id, {$set: {giveaway: giveawayObj}}, function(error) {
             if (error) {
                 throwError(error.reason);
-            } else {
-                mixpanel.track('stream-stats-update', {timestamp: Date.now()});
             }
         });
     },
     'click [data-hook=inc-count]': function(e) {
         e.preventDefault();
         Meteor.call('incSub', 1);
+    },
+    'click [data-hook=dec-count]': function(e) {
+        e.preventDefault();
+        Meteor.call('incSub', -1);
     },
     'click [data-hook=inc-goal]': function(e) {
         e.preventDefault();
@@ -328,7 +380,8 @@ Template.admin.events({
             dexterity: $form.find('[name=dexterity]').val(),
             intelligence: $form.find('[name=intelligence]').val(),
             strength: $form.find('[name=strength]').val(),
-            wisdom: $form.find('[name=wisdom]').val()
+            wisdom: $form.find('[name=wisdom]').val(),
+            maxHp: $form.find('[name=maxHp]').val()
         };
 
         Characters.update($form.attr('data-id'), {$set: {charStats: stats}}, function(err) {
@@ -343,13 +396,42 @@ Template.admin.events({
         const $form = $(e.target);
 
         const vitals = {
-            hp: $form.find('[name=hp]').val(),
-            ac: $form.find('[name=ac]').val()
+            hp: parseInt( $form.find('[name=hp]').val() ),
+            ac: parseInt( $form.find('[name=ac]').val() ),
+            strikes: parseInt( $form.find('[name=strikes]').val() )
         };
 
         Characters.update($form.attr('data-id'), {$set: {vitals: vitals}}, function(err) {
             if (err) {
                 throwError(err.reason);
+            } else {
+                notify('Vitals Updated');
+            }
+        });
+    },
+    'click [data-hook=minus-hp]': function(e) {
+        const $input = $('[name=update-hp]');
+        const incValue = -parseInt( $input.val() );
+        const charId = $input.attr('data-id');
+
+        Characters.update(charId, {$inc: {'vitals.hp': incValue}}, function(err) {
+            if (err) {
+                throwError(err.reason);
+            } else {
+                notify('HP Subtracted');
+            }
+        });
+    },
+    'click [data-hook=plus-hp]': function(e) {
+        const $input = $('[name=update-hp]');
+        const incValue = parseInt( $input.val() );
+        const charId = $input.attr('data-id');
+
+        Characters.update(charId, {$inc: {'vitals.hp': incValue}}, function(err) {
+            if (err) {
+                throwError(err.reason);
+            } else {
+                notify('HP Added');
             }
         });
     },
@@ -371,24 +453,117 @@ Template.admin.events({
             })
         }
     },
-    'submit [data-hook=beta-form]': function(e) {
+    'submit [data-hook=char-items-form]': function(e) {
         e.preventDefault();
+        const items = [];
+        $(e.target).find('[data-hook=item]').each(function() {
+            const item = {
+                name: $(this).val()
+            };
+            if (item.name !== '' && item.name !== null) {
+                items.push(item);
+            }
+        });
 
-        email = $(e.target).find('[name=email]').val();
-        //atLoc = email.indexOf('@');
-        //key = email.slice(0, atLoc);
-        // Generate three-digit number
-        //num = Math.floor(Math.random() * (999 - 100 + 1)) + 100;
-        //password = 'beta-' + key + '-' + num;
+        const id = $(e.target).attr('data-id');
+        Characters.update(id, {$set: {items: items}}, function(err) {
+            if (err) {
+                throwError(err.reason);
+            } else {
+                notify('Items updated');
+            }
+        });
+    },
+    'submit [data-hook=char-attacks-form]': function(e) {
+        e.preventDefault();
+        const attacks = [];
+        $(e.target).find('[data-hook=attack]').each(function() {
+            const attack = {
+                name: $(this).find('[name=name]').val(),
+                description: $(this).find('[name=description]').val(),
+                type: $(this).find('[name=type]').val(),
+                diceNum: $(this).find('[name=diceNum]').val(),
+                diceVal: $(this).find('[name=diceVal]').val()
+            };
+            if (attack.name !== '' && attack.name !== null) {
+                attacks.push(attack);
+            }
+        });
 
-        user = {
-            username: email,
-            email: email,
-            profile: {}
+        const id = $(e.target).attr('data-id');
+        Characters.update(id, {$set: {attacks: attacks}}, function(err) {
+            if (err) {
+                throwError(err.reason);
+            } else {
+                notify('Attacks updated');
+            }
+        });
+    },
+    'submit [data-hook=char-spells-form]': function(e) {
+        e.preventDefault();
+        const spells = [];
+        $(e.target).find('[data-hook=spell]').each(function() {
+            const spell = {
+                name: $(this).find('[name=name]').val(),
+                description: $(this).find('[name=description]').val()
+            };
+            if (spell.name !== '' && spell.name !== null) {
+                spells.push(spell);
+            }
+        });
+
+        const id = $(e.target).attr('data-id');
+        Characters.update(id, {$set: {spells: spells}}, function(err) {
+            if (err) {
+                throwError(err.reason);
+            } else {
+                notify('Spells Updated');
+            }
+        });
+    },
+    'submit [data-hook=episode-form]': function(e) {
+        e.preventDefault();
+        const episode = {
+            name: $(e.target).find('[name=name]').val(),
+            cast: $(e.target).find('[name=cast]').val().split(','),
+            description: $(e.target).find('[name=description]').val(),
+            airDate: $(e.target).find('[name=air-date]').val(),
+            videoId: $(e.target).find('[name=video-id]').val()
         };
+        const id = $(e.target).attr('data-id');
 
-        Meteor.call('createBetaUser', user);
+        Episodes.update(id, {$set: episode}, function(err) {
+            if (err) {
+                throwError(err.reason);
+            } else {
+                notify('Episode Updated');
+            }
+        });
+    },
+    'submit [data-hook=new-episode-form]': function(e) {
+        e.preventDefault();
+        const episode = {
+            number: this.episodes.count() + 1,
+            name: $(e.target).find('[name=name]').val(),
+            cast: $(e.target).find('[name=cast]').val().split(','),
+            description: $(e.target).find('[name=description]').val(),
+            airDate: $(e.target).find('[name=air-date]').val(),
+            videoId: $(e.target).find('[name=video-id]').val()
+        };
+        console.log(episode);
+
+        Meteor.call('episodeInsert', episode, function(err) {
+            if (err) {
+                throwError(err.reason);
+            } else {
+                notify('Episode Added');
+            }
+        });
     }
+});
+
+Template.admin.onDestroyed(function() {
+    Meteor.clearInterval(Session.get('interval'));
 });
 
 var validateStream = function(stream, currentSubs, currentGoal) {

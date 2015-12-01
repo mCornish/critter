@@ -2,28 +2,12 @@
 /* ------------- #VARIABLES */
 /* ------------------------------ */
 
-/* -------------------- */
-/* --- #COLORS */
-/* -------------------- */
-$color-1: rgb(50, 50, 50);
-// dark gray
-$color-2: hsl(38, 79, 98);
-// goldish white
-$color-2-t: hsla(38, 79, 98, .9);
-// translucent greenish white
-$color-3: hsl(4, 80, 52);
-// red
-$color-4: hsl(38, 79, 54);
-// gold
-$color-5: hsl(0, 0, 95);
-// light gray
+@import "colors";
 
-/* -------------------- */
-/* --- #MEDIA QUERY BREAKPOINTS */
-/* -------------------- */
-$break-small: 'screen and (min-width: 1px)';
-$break-medium: 'screen and (min-width: 992px)';
-$break-large: 'screen and (min-width: 1920px)';
+@import "media-queries";
+
+@import "mixins";
+
 
 /* ------------------------------ */
 /* ------------- #BASE */
@@ -69,8 +53,8 @@ p {
 a:not(.button):not(.card):not(.logo):not(.login__link),
 .fake-link {
   color: $color-3;
-  border-bottom: .1em solid $color-3;
-  padding-bottom: .1em;
+  background-color: transparent;
+  border: none;
   position: relative;
   transition: all .2s ease;
 }
@@ -81,8 +65,6 @@ a:not(.button):not(.card):not(.logo):not(.login__link):focus,
   color: $color-4;
   text-decoration: none;
   cursor: pointer;
-  padding-bottom: 0;
-  border-bottom: .1em solid $color-4;
 }
 
 // For links that should have no hover affect
@@ -95,22 +77,22 @@ a:not(.button):not(.card):not(.logo):not(.login__link):focus,
   display: none;
 }
 
-.body {
-
-}
 .body.is-unauthed {
+  height: 100vh;
   background-color: $color-3;
+}
+.container,
+.main {
+  height: 100%;
 }
 .main {
   display: block;
   position: relative;
-  height: 90vh;
 }
 
 .main.is-unauthed {
   left: 0;
   bottom: 0;
-  height: 60vh;
   margin-top: 0;
 }
 
@@ -198,20 +180,8 @@ hr {
 /* -------------------- */
 /* --- #BOOTSTRAP ADDITIONS */
 /* -------------------- */
-.row {
-  //position: relative;
-}
-
-//.row + .row {
-//  margin-top: 2em;
-//}
-//
-//.row + .row:last-of-type {
-//  margin-bottom: 5em;
-//}
-
-.row:first-of-type:last-of-type {
-  margin-bottom: 0;
+.row--margin {
+  margin-top: 2em;
 }
 
 /* -------------------- */
@@ -229,7 +199,7 @@ hr {
   display: inline;
   border-color: $color-1;
   border-style: solid;
-  border-width: .2em;
+  border-width: 3px;
   transition: .2s color ease, .2s background-color ease;
   position: relative;
   cursor: pointer;
@@ -340,7 +310,7 @@ hr {
   left: 50%;
   background-color: $color-1;
   opacity: 0;
-  transform: translateX(-50%) translateY(-50%);
+  @include transform(translateX(-50%) translateY(-50%));
 }
 
 .is-unauthed .button:after {
@@ -361,7 +331,7 @@ hr {
 .button--submit {
   color: $color-2;
   background-color: $color-1;
-  border: none;
+  border-color: $color-1;
   @media #{$break-small} {
     bottom: 0;
     left: 0;
@@ -402,21 +372,23 @@ hr {
 .button__icon {
   position: relative;
   padding: .2em;
-  font-size: 2em;
-  top: 50%;
-  transform: translateY(-50%);
+  @media #{$break-small} {
+    font-size: 1.5em;
+  }
+  @media #{$break-medium} {
+    font-size: 2em;
+  }
 }
-
 .button__icon:hover .hover-text {
   opacity: 1;
 }
-
 .button__icon i {
-  font-size: 2em;
   @media #{$break-small} {
+    font-size: 1em;
     margin-bottom: 0;
   }
   @media #{$break-medium} {
+    font-size: 2em;
     margin-bottom: .2em;
   }
 }
@@ -444,55 +416,25 @@ hr {
   display: none;
 }
 
-.button--vert {
+.button--tall {
   float: left;
-
-  @media #{$break-small} {
-
-  }
-  @media #{$break-medium} {
-    height: 15em;
-    width: 30vw;
-  }
+  height: 15em;
+  //noinspection CssInvalidPropertyValue
+  width: calc(90% / 3);
 }
-.button--vert + .button--vert {
-  @media #{$break-small} {
-    margin-top: .5em;
-  }
-  @media #{$break-medium} {
-    margin-top: 0;
-    margin-left: 2vw;
-  }
+.button--tall + .button--tall {
+  //noinspection CssInvalidPropertyValue
+  margin-left: calc(10% / 2);
 }
-.button--vert .button__icon {
-  @media #{$break-small} {
-    font-size: 2rem;
-    top: 0;
-    transform: none;
-  }
-  @media #{$break-medium} {
-    font-size: 3rem;
-    top: 50%;
-    transform: translateY(-50%);
-  }
+.button--tall .button__icon {
+  font-size: 3rem;
+  top: 50%;
+  @include transform(translateY(-50%));
 }
-.button--vert .button__icon i {
-  @media #{$break-small} {
-    font-size: 1.5em;
-  }
-  @media #{$break-medium} {
-    font-size: 3em;
-  }
+.button--tall .button__icon i {
+  font-size: 3em;
 }
 
-.button--hor + .button--hor {
-  @media #{$break-small} {
-    border-left-width: 0;
-  }
-  @media #{$break-medium} {
-    border-left-width: .2em;
-  }
-}
 
 /* -------------------- */
 /* --- #BUTTON GROUP */
@@ -587,7 +529,7 @@ hr {
   position: absolute;
   bottom: -.3em;
   left: 50%;
-  transform: translateX(-50%);
+  @include transform(translateX(-50%));
   width: 3em;
   font-size: 1.5em;
 }
@@ -620,7 +562,7 @@ hr {
   display: block;
   position: relative;
   top: 50%;
-  transform: translateY(-50%);
+  @include transform(translateY(-50%));
 
   @media #{$break-small} {
     font-size: 1.5em;
@@ -720,7 +662,7 @@ hr {
 .floating-form__toggle i {
   position: relative;
   top: 40%;
-  transform: translateY(-50%);
+  @include transform(translateY(-50%));
 }
 .floating-form__close {
   display: block;
@@ -870,13 +812,14 @@ label.is-hidden {
 }
 
 .header.is-unauthed {
-  height: 40vh;
+  display: none;
+  //height: 40vh;
 
   @media #{$break-small} {
-    padding-top: 2em;
+    //padding-top: 2em;
   }
   @media #{$break-medium} {
-    padding-top: 3em;
+    //padding-top: 3em;
   }
 }
 
@@ -894,7 +837,7 @@ label.is-hidden {
   font-size: 4em;
   left: 1em;
   top: 50%;
-  transform: translateY(-50%);
+  @include transform(translateY(-50%));
 }
 
 .header__back:hover {
@@ -936,16 +879,13 @@ label.is-hidden {
   }
 }
 
-.input-group:last-of-type {
-  margin-bottom: 3em;
-}
-
 label.input-group__label {
   visibility: visible;
   color: inherit;
 }
 
-input:not([type=radio]):not([type=checkbox]):not(.button--submit),
+//input:not([type=radio]):not([type=checkbox]):not(.button--submit),
+input,
 .input-addon {
   display: block;
   position: relative;
@@ -1179,49 +1119,6 @@ input[type=radio] + input[type=radio] {
   transition: all 0.3s;
 }
 
-/*.submit-button:before {*/
-/*content: '>';*/
-/*color: rgb(255,255,255);*/
-/*left: -100%;*/
-/*position: absolute;*/
-/*height: 100%;*/
-/*width: 100%;*/
-/*font-size: 2.5em;*/
-/*line-height: 2.5;*/
-/*z-index: 1;*/
-/*-webkit-transition: all 0.3s;*/
-/*-moz-transition: all 0.3s;*/
-/*transition: all 0.3s;*/
-/*}*/
-/*.submit-button:hover:before {*/
-/*left: 50%;*/
-/*}*/
-/*.submit-button span {*/
-/*text-align: center;*/
-/*display: inline-block;*/
-/*width: 100%;*/
-/*-webkit-transition: all 0.2s;*/
-/*-webkit-backface-visibility: hidden;*/
-/*-moz-transition: all 0.2s;*/
-/*-moz-backface-visibility: hidden;*/
-/*transition: all 0.3s;*/
-/*backface-visibility: hidden;*/
-/*position: absolute;*/
-/*top: 50%;*/
-/*-webkit-transform: translateY(-50%);*/
-/*-moz-transform: translateY(-50%);*/
-/*-ms-transform: translateY(-50%);*/
-/*transform: translateY(-50%);*/
-/*color: rgb(255,255,255);*/
-/*font-size: 1.5em;*/
-/*}*/
-/*.submit-button:hover span {*/
-/*-webkit-transform: translateX(200%);*/
-/*-moz-transform: translateX(200%);*/
-/*-ms-transform: translateX(200%);*/
-/*transform: translateX(200%);*/
-/*color: rgb(255,255,255);*/
-/*}*/
 
 /* -------------------- */
 /* --- #LOGO */
@@ -1234,21 +1131,20 @@ input[type=radio] + input[type=radio] {
   color: $color-2;
   display: inline-block;
   cursor: default;
-  height: 40vh;
+  width: 100%;
 
   @media #{$break-small} {
-    font-size: 1em;
+    font-size: 1.8em;
   }
   @media #{$break-medium} {
-    font-size: 2em;
+    font-size: 2.5em;
   }
 }
 
 .logo:hover,
 .logo:focus {
-  color: $color-4;
+  color: $color-2;
 }
-
 .logo__header {
   margin: 0;
   font-size: 2em;
@@ -1258,17 +1154,23 @@ input[type=radio] + input[type=radio] {
   font-size: .7em;
 }
 
-.logo__image {
-  width: 10em;
-}
 .button:hover .logo__image,
 .button.is-active .logo__image {
   opacity: 1;
 }
 
 .is-unauthed .logo__image {
-  height: 20vh;
-  min-height: 100px;
+  position: relative;
+  left: 50%;
+  @include transform(translateX(-50%));
+
+  @media #{$break-small} {
+    width: 50%;
+    max-width: 10em;
+  }
+  @media #{$break-medium} {
+    width: 60%;
+  }
 }
 
 .logo__back {
@@ -1306,13 +1208,15 @@ input[type=radio] + input[type=radio] {
 /* -------------------- */
 .menu {
   position: fixed;
-  display: block;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 10vh;
+  //height: 10vh;
   min-height: 4em;
-  background-color: hsla(0,0,100,.9);
+  background-color: hsla(38,79,98,.9);
   border-top: 1px solid hsl(0,0,70);
   z-index: 3;
   //top: 100vh;
@@ -1326,7 +1230,7 @@ input[type=radio] + input[type=radio] {
   border: none;
   color: hsl(0,0,70);
   font-weight: normal;
-  height: 10vh;
+  //height: 10vh;
   padding: .5em;
 
   @media #{$break-small} {
@@ -1336,6 +1240,8 @@ input[type=radio] + input[type=radio] {
     font-size: 1em;
   }
 }
+.menu__button:hover,
+.menu__button:focus,
 .menu__button.is-active {
   color: $color-1;
   background-color: transparent;
@@ -1343,22 +1249,13 @@ input[type=radio] + input[type=radio] {
 .menu__button:after {
   display: none;
 }
-.menu__button:hover {
-  color: $color-1;
-  background-color: transparent;
-}
 .menu__button i {
   font-size: 2em;
 }
 .menu__content {
-  @media #{$break-small} {
-
-  }
   @media #{$break-medium} {
     display:block;
     position: relative;
-    top: 50%;
-    transform: translateY(-50%);
   }
 }
 .row .menu__button + .menu__button {
@@ -1366,13 +1263,12 @@ input[type=radio] + input[type=radio] {
 }
 .menu__hide-button {
   position: fixed;
-  top: 100vh;
+  bottom: 0;
   left: 0;
   padding: 1em 0;
   text-align: center;
   cursor: pointer;
-  background-color: hsla(0,0,100,.9);
-  transform: translateY(-100%);
+  background-color: hsla(38,79,98,.9);
   transition: color .2s ease;
 }
 .menu__hide-button:hover {
@@ -1381,12 +1277,23 @@ input[type=radio] + input[type=radio] {
 .menu__hide-button i {
   font-size: 2em;
 }
+i.menu__notification {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding-left: 3em;
+  text-align: center;
+  color: $color-3;
+  font-size: 1em;
+}
 
 // Header menu
 .menu--header {
+  display: block;
   position: relative;
   top: 0;
-  transform: none;
+  @include transform(none);
   font-size: 1.2em;
   background-color: transparent;
   height: 5em;
@@ -1429,6 +1336,19 @@ input[type=radio] + input[type=radio] {
 .modal__sub-menu .button {
   font-size: .8em;
 }
+
+
+/* -------------------- */
+/* --- #QUESTION */
+/* -------------------- */
+.question__result {
+  font-size: 1.5em;
+}
+.question__result.is-answer {
+  color: $color-success;
+  font-weight: bold;
+}
+
 
 /* -------------------- */
 /* --- #RADIO SLIDER */
@@ -1727,6 +1647,36 @@ input[type=radio] + input[type=radio] {
 .char__stat-key {
   text-transform: capitalize;
 }
+.char__desc {
+  visibility: hidden;
+  background-color: $color-2;
+  border: 1px solid mix($color-2, black, 80%);
+  padding: 1em 1em 2em;
+
+}
+.char__desc.is-active {
+  visibility: visible;
+}
+.char__desc--sm {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100vw;
+  z-index: 5;
+}
+.char__desc--lg {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 200%;
+  z-index: 2;
+  transform: translateY(100%);
+}
+.char__desc-close {
+  display: block;
+  float: right;
+}
+
 
 /* -------------------- */
 /* --- #COMPANION */
@@ -1772,7 +1722,7 @@ input[type=radio] + input[type=radio] {
 .companion__content iframe {
   position: relative !important;
   left: 50%;
-  transform: translateX(-50%);
+  @include transform(translateX(-50%));
   @media #{$break-small} {
     width: 100% !important;
   }
@@ -1800,6 +1750,7 @@ input[type=radio] + input[type=radio] {
 }
 .giveaway__meter {
   position: relative;
+  margin-bottom: 1em;
 
   @media #{$break-small} {
     height: 200px;
@@ -1812,7 +1763,10 @@ input[type=radio] + input[type=radio] {
   position: absolute;
   left: 50%;
   top: 0;
-  transform: rotate(-90deg) translateY(-50%); //transform Y instead of X due to rotation
+  @include transform(rotate(-90deg) translateY(-50%)); //transform Y instead of X due to rotation
+}
+.giveaway__meter-bar--small {
+  @include transform(rotate(-90deg) translateY(-50%) scale(.75));
 }
 .giveaway__meter-back {
   z-index: 0;
@@ -1826,7 +1780,7 @@ input[type=radio] + input[type=radio] {
   left: 0;
   font-size: 2em;
   top: 50%;
-  transform: translateY(-50%);
+  @include transform(translateY(-50%));
   width: 100%;
 }
 .circle_animation {
@@ -1859,7 +1813,11 @@ input[type=radio] + input[type=radio] {
 /* -------------------- */
 .home {
   position: relative;
-  margin-top: 8em;
+  height: 100%;
+}
+.home__counter {
+  margin-top: 2em;
+  margin-bottom: 1em;
 }
 .home .button {
   float: left;
@@ -1868,45 +1826,13 @@ input[type=radio] + input[type=radio] {
 
   }
   @media #{$break-medium} {
-    height: 15em;
-    width: 25vw;
+    //height: 15em;
+    //width: 25vw;
   }
 }
 
 .home .button + .button {
-  @media #{$break-small} {
-    margin-top: .5em;
-  }
-  @media #{$break-medium} {
-    margin-top: 0;
-    margin-left: 2vw;
-  }
-}
-
-.home .button__icon {
-  @media #{$break-small} {
-    font-size: 2rem;
-    top: 0;
-    transform: none;
-  }
-  @media #{$break-medium} {
-    font-size: 3rem;
-    top: 50%;
-    transform: translateY(-50%);
-  }
-}
-
-.home .button__icon i {
-  @media #{$break-small} {
-    font-size: 1.5em;
-  }
-  @media #{$break-medium} {
-    font-size: 3em;
-  }
-}
-
-.is-unauthed .home .row {
-  margin: 0;
+  margin-top: .5em;
 }
 
 
@@ -1915,8 +1841,6 @@ input[type=radio] + input[type=radio] {
 /* -------------------- */
 .login {
   position: relative;
-  top: 50%;
-  transform: translateY(-50%);
 }
 .login__facebook-icon {
   background-color: rgb(59, 89, 152); // Facebook blue
@@ -1998,7 +1922,7 @@ input[type=radio] + input[type=radio] {
   text-align: center;
   color: $color-4;
   font-weight: bold;
-  transform: translateY(-50%);
+  @include transform(translateY(-50%));
 
   @media #{$break-small} {
     display: block;
@@ -2025,6 +1949,13 @@ input[type=radio] + input[type=radio] {
   }
 }
 
+.track__image--sm {
+  height: 50vw;
+}
+.track__image--lg {
+  height: 30vw;
+}
+
 .youtube-container {
   position: relative;
   padding-bottom: 56.25%;
@@ -2047,7 +1978,6 @@ input[type=radio] + input[type=radio] {
 .watch {
   display: block;
   height: 100%;
-  margin-top: 8em;
 }
 .watch__buttons {
   position: relative;
@@ -2072,26 +2002,7 @@ input[type=radio] + input[type=radio] {
     margin-left: 2vw;
   }
 }
-.watch .button__icon {
-  @media #{$break-small} {
-    font-size: 2rem;
-    top: 0;
-    transform: none;
-  }
-  @media #{$break-medium} {
-    font-size: 3rem;
-    top: 50%;
-    transform: translateY(-50%);
-  }
-}
-.watch .button__icon i {
-  @media #{$break-small} {
-    font-size: 1.5em;
-  }
-  @media #{$break-medium} {
-    font-size: 3em;
-  }
-}
+
 .watch__container {
   margin-bottom: 10em;
 }
@@ -2123,6 +2034,10 @@ input[type=radio] + input[type=radio] {
   text-transform: capitalize !important;
 }
 
+.color-3 {
+  color: $color-3;
+}
+
 .display-table {
   display: table;
 }
@@ -2130,7 +2045,9 @@ input[type=radio] + input[type=radio] {
 .float-right {
   float: right;
 }
-
+.full-height {
+  height: 100% !important;
+}
 .indent-container p {
   text-indent: 1.5em;
 }
@@ -2147,10 +2064,18 @@ input[type=radio] + input[type=radio] {
   cursor: pointer !important;
 }
 
-.text-center {
-  text-align: center;
+.position-relative {
+  position: relative !important;
 }
 
+.text-center {
+  text-align: center !important;
+}
+.vertical-center {
+  display: flex;
+  flex-direction: column !important;
+  justify-content: center !important;
+}
 .vert-margin {
   @media #{$break-small} {
     margin-top: 0;

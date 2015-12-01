@@ -40,13 +40,13 @@ testerEmails = [
     'ravynfeather@gmail.com',
     'chrispinhal@gmail.com',
     'baddy1987@gmail.com',
-    'bram.bertels+critter@gmail.com',
+    'bram.bertels@gmail.com',
     'markdigz@gmail.com',
     'dexcuracy@gmail.com',
     'Jordanmcr1@gmail.com',
     'qdude2000@gmail.com',
     'thousandsunnygo@outlook.com',
-    'tommi.putkonen+cr@gmail.com',
+    'tommi.putkonen@gmail.com',
     'sarahlou.todd@gmail.com',
     '12cm98@queensu.ca',
     'uncertainspin@gmail.com',
@@ -99,7 +99,8 @@ testerEmails = [
     'saevrick@gmail.com',
     'vanhallj@gmail.com',
     'stoo@stoo.org.uk',
-    'marly.atlin@gmail.com'
+    'marly.atlin@gmail.com',
+    'eliz@gammastronomer.com'
 ];
 
 // REMEMBER TO REMOVE BETA ROLE
@@ -125,7 +126,7 @@ Accounts.onCreateUser(function (options, user) {
         if (testerEmails.indexOf(user.username) < 0) {
             throw new Meteor.Error('non-tester', 'Only approved testers may register.')
         }
-        user.emails.push(user.username);
+        user.emails.push({address: user.username, verified: false});
         options.profile.email = user.username;
         // convert email to username
         user.username = user.username.substr(0, user.username.indexOf('@'));

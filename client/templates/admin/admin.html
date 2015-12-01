@@ -63,7 +63,7 @@
                 <label for="text-content">Text Content</label>
                 <textarea id="text-content" placeholder="Text to display..." data-hook="text-content"></textarea>
             </div>
-            <div class="row">
+            <div class="row row--margin">
                 <label for="otherContent">Other Content</label>
                 <select id="otherContent" class="col-xs-12 col-md-3" data-hook="live-content-type">
                     <option value="text">Text</option>
@@ -71,13 +71,15 @@
                     <option value="image">Image</option>
                     <option value="tweet">Tweet</option>
                     <option value="yt">YouTube video</option>
+                    <option value="poll">Poll</option>
+                    <option value="quiz">Quiz</option>
                 </select>
 
                 <div class="col-xs-12 col-md-7 col-offset-1">
                     {{#if contentType 'image'}}
                         <div class="row">
                             <div class="{{errorClass 'image'}}">
-                                <input type="url" placeholder="Image URL" data-hook="live-link">
+                                <input type="url" placeholder="Image URL" data-hook="live-text">
                                 <input class="input-group__file-input" name="live-image" placeholder="Image" type="file"
                                        id="image"
                                        required/>
@@ -91,13 +93,15 @@
                                 <span class="help-block">{{errorMessage 'image'}}</span>
                             </div>
                             <img class="col-xs-12" src="{{imageURL}}"/>
+                            <label for="live-content">Image Link</label>
+                            <input id="live-content" type="url" value="" data-hook="live-link">
                         </div>
                     {{/if}}
                     {{#if contentType 'link'}}
                         <label for="live-content">Link Text</label>
-                        <input id="live-content" type="url" data-hook="live-text">
-                        <label for="live-content">Link Url</label>
-                        <input id="live-content" type="text" data-hook="live-link">
+                        <input id="live-content" type="text" data-hook="live-text">
+                        <label for="live-link">Link Url</label>
+                        <input id="live-link" type="url" data-hook="live-link">
                     {{/if}}
                     {{#if contentType 'tweet'}}
                         <label for="live-content">Tweet Embed Code</label>
@@ -107,17 +111,47 @@
                         <label for="live-content">YouTube Video URL</label>
                         <input id="live-content" type="url" data-hook="live-content">
                     {{/if}}
+                    {{#if contentType 'poll'}}
+                        <label for="live-text">Poll Question</label>
+                        <input id="live-text" type="text" data-hook="live-text" required>
+                        {{#each loopCount choiceCount}}
+                            <label for="live-choice">Poll Choice #{{@index}}</label>
+                            <input id="live-choice" type="text" data-hook="live-choice">
+                        {{/each}}
+                        <button data-hook="add-content-choice"><i class="fa fa-plus"></i> Add Choice</button>
+                    {{/if}}
+                    {{#if contentType 'quiz'}}
+                        <div class="row">
+                            <label for="live-text">Quiz Question</label>
+                            <input id="live-text" type="text" placeholder="Question...?" data-hook="live-text" required>
+                        </div>
+                        {{#each loopCount choiceCount}}
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <label for="live-choice">Quiz Choice #{{@index}}</label>
+                                    <input id="live-choice" type="text" placeholder="Quiz Choice"
+                                           data-hook="live-choice">
+                                    <label for="live-answer">Is #{{@index}} Answer?</label>
+                                    <input id="live-answer" type="checkbox" data-hook="live-answer">
+                                </div>
+                            </div>
+                        {{/each}}
+                        <div class="row">
+                            <button data-hook="add-content-choice"><i class="fa fa-plus"></i> Add Choice</button>
+                        </div>
+                    {{/if}}
                 </div>
             </div>
-            <div class="row">
-                <div class="button button--submit col-xs-3" data-hook="submit-content">Insert Content</div>
-                <div class="button button--submit col-xs-3 col-xs-offset-1"
-                     data-hook="clear-content">Clear Content</div>
+            <div class="row row--margin">
+                <div class="col-xs-12">
+                    <button type="submit" data-hook="submit-content">Insert Content</button>
+                    <button type="clear" data-hook="clear-content">Clear Content</button>
+                </div>
             </div>
         </div>
     </form>
 
-    <form class="row" data-hook="form-stream">
+    <form class="row row--margin" data-hook="form-stream">
         <h3>Stream Stats</h3>
 
         <div class="col-xs-12">
@@ -126,8 +160,9 @@
                     <label for="sub-count">Sub Count</label>
 
                     <div class="row">
-                        <input id="sub-count" name="sub-count" value="{{stream.subCount}}" type="number">
+                        <input id="sub-count" name="sub-count" value="{{stream.giveaway.subCount}}" type="number">
                         <button type="submit" data-hook="inc-count"><i class="fa fa-plus"> 1</i></button>
+                        <button type="submit" data-hook="dec-count"><i class="fa fa-minus"> 1</i></button>
                     </div>
                     <span class="help-block">{{errorMessage 'subCount'}}</span>
                 </div>
@@ -136,7 +171,7 @@
                     <label for="sub-count">Sub Goal</label>
 
                     <div class="row">
-                        <input id="sub-count" name="sub-goal" value="{{stream.subGoal}}" type="number">
+                        <input id="sub-count" name="sub-goal" value="{{stream.giveaway.subGoal}}" type="number">
 
                         <button type="submit" data-hook="inc-goal"><i class="fa fa-plus"> 100</i></button>
                     </div>
@@ -145,7 +180,7 @@
                 <div class="col-xs-12">
                     <div class="row">
                         <label for="sub-count">Giveaway Winner</label>
-                        <input id="sub-count" name="sub-winner" value="{{stream.subWinner}}" type="text">
+                        <input id="sub-count" name="sub-winner" value="{{stream.giveaway.subWinner}}" type="text">
                     </div>
                 </div>
             </div>
@@ -160,7 +195,7 @@
             <h3>Character Info</h3>
             {{#each characters}}
                 <div class="row">
-                    <h4>{{name}}</h4>
+                    <h3>{{name}}</h3>
 
                     <form class="col-xs-6" data-id="{{_id}}" data-hook="char-stats-form">
                         {{#each arrayify charStats}}
@@ -172,22 +207,155 @@
                         <button class="col-xs-12" type="submit">Update {{name}} Stats</button>
                     </form>
                     <form class="col-xs-6" data-id="{{_id}}" data-hook="char-vitals-form">
-                        <div class="char__stat col-xs-6">
-                            <span class="char__stat-key">{{name}} HP</span>
-                            <input type="number" name="hp" value="{{vitals.hp}}">
+                        <div class="row">
+                            <div class="char__stat col-xs-6">
+                                <span class="char__stat-key">{{name}} HP</span>
+                                <input type="number" name="hp" min="0" max="{{charStats.maxHp}}" value="{{vitals.hp}}">
+                            </div>
+                            <div class="char__stat col-xs-6">
+                                <span class="char__stat-key">Update {{name}} HP</span>
+                                <input type="number" name="update-hp" min="1" max="{{charStats.maxHp}}" value="1"
+                                       data-id="{{_id}}">
+                                <button type="button" data-hook="minus-hp"><i class="fa fa-minus"></i> HP</button>
+                                <button type="button" data-hook="plus-hp"><i class="fa fa-plus"></i> HP</button>
+                            </div>
+                            <div class="char__stat col-xs-6">
+                                <span class="char__stat-key">{{name}} AC</span>
+                                <input type="number" name="ac" value="{{vitals.ac}}">
+                            </div>
+                            <div class="char__stat col-xs-6">
+                                <span class="char__stat-key">{{name}} Death Strikes</span>
+                                <input type="number" name="strikes" min="0" max="3" value="{{vitals.strikes}}">
+                            </div>
+                            <button class="col-xs-12" type="submit">Update {{name}} Vitals</button>
                         </div>
-                        <div class="char__stat col-xs-6">
-                            <span class="char__stat-key">{{name}} AC</span>
-                            <input type="number" name="ac" value="{{vitals.ac}}">
+                    </form>
+                    <form class="col-xs-12" data-id="{{_id}}" data-hook="char-items-form">
+                        <h4>{{name}} Items</h4>
+
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="row">
+                                    {{#each items}}
+                                        <div class="col-xs-4">
+                                            <input type="text" name="name" placeholder="Name" value="{{name}}"
+                                                   data-hook="item">
+                                        </div>
+                                    {{/each}}
+                                </div>
+                                <div class="row">
+                                    <h4>New {{name}} Item</h4>
+
+                                    <div class="col-xs-4">
+                                        <input type="text" name="name" placeholder="Name" value="" data-hook="item">
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <button class="col-xs-12" type="submit">Update {{name}} Vitals</button>
+                        <button type="submit">Update {{name}} Items</button>
+                    </form>
+                    <form class="col-xs-12" data-id="{{_id}}" data-hook="char-attacks-form">
+                        <h4>{{name}} Attacks</h4>
+
+                        <div class="row">
+                            <h4 class="col-xs-4">Name</h4>
+                            <h4 class="col-xs-4">Type</h4>
+                            <h4 class="col-xs-2">Dice Number</h4>
+                            <h4 class="col-xs-2">Dice Value</h4>
+
+                            <div class="col-xs-12">
+                                {{#each attacks}}
+                                    <div class="row row--margin" data-hook="attack">
+                                        <div class="col-xs-4">
+                                            <input type="text" name="name" placeholder="Name" value="{{name}}">
+                                        </div>
+                                        <div class="col-xs-4">
+                                            <input type="text" name="type" placeholder="Type" value="{{type}}">
+                                        </div>
+                                        <div class="col-xs-2">
+                                            <input type="number" name="diceNum" placeholder="# of Dice"
+                                                   value="{{diceNum}}">
+                                        </div>
+                                        <div class="col-xs-2">
+                                            <input type="number" name="diceVal" placeholder="Dice Value"
+                                                   value="{{diceVal}}">
+                                        </div>
+                                        <div class="col-xs-12">
+                                            <div class="row row--margin">
+                                                <textarea name="description"
+                                                          placeholder="Description...">{{description}}</textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {{/each}}
+                                <h4>New {{name}} Attack</h4>
+
+                                <div class="row" data-hook="attack">
+                                    <div class="col-xs-4">
+                                        <input type="text" name="name" placeholder="Name" value="">
+                                    </div>
+                                    <div class="col-xs-4">
+                                        <input type="text" name="type" placeholder="Type" value="">
+                                    </div>
+                                    <div class="col-xs-2">
+                                        <input type="number" name="diceNum" placeholder="# of Dice" value="">
+                                    </div>
+                                    <div class="col-xs-2">
+                                        <input type="number" name="diceVal" placeholder="Dice Value" value="">
+                                    </div>
+                                    <div class="col-xs-12">
+                                        <div class="row row--margin">
+                                            <textarea name="description" placeholder="Description..."></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit">Update {{name}} Attacks</button>
+                    </form>
+                    <form class="col-xs-12" data-id="{{_id}}" data-hook="char-spells-form">
+                        <h4>{{name}} Spells</h4>
+
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="row">
+                                    {{#each spells}}
+                                        <div class="col-xs-4" data-hook="spell">
+                                            <div class="col-xs-12">
+                                                <input class="col-xs-12" type="text" name="name" placeholder="Name"
+                                                       value="{{name}}">
+                                            </div>
+
+                                            <div class="col-xs-12">
+                                                    <textarea name="description"
+                                                              placeholder="Description...">{{description}}
+                                                    </textarea>
+                                            </div>
+                                        </div>
+                                    {{/each}}
+                                </div>
+
+                                <div class="row" data-hook="spell">
+                                    <h4>New {{name}} Spell</h4>
+
+                                    <div class="col-xs-12">
+                                        <input class="col-xs-12" type="text" name="name" placeholder="Name"
+                                               value="">
+                                    </div>
+                                    <div class="col-xs-12">
+                                        <textarea name="description" placeholder="Description..."></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit">Update {{name}} Spells</button>
                     </form>
                 </div>
             {{/each}}
         </div>
     </div>
 
-    <div class="admin__users">
+    <div class="row row--margin">
         <h1>Users</h1>
 
         <h2>Add Role</h2>
@@ -211,13 +379,70 @@
                 </div>
             </div>
         {{/each}}
-        <h2>Create Beta User</h2>
+    </div>
 
-        <form data-hook="beta-form">
-            <label for="email">Email</label>
-            <input id="email" name="email" type="email" placeholder="Email">
-            <input type="submit" value="Create">
-        </form>
+    <div class="row row--margin">
+        <h1>Episodes</h1>
+
+        <div class="col-xs-12">
+            {{#each episodes}}
+                <form class="row row--margin" data-id="{{_id}}" data-hook="episode-form">
+                    <h2>Episode {{number}}</h2>
+
+                    <div class="col-xs-6">
+                        <label for="name">Name</label>
+                        <input id="name" type="text" name="name" value="{{name}}">
+                    </div>
+                    <div class="col-xs-6">
+                        <label for="cast">Cast</label>
+                        <input id="cast" type="text" name="cast" value="{{cast}}">
+                    </div>
+                    <div class="col-xs-6">
+                        <label for="air-date">Air Date</label>
+                        <input id="air-date" type="text" name="air-date" value="{{airDate}}">
+                    </div>
+                    <div class="col-xs-6">
+                        <label for="video-id">Video ID</label>
+                        <input id="video-id" type="text" name="video-id" value="{{videoId}}">
+                    </div>
+                    <div class="col-xs-12">
+                        <label for="description">Description</label>
+                        <textarea id="description" type="text" name="description">{{description}}</textarea>
+                    </div>
+                    <div class="col-xs-6">
+                        <button type="submit">Update Episode {{number}}</button>
+                    </div>
+                </form>
+            {{/each}}
+
+            <form class="row row--margin" data-hook="new-episode-form">
+                <h2>New Episode</h2>
+
+                <div class="col-xs-6">
+                    <label for="name">Name</label>
+                    <input id="name" type="text" name="name" value="">
+                </div>
+                <div class="col-xs-6">
+                    <label for="cast">Cast</label>
+                    <input id="cast" type="text" name="cast" value="">
+                </div>
+                <div class="col-xs-6">
+                    <label for="air-date">Air Date</label>
+                    <input id="air-date" type="text" name="air-date" value="">
+                </div>
+                <div class="col-xs-6">
+                    <label for="video-id">Video ID</label>
+                    <input id="video-id" type="text" name="video-id" value="">
+                </div>
+                <div class="col-xs-12">
+                    <label for="description">Description</label>
+                    <textarea id="description" type="text" name="description"></textarea>
+                </div>
+                <div class="col-xs-6">
+                    <button type="submit"><i class="fa fa-plus"></i> Add Episode</button>
+                </div>
+            </form>
+        </div>
     </div>
 
 </template>
