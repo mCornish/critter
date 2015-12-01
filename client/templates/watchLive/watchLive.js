@@ -182,7 +182,6 @@ Template.watchLive.onCreated(function () {
 
 Template.watchLive.helpers({
     answerClass: function(isAnswer) {
-        console.log(isAnswer);
         return isAnswer ? 'is-answer' : '';
     },
     character: function () {
@@ -346,12 +345,6 @@ Template.watchLive.events({
             type = this.stream.liveContent.type;
         }
         analytics.track('Giveaway button click', {contentType: type});
-
-        //const data = Template.currentData();
-        //setTimeout(function () {
-        //    // Use bar's parent so that the animation can inherit the offset value
-        //    renderSubBar(data, $('[data-hook=bar-parent]'));
-        //}, 500);
     },
     'click [data-hook=detail-button]': function (e) {
         Session.set('detailActive', true);

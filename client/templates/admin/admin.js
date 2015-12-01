@@ -480,6 +480,7 @@ Template.admin.events({
         $(e.target).find('[data-hook=attack]').each(function() {
             const attack = {
                 name: $(this).find('[name=name]').val(),
+                description: $(this).find('[name=description]').val(),
                 type: $(this).find('[name=type]').val(),
                 diceNum: $(this).find('[name=diceNum]').val(),
                 diceVal: $(this).find('[name=diceVal]').val()
