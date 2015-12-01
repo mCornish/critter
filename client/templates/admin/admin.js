@@ -504,7 +504,8 @@ Template.admin.events({
         const spells = [];
         $(e.target).find('[data-hook=spell]').each(function() {
             const spell = {
-                name: $(this).val()
+                name: $(this).find('[name=name]').val(),
+                description: $(this).find('[name=description]').val()
             };
             if (spell.name !== '' && spell.name !== null) {
                 spells.push(spell);

@@ -73,10 +73,38 @@
                 </div>
             </div>
             <div class="row row--margin">
-                <div class="char__stat col-xs-12">
+                <div class="char__stat col-xs-6">
                     <div class="char__stat-key">Spells:</div>
                     {{#each spells}}
-                        <div class="col-xs-4">{{name}}</div>
+                        <div class="row position-relative">
+                        <button class="fake-link col-xs-12" data-name="{{name}}" data-hook="show-description">{{name}}</button>
+                        <div class="char__desc char__desc--sm visible-xs visible-sm {{descActive name}}"
+                             data-hook="description">
+                            <button class="fake-link char__desc-close" data-hook="close-description"><i
+                                    class="fa fa-close"></i></button>
+                            <h2>{{name}}</h2>
+                                <span>
+                                    {{#if populated description}}
+                                        {{description}}
+                                    {{else}}
+                                        Poppycock! This spell doesn't have a description yet.
+                                    {{/if}}
+                                </span>
+                        </div>
+                        <div class="char__desc char__desc--lg hidden-xs hidden-sm {{descActive name}}"
+                             data-hook="description">
+                            <div class="fake-link char__desc-close" data-hook="close-description"><i
+                                    class="fa fa-close"></i></div>
+                            <h2>{{name}}</h2>
+                                 <span>
+                                     {{#if populated description}}
+                                         {{description}}
+                                     {{else}}
+                                         Poppycock! This spell doesn't have a description yet.
+                                     {{/if}}
+                                 </span>
+                        </div>
+                        </div>
                     {{/each}}
                 </div>
             </div>
