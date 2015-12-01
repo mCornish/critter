@@ -458,7 +458,8 @@ Template.admin.events({
         const items = [];
         $(e.target).find('[data-hook=item]').each(function() {
             const item = {
-                name: $(this).val()
+                name: $(this).find('[name=name]').val(),
+                description: $(this).find('[name=description]').val()
             };
             if (item.name !== '' && item.name !== null) {
                 items.push(item);
