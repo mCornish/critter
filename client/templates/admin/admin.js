@@ -256,9 +256,14 @@ Template.admin.events({
         } else if (contentType === 'quiz') {
             stream.liveContent.message = liveText;
             stream.liveContent.choices = liveChoices;
-            stream.liveContent.answer =
             stream.liveContent.link = '';
             stream.liveContent.resCount = 0;
+            stream.liveContent.responders = [];
+        } else if (contentType === 'chat') {
+            stream.liveContent.message = liveText;
+            stream.liveContent.link = '';
+            stream.liveContent.resCount = 0;
+            stream.liveContent.responses = [];
             stream.liveContent.responders = [];
         }
 
@@ -267,7 +272,7 @@ Template.admin.events({
             if (error) {
                 throwError(error.reason);
             } else {
-                mixpanel.track('content-update', {timestamp: Date.now()});
+                notify('Live content updated');
             }
         });
 
@@ -313,6 +318,18 @@ Template.admin.events({
         e.preventDefault();
         const choiceCount = Session.get('choiceCount');
         Session.set('choiceCount', choiceCount + 1);
+    },
+    'change [data-hook=response-approve]': function(e) {
+        const user = $(e.target).attr('data-user');
+        const isApproved = $(e.target).is(':checked');
+
+        Meteor.call('approveResponse', isApproved, user, function(err) {
+            if (err) {
+                throwError(err.reason);
+            } else {
+                notify('Response approved');
+            }
+        });
     },
     'click [data-hook=clear-content]': function(e) {
         e.preventDefault();

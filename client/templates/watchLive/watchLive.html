@@ -103,6 +103,32 @@
                             </div>
                         {{/unless}}
                     {{/if}}
+                    {{#if contentType 'chat'}}
+                        <div class="companion__text col-xs-10 col-xs-offset-1">{{stream.liveContent.message}}</div>
+                        {{#unless isResponder}}
+                            <form class="col-xs-10 col-xs-offset-1">
+                                <textarea placeholder="Your response..." data-hook="response"></textarea>
+                                <button class="button button--submit col-xs-12 col-md-6 col-md-offset-3" type="submit"
+                                        data-hook="response-submit">Respond
+                                </button>
+                            </form>
+                        {{else}}
+                            <div class="row">
+                                <h2 class="col-xs-12 text-center">Thank you for your response! If it is approved, it
+                                    will appear below.</h2>
+                            </div>
+                        {{/unless}}
+                        <div class="row row--margin">
+                            <div class="chat-q__responses col-xs-12 col-md-6 col-md-offset-3">
+                            {{#each responses}}
+                                <div class="chat-q__response">
+                                    <div class="chat-q__user">{{user}}</div>
+                                    <div class="chat-q__text">{{text}}</div>
+                                </div>
+                            {{/each}}
+                            </div>
+                        </div>
+                    {{/if}}
                 {{else}}
                     <div class="companion__content-placeholder col-xs-12 col-md-6 col-md-offset-3 text-center">
                         Content will appear here

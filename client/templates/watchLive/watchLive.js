@@ -214,14 +214,6 @@ Template.watchLive.helpers({
     liveContent: function () {
         return $.parseHTML(this.stream.liveContent);
     },
-    subPercent: function () {
-        const stream = this.stream;
-        const subCount = stream.giveaway.subCount;
-        const subGoal = stream.giveaway.subGoal;
-        const prevSubGoal = stream.giveaway.prevSubGoal;
-
-        return Math.floor(((subCount - prevSubGoal) / (subGoal - prevSubGoal)) * 100);
-    },
     meterOffset: function () {
         const stream = this.stream;
         const subCount = stream.giveaway.subCount;
@@ -232,6 +224,18 @@ Template.watchLive.helpers({
 
         const dashArray = 630; // Taken from the circle's CSS
         return dashArray * (1 - (subPercent / 100));
+    },
+    responses: function() {
+        const responses = this.stream.liveContent.responses;
+        return _.where(responses, {approved: true});
+    },
+    subPercent: function () {
+        const stream = this.stream;
+        const subCount = stream.giveaway.subCount;
+        const subGoal = stream.giveaway.subGoal;
+        const prevSubGoal = stream.giveaway.prevSubGoal;
+
+        return Math.floor(((subCount - prevSubGoal) / (subGoal - prevSubGoal)) * 100);
     },
     subCount: function () {
         return this.stream.giveaway.subCount;
@@ -371,9 +375,21 @@ Template.watchLive.events({
         Meteor.call('incChoice', text);
         Meteor.call('addResponder', function(err) {
             if (err) {
-                throwError('Unable to save answer: ' + err.reason);
+                throwError('Unable to save choice: ' + err.reason);
             } else {
                 analytics.track('Live choice submitted');
+            }
+        });
+    },
+    'click [data-hook=response-submit]': function (e) {
+        e.preventDefault();
+        const text = $('[data-hook=response]').val();
+
+        Meteor.call('addResponse', text, function(err) {
+            if (err) {
+                throwError('Unable to save response: ' + err.reason);
+            } else {
+                analytics.track('Live response submitted');
             }
         });
     }

@@ -73,6 +73,7 @@
                     <option value="yt">YouTube video</option>
                     <option value="poll">Poll</option>
                     <option value="quiz">Quiz</option>
+                    <option value="chat">Chat Question</option>
                 </select>
 
                 <div class="col-xs-12 col-md-7 col-offset-1">
@@ -139,6 +140,19 @@
                         <div class="row">
                             <button data-hook="add-content-choice"><i class="fa fa-plus"></i> Add Choice</button>
                         </div>
+                    {{/if}}
+                    {{#if contentType 'chat'}}
+                        <div class="row">
+                            <label for="live-text">Chat Question</label>
+                            <input id="live-text" type="text" placeholder="Question...?" data-hook="live-text" required>
+                        </div>
+                        {{#each stream.liveContent.responses}}
+                            <div class="row">
+                                <span>{{text}}</span>
+                                <label for="live-check"></label>
+                                <input id="live-check" type="checkbox" data-user="{{user}}" data-hook="response-approve" checked="{{approved}}">
+                            </div>
+                        {{/each}}
                     {{/if}}
                 </div>
             </div>
@@ -244,7 +258,8 @@
                                             </div>
 
                                             <div class="col-xs-12">
-                                                <textarea name="description" placeholder="Description...">{{description}}
+                                                <textarea name="description"
+                                                          placeholder="Description...">{{description}}
                                                 </textarea>
                                             </div>
                                         </div>
@@ -338,7 +353,8 @@
                                             </div>
 
                                             <div class="col-xs-12">
-                                                <textarea name="description" placeholder="Description...">{{description}}
+                                                <textarea name="description"
+                                                          placeholder="Description...">{{description}}
                                                 </textarea>
                                             </div>
                                         </div>

@@ -544,6 +544,27 @@ hr {
 
 
 /* -------------------- */
+/* --- #CHAT QUESTION */
+/* -------------------- */
+.chat-q__responses {
+  display: block;
+  border-radius: 1em;
+  border: 1px solid mix($color-2, black, 90);
+  background-color: white;
+  color: $color-1;
+}
+.chat-q__response {
+  padding: 1em;
+}
+.chat-q__response + .chat-q__response {
+  border-top: 1px solid mix($color-2, black, 90);
+}
+.chat-q__user {
+  font-weight: bold;
+}
+
+
+/* -------------------- */
 /* --- #COMING SOON */
 /* -------------------- */
 .coming-soon {
