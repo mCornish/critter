@@ -57,20 +57,24 @@
                             <form class="col-xs-10 col-xs-offset-1">
                                 {{#each stream.liveContent.choices}}
                                     <div class="col-xs-12 col-md-6 col-md-offset-3">
-                                        <input type="radio" name="choice" value="{{text}}"
-                                               data-hook="choice"><span>{{text}}</span>
+                                        <input class="poll__input" type="radio" name="choice" value="{{text}}"
+                                               data-hook="choice">
+                                        <span class="poll__choice">{{text}}</span>
                                     </div>
                                 {{/each}}
-                                <button class="button button--submit col-xs-12 col-md-6 col-md-offset-3" type="submit"
-                                        data-hook="choice-submit">Answer
-                                </button>
+                                <div class="row row--margin">
+                                    <button class="button button--submit col-xs-12 col-md-6 col-md-offset-3"
+                                            type="submit"
+                                            data-hook="choice-submit">Answer
+                                    </button>
+                                </div>
                             </form>
                         {{else}}
                             <div class="poll__results col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3">
-                                <div class="row">
+                                <div class="row row--margin">
                                     {{#each results}}
-                                        <div class="poll__result col-xs-12">
-                                            <span>{{text}}: {{percentage}}%</span>
+                                        <div class="poll__result col-xs-12 text-center">
+                                            <span><strong>{{text}}:</strong> {{percentage}}%</span>
                                         </div>
                                     {{/each}}
                                 </div>
@@ -83,19 +87,23 @@
                             <form class="col-xs-10 col-xs-offset-1">
                                 {{#each stream.liveContent.choices}}
                                     <div class="col-xs-12 col-md-6 col-md-offset-3">
-                                        <input type="radio" name="choice" value="{{text}}"
-                                               data-hook="choice"><span>{{text}}</span>
+                                        <input class="poll__input" type="radio" name="choice" value="{{text}}"
+                                               data-hook="choice">
+                                        <span class="poll__choice">{{text}}</span>
                                     </div>
                                 {{/each}}
-                                <button class="button button--submit col-xs-12 col-md-6 col-md-offset-3" type="submit"
-                                        data-hook="choice-submit">Answer
-                                </button>
+                                <div class="row row--margin">
+                                    <button class="button button--submit col-xs-12 col-md-6 col-md-offset-3"
+                                            type="submit"
+                                            data-hook="choice-submit">Answer
+                                    </button>
+                                </div>
                             </form>
                         {{else}}
-                            <div class="question__results col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3">
-                                <div class="row">
+                            <div class="poll__results col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3">
+                                <div class="row row--margin">
                                     {{#each results}}
-                                        <div class="question__result col-xs-12 {{answerClass isAnswer}}">
+                                        <div class="poll__result col-xs-12 {{answerClass isAnswer}} text-center">
                                             <span>{{text}}: {{percentage}}%</span>
                                         </div>
                                     {{/each}}
@@ -114,18 +122,19 @@
                             </form>
                         {{else}}
                             <div class="row">
-                                <h2 class="col-xs-12 text-center">Thank you for your response! If it is approved, it
+                                <h2 class="col-xs-10 col-xs-offset-1 text-center">Thank you for your response! If it is
+                                    approved, it
                                     will appear below.</h2>
                             </div>
                         {{/unless}}
                         <div class="row row--margin">
                             <div class="chat-q__responses col-xs-12 col-md-6 col-md-offset-3">
-                            {{#each responses}}
-                                <div class="chat-q__response">
-                                    <div class="chat-q__user">{{user}}</div>
-                                    <div class="chat-q__text">{{text}}</div>
-                                </div>
-                            {{/each}}
+                                {{#each responses}}
+                                    <div class="chat-q__response">
+                                        <div class="chat-q__user">{{user}}</div>
+                                        <div class="chat-q__text">{{text}}</div>
+                                    </div>
+                                {{/each}}
                             </div>
                         </div>
                     {{/if}}

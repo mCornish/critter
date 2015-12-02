@@ -201,16 +201,16 @@ Template.admin.events({
 
         $('[data-hook=live-choice]').each(function() {
             const answerBool = $(this).siblings('[data-hook=live-answer]').is(':checked');
-            console.log($(this).siblings('[data-hook=live-answer]'));
             const choice = {
                 text: $(this).val(),
                 resCount: 0
             };
-            console.log(typeof answerBool);
             if (typeof answerBool === 'boolean') {
                 _.extend(choice, {isAnswer: answerBool});
             }
-            liveChoices.push(choice);
+            if (choice.text !== '' && choice.text != null) {
+                liveChoices.push(choice);
+            }
         });
 
         const stream = {

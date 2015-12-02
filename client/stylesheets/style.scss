@@ -1360,12 +1360,19 @@ i.menu__notification {
 
 
 /* -------------------- */
-/* --- #QUESTION */
+/* --- #POLL */
 /* -------------------- */
-.question__result {
+.poll__input {
+  display: inline-block;
+  width: auto;
+}
+.poll__choice {
+  display: inline-block;
+}
+.poll__results {
   font-size: 1.5em;
 }
-.question__result.is-answer {
+.poll__result.is-answer {
   color: $color-success;
   font-weight: bold;
 }

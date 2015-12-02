@@ -284,7 +284,7 @@ Template.watchLive.helpers({
         this.stream.liveContent.choices.forEach(function (choice) {
             const result = {
                 text: choice.text,
-                percentage: (choice.resCount / resCount) * 100,
+                percentage: Math.round((choice.resCount / resCount) * 100),
                 isAnswer: choice.isAnswer
             };
             results.push(result);

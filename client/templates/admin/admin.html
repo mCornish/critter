@@ -113,44 +113,66 @@
                         <input id="live-content" type="url" data-hook="live-content">
                     {{/if}}
                     {{#if contentType 'poll'}}
-                        <label for="live-text">Poll Question</label>
-                        <input id="live-text" type="text" data-hook="live-text" required>
-                        {{#each loopCount choiceCount}}
-                            <label for="live-choice">Poll Choice #{{@index}}</label>
-                            <input id="live-choice" type="text" data-hook="live-choice">
-                        {{/each}}
-                        <button data-hook="add-content-choice"><i class="fa fa-plus"></i> Add Choice</button>
+                        <div class="row">
+                        <div class="col-xs-12">
+                            <label for="live-text">Poll Question</label>
+                            <input id="live-text" type="text" data-hook="live-text" required>
+                        </div>
+                        </div>
+                        <div class="row row--margin">
+                            {{#each loopCount choiceCount}}
+                                <div class="col-xs-12">
+                                    <label for="live-choice">Poll Choice #{{@index}}</label>
+                                    <input id="live-choice" type="text" data-hook="live-choice">
+                                </div>
+                            {{/each}}
+                        </div>
+                        <div class="row row--margin">
+                            <div class="col-xs-12">
+                                <button data-hook="add-content-choice"><i class="fa fa-plus"></i> Add Choice</button>
+                            </div>
+                        </div>
                     {{/if}}
                     {{#if contentType 'quiz'}}
                         <div class="row">
-                            <label for="live-text">Quiz Question</label>
-                            <input id="live-text" type="text" placeholder="Question...?" data-hook="live-text" required>
+                            <div class="col-xs-12">
+                                <label for="live-text">Quiz Question</label>
+                                <input id="live-text" type="text" placeholder="Question...?" data-hook="live-text"
+                                       required>
+                            </div>
                         </div>
                         {{#each loopCount choiceCount}}
-                            <div class="row">
+                            <div class="row row--margin">
                                 <div class="col-xs-12">
-                                    <label for="live-choice">Quiz Choice #{{@index}}</label>
-                                    <input id="live-choice" type="text" placeholder="Quiz Choice"
+                                    <input id="live-choice" class="col-xs-6" type="text" placeholder="Quiz Choice #{{@index}}"
                                            data-hook="live-choice">
-                                    <label for="live-answer">Is #{{@index}} Answer?</label>
-                                    <input id="live-answer" type="checkbox" data-hook="live-answer">
+                                    <label class="col-xs-4" for="live-answer">Answer</label>
+                                    <input id="live-answer" class="col-xs-2" type="checkbox" data-hook="live-answer">
                                 </div>
                             </div>
                         {{/each}}
-                        <div class="row">
-                            <button data-hook="add-content-choice"><i class="fa fa-plus"></i> Add Choice</button>
+                        <div class="row row--margin">
+                            <div class="col-xs-12">
+                                <button data-hook="add-content-choice"><i class="fa fa-plus"></i> Add Choice</button>
+                            </div>
                         </div>
                     {{/if}}
                     {{#if contentType 'chat'}}
                         <div class="row">
-                            <label for="live-text">Chat Question</label>
-                            <input id="live-text" type="text" placeholder="Question...?" data-hook="live-text" required>
+                            <div class="col-xs-12">
+                                <label for="live-text">Chat Question</label>
+                                <input id="live-text" type="text" placeholder="Question...?" data-hook="live-text"
+                                       required>
+                            </div>
                         </div>
                         {{#each stream.liveContent.responses}}
-                            <div class="row">
-                                <span>{{text}}</span>
-                                <label for="live-check"></label>
-                                <input id="live-check" type="checkbox" data-user="{{user}}" data-hook="response-approve" checked="{{approved}}">
+                            <div class="row row--margin">
+                                <div class="col-xs-6"><strong>{{user}}:</strong> {{text}}</div>
+                                <div class="col-xs-6">
+                                    <label class="col-xs-4" for="live-check">Approved</label>
+                                    <input id="live-check" class="col-xs-2" type="checkbox" data-user="{{user}}"
+                                           data-hook="response-approve" checked="{{approved}}">
+                                </div>
                             </div>
                         {{/each}}
                     {{/if}}
