@@ -49,7 +49,11 @@ Template.header.helpers({
 });
 
 Template.header.events({
-    'click [data-track=home]': function() {
-        analytics.track('Logo click');
+    'click [data-track=header-button]': function() {
+        analytics.track('Header click');
+    },
+    'click [data-hook=stats-button]': function(e) {
+        e.preventDefault();
+        throwError('The Stats section is not yet available.')
     }
 });

@@ -1335,7 +1335,13 @@ i.menu__notification {
   color: $color-2;
   border-bottom-width: 10px;
 }
-
+.menu--header .menu__button.disabled {
+  color: mix($color-1, $color-3, 50);
+}
+.menu--header .menu__button.disabled:hover {
+  border-bottom-width: 0;
+  cursor: default;
+}
 .menu .logo__image {
   width: 100%;
   height: 2em;

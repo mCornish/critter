@@ -4,7 +4,7 @@
             <div class="menu menu--header">
                 <div class="row">
                     <a class="button menu__button col-xs-3 {{routeActive '/home'}}" href="{{pathFor 'home'}}"
-                       data-track="home">
+                       data-track="header-click">
                         <div class="row">
                             <img class="logo__image col-xs-12" src="/images/logo.svg">
 
@@ -12,15 +12,15 @@
                         </div>
                     </a>
                     <a class="button menu__button col-xs-3 {{routeActive '/watch'}}" href="{{pathFor 'watch'}}"
-                       data-track="watch">
+                       data-track="header-click">
                         <div class="row">
                             <i class="fa fa-tv col-xs-12"></i>
 
                             <div class="col-xs-12">Watch</div>
                         </div>
                     </a>
-                    <a class="button menu__button col-xs-3 {{routeActive '/stats'}}" href="{{pathFor 'stats'}}"
-                       data-track="stats">
+                    <a class="button menu__button disabled col-xs-3 {{routeActive '/stats'}}" href="{{pathFor 'stats'}}"
+                       data-hook="stats-button" data-track="header-click">
                         <div class="row">
                             <i class="fa fa-bar-chart-o col-xs-12"></i>
 
@@ -29,7 +29,7 @@
                     </a>
                     {{#if isAuthed}}
                         <a class="button menu__button col-xs-3 {{routeActive '/me'}}" href="{{pathFor 'me'}}"
-                           data-track="me">
+                           data-track="header-click">
                             <div class="row">
                                 <i class="fa fa-user col-xs-12"></i>
 
@@ -38,7 +38,7 @@
                         </a>
                     {{else}}
                         <a class="button menu__button col-xs-3 {{routeActive '/login'}}" href="{{pathFor 'login'}}"
-                           data-track="login">
+                           data-track="header-click">
                             <div class="row">
                                 <i class="fa fa-user col-xs-12"></i>
 

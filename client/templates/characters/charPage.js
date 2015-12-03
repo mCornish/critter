@@ -1,6 +1,9 @@
 Template.charPage.onCreated(function () {
     Session.set('descActive', '');
     Session.set('isAdmin', false);
+    Session.set('showAttacks', false);
+    Session.set('showItems', false);
+    Session.set('showSpells', false);
 });
 
 Template.charPage.helpers({
@@ -45,6 +48,15 @@ Template.charPage.helpers({
     populated: function(field) {
         console.log(field);
         return field !== '' && field !== null && field !== undefined;
+    },
+    showAttacks: function() {
+        return Session.get('showAttacks');
+    },
+    showItems: function() {
+        return Session.get('showItems');
+    },
+    showSpells: function() {
+        return Session.get('showSpells');
     }
 });
 
@@ -55,5 +67,17 @@ Template.charPage.events({
     },
     'click [data-hook=close-description]': function(e) {
         Session.set('descActive', '');
+    },
+    'click [data-hook=toggle-attacks]': function() {
+        const bool = Session.get('showAttacks');
+        Session.set('showAttacks', !bool);
+    },
+    'click [data-hook=toggle-items]': function() {
+        const bool = Session.get('showItems');
+        Session.set('showItems', !bool);
+    },
+    'click [data-hook=toggle-spells]': function() {
+        const bool = Session.get('showSpells');
+        Session.set('showSpells', !bool);
     }
 });
