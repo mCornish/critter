@@ -162,7 +162,7 @@ if (Meteor.isServer) {
         return Meteor.users.find();
     });
     Meteor.publish('onlineUsers', function () {
-        return Meteor.users.find({'stats.online': true});
+        return Meteor.users.find({'status.online': true});
     });
     Meteor.publish('user', function (id, userId) {
         if (id === userId) {

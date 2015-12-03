@@ -2067,9 +2067,11 @@ i.menu__notification {
 .capitalize {
   text-transform: capitalize !important;
 }
-
+.color-2 {
+  color: $color-2 !important;
+}
 .color-3 {
-  color: $color-3;
+  color: $color-3 !important;
 }
 
 .display-table {
