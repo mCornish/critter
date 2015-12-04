@@ -13,6 +13,9 @@ Template.layout.onCreated(function() {
             }
         }
     });
+
+    //Control whether feedback button shows up
+    Session.set('testing', true);
 });
 
 Template.layout.onRendered(function() {

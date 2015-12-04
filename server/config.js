@@ -27,7 +27,7 @@ testerEmails = [
     'mi_wi_co@yahoo.com',
     'cole_peosoldier@yahoo.com',
     'lauren3112@gmail.com',
-    'bubblebooy@gmail.com,',
+    'bubblebooy@gmail.com',
     'gittler.nicholas@gmail.com',
     'johnwuich89@gmail.com',
     'mhamurrain@gmail.com,Milinda,Alston-Murrain',
