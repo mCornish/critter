@@ -120,6 +120,9 @@ Template.admin.onCreated(function() {
 });
 
 Template.admin.helpers({
+    email: function() {
+
+    },
     errorMessage: function(field) {
         return Session.get('streamSubmitErrors')[field];
     },

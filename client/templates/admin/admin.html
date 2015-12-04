@@ -114,10 +114,10 @@
                     {{/if}}
                     {{#if contentType 'poll'}}
                         <div class="row">
-                        <div class="col-xs-12">
-                            <label for="live-text">Poll Question</label>
-                            <input id="live-text" type="text" data-hook="live-text" required>
-                        </div>
+                            <div class="col-xs-12">
+                                <label for="live-text">Poll Question</label>
+                                <input id="live-text" type="text" data-hook="live-text" required>
+                            </div>
                         </div>
                         <div class="row row--margin">
                             {{#each loopCount choiceCount}}
@@ -144,7 +144,8 @@
                         {{#each loopCount choiceCount}}
                             <div class="row row--margin">
                                 <div class="col-xs-12">
-                                    <input id="live-choice" class="col-xs-6" type="text" placeholder="Quiz Choice #{{@index}}"
+                                    <input id="live-choice" class="col-xs-6" type="text"
+                                           placeholder="Quiz Choice #{{@index}}"
                                            data-hook="live-choice">
                                     <label class="col-xs-4" for="live-answer">Answer</label>
                                     <input id="live-answer" class="col-xs-2" type="checkbox" data-hook="live-answer">
@@ -409,7 +410,15 @@
             <div class="row">
                 <div class="admin__user col-xs-4">
                     <ul>
-                        <li>Email: {{emails.[0].address}}</li>
+                        {{#if emails.[0].address}}
+                            <li>Email: {{emails.[0].address}}</li>
+                        {{else}}
+                            {{#if emails.[1].address}}
+                                <li>Email: {{emails.[1].address}}</li>
+                            {{else}}
+                                <li>Email: {{emails.[0]}}</li>
+                            {{/if}}
+                        {{/if}}
                         <li>Roles: {{roles}}</li>
                     </ul>
                 </div>

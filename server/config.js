@@ -27,7 +27,7 @@ testerEmails = [
     'mi_wi_co@yahoo.com',
     'cole_peosoldier@yahoo.com',
     'lauren3112@gmail.com',
-    'bubblebooy@gmail.com,Max,Garber',
+    'bubblebooy@gmail.com,',
     'gittler.nicholas@gmail.com',
     'johnwuich89@gmail.com',
     'mhamurrain@gmail.com,Milinda,Alston-Murrain',
@@ -101,7 +101,10 @@ testerEmails = [
     'stoo@stoo.org.uk',
     'marly.atlin@gmail.com',
     'eliz@gammastronomer.com',
-    'zac@geekandsundry.com'
+    'zac@geekandsundry.com',
+    'junkeliminator7@gmail.com',
+    'shellemech@gmail.com',
+    'tirant2508@gmail.com'
 ];
 
 // REMEMBER TO REMOVE BETA ROLE
