@@ -1,3 +1,5 @@
+// To add/remove this element, set the "testing" variable in the layout template
+
 Template.feedback.onCreated(function () {
     Session.set('showForm', false);
 });
@@ -31,6 +33,7 @@ Template.feedback.events({
             } else {
                 notify('Feedback sent!');
                 Session.set('showForm', false);
+                analytics.track('Sent feedback');
             }
         });
     }

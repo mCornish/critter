@@ -1,22 +1,11 @@
-let FB_ID = '';
-let FB_SECRET = '';
-
-if (process.env.NODE_ENV = 'development') {
-    FB_ID = '1066271376729821';
-    FB_SECRET = 'acc50853b6d29bd4105e65651a2aa578';
-} else {
-    FB_ID = '1065816680108624';
-    FB_SECRET = 'eb38f5596605adafac6ba8f5a0e2e78c';
-}
-
 ServiceConfiguration.configurations.upsert(
     {service: 'facebook'},
     {
         $set: {
             // TODO Hide key and secret using settings (http://joshowens.me/environment-settings-and-security-with-meteor-js/)
-            appId: '1065816680108624',
+            appId: Meteor.settings.public.facebook.appId,
             loginStyle: 'popup',
-            secret: 'eb38f5596605adafac6ba8f5a0e2e78c'
+            secret: Meteor.settings.private.facebook.secret
         }
     }
 );
@@ -30,7 +19,7 @@ testerEmails = [
     'bubblebooy@gmail.com',
     'gittler.nicholas@gmail.com',
     'johnwuich89@gmail.com',
-    'mhamurrain@gmail.com,Milinda,Alston-Murrain',
+    'mhamurrain@gmail.com',
     'jmercado808@gmail.com',
     'hey_man2@hotmail.com',
     'chasejessica2000@yahoo.com',
@@ -117,9 +106,9 @@ Accounts.onCreateUser(function (options, user) {
         if (testerEmails.indexOf(facebook.email) < 0) {
             throw new Meteor.Error('non-tester', 'Only approved testers may register.')
         }
-        user.emails.push({address: facebook.email});
+        user.emails.push({address: facebook.email, verified: true});
         // remove spaces from Facebook name and store as username
-        options.profile.username = facebook.name.replace(/\s+/g, '');
+        user.username = facebook.email.substr(0, facebook.email.indexOf('@'));
         options.profile.email = facebook.email;
         options.profile.firstName = facebook.first_name;
         options.profile.lastName = facebook.last_name;

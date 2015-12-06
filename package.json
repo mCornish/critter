@@ -1,0 +1,10 @@
+{
+  "name": "critter",
+  "version": "1.0.0",
+  "description": "A new way to watch the web's geekiest show, Critical Role.",
+  "scripts": {
+    "start": "meteor --settings settings-development.json",
+    "staging": "meteor deploy critterapp.meteor.com --settings settings-production.json",
+    "production": "modulus env set METEOR_SETTINGS \"$(cat settings-production.json)\" -p 'Critter' && modulus deploy -p 'Critter'"
+  }
+}

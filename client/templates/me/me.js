@@ -46,9 +46,10 @@ Template.me.events({
     'click [data-hook=logout]': function() {
         Meteor.logout(function(error) {
             if (error) {
-                return throwError(error.reason);
+                throwError(error.reason);
+            } else {
+                Router.go('home');
             }
-            Router.go('home');
         });
     },
     'submit [data-hook=username-form]': function(e) {
