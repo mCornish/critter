@@ -1,121 +1,13 @@
 <template name="home">
-    <div class="home page row">
+    <div class="home page">
         {{#unless authed}}
-            <div class="col-sm-6 hidden-xs full-height vertical-center">
-                <div class="logo row">
-                    <div class="col-xs-12">
-                        <div class="row">
-                            <img class="logo__image col-xs-12" src="/images/logo.svg">
 
-                            <div class="col-xs-12">
-                                <h1 class="logo__header">Critter</h1>
-
-                                <h2 class="logo__subheader">A new way to watch</h2>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xs-12 visible-xs">
-                <div class="logo row row--margin">
-                    <div class="col-xs-12">
-                        <div class="row">
-                            <img class="logo__image col-xs-12" src="/images/logo.svg">
-
-                            <div class="col-xs-12">
-                                <h1 class="logo__header">Critter</h1>
-
-                                <h2 class="logo__subheader">A new way to watch</h2>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-6 hidden-xs full-height vertical-center">
-                <div class="row">
-                    <h2 class="home__counter col-xs-12 text-center color-2"><i class="fa fa-eye"></i> {{userCount}} Critters
-                        Online</h2>
-                    <div class="col-xs-12">
-                        <a href="{{pathFor 'watch'}}" class="button no-padding col-xs-12" data-track="watch">
-                            <div class="button__icon row">
-                                <i class="fa fa-tv"></i>
-                                <span>Watch</span>
-                            </div>
-                        </a>
-                        <a href="{{pathFor 'stats'}}" class="button no-padding col-xs-12 coming-soon__link"
-                           data-hook="noTest" data-track="stats">
-
-                            <div class="coming-soon"><span class="coming-soon__text">Coming Soon!</span></div>
-
-                            <div class="button__icon row">
-                                <i class="fa fa-bar-chart"></i>
-                                <span>Stats</span>
-                            </div>
-                        </a>
-                        {{#if authed}}
-                            <a href="{{pathFor 'me'}}" class="button no-padding col-xs-12" data-hook="noTest"
-                               data-track="me">
-                                <div class="button__icon row">
-                                    <i class="fa fa-user"></i>
-                                    <span>Me</span>
-                                </div>
-                            </a>
-                        {{else}}
-                            <a href="{{pathFor 'login'}}" class="button no-padding col-xs-12" data-track="login">
-                                <div class="button__icon row">
-                                    <i class="fa fa-user"></i>
-                                    <span>Log In</span>
-                                </div>
-                            </a>
-                        {{/if}}
-                    </div>
-                </div>
-            </div>
-            <div class="col-xs-12 visible-xs">
-                <div class="row row--margin">
-                    <h2 class="home__counter col-xs-12 text-center color-2"><i class="fa fa-eye"></i> {{userCount}} Critters
-                        Online</h2>
-                    <div class="col-xs-12">
-                        <a href="{{pathFor 'watch'}}" class="button no-padding col-xs-12" data-track="watch">
-                            <div class="button__icon row">
-                                <i class="fa fa-tv"></i>
-                                <span>Watch</span>
-                            </div>
-                        </a>
-                        <a href="{{pathFor 'stats'}}" class="button no-padding col-xs-12 coming-soon__link"
-                           data-hook="noTest" data-track="stats">
-
-                            <div class="coming-soon"><span class="coming-soon__text">Coming Soon!</span></div>
-
-                            <div class="button__icon row">
-                                <i class="fa fa-bar-chart"></i>
-                                <span>Stats</span>
-                            </div>
-                        </a>
-                        {{#if authed}}
-                            <a href="{{pathFor 'me'}}" class="button no-padding col-xs-12" data-hook="noTest"
-                               data-track="me">
-                                <div class="button__icon row">
-                                    <i class="fa fa-user"></i>
-                                    <span>Me</span>
-                                </div>
-                            </a>
-                        {{else}}
-                            <a href="{{pathFor 'login'}}" class="button no-padding col-xs-12" data-track="login">
-                                <div class="button__icon row">
-                                    <i class="fa fa-user"></i>
-                                    <span>Log In</span>
-                                </div>
-                            </a>
-                        {{/if}}
-                    </div>
-                </div>
-            </div>
-            {{else}}
+        {{else}}
             <div class="col-xs-12">
                 <div class="row">
                     <h2 class="home__counter col-xs-12 text-center"><i class="fa fa-eye"></i> {{userCount}} Critters
                         Online</h2>
+
                     <h2 class="col-xs-12 text-center">You have {{user.profile.points}} Experience Points</h2>
                 </div>
             </div>

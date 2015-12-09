@@ -1,0 +1,37 @@
+/* ------------------------------ */
+/* ------------- #ANIMATIONS */
+/* ------------------------------ */
+.input-reveal {
+  @include transform(perspective(500px) rotateX(-90deg));
+  @include transform-origin(50% -2em);
+  @include transition(all .2s, opacity 0s .3s);
+  opacity: 0;
+}
+.input-reveal.is-active {
+  @include transform(none);
+  @include transition(all .2s, opacity 0s 0s);
+  opacity: 1;
+}
+.form-reveal {
+  @include transform(translateY(-4.5em));
+  @include transition(.2s);
+}
+.form-reveal.is-active {
+  @include transform(none);
+}
+
+
+.out-left {
+  @include transform(none);
+  @include transition(.2s);
+}
+.out-left.is-active {
+  @include transform(translateX(-100vw));
+}
+.in-right {
+  @include transform(translateX(100vw));
+  @include transition(.2s);
+}
+.in-right.is-active {
+  @include transform(none);
+}

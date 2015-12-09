@@ -1,14 +1,12 @@
 <template name="header">
-    <header class="header {{headerClass}} {{headerActive}} {{authedClass}}">
-        {{#unless homeUnauthed}}
-            <div class="menu menu--header">
-                <div class="row">
+    <header class="header {{headerActive}} {{authedClass}}">
+        <div class="menu menu--header">
+            <div class="row">
+                {{#unless homeUnauthed}}
                     <a class="button menu__button col-xs-3 {{routeActive '/home'}}" href="{{pathFor 'home'}}"
                        data-track="header-click">
                         <div class="row">
                             <img class="logo__image col-xs-12" src="/images/logo.svg">
-
-                            <div class="col-xs-12">Home</div>
                         </div>
                     </a>
                     <a class="button menu__button col-xs-3 {{routeActive '/watch'}}" href="{{pathFor 'watch'}}"
@@ -46,9 +44,17 @@
                             </div>
                         </a>
                     {{/if}}
-                </div>
+                {{else}}
+                    <div class="container">
+                        <img class="header__logo" src="/images/logo.svg" data-hook="close-login">
+                        <div class="header__login" data-hook="login-container">
+                            <button class="button" data-hook="login-button">Login/Register</button>
+                            <h3 class="home__counter--unauthed text-center"><i class="fa fa-eye"></i> {{userCount}} Critters Online</h3>
+                        </div>
+                    </div>
+                {{/unless}}
             </div>
-        {{/unless}}
+        </div>
         {{#if backLink}}
             <a class="header__back" href="{{backLink}}"><i class="fa fa-angle-left"></i></a>
         {{/if}}

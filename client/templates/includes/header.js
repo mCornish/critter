@@ -5,25 +5,6 @@ Template.layout.onRendered(function() {
 });
 
 Template.header.helpers({
-    logoSize: function() {
-        var routeName = Router.current().route.getName();
-
-        return (routeName === 'home' || routeName === 'login') && !Meteor.userId() ? '' : 'logo--small';
-    },
-    headerClass: function() {
-        if(Session.get('headerIsSimple')) {
-            return 'is-simple';
-        } else {
-            return '';
-        }
-    },
-    headerActive: function() {
-        if(!Session.get('headerIsActive')) {
-            return 'hidden';
-        } else {
-            return '';
-        }
-    },
     menuActive: function(route) {
 
         return route === Session.get('route') ? 'is-active' : '';

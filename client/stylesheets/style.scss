@@ -1,12 +1,15 @@
 /* ------------------------------ */
 /* ------------- #VARIABLES */
 /* ------------------------------ */
-
 @import "colors";
 
 @import "media-queries";
 
 @import "mixins";
+
+@import "keyframes";
+
+@import "animations";
 
 
 /* ------------------------------ */
@@ -833,17 +836,26 @@ label.is-hidden {
 }
 
 .header.is-unauthed {
-  display: none;
-  //height: 40vh;
-
+  position: relative;
+}
+.header__logo {
+  float: left;
+  margin-top: 2em;
+  width: 4em;
+  cursor: pointer;
+}
+.header__login {
+  float: right;
+  margin-top: 2em;
+}
+.header__login * {
   @media #{$break-small} {
-    //padding-top: 2em;
+    font-size: .8em;
   }
   @media #{$break-medium} {
-    //padding-top: 3em;
+    font-size: 1em;
   }
 }
-
 .header-spacer {
   visibility: hidden;
   display: block;
@@ -905,28 +917,20 @@ label.input-group__label {
   color: inherit;
 }
 
-//input:not([type=radio]):not([type=checkbox]):not(.button--submit),
 input,
 .input-addon {
   display: block;
   position: relative;
-  border: none;
+  border: 1px solid mix($color-3, white, 20);
+  border-radius: 0;
   color: inherit;
-  background-color: transparent;
+  background-color: mix($color-3, white, 10);
   width: 100%;
-  border-bottom: .2em solid currentColor;
-  @media #{$break-small} {
-    border-top: .2em solid currentColor;
-    border-left: .2em solid currentColor;
-    border-right: .2em solid currentColor;
 
+  @media #{$break-small} {
     padding: 1em;
   }
   @media #{$break-medium} {
-    border-top: none;
-    border-left: none;
-    border-right: none;
-
     padding: .5em;
   }
 }
@@ -934,45 +938,7 @@ input,
 input:focus,
 .input-addon:focus {
   outline: none;
-  @media #{$break-small} {
-    border-color: $color-3;
-  }
-  @media #{$break-medium} {
-    border-color: currentColor;
-  }
-}
-
-/* input bar */
-.input-group__bar {
-  position: relative;
-  display: block;
-  width: 100%;
-}
-
-.input-group__bar:before,
-.input-group__bar:after {
-  content: '';
-  height: .2em;
-  width: 0;
-  bottom: 0;
-  position: absolute;
-  background: $color-3;
-  transition: .2s ease all;
-}
-
-.input-group__bar:before {
-  left: 50%;
-}
-
-.input-group__bar:after {
-  right: 50%;
-}
-
-input:focus ~ .input-group__bar:before,
-input:focus ~ .input-group__bar:after {
-  @media #{$break-medium} {
-    width: 50%;
-  }
+  border: 1px solid $color-1;
 }
 
 // input prefix (same style as input)
@@ -1025,10 +991,6 @@ input:focus ~ .input-group__bar:after {
   overflow: hidden;
   position: absolute;
   z-index: -1;
-}
-
-.input-group__file-label {
-
 }
 
 /* SELECT */
@@ -1849,24 +1811,70 @@ i.menu__notification {
   position: relative;
   height: 100%;
 }
+.home__hero {
+  position: relative;
+  background-color: $color-3;
+  height: 90vh;
+  width: 100vw;
+}
+.home__header {
+  color: $color-2;
+  margin-top: 2em;
+  margin-bottom: 0;
+
+  @media #{$break-small} {
+    font-size: 2.5em;
+  }
+  @media #{$break-medium} {
+    font-size: 5em;
+  }
+}
+.home__subheader {
+  color: $color-2;
+  margin: 0;
+
+  @media #{$break-small} {
+    font-size: 1.5em;
+  }
+  @media #{$break-medium} {
+    font-size: 2em;
+  }
+}
 .home__counter {
   margin-top: 2em;
   margin-bottom: 1em;
 }
-.home .button {
-  float: left;
-
-  @media #{$break-small} {
-
-  }
-  @media #{$break-medium} {
-    //height: 15em;
-    //width: 25vw;
-  }
-}
-
-.home .button + .button {
+.home__counter--unauthed {
+  color: $color-2;
   margin-top: .5em;
+  margin-bottom: 0;
+}
+.home__hero .button {
+  color: $color-2;
+  border-color: $color-2;
+}
+.home__hero .button:hover {
+  color: $color-3;
+  background-color: $color-2;
+}
+.home__hero .button:after {
+  background-color: $color-2;
+}
+.home__hero .button--submit {
+  background-color: $color-2;
+  color: $color-1;
+}
+.home__hero .button--submit:hover {
+  color: $color-3;
+}
+.home__hero input {
+  background-color: mix($color-3, black, 90);
+  border: 1px solid mix($color-3, black, 85);
+  color: $color-2;
+}
+.home__intro {
+  background-color: $color-2;
+  color: $color-1;
 }
 
 
@@ -1890,10 +1898,9 @@ i.menu__notification {
 }
 .login__links {
   margin-top: .5em;
-  margin-bottom: 2em;
 }
 .login__link {
-  color: $color-3;
+  color: $color-2;
   border-bottom: none;
   cursor: pointer;
 }
