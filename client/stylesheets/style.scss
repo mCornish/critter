@@ -191,8 +191,9 @@ hr {
 /* --- #BUTTON */
 /* -------------------- */
 .button {
-  background-color: transparent;
+  background-color: mix($color-2, black, 90);
   color: $color-1;
+  border: 3px solid mix($color-2, black, 85);
   letter-spacing: 1px;
   font-size: 1.5em;
   font-weight: bold;
@@ -200,10 +201,8 @@ hr {
   min-width: 4em;
   text-align: center;
   display: inline;
-  border-color: $color-1;
-  border-style: solid;
-  border-width: 3px;
-  transition: .2s color ease, .2s background-color ease;
+  border-radius: .2em;
+  transition: .2s ease, .2s ease;
   position: relative;
   cursor: pointer;
   z-index: 1;
@@ -230,13 +229,8 @@ hr {
 .button:hover {
   color: $color-2;
   text-decoration: none;
-
-  @media #{$break-small} {
-    background-color: $color-1;
-  }
-  @media #{$break-medium} {
-    background-color: transparent;
-  }
+  border-color: $color-1;
+  background-color: $color-1;
 }
 
 .is-unauthed .button:hover,
@@ -255,16 +249,6 @@ hr {
   cursor: default;
   background-color: rgb(150, 150, 150);
   color: rgb(100, 100, 100);
-}
-
-.button.disabled:hover, .button.disabled:focus {
-  border-bottom-width: 5px;
-  top: 0;
-}
-
-.button.disabled:active {
-  border-bottom-width: 5px;
-  top: 0
 }
 
 /* active button */
@@ -305,10 +289,11 @@ hr {
   content: '';
   position: absolute;
   z-index: -1;
-  transition: all 0.2s;
+  @include transition(all 0.2s);
   // 101% to fix bug where button would not fill completely
-  width: 101%;
+  width: 100%;
   height: 0;
+  border-radius: .2em;
   top: 50%;
   left: 50%;
   background-color: $color-1;
@@ -577,7 +562,7 @@ hr {
   top: 0;
   width: 100%;
   height: 100%;
-  background-color: $color-3;
+  background-color: black;
   opacity: .9;
   color: $color-4;
   z-index: 3;
@@ -842,7 +827,11 @@ label.is-hidden {
   float: left;
   margin-top: 2em;
   width: 4em;
+  @include transform(rotateZ(-10deg));
   cursor: pointer;
+}
+.header__logo:hover {
+  @include animation(0, 1s, hover-float, ease, infinite);
 }
 .header__login {
   float: right;
@@ -1210,10 +1199,11 @@ input[type=radio] + input[type=radio] {
 }
 .menu__button {
   display: inline-block;
+  border-radius: 0;
   border: none;
   color: hsl(0,0,70);
   font-weight: normal;
-  //height: 10vh;
+  background-color: transparent;
   padding: .5em;
 
   @media #{$break-small} {
@@ -1288,13 +1278,14 @@ i.menu__notification {
   border-bottom-color: $color-3;
   border-bottom-style: solid;
   border-bottom-width: 0;
-  height: 100%;
+  height: 4.5em;
   transition: all .2s ease;
 }
-.menu--header .menu__button:hover,
+.menu--header .menu__button:hover:not(.disabled),
 .menu--header .menu__button.is-active {
   background-color: $color-3;
   color: $color-2;
+  height: calc(4.5em + 10px);
   border-bottom-width: 10px;
 }
 .menu--header .menu__button.disabled {
@@ -1306,9 +1297,10 @@ i.menu__notification {
 }
 .menu .logo__image {
   width: 100%;
-  height: 2em;
+  height: 2.5em;
+  margin-top: .5em;
   opacity: .7;
-  transition: .2s opacity ease;
+  @include transition(.2s opacity ease);
 }
 
 
@@ -1849,9 +1841,12 @@ i.menu__notification {
   margin-top: .5em;
   margin-bottom: 0;
 }
+.home__forms {
+  margin-top: 5em;
+}
 .home__hero .button {
   color: $color-2;
-  border-color: $color-2;
+  background-color: mix($color-3, black, 60);
 }
 .home__hero .button:hover {
   color: $color-3;
@@ -1865,7 +1860,8 @@ i.menu__notification {
   color: $color-1;
 }
 .home__hero .button--submit:hover {
-  color: $color-3;
+  color: $color-4;
+  background-color: $color-1;
 }
 .home__hero input {
   background-color: mix($color-3, black, 90);

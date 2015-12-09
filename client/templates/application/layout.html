@@ -16,17 +16,19 @@
                         </div>
                     </div>
                 </div>
-                {{#if loggingIn}}
-                    <div class="home__login-form is-rotated" data-hook="login">
-                            {{> login_form}}
-                    </div>
-                    <div class="home__password-form">
-                            {{> password_form}}
-                    </div>
-                {{/if}}
+                <div class="home__forms">
+                    {{#if loggingIn}}
+                        <div class="is-rotated" data-hook="login">
+                                {{> login_form}}
+                        </div>
+                        <div>
+                                {{> password_form}}
+                        </div>
+                    {{/if}}
+                </div>
             </div>
         </div>
-        <div class="home__intro">
+        <div class="home__intro container">
                 {{> intro}}
         </div>
     {{else}}

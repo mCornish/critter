@@ -27,7 +27,24 @@ $easeOutCubic: cubic-bezier(0.215, 0.61, 0.355, 1);
 .rotate-out {
   @include animation(0, .3s, rotate-out, $easeInCubic);
 }
+
 .is-rotated {
   @include transition(transform 0s .4s);
   @include transform(rotateY(270deg));
+}
+
+
+@include keyframes(hover-float) {
+  0% {
+    @include transform(rotateZ(-10deg));
+  }
+  50% {
+    @include transform(rotateZ(10deg));
+  }
+  100% {
+    @include transform(rotateZ(-10deg));
+  }
+}
+.hover-float {
+  @include animation(0, .5s, hover-float, ease);
 }
