@@ -51,16 +51,34 @@ Template.layout.events({
             Session.set('loggingIn', true);
             const $outLeft = $('.out-left');
             const $inRight = $('.in-right');
-            const $lift = $('[data-hook=login-container]');
+            const $lift1 = $('[data-hook=login-button-container]');
+            const $lift2 = $('[data-hook=login-container]');
+            const $flipFull = $('[data-hook=login-button]');
+            const $flip = $flipFull.find('.flip');
+            const $flop = $flipFull.find('.flop');
+            const liftDur = getDuration($('.lift'));
+            const flipDur = getDuration($('.flip-full')) / 2;
             const outLeftDur = getDuration($outLeft) / 3;
             const inRightDur = getDuration($inRight);
-            let delay = -outLeftDur;
+            let delay = 0;
 
+            // Flip button
+            activate($lift1, 0);
+            activate($flipFull, delay += liftDur - 50);
+            activate($flip, delay);
+            activate($flop, delay + flipDur, function() {
+                deactivate($lift1, flipDur);
+            });
+
+            // Transition to login
             $outLeft.each(function () {
                 activate($(this), delay += outLeftDur);
             });
             activate($inRight, delay += outLeftDur);
-            deactivate($lift, delay += inRightDur);
+            deactivate($lift2, delay += inRightDur);
+        } else {
+            // Trigger close event (below)
+            $('[data-hook=close-login]').trigger('click');
         }
     },
 
@@ -69,12 +87,26 @@ Template.layout.events({
             Session.set('loggingIn', false);
             const $outLeft = $('.out-left');
             const $inRight = $('.in-right');
-            const $lift = $('[data-hook=login-container]');
+            const $lift1 = $('[data-hook=login-button-container]');
+            const $lift2 = $('[data-hook=login-container]');
+            const $flipFull = $('[data-hook=login-button]');
+            const $flip = $flipFull.find('.flip');
+            const $flop = $flipFull.find('.flop');
             const liftDur = getDuration($('.lift'));
+            const flipDur = getDuration($('.flip-full')) / 2;
             const outLeftDur = getDuration($outLeft) / 3;
             let delay = 0;
 
-            activate($lift, 0);
+            // Flip button
+            activate($lift1, 0);
+            deactivate($flipFull, delay += liftDur - 50);
+            deactivate($flop, delay);
+            deactivate($flip, delay + flipDur, function() {
+                deactivate($lift1, flipDur);
+            });
+
+            // Transition from login
+            activate($lift2, 0);
             deactivate($inRight, delay += liftDur);
             $outLeft.each(function () {
                 deactivate($(this), delay += outLeftDur);

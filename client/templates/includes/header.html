@@ -48,7 +48,12 @@
                     <div class="container">
                         <img class="header__logo bounce-in" src="/images/logo.svg" data-hook="close-login">
                         <div class="header__login" data-hook="login-container">
-                            <button class="button" data-hook="login-button">Login/Register</button>
+                            <div class="lift" data-hook="login-button-container">
+                                <button class="button flip-full" data-hook="login-button">
+                                    <span class="flip">Login/Register</span>
+                                    <span class="flop">Back</span>
+                                </button>
+                            </div>
                             <h3 class="home__counter home__counter--unauthed text-center"><i class="fa fa-eye"></i> {{userCount}} Critters Online</h3>
                         </div>
                     </div>

@@ -240,12 +240,6 @@ hr {
   color: rgb(100, 100, 100);
 }
 
-/* active button */
-.button.is-active {
-  background-color: $color-1;
-  color: $color-3;
-}
-
 .button--addon {
   display: block;
   padding: 0;
@@ -1700,6 +1694,16 @@ i.menu__notification {
 /* -------------------- */
 /* --- #HOME */
 /* -------------------- */
+//.background {
+//  position: absolute;
+//  background-image: url('images/bg.jpg');
+//  background-size: cover;
+//  left: 0;
+//  top: 0;
+//  width: 100vw;
+//  height: 100vh;
+//  opacity: .05;
+//}
 .home {
   position: relative;
   height: 100%;
