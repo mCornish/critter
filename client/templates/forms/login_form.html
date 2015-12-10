@@ -1,7 +1,7 @@
 <template name="login_form">
-    <div class="login-form out-left">
+    <div class="login-form lift is-active col-xs-12 col-md-6 col-md-offset-3">
         <div class="row">
-            <div class="col-xs-12 col-md-6 col-md-offset-3">
+            <div class="col-xs-12">
                 <button class="login__facebook button button--addon col-xs-12"
                         data-hook="facebook-login">
                     <div class="login__icon login__facebook-icon button--addon__addon col-xs-3"><i
@@ -13,7 +13,7 @@
         </div>
 
         <form class="row row--margin">
-            <div class="col-xs-12 col-md-6 col-md-offset-3">
+            <div class="col-xs-12">
                 <div class="row row--margin">
                     <div class="col-xs-12">
                         <input name="username" data-hook="username" type="email" placeholder="Email" required>
@@ -32,7 +32,7 @@
                 </div>
             </div>
 
-            <div class="login__links form-reveal col-xs-12 col-md-6 col-md-offset-3">
+            <div class="login__links form-reveal col-xs-12">
                 <div class="row">
                     {{#unless creatingUser}}
                         <div class="col-xs-6 text-center">
@@ -53,7 +53,7 @@
             </div>
             <div class="col-xs-12">
                 <div class="row row--margin">
-                    <div class="form-reveal col-xs-12 col-md-6 col-md-offset-3">
+                    <div class="form-reveal col-xs-12">
                         <button class="button button--submit col-xs-12" type="submit"
                                 data-hook="submit">
                             {{#unless creatingUser}}

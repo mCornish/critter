@@ -1,6 +1,14 @@
 /* ------------------------------ */
 /* ------------- #VARIABLES */
 /* ------------------------------ */
+
+$shadow-h: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+$shadow-1: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+$shadow-2: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+$shadow-3: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+$shadow-4: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+$shadow-5: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
+
 @import "colors";
 
 @import "media-queries";
@@ -10,7 +18,6 @@
 @import "keyframes";
 
 @import "animations";
-
 
 /* ------------------------------ */
 /* ------------- #BASE */
@@ -191,46 +198,25 @@ hr {
 /* --- #BUTTON */
 /* -------------------- */
 .button {
-  background-color: mix($color-2, black, 90);
-  color: $color-1;
-  border: 3px solid mix($color-2, black, 85);
+  background-color: $color-2;
+  color: $color-3;
   letter-spacing: 1px;
   font-size: 1.5em;
-  font-weight: bold;
   padding: 1em;
-  min-width: 4em;
+  border: none;
   text-align: center;
   display: inline;
-  border-radius: .2em;
-  transition: .2s ease, .2s ease;
-  position: relative;
+  transition: .2s cubic-bezier(0.645, 0.045, 0.355, 1);
   cursor: pointer;
+  box-shadow: $shadow-1;
   z-index: 1;
 }
 
-.is-unauthed .button {
-  color: $color-2;
-  border-color: $color-2;
-}
-
-.button:focus {
-  text-decoration: none;
-
-  @media #{$break-small} {
-    background-color: $color-1;
-    color: $color-2;
-  }
-  @media #{$break-medium} {
-    background-color: transparent;
-    color: $color-1;
-  }
-}
 // Hover comes after focus for color override
 .button:hover {
-  color: $color-2;
+  color: $color-3;
   text-decoration: none;
-  border-color: $color-1;
-  background-color: $color-1;
+  box-shadow: $shadow-h;
 }
 
 .is-unauthed .button:hover,
@@ -285,54 +271,12 @@ hr {
   -webkit-appearance: inherit;
 }
 
-.button:after {
-  content: '';
-  position: absolute;
-  z-index: -1;
-  @include transition(all 0.2s);
-  // 101% to fix bug where button would not fill completely
-  width: 100%;
-  height: 0;
-  border-radius: .2em;
-  top: 50%;
-  left: 50%;
-  background-color: $color-1;
-  opacity: 0;
-  @include transform(translateX(-50%) translateY(-50%));
-}
-
 .is-unauthed .button:after {
   background-color: $color-2;
 }
 
-.button:hover:after {
-  @media #{$break-small} {
-    //No hover affect on phones
-  }
-  @media #{$break-medium} {
-    // 101% to fix bug where button would not fill completely
-    height: 101%;
-    opacity: 1;
-  }
-}
-
 .button--submit {
-  color: $color-2;
-  background-color: $color-1;
-  border-color: $color-1;
-  @media #{$break-small} {
-    bottom: 0;
-    left: 0;
-  }
-  @media #{$break-medium} {
-    position: relative;
-    //width: inherit;
-  }
-}
-
-.button--submit:hover {
-  background-color: $color-1;
-  color: $color-4;
+  box-shadow: $shadow-2;
 }
 
 .button--submit:after {
@@ -882,38 +826,15 @@ label.is-hidden {
 }
 
 /* -------------------- */
-/* --- #INPUT GROUP */
+/* --- #INPUT */
 /* -------------------- */
-.input-group {
-  position: relative;
-  margin-left: auto;
-  margin-right: auto;
-  width: 100%;
-  color: $color-1;
-}
-
-.input-group + .input-group {
-  @media #{$break-small} {
-    margin-top: 1.5em;
-  }
-  @media #{$break-medium} {
-    margin-top: 2em;
-  }
-}
-
-label.input-group__label {
-  visibility: visible;
-  color: inherit;
-}
-
 input,
 .input-addon {
   display: block;
   position: relative;
-  border: 1px solid mix($color-3, white, 20);
+  border: 1px solid mix($color-1, white, 20);
   border-radius: 0;
   color: inherit;
-  background-color: mix($color-3, white, 10);
   width: 100%;
 
   @media #{$break-small} {
@@ -1808,11 +1729,17 @@ i.menu__notification {
   background-color: $color-3;
   height: 90vh;
   width: 100vw;
+  overflow: hidden;
+}
+.home__headline {
+  position: absolute;
+  left: 0;
+  top: 0;
 }
 .home__header {
   color: $color-2;
-  margin-top: 2em;
   margin-bottom: 0;
+  text-shadow: $shadow-1;
 
   @media #{$break-small} {
     font-size: 2.5em;
@@ -1823,7 +1750,9 @@ i.menu__notification {
 }
 .home__subheader {
   color: $color-2;
+  background-color: $color-3;
   margin: 0;
+  padding: .5em;
 
   @media #{$break-small} {
     font-size: 1.5em;
@@ -1835,38 +1764,16 @@ i.menu__notification {
 .home__counter {
   margin-top: 2em;
   margin-bottom: 1em;
+  font-weight: 200;
+
 }
 .home__counter--unauthed {
   color: $color-2;
   margin-top: .5em;
   margin-bottom: 0;
 }
-.home__forms {
-  margin-top: 5em;
-}
-.home__hero .button {
-  color: $color-2;
-  background-color: mix($color-3, black, 60);
-}
-.home__hero .button:hover {
-  color: $color-3;
-  background-color: $color-2;
-}
-.home__hero .button:after {
-  background-color: $color-2;
-}
-.home__hero .button--submit {
-  background-color: $color-2;
-  color: $color-1;
-}
-.home__hero .button--submit:hover {
-  color: $color-4;
-  background-color: $color-1;
-}
-.home__hero input {
-  background-color: mix($color-3, black, 90);
-  border: 1px solid mix($color-3, black, 85);
-  color: $color-2;
+.home__container {
+  margin-top: 10em;
 }
 .home__intro {
   background-color: $color-2;
@@ -1877,6 +1784,11 @@ i.menu__notification {
 /* -------------------- */
 /* --- #LOGIN */
 /* -------------------- */
+.login-form {
+  background-color: $color-2;
+  padding: 2em;
+  box-shadow: $shadow-1;
+}
 .login {
   position: relative;
 }
@@ -1896,7 +1808,7 @@ i.menu__notification {
   margin-top: .5em;
 }
 .login__link {
-  color: $color-2;
+  color: $color-3;
   border-bottom: none;
   cursor: pointer;
 }

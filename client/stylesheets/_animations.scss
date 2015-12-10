@@ -26,12 +26,26 @@
   @include transition(.2s);
 }
 .out-left.is-active {
-  @include transform(translateX(-100vw));
+  @include transform(translateX(-200vw));
 }
 .in-right {
-  @include transform(translateX(100vw));
+  @include transform(translateX(200vw));
   @include transition(.2s);
 }
 .in-right.is-active {
   @include transform(none);
+}
+
+.lift {
+  box-shadow: none;
+  @include transform(none);
+  @include transition(.2s $easeInOutCubic);
+}
+.lift.is-active {
+  box-shadow: $shadow-h;
+  @include transform(scale(1.1));
+}
+.is-flipped {
+  @include transform(perspective(1000px) rotateY(-90deg));
+  @include transition(.3s $easeOutCubic);
 }
