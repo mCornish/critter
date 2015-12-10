@@ -57,13 +57,10 @@ Template.layout.events({
             let delay = -outLeftDur;
 
             $outLeft.each(function () {
-                setDelay($(this), delay += outLeftDur);
-                $(this).addClass('is-active');
+                activate($(this), delay += outLeftDur);
             });
-            setDelay($inRight, delay += outLeftDur);
-            $inRight.addClass('is-active');
-            setDelay($lift, delay += inRightDur);
-            $lift.removeClass('is-active');
+            activate($inRight, delay += outLeftDur);
+            deactivate($lift, delay += inRightDur);
         }
     },
 
@@ -74,30 +71,14 @@ Template.layout.events({
             const $inRight = $('.in-right');
             const $lift = $('[data-hook=login-container]');
             const liftDur = getDuration($('.lift'));
-            console.log(liftDur);
             const outLeftDur = getDuration($outLeft) / 3;
             let delay = 0;
 
-            setDelay($lift, 0);
-            $lift.addClass('is-active');
-            setDelay($inRight, delay += liftDur);
-            $inRight.removeClass('is-active');
-
+            activate($lift, 0);
+            deactivate($inRight, delay += liftDur);
             $outLeft.each(function () {
-                setDelay($(this), delay += outLeftDur);
-                $(this).removeClass('is-active');
+                deactivate($(this), delay += outLeftDur);
             });
         }
     }
 });
-
-const getDuration = function($element) {
-    return $element.css('transition-duration').slice(0, -1) * 1000;
-};
-
-const setDelay = function($element, delay) {
-    $element.css('transition-delay', delay + 'ms');
-    $element.css('-webkit-transition-delay', delay + 'ms');
-    $element.css('-moz-transition-delay', delay + 'ms');
-    $element.css('-o-transition-delay', delay + 'ms');
-};

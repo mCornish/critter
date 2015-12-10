@@ -48,20 +48,41 @@
 }
 
 .flip {
-  @include transform(perspective(1000px) rotateY(0deg));
-  @include transition(.3s $easeInOutCubic);
+  opacity: 1;
+  z-index: 2;
+  @include transition(.15s linear);
 }
 .flip.is-active {
-  @include transform(rotateY(90deg));
-}
-.is-flipped {
-  @include transform(perspective(1000px) rotateY(-90deg));
-  @include transition(.3s $easeOutCubic);
+  opacity: 0;
+  z-index: 1;
 }
 .flop {
-  @include transform(perspective(1000px) rotateY(-90deg));
-  @include transition(.3s $easeInOutCubic);
+  @include transform(rotateY(180deg));
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  background-color: $color-2;
+  opacity: 0;
+  padding: 2em;
+  z-index: 1;
+
+  // Allow click-through when flipped over
+  pointer-events: none;
+  filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='your_transparent.png', sizingMethod='scale');
+  background: none !important;
 }
 .flop.is-active {
-  @include transform(rotateY(0deg));
+  opacity: 1;
+  z-index: 2;
+  pointer-events: auto;
+  filter: none;
+  background: inherit;
+}
+.flip-full {
+  @include transform(perspective(1000px) rotateY(0deg));
+  @include transition(.3s linear);
+}
+.flip-full.is-active {
+  @include transform(rotateY(180deg));
 }

@@ -37,9 +37,19 @@ Template.password_form.events({
     },
     'click [data-hook=password-cancel]': function(e, template) {
         e.preventDefault();
-        $('.in-right').removeClass('is-active').on('transitionend', function () {
-            $(this).off();
-            $('.out-left').show(0).removeClass('is-active');
+        const $lift = $('[data-hook=login-container]');
+        const $flipFull = $('.flip-full');
+        const $flip = $('.flip');
+        const $flop = $('.flop');
+        const liftDur = getDuration($('.lift'));
+        const flipDur = getDuration($flipFull) / 2;
+        let delay = 0;
+
+        activate($lift, 0);
+        deactivate($flipFull, delay += liftDur);
+        deactivate($flop, delay);
+        deactivate($flip, delay += flipDur, function() {
+            deactivate($lift, flipDur);
         });
     }
 });

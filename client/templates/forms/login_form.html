@@ -1,77 +1,83 @@
 <template name="login_form">
-    <div class="flip" data-hook="flip-container">
+    <div class="flip-full">
         <div class="login-form lift is-active col-xs-12 col-md-6 col-md-offset-3" data-hook="login-container">
-            <div class="row">
-                <div class="col-xs-12">
-                    <button class="login__facebook button button--addon col-xs-12"
-                            data-hook="facebook-login">
-                        <div class="login__icon login__facebook-icon button--addon__addon col-xs-3"><i
-                                class="fa fa-facebook"></i>
-                        </div>
-                        <span class="col-xs-9">Use Facebook</span>
-                    </button>
-                </div>
-            </div>
-
-            <form class="row row--margin" data-hook="form">
-                <div class="col-xs-12">
-                    <div class="lift back-color-2">
-                        <div class="row row--padding">
-                            <div class="col-xs-12">
-                                <input name="username" data-hook="username" type="email" placeholder="Email" required>
-                            </div>
-                        </div>
-                        <div class="row row--padding">
-                            <div class="col-xs-12">
-                                <input name="password" data-hook="password" type="password" placeholder="Password"
-                                       required>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="input-reveal row row--padding">
-                        <div class="col-xs-12">
-                            <input name="password-again" data-hook="password-again" type="password"
-                                   placeholder="Password (again)" required>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-reveal">
-                    <div class="login__links col-xs-12" data-hook="links">
-                        <div class="row">
-                            {{#unless creatingUser}}
-                                <div class="col-xs-6 text-center">
-                                    <a class="login__link" data-hook="switch-state">Register
-                                        Instead</a>
-                                </div>
-                                <div class="col-xs-6 text-center">
-                                    <a class="login__link" data-hook="forgotten-password">Forgot
-                                        Password</a>
-                                </div>
-                            {{else}}
-                                <div class="col-xs-12 text-center">
-                                    <a class="login__link" data-hook="switch-state">Log In
-                                        Instead</a>
-                                </div>
-                            {{/unless}}
-                        </div>
-                    </div>
+            <div class="flip">
+                <div class="row">
                     <div class="col-xs-12">
-                        <div class="row row--margin">
+                        <button class="login__facebook button button--addon col-xs-12"
+                                data-hook="facebook-login">
+                            <div class="login__icon login__facebook-icon button--addon__addon col-xs-3"><i
+                                    class="fa fa-facebook"></i>
+                            </div>
+                            <span class="col-xs-9">Use Facebook</span>
+                        </button>
+                    </div>
+                </div>
+
+                <form class="row row--margin" data-hook="form">
+                    <div class="col-xs-12">
+                        <div class="lift back-color-2">
+                            <div class="row row--padding">
+                                <div class="col-xs-12">
+                                    <input name="username" data-hook="username" type="email" placeholder="Email"
+                                           required>
+                                </div>
+                            </div>
+                            <div class="row row--padding">
+                                <div class="col-xs-12">
+                                    <input name="password" data-hook="password" type="password" placeholder="Password"
+                                           required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="input-reveal row row--padding">
                             <div class="col-xs-12">
-                                <button class="button button--submit col-xs-12" type="submit"
-                                        data-hook="submit">
-                                    {{#unless creatingUser}}
-                                        <span>Log In</span>
-                                    {{else}}
-                                        <span>Register</span>
-                                    {{/unless}}
-                                </button>
+                                <input name="password-again" data-hook="password-again" type="password"
+                                       placeholder="Password (again)" required>
                             </div>
                         </div>
                     </div>
-                </div>
-            </form>
+
+                    <div class="form-reveal">
+                        <div class="login__links col-xs-12" data-hook="links">
+                            <div class="row">
+                                {{#unless creatingUser}}
+                                    <div class="col-xs-6 text-center">
+                                        <a class="login__link" data-hook="switch-state">Register
+                                            Instead</a>
+                                    </div>
+                                    <div class="col-xs-6 text-center">
+                                        <a class="login__link" data-hook="forgotten-password">Forgot
+                                            Password</a>
+                                    </div>
+                                {{else}}
+                                    <div class="col-xs-12 text-center">
+                                        <a class="login__link" data-hook="switch-state">Log In
+                                            Instead</a>
+                                    </div>
+                                {{/unless}}
+                            </div>
+                        </div>
+                        <div class="col-xs-12">
+                            <div class="row row--margin">
+                                <div class="col-xs-12">
+                                    <button class="button button--submit col-xs-12" type="submit"
+                                            data-hook="submit">
+                                        {{#unless creatingUser}}
+                                            <span>Log In</span>
+                                        {{else}}
+                                            <span>Register</span>
+                                        {{/unless}}
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="flop">
+                    {{> password_form}}
+            </div>
         </div>
     </div>
 </template>

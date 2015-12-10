@@ -181,15 +181,19 @@ Template.login_form.events({
     },
     'click [data-hook=forgotten-password]': function (e, template) {
         e.preventDefault();
-        $('[data-hook=login-container]').addClass('is-active').on('transitionend', function(e) {
-            $(e.target).off();
-            $('[data-hook=flip-container]').addClass('is-active').on('transitionend', function() {
-                $(e.target).off();
-            });
+        const $lift = $('[data-hook=login-container]');
+        const $flipFull = $('.flip-full');
+        const $flip = $('.flip');
+        const $flop = $('.flop');
+        const liftDur = getDuration($('.lift'));
+        const flipDur = getDuration($flipFull) / 2;
+        let delay = 0;
+
+        activate($lift, 0);
+        activate($flipFull, delay += liftDur);
+        activate($flip, delay);
+        activate($flop, delay += flipDur, function() {
+            deactivate($lift, flipDur);
         });
-        //$('.out-left').addClass('is-active').on('transitionend', function () {
-        //    $(this).hide().off();
-        //    $('.in-right').addClass('is-active');
-        //});
     }
 });
