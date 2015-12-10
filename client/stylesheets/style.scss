@@ -193,6 +193,9 @@ hr {
 .row--margin {
   margin-top: 2em;
 }
+.row--padding {
+  padding-top: 2em;
+}
 
 /* -------------------- */
 /* --- #BUTTON */
@@ -834,6 +837,7 @@ input,
   position: relative;
   border: 1px solid mix($color-1, white, 20);
   border-radius: 0;
+  background-color: $color-2;
   color: inherit;
   width: 100%;
 
@@ -986,30 +990,6 @@ input[type=radio] + input[type=radio] {
 .featured__image {
   width: 100%;
   border-radius: 1em;
-}
-
-/* -------------------- */
-/* --- #INPUT SUBMIT */
-/* -------------------- */
-.submit-button {
-  width: 50%;
-  margin: 0 auto;
-  position: relative;
-  overflow: hidden;
-  -webkit-backface-visibility: hidden;
-  -moz-backface-visibility: hidden;
-  backface-visibility: hidden;
-  border: none;
-  background: none;
-  color: white;
-  cursor: pointer;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  font-weight: 700;
-  outline: none;
-  -webkit-transition: all 0.3s;
-  -moz-transition: all 0.3s;
-  transition: all 0.3s;
 }
 
 

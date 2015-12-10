@@ -2,15 +2,13 @@
 /* ------------- #ANIMATIONS */
 /* ------------------------------ */
 .input-reveal {
-  @include transform(perspective(500px) rotateX(-90deg));
-  @include transform-origin(50% -2em);
+  @include transform(translateY(-5em));
   @include transition(all .2s, opacity 0s .3s);
-  opacity: 0;
+  z-index: 0;
 }
 .input-reveal.is-active {
   @include transform(none);
   @include transition(all .2s, opacity 0s 0s);
-  opacity: 1;
 }
 .form-reveal {
   @include transform(translateY(-4.5em));
@@ -37,13 +35,16 @@
 }
 
 .lift {
+  position: relative;
   box-shadow: none;
   @include transform(none);
   @include transition(.2s $easeInOutCubic);
+  z-index: 1;
 }
 .lift.is-active {
   box-shadow: $shadow-h;
   @include transform(scale(1.1));
+  z-index: 2;
 }
 
 .flip {

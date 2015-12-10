@@ -49,34 +49,55 @@ Template.layout.events({
     'click [data-hook=login-button]': function (e) {
         if (!Session.get('loggingIn')) {
             Session.set('loggingIn', true);
-            let delay = 0;
-            $('.out-left:not([data-hook=headline-text])').each(function () {
-                setTimeout(() => $(this).addClass('is-active'), delay);
-                delay += 100;
-            }).on('transitionend', function () {
-                $('.out-left').off();
-                $('.in-right').addClass('is-active').on('transitionend', function () {
-                    $(this).off();
-                    $('.lift').removeClass('is-active');
-                });
+            const $outLeft = $('.out-left');
+            const $inRight = $('.in-right');
+            const $lift = $('[data-hook=login-container]');
+            const outLeftDur = getDuration($outLeft) / 3;
+            const inRightDur = getDuration($inRight);
+            let delay = -outLeftDur;
+
+            $outLeft.each(function () {
+                setDelay($(this), delay += outLeftDur);
+                $(this).addClass('is-active');
             });
+            setDelay($inRight, delay += outLeftDur);
+            $inRight.addClass('is-active');
+            setDelay($lift, delay += inRightDur);
+            $lift.removeClass('is-active');
         }
     },
 
     'click [data-hook=close-login]': function () {
         if (Session.get('loggingIn')) {
             Session.set('loggingIn', false);
+            const $outLeft = $('.out-left');
+            const $inRight = $('.in-right');
+            const $lift = $('[data-hook=login-container]');
+            const liftDur = getDuration($('.lift'));
+            console.log(liftDur);
+            const outLeftDur = getDuration($outLeft) / 3;
             let delay = 0;
-            $('.lift').addClass('is-active').on('transitionend', function () {
-                $(this).off();
-                $('.in-right').removeClass('is-active').on('transitionend', function () {
-                    $(this).off();
-                    $('.out-left').each(function () {
-                        setTimeout(() => $(this).removeClass('is-active'), delay);
-                        delay += 100;
-                    });
-                });
+
+            setDelay($lift, 0);
+            $lift.addClass('is-active');
+            setDelay($inRight, delay += liftDur);
+            $inRight.removeClass('is-active');
+
+            $outLeft.each(function () {
+                setDelay($(this), delay += outLeftDur);
+                $(this).removeClass('is-active');
             });
         }
     }
 });
+
+const getDuration = function($element) {
+    return $element.css('transition-duration').slice(0, -1) * 1000;
+};
+
+const setDelay = function($element, delay) {
+    $element.css('transition-delay', delay + 'ms');
+    $element.css('-webkit-transition-delay', delay + 'ms');
+    $element.css('-moz-transition-delay', delay + 'ms');
+    $element.css('-o-transition-delay', delay + 'ms');
+};

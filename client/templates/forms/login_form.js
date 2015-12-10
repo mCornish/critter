@@ -155,11 +155,11 @@ Template.login_form.events({
         const currentState = Session.get('creatingUser');
         if (!currentState) {
             $('[data-hook=form] .lift').addClass('is-active').on('transitionend', function (e) {
-                $(e.target).off()
+                $(e.target).off();
                 $('.form-reveal').addClass('is-active').on('transitionend', function (e) {
-                    $(e.target).off()
+                    $(e.target).off();
                     $('.input-reveal').addClass('is-active').on('transitionend', function(e) {
-                        $(e.target).off()
+                        $(e.target).off();
                         $('[data-hook=form] .lift').removeClass('is-active');
                         Session.set('creatingUser', !currentState);
                     });
@@ -167,11 +167,11 @@ Template.login_form.events({
             });
         } else {
             $('[data-hook=form] .lift').addClass('is-active').on('transitionend', function (e) {
-                $(e.target).off()
+                $(e.target).off();
                 $('.input-reveal').removeClass('is-active').on('transitionend', function (e) {
-                    $(e.target).off()
+                    $(e.target).off();
                     $('.form-reveal').removeClass('is-active').on('transitionend', function(e) {
-                        $(e.target).off()
+                        $(e.target).off();
                         $('[data-hook=form] .lift').removeClass('is-active');
                         Session.set('creatingUser', !currentState);
                     });
@@ -181,7 +181,7 @@ Template.login_form.events({
     },
     'click [data-hook=forgotten-password]': function (e, template) {
         e.preventDefault();
-        $('[data-hook=container]').addClass('is-active').on('transitionend', function(e) {
+        $('[data-hook=login-container]').addClass('is-active').on('transitionend', function(e) {
             $(e.target).off();
             $('[data-hook=flip-container]').addClass('is-active').on('transitionend', function() {
                 $(e.target).off();
