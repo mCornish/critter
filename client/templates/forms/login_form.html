@@ -1,70 +1,74 @@
 <template name="login_form">
-    <div class="login-form lift is-active col-xs-12 col-md-6 col-md-offset-3">
-        <div class="row">
-            <div class="col-xs-12">
-                <button class="login__facebook button button--addon col-xs-12"
-                        data-hook="facebook-login">
-                    <div class="login__icon login__facebook-icon button--addon__addon col-xs-3"><i
-                            class="fa fa-facebook"></i>
-                    </div>
-                    <span class="col-xs-9">Use Facebook</span>
-                </button>
-            </div>
-        </div>
-
-        <form class="row row--margin">
-            <div class="col-xs-12">
-                <div class="row row--margin">
-                    <div class="col-xs-12">
-                        <input name="username" data-hook="username" type="email" placeholder="Email" required>
-                    </div>
-                </div>
-                <div class="row row--margin">
-                    <div class="col-xs-12">
-                        <input name="password" data-hook="password" type="password" placeholder="Password" required>
-                    </div>
-                </div>
-                <div class="input-reveal row row--margin">
-                    <div class="col-xs-12">
-                        <input name="password-again" class="" data-hook="password-again" type="password"
-                               placeholder="Password (again)" required>
-                    </div>
+    <div class="flip" data-hook="flip-container">
+        <div class="login-form lift is-active col-xs-12 col-md-6 col-md-offset-3" data-hook="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <button class="login__facebook button button--addon col-xs-12"
+                            data-hook="facebook-login">
+                        <div class="login__icon login__facebook-icon button--addon__addon col-xs-3"><i
+                                class="fa fa-facebook"></i>
+                        </div>
+                        <span class="col-xs-9">Use Facebook</span>
+                    </button>
                 </div>
             </div>
 
-            <div class="login__links form-reveal col-xs-12">
-                <div class="row">
-                    {{#unless creatingUser}}
-                        <div class="col-xs-6 text-center">
-                            <a class="login__link" data-hook="switch-state">Register
-                                Instead</a>
+            <form class="row row--margin" data-hook="form">
+                <div class="lift back-color-2 col-xs-12">
+                    <div class="row row--margin">
+                        <div class="col-xs-12">
+                            <input name="username" data-hook="username" type="email" placeholder="Email" required>
                         </div>
-                        <div class="col-xs-6 text-center">
-                            <a class="login__link" data-hook="forgotten-password">Forgot
-                                Password</a>
+                    </div>
+                    <div class="row row--margin">
+                        <div class="col-xs-12">
+                            <input name="password" data-hook="password" type="password" placeholder="Password" required>
                         </div>
-                    {{else}}
-                        <div class="col-xs-12 text-center">
-                            <a class="login__link" data-hook="switch-state">Log In
-                                Instead</a>
+                    </div>
+                    <div class="input-reveal row row--margin">
+                        <div class="col-xs-12">
+                            <input name="password-again" class="" data-hook="password-again" type="password"
+                                   placeholder="Password (again)" required>
                         </div>
-                    {{/unless}}
+                    </div>
                 </div>
-            </div>
-            <div class="col-xs-12">
-                <div class="row row--margin">
-                    <div class="form-reveal col-xs-12">
-                        <button class="button button--submit col-xs-12" type="submit"
-                                data-hook="submit">
+
+                <div class="form-reveal">
+                    <div class="login__links col-xs-12" data-hook="links">
+                        <div class="row">
                             {{#unless creatingUser}}
-                                <span>Log In</span>
+                                <div class="col-xs-6 text-center">
+                                    <a class="login__link" data-hook="switch-state">Register
+                                        Instead</a>
+                                </div>
+                                <div class="col-xs-6 text-center">
+                                    <a class="login__link" data-hook="forgotten-password">Forgot
+                                        Password</a>
+                                </div>
                             {{else}}
-                                <span>Register</span>
+                                <div class="col-xs-12 text-center">
+                                    <a class="login__link" data-hook="switch-state">Log In
+                                        Instead</a>
+                                </div>
                             {{/unless}}
-                        </button>
+                        </div>
+                    </div>
+                    <div class="col-xs-12">
+                        <div class="row row--margin">
+                            <div class="col-xs-12">
+                                <button class="button button--submit col-xs-12" type="submit"
+                                        data-hook="submit">
+                                    {{#unless creatingUser}}
+                                        <span>Log In</span>
+                                    {{else}}
+                                        <span>Register</span>
+                                    {{/unless}}
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
 </template>

@@ -154,24 +154,42 @@ Template.login_form.events({
         e.preventDefault();
         const currentState = Session.get('creatingUser');
         if (!currentState) {
-            $('.form-reveal').addClass('is-active').on('transitionend', function () {
-                $(this).off();
-                $('.input-reveal').addClass('is-active');
-                Session.set('creatingUser', !currentState);
+            $('[data-hook=form] .lift').addClass('is-active').on('transitionend', function (e) {
+                $(e.target).off()
+                $('.form-reveal').addClass('is-active').on('transitionend', function (e) {
+                    $(e.target).off()
+                    $('.input-reveal').addClass('is-active').on('transitionend', function(e) {
+                        $(e.target).off()
+                        $('[data-hook=form] .lift').removeClass('is-active');
+                        Session.set('creatingUser', !currentState);
+                    });
+                });
             });
         } else {
-            $('.input-reveal').removeClass('is-active').on('transitionend', function () {
-                $(this).off();
-                $('.form-reveal').removeClass('is-active');
-                Session.set('creatingUser', !currentState);
+            $('[data-hook=form] .lift').addClass('is-active').on('transitionend', function (e) {
+                $(e.target).off()
+                $('.input-reveal').removeClass('is-active').on('transitionend', function (e) {
+                    $(e.target).off()
+                    $('.form-reveal').removeClass('is-active').on('transitionend', function(e) {
+                        $(e.target).off()
+                        $('[data-hook=form] .lift').removeClass('is-active');
+                        Session.set('creatingUser', !currentState);
+                    });
+                });
             });
         }
     },
     'click [data-hook=forgotten-password]': function (e, template) {
         e.preventDefault();
-        $('.out-left').addClass('is-active').on('transitionend', function () {
-            $(this).hide().off();
-            $('.in-right').addClass('is-active');
+        $('[data-hook=container]').addClass('is-active').on('transitionend', function(e) {
+            $(e.target).off();
+            $('[data-hook=flip-container]').addClass('is-active').on('transitionend', function() {
+                $(e.target).off();
+            });
         });
+        //$('.out-left').addClass('is-active').on('transitionend', function () {
+        //    $(this).hide().off();
+        //    $('.in-right').addClass('is-active');
+        //});
     }
 });

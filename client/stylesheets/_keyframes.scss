@@ -51,40 +51,40 @@ $easeInOutCubic: cubic-bezier(0.645, 0.045, 0.355, 1);
 }
 
 
-@include keyframes(flip) {
-  0% {
-    box-shadow: none;
-  }
-  30% {
-    box-shadow: $shadow-h;
-  }
-  50% {
-    @include transform(rotateY(0deg));
-  }
-  100% {
-    @include transform(rotateY(90deg));
-  }
-}
-.flip {
-  @include animation(0, .5s, flip, $easeInCubic);
-}
-
-@include keyframes(flop) {
-  0% {
-    @include transform(rotateY(-90deg));
-    box-shadow: $shadow-h;
-  }
-  30% {
-    @include transform(rotateY(0deg));
-    box-shadow: $shadow-h;
-  }
-  50% {
-    box-shadow: $shadow-h;
-  }
-  100% {
-    box-shadow: none;
-  }
-}
-.flop {
-  @include animation(0, .5s, flop, $easeInCubic);
-}
+//@include keyframes(flip) {
+//  0% {
+//    box-shadow: none;
+//  }
+//  30% {
+//    box-shadow: $shadow-h;
+//  }
+//  50% {
+//    @include transform(rotateY(0deg));
+//  }
+//  100% {
+//    @include transform(rotateY(90deg));
+//  }
+//}
+//.flip {
+//  @include animation(0, .5s, flip, $easeInCubic);
+//}
+//
+//@include keyframes(flop) {
+//  0% {
+//    @include transform(rotateY(-90deg));
+//    box-shadow: $shadow-h;
+//  }
+//  30% {
+//    @include transform(rotateY(0deg));
+//    box-shadow: $shadow-h;
+//  }
+//  50% {
+//    box-shadow: $shadow-h;
+//  }
+//  100% {
+//    box-shadow: none;
+//  }
+//}
+//.flop {
+//  @include animation(0, .5s, flop, $easeInCubic);
+//}
