@@ -5,6 +5,31 @@ $easeInOutCubic: cubic-bezier(0.645, 0.045, 0.355, 1);
 /* ------------------------------ */
 /* ------------- #KEYFRAMES */
 /* ------------------------------ */
+@include keyframes(bounce-in) {
+  0% {
+    @include transform(translateX(-100vw) translateY(-100vh) rotateZ(-180deg));
+  }
+  20% {
+    @include transform(translateX(-3em) translateY(0) rotateZ(-40deg));
+  }
+  40% {
+    @include transform(translateX(-1em) translateY(-.5em) rotateZ(-30deg));
+  }
+  60% {
+    @include transform(translateX(-.5em) translateY(0) rotateZ(-8deg));
+  }
+  80% {
+    @include transform(translateX(-.2em) translateY(-.2em) rotateZ(-3deg));
+  }
+  100% {
+    @include transform(translateX(0) translateY(0) rotateZ(10deg));
+  }
+}
+.bounce-in {
+  @include animation(0, .5s, bounce-in, $easeOutCubic);
+}
+
+
 @include keyframes(rotate-in) {
   0% {
     @include transform(perspective(500px) rotateY(270deg));
@@ -37,54 +62,15 @@ $easeInOutCubic: cubic-bezier(0.645, 0.045, 0.355, 1);
 
 @include keyframes(hover-float) {
   0% {
-    @include transform(rotateZ(-10deg));
-  }
-  50% {
     @include transform(rotateZ(10deg));
   }
-  100% {
+  50% {
     @include transform(rotateZ(-10deg));
+  }
+  100% {
+    @include transform(rotateZ(10deg));
   }
 }
 .hover-float {
   @include animation(0, .5s, hover-float, $easeInOutCubic);
 }
-
-
-//@include keyframes(flip) {
-//  0% {
-//    box-shadow: none;
-//  }
-//  30% {
-//    box-shadow: $shadow-h;
-//  }
-//  50% {
-//    @include transform(rotateY(0deg));
-//  }
-//  100% {
-//    @include transform(rotateY(90deg));
-//  }
-//}
-//.flip {
-//  @include animation(0, .5s, flip, $easeInCubic);
-//}
-//
-//@include keyframes(flop) {
-//  0% {
-//    @include transform(rotateY(-90deg));
-//    box-shadow: $shadow-h;
-//  }
-//  30% {
-//    @include transform(rotateY(0deg));
-//    box-shadow: $shadow-h;
-//  }
-//  50% {
-//    box-shadow: $shadow-h;
-//  }
-//  100% {
-//    box-shadow: none;
-//  }
-//}
-//.flop {
-//  @include animation(0, .5s, flop, $easeInCubic);
-//}

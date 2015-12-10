@@ -778,7 +778,7 @@ label.is-hidden {
   cursor: pointer;
 }
 .header__logo:hover {
-  @include animation(0, 1s, hover-float, ease, infinite);
+  @include animation(0, .5s, hover-float, ease, infinite);
 }
 .header__login {
   float: right;
@@ -1707,20 +1707,31 @@ i.menu__notification {
 .home__hero {
   position: relative;
   background-color: $color-3;
-  height: 90vh;
   width: 100vw;
   overflow: hidden;
+  @media #{$break-small} {
+    height: 90vh;
+  }
+  @media #{$break-medium} {
+    height: 80vh;
+  }
 }
 .home__headline {
   position: absolute;
   left: 0;
   top: 0;
+  width: 100%;
+  @media #{$break-small} {
+    margin-top: 7em;
+  }
+  @media #{$break-medium} {
+    margin-top: 10em;
+  }
 }
 .home__header {
   color: $color-2;
   margin-bottom: 0;
   text-shadow: $shadow-1;
-
   @media #{$break-small} {
     font-size: 2.5em;
   }
@@ -1734,6 +1745,11 @@ i.menu__notification {
   margin: 0;
   padding: .5em;
 
+  @media #{$break-small} and
+  (-webkit-min-device-pixel-ratio: 2) and
+  (orientation: landscape) {
+    display: none;
+  }
   @media #{$break-small} {
     font-size: 1.5em;
   }
@@ -1768,7 +1784,12 @@ i.menu__notification {
   background-color: $color-2;
   padding: 2em;
   box-shadow: $shadow-1;
-  height: 30em;
+  @media #{$break-small} {
+    height: 33em;
+  }
+  @media #{$break-medium} {
+    height: 30em;
+  }
 }
 .login {
   position: relative;
