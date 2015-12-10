@@ -190,7 +190,7 @@ Template.login_form.events({
         let delay = 0;
 
         activate($lift, 0);
-        activate($flipFull, delay += liftDur - 50);
+        activate($flipFull, delay += liftDur - 100);
         activate($flip, delay);
         activate($flop, delay + flipDur, function() {
             deactivate($lift, flipDur);

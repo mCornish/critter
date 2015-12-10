@@ -51,9 +51,9 @@ Template.layout.events({
             Session.set('loggingIn', true);
             const $outLeft = $('.out-left');
             const $inRight = $('.in-right');
-            const $lift1 = $('[data-hook=login-button-container]');
+            const $lift1 = $('[data-hook=login-button]');
             const $lift2 = $('[data-hook=login-container]');
-            const $flipFull = $('[data-hook=login-button]');
+            const $flipFull = $('[data-hook=login-button-container]');
             const $flip = $flipFull.find('.flip');
             const $flop = $flipFull.find('.flop');
             const liftDur = getDuration($('.lift'));
@@ -64,7 +64,7 @@ Template.layout.events({
 
             // Flip button
             activate($lift1, 0);
-            activate($flipFull, delay += liftDur - 50);
+            activate($flipFull, delay += liftDur - 100);
             activate($flip, delay);
             activate($flop, delay + flipDur, function() {
                 deactivate($lift1, flipDur);
@@ -87,9 +87,9 @@ Template.layout.events({
             Session.set('loggingIn', false);
             const $outLeft = $('.out-left');
             const $inRight = $('.in-right');
-            const $lift1 = $('[data-hook=login-button-container]');
+            const $lift1 = $('[data-hook=login-button]');
             const $lift2 = $('[data-hook=login-container]');
-            const $flipFull = $('[data-hook=login-button]');
+            const $flipFull = $('[data-hook=login-button-container]');
             const $flip = $flipFull.find('.flip');
             const $flop = $flipFull.find('.flop');
             const liftDur = getDuration($('.lift'));
@@ -99,7 +99,7 @@ Template.layout.events({
 
             // Flip button
             activate($lift1, 0);
-            deactivate($flipFull, delay += liftDur - 50);
+            deactivate($flipFull, delay += liftDur - 100);
             deactivate($flop, delay);
             deactivate($flip, delay + flipDur, function() {
                 deactivate($lift1, flipDur);

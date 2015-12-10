@@ -46,7 +46,7 @@ Template.password_form.events({
         let delay = 0;
 
         activate($lift, 0);
-        deactivate($flipFull, delay += liftDur - 50);
+        deactivate($flipFull, delay += liftDur - 100);
         deactivate($flop, delay);
         deactivate($flip, delay + flipDur, function() {
             deactivate($lift, flipDur);
