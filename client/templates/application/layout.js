@@ -90,8 +90,8 @@ Template.layout.events({
             const $lift1 = $('[data-hook=login-button]');
             const $lift2 = $('[data-hook=login-container]');
             const $flipFull = $('[data-hook=login-button-container]');
-            const $flip = $flipFull.find('.flip');
-            const $flop = $flipFull.find('.flop');
+            const $flip = $('[data-hook=login-button-container] .flip');
+            const $flop = $('[data-hook=login-button-container] .flop');
             const liftDur = getDuration($('.lift'));
             const flipDur = getDuration($('.flip-full')) / 2;
             const outLeftDur = getDuration($outLeft) / 3;

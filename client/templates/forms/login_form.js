@@ -14,8 +14,8 @@ Template.login_form.onRendered(function () {
                 required: true
             },
             'password-again': {
-                required: true,
-                equalTo: '[name=password]'
+                required: false
+                //equalTo: '[name=password]'
             }
         },
         messages: {
@@ -27,8 +27,8 @@ Template.login_form.onRendered(function () {
                 required: 'Please enter a password.'
             },
             'password-again': {
-                required: "Please enter your password again.",
-                equalTo: "Your passwords don't seem to match."
+                //required: "Please enter your password again.",
+                //equalTo: "Your passwords don't seem to match."
             }
         }
     });
@@ -65,8 +65,9 @@ Template.login_form.events({
             }
         });
     },
-    'submit form': function (e, template) {
+    'submit [data-hook=login-form]': function (e, template) {
         e.preventDefault();
+        e.stopPropagation();
 
         const $form = $(e.target);
 
@@ -109,17 +110,6 @@ Template.login_form.events({
                     Router.go('home');
                 }
             });
-        } else if (Session.get('forgottenPassword')) {
-            // send forgotten password email
-            const email = $(e.target).find('[data-hook=email]').val();
-
-            Accounts.forgotPassword({email: email}, function (error) {
-                if (error) {
-                    alert(error);
-                } else {
-                    alert('Password sent to your email.');
-                }
-            });
         } else {
             // log in
             const user = {
@@ -138,8 +128,9 @@ Template.login_form.events({
                         error: error.reason,
                         service: 'email'
                     });
+                    console.log(error.reason);
                     // throw login error
-                    return throwError(error.reason);
+                    throwError('Login failed: ' + error.reason);
                 } else {
                     analytics.track('Login', {
                         id: Meteor.userId(),
@@ -154,25 +145,25 @@ Template.login_form.events({
         e.preventDefault();
         const currentState = Session.get('creatingUser');
         if (!currentState) {
-            $('[data-hook=form] .lift').addClass('is-active').on('transitionend', function (e) {
+            $('[data-hook=login-container] .lift').addClass('is-active').on('transitionend', function (e) {
                 $(e.target).off();
                 $('.form-reveal').addClass('is-active').on('transitionend', function (e) {
                     $(e.target).off();
                     $('.input-reveal').addClass('is-active').on('transitionend', function(e) {
                         $(e.target).off();
-                        $('[data-hook=form] .lift').removeClass('is-active');
+                        $('[data-hook=login-container] .lift').removeClass('is-active');
                         Session.set('creatingUser', !currentState);
                     });
                 });
             });
         } else {
-            $('[data-hook=form] .lift').addClass('is-active').on('transitionend', function (e) {
+            $('[data-hook=login-container] .lift').addClass('is-active').on('transitionend', function (e) {
                 $(e.target).off();
                 $('.input-reveal').removeClass('is-active').on('transitionend', function (e) {
                     $(e.target).off();
                     $('.form-reveal').removeClass('is-active').on('transitionend', function(e) {
                         $(e.target).off();
-                        $('[data-hook=form] .lift').removeClass('is-active');
+                        $('[data-hook=login-container] .lift').removeClass('is-active');
                         Session.set('creatingUser', !currentState);
                     });
                 });

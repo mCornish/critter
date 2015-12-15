@@ -22,6 +22,7 @@ Template.password_form.onRendered(function() {
 Template.password_form.events({
     'submit [data-hook=forgot-pass-form]': function(e) {
         e.preventDefault();
+        console.log('test');
         const email = $(e.target).find('[name=email]').val();
 
         Meteor.call('sendResetEmail', email, function(err) {
