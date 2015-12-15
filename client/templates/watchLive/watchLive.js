@@ -123,20 +123,25 @@ Template.watchLive.onCreated(function () {
         Session.set('duration', `${hours}:${minutes}:${seconds}`);
     }, 1000);
 
-
     // Handle page notification icons
+    const streamCursor = Template.parentData(1).streamCursor;
+    Session.set('page', Template.parentData(1).page || 'content');
     Session.set('changeArray', []);
-    Session.set('currentContent', {});
-    Session.set('currentGiveaway', {});
-    const stream = Template.parentData(1).streamCursor;
-    stream.observe({
-        changed: function (id, fields) {
+    streamCursor.observe({
+        changed: function (newStream, oldStream) {
             const changeArray = Session.get('changeArray');
-            const content = fields.liveContent;
-            const giveaway = fields.giveaway;
-            if (content !== Session.get('currentContent') && changeArray.indexOf('content') < 0) {
+            console.log(newStream.liveContent !== oldStream.liveContent);
+            console.log(Session.get('page'));
+            if ((newStream.liveContent.text !== oldStream.liveContent.text ||
+                newStream.liveContent.type !== oldStream.liveContent.type) &&
+                changeArray.indexOf('content') < 0 &&
+                Session.get('page') !== 'content')
+            {
                 changeArray.push('content');
-            } else if (giveaway !== Session.get('currentGiveaway') && changeArray.indexOf('giveaway') < 0) {
+            } else if (newStream.giveaway !== oldStream.giveaway &&
+                changeArray.indexOf('giveaway') < 0 &&
+                Session.get('page') !== 'giveaway')
+            {
                 changeArray.push('giveaway');
             }
             Session.set('changeArray', changeArray);
@@ -154,7 +159,7 @@ Template.watchLive.onCreated(function () {
     });
 
     // Remove tweets manually when appropriate, since the iframe sticks around when new content is added
-    stream.observe({
+    streamCursor.observe({
         changed: function (newDoc, oldDoc) {
             // Only need to worry about this if the user is looking at the content page, otherwise the iframe will already be destroyed
             if (Session.equals('menuActive', 'content')) {
@@ -175,13 +180,15 @@ Template.watchLive.onCreated(function () {
     Session.set('interval', interval);
     Session.set('cast', null);
     Session.set('detailActive', false);
-    Session.set('menuActive', 'content');
     Session.set('showMenu', true);
-    Session.set('page', Template.parentData(1).page || 'content');
+});
+
+Template.watchLive.onRendered(function () {
+
 });
 
 Template.watchLive.helpers({
-    answerClass: function(isAnswer) {
+    answerClass: function (isAnswer) {
         return isAnswer ? 'is-answer' : '';
     },
     character: function () {
@@ -225,7 +232,7 @@ Template.watchLive.helpers({
         const dashArray = 630; // Taken from the circle's CSS
         return dashArray * (1 - (subPercent / 100));
     },
-    responses: function() {
+    responses: function () {
         const responses = this.stream.liveContent.responses;
         return _.where(responses, {approved: true});
     },
@@ -373,7 +380,7 @@ Template.watchLive.events({
         const text = choice.val();
 
         Meteor.call('incChoice', text);
-        Meteor.call('addResponder', function(err) {
+        Meteor.call('addResponder', function (err) {
             if (err) {
                 throwError('Unable to save choice: ' + err.reason);
             } else {
@@ -385,7 +392,7 @@ Template.watchLive.events({
         e.preventDefault();
         const text = $('[data-hook=response]').val();
 
-        Meteor.call('addResponse', text, function(err) {
+        Meteor.call('addResponse', text, function (err) {
             if (err) {
                 throwError('Unable to save response: ' + err.reason);
             } else {

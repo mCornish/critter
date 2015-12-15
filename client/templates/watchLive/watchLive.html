@@ -71,6 +71,9 @@
                             </form>
                         {{else}}
                             <div class="poll__results col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3">
+                                <div class="row">
+                                    <div class="col-xs-12 text-center">{{stream.liveContent.resCount}} Responses</div>
+                                </div>
                                 <div class="row row--margin">
                                     {{#each results}}
                                         <div class="poll__result col-xs-12 text-center">
@@ -101,6 +104,9 @@
                             </form>
                         {{else}}
                             <div class="poll__results col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3">
+                                <div class="row">
+                                    <div class="col-xs-12 text-center">{{stream.liveContent.resCount}} Responses</div>
+                                </div>
                                 <div class="row row--margin">
                                     {{#each results}}
                                         <div class="poll__result col-xs-12 {{answerClass isAnswer}} text-center">
@@ -233,7 +239,7 @@
                         <div class="giveaway__info col-xs-12 col-md-6 col-md-offset-3 text-center">
                             <div class="giveaway__subs">Subscribers: {{stream.giveaway.subCount}}</div>
                             <div class="giveaway__sub-remaining">Subs Remaining: {{subsLeft}}</div>
-                            <div class="giveaway__winner">Giveaway Winner: {{winner}}</div>
+                            <!--<div class="giveaway__winner">Giveaway Winner: {{winner}}</div>-->
                             <a class="giveaway__link" href="{{pathFor 'giveaway'}}" target="_blank">How do I win?</a>
                         </div>
                     </div>
