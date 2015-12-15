@@ -2,7 +2,7 @@
 /* ------------- #ANIMATIONS */
 /* ------------------------------ */
 .input-reveal {
-  @include transform(translateY(-7em));
+  @include transform(translateY(-3em));
   @include transition(all .2s, opacity 0s .3s);
   z-index: -1;
 }
@@ -11,7 +11,7 @@
   @include transition(all .2s, opacity 0s 0s);
 }
 .form-reveal {
-  @include transform(translateY(-4.5em));
+  @include transform(translateY(-2.5em));
   @include transition(.2s);
   z-index: 0;
 }

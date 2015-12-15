@@ -1709,13 +1709,14 @@ i.menu__notification {
   position: relative;
   background-color: $color-3;
   width: 100vw;
+  height: auto;
   overflow-x: hidden;
-  overflow-y: scroll;
+  overflow-y: hidden;
   @media #{$break-small} {
-    height: 90vh;
+    //height: 90vh;
   }
   @media #{$break-medium} {
-    height: 80vh;
+    //height: 80vh;
   }
 }
 .home__headline {
@@ -1786,11 +1787,12 @@ i.menu__notification {
   background-color: $color-2;
   padding: 2em;
   box-shadow: $shadow-1;
+  margin-bottom: 2em;
   @media #{$break-small} {
     height: 29em;
   }
   @media #{$break-medium} {
-    height: 27em;
+    height: 24.5em;
   }
 }
 .login {

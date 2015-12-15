@@ -181,12 +181,12 @@ Template.login_form.events({
     },
     'click [data-hook=forgotten-password]': function (e, template) {
         e.preventDefault();
-        const $lift = $('[data-hook=login-container]');
-        const $flipFull = $('.flip-full');
-        const $flip = $('.flip');
-        const $flop = $('.flop');
+        const $flipFull = $('[data-hook=login-container]');
+        const $lift = $('[data-hook=login-container] .lift.login-form');
+        const $flip = $('[data-hook=login-container] .flip');
+        const $flop = $('[data-hook=login-container] .flop');
         const liftDur = getDuration($('.lift'));
-        const flipDur = getDuration($flipFull) / 2;
+        const flipDur = getDuration($('.flip-full')) / 2;
         let delay = 0;
 
         activate($lift, 0);
