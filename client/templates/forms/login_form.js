@@ -65,8 +65,9 @@ Template.login_form.events({
             }
         });
     },
-    'submit form': function (e, template) {
+    'submit [data-hook=login-form]': function (e, template) {
         e.preventDefault();
+        console.log('test');
 
         const $form = $(e.target);
 
@@ -75,8 +76,8 @@ Template.login_form.events({
             passwordAgain = $form.find('[data-hook=password-again]').val();
 
         let username = $form.find('[data-hook=username]').val();
-
         if (Session.get('creatingUser')) {
+            console.log('create');
             // create new user
             const user = {
                 username: username,
@@ -121,6 +122,7 @@ Template.login_form.events({
                 }
             });
         } else {
+            console.log('login');
             // log in
             const user = {
                 username: username,
@@ -153,38 +155,34 @@ Template.login_form.events({
     'click [data-hook=switch-state]': function (e) {
         e.preventDefault();
         const currentState = Session.get('creatingUser');
+        const $lift = $('[data-hook=login-container] .lift');
+        const $formReveal = $('[data-hook=login-container] .form-reveal');
+        const $inputReveal = $('[data-hook=login-container] .input-reveal');
+        const liftDur = getDuration($('.lift'));
+        let delay = 0;
+
         if (!currentState) {
-            $('[data-hook=form] .lift').addClass('is-active').on('transitionend', function (e) {
-                $(e.target).off();
-                $('.form-reveal').addClass('is-active').on('transitionend', function (e) {
-                    $(e.target).off();
-                    $('.input-reveal').addClass('is-active').on('transitionend', function(e) {
-                        $(e.target).off();
-                        $('[data-hook=form] .lift').removeClass('is-active');
-                        Session.set('creatingUser', !currentState);
-                    });
-                });
+            Session.set('creatingUser', true);
+            activate($lift, 0, function() {
+                activate($('[data-hook=login-container] .input-reveal'), 0);
+                deactivate($lift, 0);
             });
+            activate($formReveal, delay += liftDur);
         } else {
-            $('[data-hook=form] .lift').addClass('is-active').on('transitionend', function (e) {
-                $(e.target).off();
-                $('.input-reveal').removeClass('is-active').on('transitionend', function (e) {
-                    $(e.target).off();
-                    $('.form-reveal').removeClass('is-active').on('transitionend', function(e) {
-                        $(e.target).off();
-                        $('[data-hook=form] .lift').removeClass('is-active');
-                        Session.set('creatingUser', !currentState);
-                    });
-                });
+            activate($lift, 0, function() {
+                deactivate($('[data-hook=login-container] .input-reveal'), 0);
+                deactivate($lift, 0);
+                Session.set('creatingUser', false);
             });
+            deactivate($formReveal, delay += liftDur);
         }
     },
     'click [data-hook=forgotten-password]': function (e, template) {
         e.preventDefault();
-        const $lift = $('[data-hook=login-container]');
-        const $flipFull = $('.flip-full');
-        const $flip = $('.flip');
-        const $flop = $('.flop');
+        const $flipFull = $('[data-hook=login-container]');
+        const $lift = $('[data-hook=login-container] .lift');
+        const $flip = $('[data-hook=login-container] .flip');
+        const $flop = $('[data-hook=login-container] .flop');
         const liftDur = getDuration($('.lift'));
         const flipDur = getDuration($flipFull) / 2;
         let delay = 0;

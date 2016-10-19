@@ -2,19 +2,19 @@ Template.layout.onCreated(function () {
     Session.set('loggingIn', false);
 
     const clientID = 'gnaco6mlplv9shlc9demh6dljdny4we';
-    Twitch.init({clientId: clientID}, function (error, status) {
-        if (error) {
-            console.log(error);
-        }
-    });
-    Twitch.getStatus(function (err, status) {
-        if (status.authenticated) {
-            Session.set('twitchToken', status.token);
-            if (!Meteor.userId()) {
+    // Twitch.init({clientId: clientID}, function (error, status) {
+    //     if (error) {
+    //         console.log(error);
+    //     }
+    // });
+    // Twitch.getStatus(function (err, status) {
+    //     if (status.authenticated) {
+    //         Session.set('twitchToken', status.token);
+    //         if (!Meteor.userId()) {
 
-            }
-        }
-    });
+    //         }
+    //     }
+    // });
 
     //Control whether feedback button shows up
     Session.set('testing', true);
